@@ -1,0 +1,27 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace RogueLike.Matsumoto.Character.EnemyAI {
+
+	public class EnemyAIAttacker : IEnemyAI {
+
+		float attackRadius = 1.5f;
+		PlayerCore _target;
+			   
+		public void AIUpdate(EnemyCore enemy) {
+
+			if(!_target) _target = enemy.RetrieveNearestPlayer();
+			if(!_target) return;
+
+			var dist = _target.transform.position - enemy.transform.position;
+
+			if(dist.sqrMagnitude < Mathf.Pow(attackRadius, 2))
+				enemy.Attack(_target);
+			else
+				enemy.Move(dist.normalized);
+
+		}
+
+	}
+}
