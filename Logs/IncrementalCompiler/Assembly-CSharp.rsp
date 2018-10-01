@@ -295,6 +295,10 @@
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Attack/CharacterAttacker.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/AudioClipInfo.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/AudioManager.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/PlayingSE.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/SEInfo.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/CharacterCore.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/CharacterParameter.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/EnemyAI/EnemyAIAttacker.cs
@@ -303,5 +307,7 @@
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/PlayerAttack.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/PlayerMove.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/IAttacker.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Managers/ObjectPooler.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Managers/SingletonMonoBehaviour.cs
 -i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/PlayerCore.cs
 -v:0
