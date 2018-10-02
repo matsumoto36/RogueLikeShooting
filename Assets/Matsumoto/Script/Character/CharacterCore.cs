@@ -6,6 +6,9 @@ using RogueLike.Matsumoto.Attack;
 
 namespace RogueLike.Matsumoto.Character {
 
+	/// <summary>
+	/// 各キャラクターのコアクラス
+	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
 		[SerializeField]
@@ -16,6 +19,11 @@ namespace RogueLike.Matsumoto.Character {
 			protected set { _parameter = value; }
 		}
 
+		/// <summary>
+		/// ダメージを与える
+		/// </summary>
+		/// <param name="attacker"></param>
+		/// <param name="damage"></param>
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
 			var message = "";
@@ -37,6 +45,10 @@ namespace RogueLike.Matsumoto.Character {
 			}
 		}
 
+		/// <summary>
+		/// 殺す
+		/// </summary>
+		/// <param name="attacker"></param>
 		public void Kill(IAttacker attacker) {
 
 			var message = "";

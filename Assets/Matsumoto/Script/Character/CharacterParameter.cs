@@ -6,6 +6,9 @@ using UniRx;
 
 namespace RogueLike.Matsumoto.Character {
 
+	/// <summary>
+	/// キャラクターのパラメーター
+	/// </summary>
 	[Serializable]
 	public struct CharacterParameter {
 

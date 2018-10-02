@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace RogueLike.Matsumoto.Character.EnemyAI {
 
+	/// <summary>
+	/// 敵のAI : アタッカー
+	/// </summary>
 	public class EnemyAIAttacker : IEnemyAI {
 
 		float attackRadius = 1.5f;

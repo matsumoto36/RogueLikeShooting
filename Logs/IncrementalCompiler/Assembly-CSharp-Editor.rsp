@@ -2,9 +2,10 @@
 -target:library
 -nowarn:0169
 -langversion:7
--out:C:/Users/user/Documents/RogueLikeShooting/Temp/Assembly-CSharp.dll
+-out:C:/Users/user/Documents/RogueLikeShooting/Temp/Assembly-CSharp-Editor.dll
 -nostdlib
 -unsafe
+-r:C:/Users/user/Documents/RogueLikeShooting/Library/ScriptAssemblies/Assembly-CSharp.dll
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.AIModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -38,6 +39,7 @@
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.ProfilerModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\Managed/UnityEngine/UnityEngine.StreamingModule.dll"
@@ -75,13 +77,30 @@
 -r:C:/Users/user/Documents/RogueLikeShooting/Library/ScriptAssemblies/UniRx.Async.Editor.dll
 -r:C:/Users/user/Documents/RogueLikeShooting/Library/ScriptAssemblies/Unity.TextMeshPro.dll
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2018.2.7f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll"
+-r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
+-r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll
+-r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
+-r:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.dll"
 -r:"C:\Program Files\Unity\Hub\Editor\2018.2.7f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.Core.dll"
@@ -294,34 +313,11 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Attack/CharacterAttacker.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/AudioClipInfo.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/AudioManager.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/PlayingSE.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Audio/SEInfo.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/CharacterCore.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/CharacterParameter.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/EnemyAI/EnemyAIAttacker.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/EnemyCore.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/IEnemyAI.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/PlayerAttack.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Character/PlayerMove.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/IAttacker.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Managers/ObjectPooler.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/Managers/SingletonMonoBehaviour.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/Matsumoto/Script/PlayerCore.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Helper/PKFxAnimFloat.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Helper/PKFxAnimFloat2.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Helper/PKFxAnimFloat3.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Helper/PKFxAnimFloat4.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxCamera.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PkFxCustomShader.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxDistortionEffect.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxFX.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxManager.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxPackDependent.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PkFxProfilerCaptureButton.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxRenderingPlugin.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxSceneMeshBuilder.cs
--i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Runtime/PKFxSoundManager.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxCustomShaderEditor.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFXEditor.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxFXEditor.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxMenus.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxRenderingPluginEditor.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxSceneMeshBuilderEditor.cs
+-i:C:/Users/user/Documents/RogueLikeShooting/Assets/PopcornFX/Scripts/Editor/PKFxSettingsWindow.cs
 -v:0

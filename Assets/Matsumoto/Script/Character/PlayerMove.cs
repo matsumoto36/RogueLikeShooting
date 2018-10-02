@@ -8,9 +8,9 @@ namespace RogueLike.Matsumoto.Character {
 	[RequireComponent(typeof(PlayerCore))]
 	public class PlayerMove : MonoBehaviour {
 
-		private PlayerCore _playerCore;
+		PlayerCore _playerCore;
 
-		private void Start() {
+		void Start() {
 			_playerCore = GetComponent<PlayerCore>();
 		}
 

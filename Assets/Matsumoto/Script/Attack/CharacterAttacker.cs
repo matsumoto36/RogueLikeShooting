@@ -6,6 +6,9 @@ using RogueLike.Matsumoto.Character;
 
 namespace RogueLike.Matsumoto.Attack {
 
+	/// <summary>
+	/// キャラクターが攻撃したときに発生する情報
+	/// </summary>
 	public struct CharacterAttacker : IAttacker {
 
 		public CharacterCore Attacker;

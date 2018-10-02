@@ -199,6 +199,14 @@ namespace RogueLike.Matsumoto.Audio {
 			return instance._BGMclips[BGMName];
 		}
 
+		/// <summary>
+		/// フェードインを行う
+		/// </summary>
+		/// <param name="fadeTime"></param>
+		/// <param name="BGMName"></param>
+		/// <param name="vol"></param>
+		/// <param name="isLoop"></param>
+		/// <returns></returns>
 		IEnumerator FadeInAnim(float fadeTime, string BGMName, float vol, bool isLoop) {
 
 			//BGM取得
@@ -235,6 +243,11 @@ namespace RogueLike.Matsumoto.Audio {
 			_currentPlayingBGM = _fadeInAudio;
 		}
 
+		/// <summary>
+		/// フェードアウトを行う
+		/// </summary>
+		/// <param name="fadeTime"></param>
+		/// <returns></returns>
 		IEnumerator FadeOutAnim(float fadeTime) {
 
 			var src = _currentPlayingBGM;

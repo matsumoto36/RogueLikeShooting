@@ -6,13 +6,16 @@ using RogueLike.Matsumoto.Character;
 
 namespace RogueLike.Matsumoto {
 
+	/// <summary>
+	/// プレイヤーのコアクラス
+	/// </summary>
 	public class PlayerCore : CharacterCore {
 
-		private void Start() {
+		void Start() {
 
 		}
 
-		private void Update() {
+		void Update() {
 
 		}
 
