@@ -100,3 +100,20 @@ fabric.properties
 .idea/**/modules.xml
 .idea/**/vcs.xml
 .idea/**/riderModule.iml
+
+# PopcornFX
+/Assets/Gizmos/FX.png
+/Assets/Gizmos/FX.png.meta
+
+/Assets/Plugins/x86/
+/Assets/Plugins/x86.meta
+/Assets/Plugins/x86_64/
+/Assets/Plugins/x86_64.meta
+/Assets/Plugins/PK-UnityPlugin.bundle
+/Assets/Plugins/PK-UnityPlugin.bundle.meta
+
+/Assets/PopcornFX/
+/Assets/PopcornFX.meta
+
+#Log Folder
+[Ll]ogs/
