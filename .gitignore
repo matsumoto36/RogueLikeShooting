@@ -114,3 +114,6 @@ fabric.properties
 
 /Assets/PopcornFX/
 /Assets/PopcornFX.meta
+
+#Log Folder
+[Ll]ogs/
