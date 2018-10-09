@@ -436,6 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1438755898}
   - component: {fileID: 1438755899}
+  - component: {fileID: 1438755900}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -468,8 +469,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1e459010689894f90f6725af21dac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveVec: {x: 0, y: 0, z: 0}
+  forwardDir: {x: 0, y: 0, z: 0}
+  bulletForward: {x: 0, y: 0, z: 0}
+  GetShot: 0
   PlayerObj: {fileID: 1603140526}
   accel: 0.93
+--- !u!114 &1438755900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1438755897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf3053ee2a2fc7478db1ca89bb1e749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVec: {x: 0, y: 0, z: 0}
+  forwardDir: {x: 0, y: 0, z: 0}
+  bulletForward: {x: 0, y: 0, z: 0}
+  GetShot: 0
+  PlayerObj: {fileID: 0}
+  accel: 0
 --- !u!1 &1603140526
 GameObject:
   m_ObjectHideFlags: 0
