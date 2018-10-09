@@ -4,17 +4,13 @@ using UnityEngine;
 
 namespace RogueLike.Chikazawa
 {
-    public class IInputEventProvider : MonoBehaviour
-    {
-
-    }
     /// <summary>
     /// コントローラーの検知内容
     /// </summary>
-    public interface IPlayerController
+    public interface IInputEventProvider 
     {
         bool GetShotButton();//攻撃
-        Vector3 GetPleyerDirection();//正面方向
+        Vector3 GetPleyerDirection(Vector3 plaryerPos);//正面方向
         Vector3 GetMoveVector();//移動
     }
 }

@@ -2,29 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace InputEventProvider
+namespace RogueLike.Chikazawa.InputEventProvider
 {
     /// <summary>
     /// キーボード入力
     /// </summary>
-    public class InputKeyBoard : MonoBehaviour
+    public class InputKeyBoard : PlayerInputProvider
     {
-        //Vector2 axis;
-        //[SerializeField]
-        //float Spead;
-
+        //IInputEventProvider
 
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame
         void Update()
         {
-            //従来の移動法
-            //gameObject.transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            //getInput.moveVec = new Vector3(Input.GetAxis("Horizontal") * getInput.accel, 0, Input.GetAxis("Vertical") * getInput.accel);
             
         }
     }
