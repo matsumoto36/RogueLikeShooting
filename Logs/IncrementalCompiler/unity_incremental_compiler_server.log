@@ -1,3 +1,48 @@
  (0,0): Unity incremental compiler server
- (0,0): watchdog active on pid: 4948
+ (0,0): watchdog active on pid: 3164
+ (0,0): [10/09/2018 04:37:05.765 午前] Assembly-CSharp.dll: no prior compilation found in cache
+ (0,0): [10/09/2018 04:37:05.793 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:37:09.569 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:37:09.687 午前] Assembly-CSharp.dll compilation finished in 3894ms  source files re-parsed: 13 metadata reloaded: 192
+ (0,0): [10/09/2018 04:37:14.969 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:37:15.054 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:37:15.092 午前] Assembly-CSharp.dll compilation finished in 123ms  source files re-parsed: 2 metadata reloaded: 0
+ (0,0): [10/09/2018 04:37:15.104 午前] Assembly-CSharp.dll: compilation was cached, 2 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:39:41.351 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:39:41.387 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:39:41.429 午前] Assembly-CSharp.dll compilation finished in 79ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:39:41.441 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:40:58.203 午前] Compiler cache size is now 13.06 MB
+ (0,0): [10/09/2018 04:43:48.246 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:43:48.286 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:43:48.333 午前] Assembly-CSharp.dll compilation finished in 86ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:43:48.345 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:46:36.615 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:46:36.650 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:46:36.722 午前] Assembly-CSharp.dll compilation finished in 107ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:46:36.734 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:53:23.610 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:53:23.658 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:53:23.712 午前] Assembly-CSharp.dll compilation finished in 102ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:53:23.724 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:54:19.786 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:54:19.849 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:54:19.892 午前] Assembly-CSharp.dll compilation finished in 106ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:54:19.905 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:56:04.941 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:56:04.977 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:56:05.025 午前] Assembly-CSharp.dll compilation finished in 84ms  source files re-parsed: 1 metadata reloaded: 0
+ (0,0): [10/09/2018 04:56:05.037 午前] Assembly-CSharp.dll: compilation was cached, 1 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:57:28.924 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:57:28.963 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:57:29.035 午前] Assembly-CSharp.dll compilation finished in 111ms  source files re-parsed: 2 metadata reloaded: 0
+ (0,0): [10/09/2018 04:57:29.047 午前] Assembly-CSharp.dll: compilation was cached, 2 file(s) were found to have changed.
+ (0,0): [10/09/2018 04:59:01.976 午前] Assembly-CSharp.dll: no prior compilation found in cache
+ (0,0): [10/09/2018 04:59:01.988 午前] Assembly-CSharp.dll compiling...
+ (0,0): [10/09/2018 04:59:02.816 午前] Assembly-CSharp.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp.dll
+ (0,0): [10/09/2018 04:59:02.935 午前] Assembly-CSharp.dll compilation finished in 946ms  source files re-parsed: 27 metadata reloaded: 0
+ (0,0): [10/09/2018 04:59:03.474 午前] Assembly-CSharp-Editor.dll: no prior compilation found in cache
+ (0,0): [10/09/2018 04:59:03.486 午前] Assembly-CSharp-Editor.dll compiling...
+ (0,0): [10/09/2018 04:59:03.691 午前] Assembly-CSharp-Editor.dll: emitting IL to : C:\Users\user\Documents\制作\RogueLikeShooting\Temp\Assembly-CSharp-Editor.dll
+ (0,0): [10/09/2018 04:59:03.997 午前] Assembly-CSharp-Editor.dll compilation finished in 511ms  source files re-parsed: 7 metadata reloaded: 19
  (0,0): watchdog triggered an exit
