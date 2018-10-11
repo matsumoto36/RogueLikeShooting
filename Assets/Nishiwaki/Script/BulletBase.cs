@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RoguLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Bullet;
 
-namespace RoguLike.Nishiwaki.Bullet
+namespace RogueLike.Nishiwaki.Bullet
 {
-    public abstract class BulletBase : MonoBehaviour
+    public abstract class BulletBase : MonoBehaviour, IBullet
     {
         protected BulletParameter bulletPara;
+
+        // 弾プレハブ
+        public string BulletPrefabPath;
+
         // Use this for initialization
         void Start()
         {
@@ -18,6 +22,16 @@ namespace RoguLike.Nishiwaki.Bullet
         void Update()
         {
 
+        }
+
+        public void SpawnCreate(Vector3 BulletPop)
+        {
+            // 弾丸の複製
+            //GameObject bullets = Instantiate(bullet) as GameObject;
+            // 弾の発射位置に移動
+            //bullets.transform.position = BulletPop;
+            var prefab = Resources.Load<GameObject>(BulletPrefabPath);
+            Instantiate(prefab, BulletPop, Quaternion.identity);
         }
     }
 }

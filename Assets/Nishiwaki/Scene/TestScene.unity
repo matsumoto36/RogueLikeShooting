@@ -113,7 +113,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &47221438
+--- !u!1001 &90169729
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -151,10 +151,6 @@ Prefab:
     - target: {fileID: 4290863368422788, guid: 2864e88da2319df49b25c08f472f5544, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610572923036046, guid: 2864e88da2319df49b25c08f472f5544, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 10.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2864e88da2319df49b25c08f472f5544, type: 2}
@@ -398,7 +394,6 @@ GameObject:
   - component: {fileID: 1228428012}
   - component: {fileID: 1228428011}
   - component: {fileID: 1228428010}
-  - component: {fileID: 1228428014}
   - component: {fileID: 1228428015}
   m_Layer: 0
   m_Name: TemporaryPlayer
@@ -475,17 +470,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1228428014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1228428009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc1b9eba8ae395143a7c2f6d4d8fcb92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1228428015
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -501,3 +485,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1779719669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1395857862460988, guid: 2864e88da2319df49b25c08f472f5544,
+    type: 2}
+  m_PrefabInternal: {fileID: 90169729}
+--- !u!114 &1779719670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779719669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80e473210d1b844fa2f97667e1439a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPoint: {x: 0, y: 0, z: 0}

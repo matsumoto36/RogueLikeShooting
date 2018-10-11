@@ -2,21 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoguLike.Nishiwaki
+namespace RogueLike.Nishiwaki
 {
-    public class IWeapon : MonoBehaviour
+    public interface IWeapon
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        void Attack();
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoguLike.Nishiwaki.Item
+namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponMelee : MonoBehaviour
     {

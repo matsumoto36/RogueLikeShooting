@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoguLike.Nishiwaki
+namespace RogueLike.Nishiwaki
 {
     public class IItem : MonoBehaviour
     {

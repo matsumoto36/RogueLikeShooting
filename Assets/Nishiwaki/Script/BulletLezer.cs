@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoguLike.Nishiwaki.Bullet
+namespace RogueLike.Nishiwaki.Bullet
 {
-    public class BulletLezer : MonoBehaviour
+    public class BulletLezer : BulletBase
     {
 
         // Use this for initialization

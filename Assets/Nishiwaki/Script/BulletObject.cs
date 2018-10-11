@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RoguLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Bullet;
 
-namespace RoguLike.Nishiwaki.Bullet
+namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletObject : BulletBase
     {
         // Use this for initialization
         void Start()
         {
-            // BulletParameterから
+            // BulletParameterからSpeedとPower
             bulletPara = new BulletParameter(1, 1);
         }
 

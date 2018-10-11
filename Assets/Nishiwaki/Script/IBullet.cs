@@ -2,25 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoguLike.Nishiwaki
+namespace RogueLike.Nishiwaki
 {
-//    public class IBullet : MonoBehaviour
-//    {
-
-//        // Use this for initialization
-//        void Start()
-//        {
-
-//        }
-
-//        // Update is called once per frame
-//        void Update()
-//        {
-
-//        }
-//    }
-    interface IBullet
+    public interface IBullet
     {
-
+        void SpawnCreate(Vector3 BulletPop);
     }
 }
