@@ -35,7 +35,7 @@ namespace RogueLike.Nishiwaki.Item
         public void Attack()
         {
             // 弾の発射位置
-            ibullet.SpawnCreate(transform.position);
+            ibullet.SpawnCreate(transform);
         }
     }
 }

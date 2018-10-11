@@ -21,7 +21,7 @@ namespace RogueLike.Nishiwaki.Bullet
 
             Vector3 now = rig.position;
             // 銃に依存?
-            now += new Vector3(1.0f, 0.0f, 0.0f);
+            now += transform.forward * bulletPara.Speed;
 
             rig.position = now;
             //rig.position += Vector3.forward * bulletPara.Speed;
