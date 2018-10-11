@@ -11,7 +11,7 @@ namespace RogueLike.Nishiwaki.Item
         protected IBullet ibullet;
 
         // 弾丸発射点
-        public Vector3 SpawnPoint;
+        //public Vector3 SpawnPoint;
 
         Vector3 BulletPop = new Vector3();
         
