@@ -9,18 +9,37 @@ namespace RogueLike.Chikazawa.InputEventProvider
     /// </summary>
     public class InputKeyBoard : PlayerInputProvider
     {
-        //IInputEventProvider
+        public Vector3 moveVec;        //移動方向
+        public Vector3 forwardDir;     //正面方向
+        public bool GetShot;           //攻撃入力
 
-        // Use this for initialization
-        void Start()
+        public override Vector3 GetMoveVector()
         {
+
+            //キーボード
+            moveVec = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+
+            return moveVec;
         }
 
-        // Update is called once per frame
-        void Update()
+        public override Vector3 GetPleyerDirection(Vector3 playerPos)
         {
-            //getInput.moveVec = new Vector3(Input.GetAxis("Horizontal") * getInput.accel, 0, Input.GetAxis("Vertical") * getInput.accel);
-            
+            Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit mouseHit;
+            if (Physics.Raycast(mousePos, out mouseHit, Mathf.Infinity))
+            {
+                //マウスの方向を向く、高さはプレイヤーのY軸に依存している
+                forwardDir = new Vector3(mouseHit.point.x, playerPos.y, mouseHit.point.z);
+            }
+
+            return forwardDir;
+        }
+
+        public override bool GetShotButton()
+        {
+            GetShot = Input.GetMouseButton(0);
+
+            return GetShot;
         }
     }
 }
