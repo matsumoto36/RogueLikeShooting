@@ -14,17 +14,5 @@ namespace RogueLike.Nishiwaki.Bullet
             Speed = p1;
             Power = p2;
         }
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
