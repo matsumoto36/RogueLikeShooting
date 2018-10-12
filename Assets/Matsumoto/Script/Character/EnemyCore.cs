@@ -52,7 +52,7 @@ namespace RogueLike.Matsumoto.Character {
 				.FirstOrDefault();
 		}
 
-		protected override void Init(CharacterAsset asset) {
+		protected override void CreateEx(CharacterAsset asset) {
 
 			//AIの設定
 			switch(asset.EnemyAIType) {

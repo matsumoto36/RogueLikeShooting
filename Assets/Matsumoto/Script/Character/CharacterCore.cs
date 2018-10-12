@@ -67,15 +67,15 @@ namespace RogueLike.Matsumoto.Character {
 		}
 
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
-			var obj = Instantiate(asset.ModelPrefab, spawnTransform);
+			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 			var chara = obj.AddComponent<T>();
 			chara._parameter = asset.CharacterParameter;
-			chara.Init(asset);
+			chara.CreateEx(asset);
 
 			return chara;
 		}
 
-		protected abstract void Init(CharacterAsset asset);
+		protected abstract void CreateEx(CharacterAsset asset);
 
 	}
 }

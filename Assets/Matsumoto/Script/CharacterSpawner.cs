@@ -9,6 +9,9 @@ namespace RogueLike.Matsumoto {
 
 		[SerializeField] CharacterAsset CharacterAsset;
 
+		public bool SpawnOnAwake;
+
+
 		public CharacterCore Spawn() {
 
 			switch(CharacterAsset.CharacterType) {
@@ -19,6 +22,10 @@ namespace RogueLike.Matsumoto {
 				default:
 					return null;
 			}
+		}
+
+		void Start() {
+			if(SpawnOnAwake) Spawn();
 		}
 
 		void OnDrawGizmos() {

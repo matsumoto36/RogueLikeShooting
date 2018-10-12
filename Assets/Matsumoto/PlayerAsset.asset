@@ -9,10 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26d32bb0749d51c45896e77642599dfa, type: 3}
-  m_Name: NewCharacterAsset
+  m_Name: PlayerAsset
   m_EditorClassIdentifier: 
   CharacterType: 0
   CharacterParameter:
-    HP: 0
-    MoveSpeed: 0
-  ModelPrefab: {fileID: 0}
+    HP: 100
+    MoveSpeed: 5
+  ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
+    type: 2}
+  EnemyAIType: 0

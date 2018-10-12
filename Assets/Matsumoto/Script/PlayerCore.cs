@@ -5,6 +5,7 @@ using UniRx;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Chikazawa;
 
+
 namespace RogueLike.Matsumoto {
 
 	/// <summary>
@@ -14,12 +15,15 @@ namespace RogueLike.Matsumoto {
 
 		public IInputEventProvider InputEventProvider { get; private set; }
 
-		protected override void Init(CharacterAsset asset) {
-			
+		protected override void CreateEx(CharacterAsset asset) {
+			//追加のコンポーネントを追加
+			gameObject.AddComponent<PlayerMove>();
+			gameObject.AddComponent<PlayerAttack>();
 		}
 
 		void Start() {
-			InputEventProvider = new Chikazawa.InputEventProvider.PlayerInputProvider();
+			InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
+
 		}
 
 		void Update() {

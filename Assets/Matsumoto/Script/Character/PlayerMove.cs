@@ -22,10 +22,7 @@ namespace RogueLike.Matsumoto.Character {
 			transform.position += _playerCore.Parameter.MoveSpeed * input.GetMoveVector() * Time.deltaTime;
 
 			//向きの変更
-			var vec = input.GetPleyerDirection(transform.position);
-			Debug.Log(vec);
-			var angle = Vector2.SignedAngle(new Vector2(1, 0), new Vector2(vec.x, vec.z));
-			transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0, -1, 0));
+			transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
 
 		}
 
