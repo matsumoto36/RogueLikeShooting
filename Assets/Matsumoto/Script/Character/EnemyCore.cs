@@ -52,9 +52,21 @@ namespace RogueLike.Matsumoto.Character {
 				.FirstOrDefault();
 		}
 
+		protected override void Init(CharacterAsset asset) {
+
+			//AIの設定
+			switch(asset.EnemyAIType) {
+				case EnemyAIType.Attacker:
+					_enemyAI = new EnemyAI.EnemyAIAttacker();
+					break;
+				default:
+					break;
+			}
+
+		}
+
 		private void Start() {
 
-			_enemyAI = new EnemyAI.EnemyAIAttacker();
 
 		}
 

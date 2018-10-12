@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using RogueLike.Matsumoto.Character;
+using RogueLike.Chikazawa;
 
 namespace RogueLike.Matsumoto {
 
@@ -11,8 +12,14 @@ namespace RogueLike.Matsumoto {
 	/// </summary>
 	public class PlayerCore : CharacterCore {
 
-		void Start() {
+		public IInputEventProvider InputEventProvider { get; private set; }
 
+		protected override void Init(CharacterAsset asset) {
+			
+		}
+
+		void Start() {
+			InputEventProvider = new Chikazawa.InputEventProvider.PlayerInputProvider();
 		}
 
 		void Update() {

@@ -66,5 +66,16 @@ namespace RogueLike.Matsumoto.Character {
 			Destroy(gameObject);
 		}
 
+		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
+			var obj = Instantiate(asset.ModelPrefab, spawnTransform);
+			var chara = obj.AddComponent<T>();
+			chara._parameter = asset.CharacterParameter;
+			chara.Init(asset);
+
+			return chara;
+		}
+
+		protected abstract void Init(CharacterAsset asset);
+
 	}
 }

@@ -20,7 +20,7 @@ namespace RogueLike.Matsumoto.Character {
 		public void Update() {
 
 			//とりあえず攻撃
-			if(Input.GetMouseButtonDown(0)) {
+			if(_playerCore.InputEventProvider.GetShotButton()) {
 				if(Target)
 					Target.ApplyDamage(new CharacterAttacker(_playerCore), 20);
 			}
