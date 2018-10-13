@@ -10,52 +10,22 @@ namespace RougeLike.Katano.Maze
 		Maze Generate(int width, int height);
 		void CreateMap(Maze maze);
 	}
-	
-	public class DemoMazeGenerator : MonoBehaviour, IMazeGenerator
+
+	public class DemoMazeCreator : MonoBehaviour, IMazeGenerator
 	{
-		private readonly Dictionary<int, RoomView> _roomViews = new Dictionary<int, RoomView>();
-		
-		public RoomView RoomPrefab;
-		
 		public Maze Generate(int width, int height)
 		{
-			_roomViews.Clear();
 			foreach (Transform child in transform)
 			{
 				Destroy(child.gameObject);
 			}
 			
-			var options = new MazeOptions(width, height);
-			var maze = new Maze.Generator(options)
-				.BuildRoom()
-				.BuildAisle(GenerateTypes.AllChained)
+			var options = new MazeBuildOptions(width, height);
+			var maze = new MazeBuilder(options)
+				.BuildAll()
 				.TakeDisableRoom(8)
 				.CleanupIsolatedRoom()
-				.Generate();
-			
-			// RoomViewの生成
-			for (var i = 0; i < maze.RoomContainer.Horizontal; i++)
-			{
-				for (var j = 0; j < maze.RoomContainer.Vertical; j++)
-				{
-					if (!maze.RoomContainer[i, j].IsEnable.Value) continue;
-					
-					var view = Instantiate(RoomPrefab, new Vector3(i + 1 * i, 0, j + 1 * j), Quaternion.identity, transform);
-					view.Initialize(maze.RoomContainer[i,j]);
-					_roomViews.Add(maze.RoomContainer[i,j].Id, view);
-				}
-			}
-
-			// AisleViewの生成
-			foreach (var aisle in maze.Aisles)
-			{
-				var spawn = Vector3.Lerp(_roomViews[aisle.Room0.Id].transform.position, _roomViews[aisle.Room1.Id].transform.position, 0.5f);
-				var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-				cube.transform.localPosition = spawn;
-				cube.transform.SetParent(transform);
-				cube.AddComponent<AisleView>().Initialize(aisle);
-			}
+				.Build();		
 
 			return maze;
 		}
@@ -92,7 +62,7 @@ namespace RougeLike.Katano.Maze
 			}
 			
 			// 有効な部屋のリスト
-			var roomList = maze.RoomContainer.Where(x => x.IsEnable.Value).ToList();
+			var roomList = maze.RoomList.Where(x => x.IsEnable.Value).ToList();
 			
 			// マーキング
 			var mark = 0;

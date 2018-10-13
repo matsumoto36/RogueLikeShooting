@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
-using UnityEditor.U2D;
-using UnityEngine;
 
 namespace RougeLike.Katano.Maze
 {
@@ -12,44 +10,45 @@ namespace RougeLike.Katano.Maze
 	/// </summary>
 	public class Maze
 	{
-		public RoomContainer RoomContainer { get; }
+		public RoomList RoomList { get; }
 		public Aisle[] Aisles { get; }
 		
-		private Maze(RoomContainer roomContainer, Aisle[] aisles)
+		public Maze(RoomList roomList, Aisle[] aisles)
 		{
-			RoomContainer = roomContainer;
+			RoomList = roomList;
 			Aisles = aisles;
 		}
-		
-		/// <summary>
+	}
+	
+	/// <summary>
 		/// ジェネレータ
 		/// </summary>
-		public class Generator
+		public class MazeBuilder
 		{
 			private static readonly Point[] Neighbor = { new Point(0, 1), new Point(-1, 0), new Point(0, -1), new Point(1, 0) };
 			
-			private readonly MazeOptions _options;
+			private readonly MazeBuildOptions _buildOptions;
 
-			private RoomContainer _roomContainer;
+			private RoomList _roomList;
 			private HashSet<Aisle> _rawAisleList;
 
 			private bool _builtRoom;
 			private bool _builtAisle;
 			private bool _cleanup = true;
 			
-			public Generator(MazeOptions options)
+			public MazeBuilder(MazeBuildOptions buildOptions)
 			{
-				_options = options;
+				_buildOptions = buildOptions;
 			}
 
-			public Generator BuildRoom()
+			public MazeBuilder BuildRoom()
 			{
-				_roomContainer = new RoomContainer(_options.Horizontal, _options.Vertical);
+				_roomList = new RoomList(_buildOptions.Horizontal, _buildOptions.Vertical);
 				_builtRoom = true;
 				return this;
 			}
 			
-			public Generator BuildAisle(GenerateTypes type)
+			public MazeBuilder BuildAisle(GenerateTypes type = GenerateTypes.AllChained)
 			{
 				var aisles = new List<Aisle>();
 
@@ -73,14 +72,14 @@ namespace RougeLike.Katano.Maze
 				return this;
 			}
 
-			public Generator TakeDisableRoom(int count)
+			public MazeBuilder TakeDisableRoom(int count)
 			{
 				if (!_builtRoom)
 					throw new MazeException("A room container has not been built yet.");
 				if (!_builtAisle)
 					throw new MazeException("Aisles has not been built yet.");
 				
-				foreach (var room in _roomContainer.TakeRandom(count))
+				foreach (var room in _roomList.TakeRandom(count))
 				{
 					room.IsEnable.Value = false;
 				}
@@ -95,7 +94,7 @@ namespace RougeLike.Katano.Maze
 			private void CleanupSingleRoom()
 			{
 				// ぼっちは生きられない
-				foreach (var room in _roomContainer.Where(room =>
+				foreach (var room in _roomList.Where(room =>
 					!_rawAisleList.Any(aisle => aisle.Room0 == room || aisle.Room1 == room)))
 				{
 					room.IsEnable.Value = false;
@@ -104,7 +103,7 @@ namespace RougeLike.Katano.Maze
 
 			private void CleanupSmallChainedRoom()
 			{
-				var roomList = _roomContainer.Where(x => x.IsEnable.Value).ToList();
+				var roomList = _roomList.Where(x => x.IsEnable.Value).ToList();
 				var checkedList = new List<Room>();
 				var reserve = new List<List<Room>>();
 				
@@ -143,7 +142,7 @@ namespace RougeLike.Katano.Maze
 			/// 孤立した部屋を消す
 			/// </summary>
 			/// <returns></returns>
-			public Generator CleanupIsolatedRoom()
+			public MazeBuilder CleanupIsolatedRoom()
 			{
 				// 単一の部屋を消す
 				CleanupSingleRoom();
@@ -195,30 +194,36 @@ namespace RougeLike.Katano.Maze
 				}
 			}
 			
-			public Maze Generate()
+			public Maze Build()
 			{
 				if (!_builtRoom) throw new MazeException("A room container has not been built yet.");
 				if (!_builtAisle) throw new MazeException("Aisles has not been built yet.");
 				if (!_cleanup) throw new MazeException("Maze has not been cleaned yet.");
 				
-				return new Maze(_roomContainer, _rawAisleList.ToArray());
+				return new Maze(_roomList, _rawAisleList.ToArray());
 			}
 
 			private void AllChain(ref List<Aisle> aisles)
 			{
-				for (var i = 0; i < _options.Horizontal; i++)
+				for (var i = 0; i < _buildOptions.Horizontal; i++)
 				{
-					for (var j = 0; j < _options.Vertical; j++)
+					for (var j = 0; j < _buildOptions.Vertical; j++)
 					{
 						for (var k = 0; k < Neighbor.Length; k++)
 						{
 							var (x, y) = Neighbor[k];
 							
-							if (i + x < 0 || i + x >= _options.Horizontal) continue;
-							if (j + y < 0 || j + y >= _options.Vertical) continue;
+							if (i + x < 0 || i + x >= _buildOptions.Horizontal) continue;
+							if (j + y < 0 || j + y >= _buildOptions.Vertical) continue;
 
-							_roomContainer[i + x, j + y].AdjacentSide |= (AdjacentSides) (1 << k);
-							var aisle = new Aisle(_roomContainer[i,j], _roomContainer[i + x, j + y]);
+							_roomList[i + x, j + y].AdjacentSide |= (AdjacentSides) (1 << k);
+
+							var aisle = new Aisle(
+								_roomList[i, j], 
+								_roomList[i + x, j + y],
+								k % 2 == 0 
+									? AisleTypes.Vertical 
+									: AisleTypes.Horizontal);
 
 							aisles.Add(aisle);
 						}
@@ -249,14 +254,13 @@ namespace RougeLike.Katano.Maze
 				}
 			}
 		}
-	}
 
 	/// <summary>
-	/// 
+	/// 生成オプション
 	/// </summary>
-	public struct MazeOptions
+	public struct MazeBuildOptions
 	{
-		public MazeOptions(int horizontal, int vertical)
+		public MazeBuildOptions(int horizontal, int vertical)
 		{
 			Horizontal = horizontal;
 			Vertical = vertical;

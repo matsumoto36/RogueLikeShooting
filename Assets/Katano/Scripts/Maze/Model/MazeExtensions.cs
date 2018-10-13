@@ -12,5 +12,10 @@ namespace RougeLike.Katano.Maze
 			room.Mark.Value = from.Mark.Value;
 			room.IsCompleted = true;
 		}
+		
+		public static MazeBuilder BuildAll(this MazeBuilder builder)
+		{
+			return builder.BuildRoom().BuildAisle();
+		}
 	}
 }
