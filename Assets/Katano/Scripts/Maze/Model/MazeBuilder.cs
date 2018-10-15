@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
+using UnityEngine;
 
 namespace RougeLike.Katano.Maze
 {
@@ -42,18 +43,23 @@ namespace RougeLike.Katano.Maze
 			return new MazeBuilder(options);
 		}
 
-		public MazeBuilder BuildRoom()
+		public MazeBuilder FillGrid()
 		{
-			_roomList = new RoomList(_buildOptions.Horizontal, _buildOptions.Vertical);
+			return BuildRoom().BuildAisle();
+		}
+
+		private MazeBuilder BuildRoom()
+		{
+			_roomList = new RoomList(_buildOptions.Width, _buildOptions.Height);
 			_builtRoom = true;
 			return this;
 		}
 
-		public MazeBuilder BuildAisle()
+		private MazeBuilder BuildAisle()
 		{
 			var aisles = new List<Aisle>();
 
-			FillGrid(ref aisles);
+			MakeAisle(ref aisles);
 
 			// 重複する通路データを省く
 			_rawAisleList = new HashSet<Aisle>(aisles, new AisleEqualityComparer());
@@ -63,7 +69,21 @@ namespace RougeLike.Katano.Maze
 			return this;
 		}
 
-		public MazeBuilder TakeDisableRoom(int count)
+		/// <summary>
+		/// 部屋数を短縮する
+		/// </summary>
+		/// <param name="rate">レート (0-1)</param>
+		/// <returns></returns>
+		public MazeBuilder ShortenRoom(float rate)
+		{
+			rate = Mathf.Clamp01(rate);
+
+			var get = Mathf.FloorToInt(_roomList.Length * rate);
+
+			return ShortenRoomInternal(get).CleanupIsolatedRoom();
+		}
+
+		private MazeBuilder ShortenRoomInternal(int count)
 		{
 			if (!_builtRoom)
 				throw new MazeException("A room container has not been built yet.");
@@ -124,7 +144,7 @@ namespace RougeLike.Katano.Maze
 		///     孤立した部屋を消す
 		/// </summary>
 		/// <returns></returns>
-		public MazeBuilder CleanupIsolatedRoom()
+		private MazeBuilder CleanupIsolatedRoom()
 		{
 			// 単一の部屋を消す
 			CleanupSingleRoom();
@@ -175,16 +195,16 @@ namespace RougeLike.Katano.Maze
 			return new Maze(_roomList, _rawAisleList.ToArray());
 		}
 
-		private void FillGrid(ref List<Aisle> aisles)
+		private void MakeAisle(ref List<Aisle> aisles)
 		{
-			for (var i = 0; i < _buildOptions.Horizontal; i++)
-			for (var j = 0; j < _buildOptions.Vertical; j++)
+			for (var i = 0; i < _buildOptions.Width; i++)
+			for (var j = 0; j < _buildOptions.Height; j++)
 			for (var k = 0; k < Neighbor.Length; k++)
 			{
 				var (x, y) = Neighbor[k];
 
-				if (i + x < 0 || i + x >= _buildOptions.Horizontal) continue;
-				if (j + y < 0 || j + y >= _buildOptions.Vertical) continue;
+				if (i + x < 0 || i + x >= _buildOptions.Width) continue;
+				if (j + y < 0 || j + y >= _buildOptions.Height) continue;
 
 				_roomList[i + x, j + y].AdjacentSide |= (AdjacentSides) (1 << k);
 
@@ -226,5 +246,20 @@ namespace RougeLike.Katano.Maze
 				return hashCode.GetHashCode();
 			}
 		}
+	}
+	
+	/// <summary>
+	///     生成オプション
+	/// </summary>
+	public struct MazeBuildOptions
+	{
+		public MazeBuildOptions(int width, int height)
+		{
+			Width = width;
+			Height = height;
+		}
+
+		public int Width { get; }
+		public int Height { get; }
 	}
 }

@@ -12,6 +12,8 @@ namespace RougeLike.Katano.Maze
 	{
 		public int Horizontal { get; }
 		public int Vertical { get; }
+		
+		public int Length => Horizontal * Vertical;
 
 		private readonly Room[,] _rooms;
 		public Room this[int i, int j]
@@ -39,6 +41,8 @@ namespace RougeLike.Katano.Maze
 				}
 			}
 		}
+
+		
 
 		public IEnumerator<Room> GetEnumerator()
 		{

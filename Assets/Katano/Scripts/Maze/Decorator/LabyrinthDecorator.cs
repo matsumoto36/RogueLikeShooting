@@ -1,54 +1,26 @@
-using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
-using UnityEngine;
 
 namespace RougeLike.Katano.Maze
 {
-	public interface IMazeGenerator
+	public class LabyrinthDecorator : IMazeDecorator
 	{
-		Maze Generate(int width, int height);
-		void CreateMap(Maze maze);
-	}
-
-	public class DemoMazeCreator : MonoBehaviour, IMazeGenerator
-	{
-		public Maze Generate(int width, int height)
-		{
-			foreach (Transform child in transform)
-			{
-				Destroy(child.gameObject);
-			}
-			
-			var options = new MazeBuildOptions(width, height);
-			var maze = MazeBuilder.CreateOption(options)
-				.BuildAll()
-				.TakeDisableRoom(8)
-				.CleanupIsolatedRoom()
-				.Build();		
-
-			return maze;
-		}
-
-		/// <summary>
-		/// マップを作成する
-		/// </summary>
-		public void CreateMap(Maze maze)
+		public Maze Decoration(Maze maze)
 		{
 			// 再帰的に部屋が全通かチェックする
-			void FillMark(Room current)
+			void FillMark(Room origin)
 			{
 				// 部屋に接続しているすべての通路
-				foreach (var aisle in maze.Aisles.Where(x => x.Room0 == current || x.Room1 == current))
+				foreach (var aisle in maze.GetConnectingAisle(origin))
 				{
 					if (!aisle.IsEnable.Value) continue;
 					
-					var counterSide = aisle.GetCounterSide(current);
+					var counterSide = aisle.GetCounterSide(origin);
 
 					// マーク済みなら何もしない
 					if (counterSide.IsCompleted) continue;
 
-					counterSide.SetMarkAndComplete(current);
+					counterSide.SetMarkAndComplete(origin);
 					
 					FillMark(counterSide);
 				}
@@ -91,8 +63,7 @@ namespace RougeLike.Katano.Maze
 				// マークを進める
 				mark++;
 				
-				pickRoom.Mark.Value = mark;
-				pickRoom.IsCompleted = true;
+				pickRoom.SetMarkAndComplete(mark);
 				
 				// つながっている部屋に同じマークを付ける
 				FillMark(pickRoom);
@@ -106,6 +77,8 @@ namespace RougeLike.Katano.Maze
 				// 処理済みとしてチェック
 				aisle.IsCompleted = true;
 			}
+
+			return maze;
 		}
 	}
 }
