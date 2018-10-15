@@ -5,13 +5,19 @@ using RogueLike.Nishiwaki.Bullet;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
-    public class BulletObject : BulletBase
+    public class BulletObject : MonoBehaviour
     {
+        BulletParameter bulletbase;
+        // 消滅用の時間
+        float DTime = 0f;
+
         // Use this for initialization
         void Start()
         {
             // BulletParameterからSpeedとPower
-            bulletPara = new BulletParameter(1, 1);
+            bulletbase = new BulletParameter(1, 1);
+            //bulletbase.BulletSpeed = 1.0f;
+            //bulletbase.BulletPower = 1.0f;
         }
 
         // Update is called once per frame
@@ -21,10 +27,17 @@ namespace RogueLike.Nishiwaki.Bullet
 
             Vector3 now = rig.position;
             // 銃に依存?
-            now += transform.forward * bulletPara.Speed;
+            //now += transform.forward * bulletbase.BulletSpeed;
+            now += transform.forward * bulletbase.Speed;
 
             rig.position = now;
-            //rig.position += Vector3.forward * bulletPara.Speed;
+
+            DTime += 1 * Time.deltaTime;
+
+            if (Time.deltaTime >= 3)
+            {
+                Destroy(gameObject);
+            }
         }
         void OnTriggerEnter(Collider other)
         {
