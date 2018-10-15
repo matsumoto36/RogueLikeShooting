@@ -21,7 +21,7 @@ namespace RougeLike.Katano.Maze
 			}
 			
 			var options = new MazeBuildOptions(width, height);
-			var maze = new MazeBuilder(options)
+			var maze = MazeBuilder.CreateOption(options)
 				.BuildAll()
 				.TakeDisableRoom(8)
 				.CleanupIsolatedRoom()
