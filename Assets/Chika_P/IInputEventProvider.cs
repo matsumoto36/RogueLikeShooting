@@ -9,7 +9,9 @@ namespace RogueLike.Chikazawa
     /// </summary>
     public interface IInputEventProvider 
     {
-        bool GetShotButton();//攻撃
+        bool GetShotButton();//攻撃連射
+        bool GetShotDown();//攻撃押す
+        bool GetShotUp();//攻撃離す
         Vector3 GetPleyerDirection(Vector3 plaryerPos);//正面方向
         Vector3 GetMoveVector();//移動
     }
