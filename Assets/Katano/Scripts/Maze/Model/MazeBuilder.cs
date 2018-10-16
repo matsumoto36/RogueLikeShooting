@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
@@ -28,26 +27,46 @@ namespace RougeLike.Katano.Maze
 			_buildOptions = buildOptions;
 		}
 
+		/// <summary>
+		///     迷路のビルドクラスを作成
+		/// </summary>
+		/// <returns></returns>
 		public static MazeBuilder CreateBlank()
 		{
 			return new MazeBuilder(new MazeBuildOptions());
 		}
 
+		/// <summary>
+		///     迷路のビルドクラスを作成
+		/// </summary>
+		/// <returns></returns>
 		public static MazeBuilder CreateSquare(int width, int height)
 		{
 			return new MazeBuilder(new MazeBuildOptions(width, height));
 		}
 
+		/// <summary>
+		///     迷路のビルドクラスを作成
+		/// </summary>
+		/// <returns></returns>
 		public static MazeBuilder CreateOption(MazeBuildOptions options)
 		{
 			return new MazeBuilder(options);
 		}
 
+		/// <summary>
+		///     設定されている大きさで格子状に迷路を作成
+		/// </summary>
+		/// <returns></returns>
 		public MazeBuilder FillGrid()
 		{
 			return BuildRoom().BuildAisle();
 		}
 
+		/// <summary>
+		///     部屋を作成する
+		/// </summary>
+		/// <returns></returns>
 		private MazeBuilder BuildRoom()
 		{
 			_roomList = new RoomList(_buildOptions.Width, _buildOptions.Height);
@@ -55,6 +74,10 @@ namespace RougeLike.Katano.Maze
 			return this;
 		}
 
+		/// <summary>
+		///     通路を作成する
+		/// </summary>
+		/// <returns></returns>
 		private MazeBuilder BuildAisle()
 		{
 			var aisles = new List<Aisle>();
@@ -70,7 +93,7 @@ namespace RougeLike.Katano.Maze
 		}
 
 		/// <summary>
-		/// 部屋数を短縮する
+		///     部屋数を短縮する
 		/// </summary>
 		/// <param name="rate">レート (0-1)</param>
 		/// <returns></returns>
@@ -83,6 +106,12 @@ namespace RougeLike.Katano.Maze
 			return ShortenRoomInternal(get).CleanupIsolatedRoom();
 		}
 
+		/// <summary>
+		///     部屋数を短縮する
+		/// </summary>
+		/// <param name="count"></param>
+		/// <returns></returns>
+		/// <exception cref="MazeException"></exception>
 		private MazeBuilder ShortenRoomInternal(int count)
 		{
 			if (!_builtRoom)
@@ -99,14 +128,18 @@ namespace RougeLike.Katano.Maze
 			return this;
 		}
 
+		/// <summary>
+		///     通路無接続の部屋を無効化
+		/// </summary>
 		private void CleanupSingleRoom()
 		{
 			// ぼっちは生きられない
-			foreach (var room in _roomList.Where(room =>
-				!_rawAisleList.Any(aisle => aisle.Room0 == room || aisle.Room1 == room)))
-				room.IsEnable.Value = false;
+			foreach (var room in _roomList.GetIsolatedRoom(_rawAisleList)) room.IsEnable.Value = false;
 		}
 
+		/// <summary>
+		///     接続数が少ない部屋を無効化
+		/// </summary>
 		private void CleanupSmallChainedRoom()
 		{
 			var roomList = _roomList.Where(x => x.IsEnable.Value).ToList();
@@ -159,7 +192,10 @@ namespace RougeLike.Katano.Maze
 			return this;
 		}
 
-		// 再帰的に部屋が全通かチェックする
+		/// <summary>
+		///     再帰的に部屋が全通かチェックする
+		/// </summary>
+		/// <returns></returns>
 		private void CountChainRooms(Room current, ref List<Room> checkedList)
 		{
 			// 部屋に接続しているすべての通路
@@ -186,6 +222,11 @@ namespace RougeLike.Katano.Maze
 			}
 		}
 
+		/// <summary>
+		///     迷路を作成
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="MazeException"></exception>
 		public Maze Build()
 		{
 			if (!_builtRoom) throw new MazeException("A room container has not been built yet.");
@@ -195,6 +236,10 @@ namespace RougeLike.Katano.Maze
 			return new Maze(_roomList, _rawAisleList.ToArray());
 		}
 
+		/// <summary>
+		///     部屋間に通路を敷く
+		/// </summary>
+		/// <param name="aisles"></param>
 		private void MakeAisle(ref List<Aisle> aisles)
 		{
 			for (var i = 0; i < _buildOptions.Width; i++)
@@ -235,9 +280,7 @@ namespace RougeLike.Katano.Maze
 					return true;
 				if (x == null || y == null)
 					return false;
-				if (x.Room0.Id == y.Room0.Id && x.Room1.Id == y.Room1.Id)
-					return true;
-				return false;
+				return x.Room0.Id == y.Room0.Id && x.Room1.Id == y.Room1.Id;
 			}
 
 			public int GetHashCode(Aisle obj)
@@ -247,7 +290,7 @@ namespace RougeLike.Katano.Maze
 			}
 		}
 	}
-	
+
 	/// <summary>
 	///     生成オプション
 	/// </summary>

@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RougeLike.Katano.Maze
 {
-	public class MazeDecorator : MonoBehaviour
+	/// <summary>
+	/// 迷宮を可視化するクラス
+	/// </summary>
+	public class MazeViewBuilder : MonoBehaviour
 	{
 		private readonly Dictionary<int, GameObject> _roomViews = new Dictionary<int, GameObject>();
 
@@ -15,7 +19,13 @@ namespace RougeLike.Katano.Maze
 		
 		public MazeDataAssetBase MazeDataAsset;
 
-		public void Decorate(Maze maze)
+		private void Start()
+		{
+			var boardManager = GetComponent<GameBoardManager>();
+			boardManager.OnBuiltMaze.Subscribe(MakeView).AddTo(this);
+		}
+
+		private void MakeView(Maze maze)
 		{
 			_roomViews.Clear();
 			

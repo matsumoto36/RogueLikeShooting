@@ -29,8 +29,7 @@ namespace RougeLike.Katano.Maze
 			// 通路のチェック済みフラグを消す
 			foreach (var aisle in maze.Aisles)
 			{
-				aisle.IsEnable.Value = true;
-				aisle.IsCompleted = false;
+				aisle.Reset();
 			}
 			
 			// 有効な部屋のリスト
