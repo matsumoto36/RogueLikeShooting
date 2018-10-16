@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Chikazawa;
-
 
 namespace RogueLike.Matsumoto {
 
@@ -13,9 +13,13 @@ namespace RogueLike.Matsumoto {
 	/// </summary>
 	public class PlayerCore : CharacterCore {
 
+		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
+
+
 		public IInputEventProvider InputEventProvider { get; private set; }
 
-		protected override void CreateEx(CharacterAsset asset) {
+
+		protected override void OnSpawn(CharacterAsset asset) {
 			//追加のコンポーネントを追加
 			gameObject.AddComponent<PlayerMove>();
 			gameObject.AddComponent<PlayerAttack>();
@@ -24,10 +28,9 @@ namespace RogueLike.Matsumoto {
 		void Start() {
 			InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
 
-		}
-
-		void Update() {
-
+			this.UpdateAsObservable()
+				.Subscribe(_ => PlayerUpdate.OnNext(this))
+				.AddTo(this);
 		}
 
 	}

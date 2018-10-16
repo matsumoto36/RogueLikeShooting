@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
 namespace RogueLike.Matsumoto.Character {
 
 	[RequireComponent(typeof(PlayerCore))]
 	public class PlayerMove : MonoBehaviour {
 
-		PlayerCore _playerCore;
-
 		void Start() {
-			_playerCore = GetComponent<PlayerCore>();
+
+			GetComponent<PlayerCore>().PlayerUpdate
+				.Subscribe(player => {
+
+					var input = player.InputEventProvider;
+
+					//移動
+					transform.position += player.Parameter.MoveSpeed * input.GetMoveVector() * Time.deltaTime;
+
+					//向きの変更
+					transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
+				})
+				.AddTo(this);
 		}
-
-		public void Update() {
-
-			var input = _playerCore.InputEventProvider;
-
-			//移動
-			transform.position += _playerCore.Parameter.MoveSpeed * input.GetMoveVector() * Time.deltaTime;
-
-			//向きの変更
-			transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
-
-		}
-
 	}
 }
