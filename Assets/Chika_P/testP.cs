@@ -15,7 +15,7 @@ public class testP : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        eventProvider =  new InputKeyBoard();
+        eventProvider =  new InputController();
 	}
 	
 	// Update is called once per frame
@@ -26,7 +26,7 @@ public class testP : MonoBehaviour
 
         //マウスの方向を向くように回転
         this.gameObject.transform.rotation 
-            = Quaternion.LookRotation(eventProvider.GetPleyerDirection(PlayerObj.transform.position) - PlayerObj.transform.position);
+            = Quaternion.LookRotation(eventProvider.GetPleyerDirection(PlayerObj.transform.position) - PlayerObj.transform.position).normalized;
 
         //射撃が入力されると起動
         if (eventProvider.GetShotButton())
