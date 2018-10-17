@@ -7,5 +7,8 @@ namespace RogueLike.Nishiwaki
     public interface IWeapon
     {
         void Attack();
+        void AttackUp();
+        void AttackDown();
+
     }
 }
