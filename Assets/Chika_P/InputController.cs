@@ -9,20 +9,22 @@ namespace RogueLike.Chikazawa.InputEventProvider
      /// </summary>
     public class InputController : PlayerInputProvider
     {
-        public Vector3 forwardDir;     //正面方向
-
         public override Vector3 GetMoveVector()
         {
+            //左スティックで移動
             return new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         }
 
         public override Vector3 GetPleyerDirection(Vector3 playerPos)
         {
+            //右スティックで方向入力(非入力時は奥を向く)
+            //Playerの座標に入力を加算している
             return new Vector3(Input.GetAxisRaw("R_Horizontal") + playerPos.x, playerPos.y, Input.GetAxisRaw("R_Vertical") + playerPos.z);
         }
 
         public override bool GetShotButton()
         {
+            //L1キーで攻撃
             return Input.GetButton("Shot");
         }
         public override bool GetShotDown()

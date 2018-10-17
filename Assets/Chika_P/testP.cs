@@ -24,7 +24,7 @@ public class testP : MonoBehaviour
         //移動をオブジェクトに反映させる
         this.gameObject.transform.position += eventProvider.GetMoveVector();
 
-        //マウスの方向を向くように回転
+        //マウスの方向を向くように回転・右スティックの入力を反映
         this.gameObject.transform.rotation 
             = Quaternion.LookRotation(eventProvider.GetPleyerDirection(PlayerObj.transform.position) - PlayerObj.transform.position).normalized;
 

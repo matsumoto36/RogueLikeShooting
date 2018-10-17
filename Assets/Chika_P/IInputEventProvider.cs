@@ -9,11 +9,38 @@ namespace RogueLike.Chikazawa
     /// </summary>
     public interface IInputEventProvider 
     {
-        bool GetShotButton();//攻撃連射
-        bool GetShotDown();//攻撃押す
-        bool GetShotUp();//攻撃離す
-        Vector3 GetPleyerDirection(Vector3 plaryerPos);//正面方向
-        Vector3 GetMoveVector();//移動
+        /// <summary>
+        /// 攻撃(射撃)連射フラグ
+        /// キーボード：左クリック ／
+        /// コントローラー：L１ボタン
+        /// </summary>
+        /// <returns></returns>
+        bool GetShotButton();
+        /// <summary>
+        /// 攻撃タメフラグ
+        /// </summary>
+        /// <returns></returns>
+        bool GetShotDown();
+        /// <summary>
+        /// 攻撃放出フラグ
+        /// </summary>
+        /// <returns></returns>
+        bool GetShotUp();
+        /// <summary>
+        /// 正面方向の入力
+        /// キーボード：マウス ／
+        /// コントローラー：右スティック
+        /// </summary>
+        /// <param name="plaryerPos"></param>
+        /// <returns></returns>
+        Vector3 GetPleyerDirection(Vector3 plaryerPos);
+        /// <summary>
+        /// 移動の入力
+        /// キーボード：WASDキー or 矢印キー ／
+        /// コントローラー：左スティック
+        /// </summary>
+        /// <returns></returns>
+        Vector3 GetMoveVector();
     }
 }
 
@@ -22,6 +49,7 @@ namespace RogueLike.Chikazawa
 
 
 
+//メモ
 //仮プレイヤー入力　クラス分け構造
 //public class P
 //{
