@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using RogueLike.Matsumoto.Attack;
+using UniRx;
+using UniRx.Triggers;
+using RogueLike.Nishiwaki;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -12,24 +16,19 @@ namespace RogueLike.Matsumoto.Character {
 	[RequireComponent(typeof(PlayerCore))]
 	public class PlayerAttack : MonoBehaviour {
 
-		//debug
-		public CharacterCore Target;
-
-		PlayerCore _playerCore;
-
-		public void Update() {
-
-			//とりあえず攻撃
-			if(Input.GetMouseButtonDown(0)) {
-				if(Target)
-					Target.ApplyDamage(new CharacterAttacker(_playerCore), 20);
-			}
-
-		}
+		public IWeapon Weapon { get; private set; }
 
 		void Start() {
-			_playerCore = GetComponent<PlayerCore>();
-		}
+			
+			//装備
+			var g = new GameObject("Weapon");
+			g.transform.parent = transform;
+			Weapon = g.AddComponent<WeaponRanged>();
 
+			//攻撃
+			GetComponent<PlayerCore>().PlayerUpdate
+				.Where(player => player.InputEventProvider.GetShotButton())
+				.Subscribe(player => Weapon?.Attack());
+		}
 	}
 }

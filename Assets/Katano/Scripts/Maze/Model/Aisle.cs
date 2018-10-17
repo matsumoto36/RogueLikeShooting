@@ -19,13 +19,18 @@ namespace RougeLike.Katano.Maze
 
 		public bool IsCompleted;
 		public BoolReactiveProperty IsEnable { get; } = new BoolReactiveProperty();
+		public AisleTypes AisleType { get; }
 		
-		public Aisle(Room room0, Room room1)
+		public Aisle(Room room0, Room room1, AisleTypes aisleType)
 		{
 			if (room0 == room1)
 				throw new ArgumentException("The arguments are the same.");
+
+			if (aisleType == AisleTypes.Invalid)
+				throw new ArgumentException("Invalid argument.", nameof(aisleType));
 			
 			(Room0, Room1) = room0.Id < room1.Id ? (room0, room1) : (room1, room0);
+			AisleType = aisleType;
 		}
 
 		public Room GetCounterSide(Room self)
@@ -49,5 +54,12 @@ namespace RougeLike.Katano.Maze
 		{
 			return $"[Aisle]({Room0.Id},{Room1.Id})";
 		}
+	}
+
+	public enum AisleTypes
+	{
+		Invalid,
+		Horizontal,
+		Vertical
 	}
 }

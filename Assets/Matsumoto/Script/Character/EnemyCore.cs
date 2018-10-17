@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 using System;
 
 namespace RogueLike.Matsumoto.Character {
@@ -37,7 +38,8 @@ namespace RogueLike.Matsumoto.Character {
 			if(!target) return;
 
 			CanAttack = false;
-			Observable.Timer(TimeSpan.FromSeconds(_attackWaitTime)).Subscribe(_ => CanAttack = true);
+			Observable.Timer(TimeSpan.FromSeconds(_attackWaitTime))
+				.Subscribe(_ => CanAttack = true);
 
 			target.ApplyDamage(new Attack.CharacterAttacker(this), 20);
 		}
@@ -52,18 +54,27 @@ namespace RogueLike.Matsumoto.Character {
 				.FirstOrDefault();
 		}
 
+		protected override void OnSpawn(CharacterAsset asset) {
+
+			//AIの設定
+			switch(asset.EnemyAIType) {
+				case EnemyAIType.Attacker:
+					_enemyAI = new EnemyAI.EnemyAIAttacker();
+					break;
+				default:
+					break;
+			}
+
+		}
+
 		private void Start() {
 
-			_enemyAI = new EnemyAI.EnemyAIAttacker();
+
+			this.UpdateAsObservable()
+				.Subscribe(_ => _enemyAI?.AIUpdate(this))
+				.AddTo(this);
 
 		}
-
-		private void Update() {
-
-			_enemyAI?.AIUpdate(this);
-
-		}
-
 	}
 }
 
