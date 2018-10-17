@@ -8,12 +8,12 @@ namespace RogueLike.Nishiwaki.Bullet
     public abstract class BulletBase : IBullet
     {
         public BulletParameter bulletPara;
-
+        int fream;
         // 弾プレハブ
         public string BulletPrefabPath;
 
         //public float BulletSpeed, BulletPower;
-        
+
 
         public void SpawnCreate(Transform BulletPop)
         {
