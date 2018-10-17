@@ -3,30 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Reqweldzen.Extensions
 {
 	public static class LinqExtensions
 	{
-		public static T RandomAt<T>([NotNull] this IEnumerable<T> ie)
+		public static T RandomAt<T>([NotNull] this IEnumerable<T> source)
 		{
-			if (ie == null) throw new ArgumentNullException(nameof(ie));
+			if (source == null) throw new ArgumentNullException(nameof(source));
 			
-			var enumerable = ie.ToList();
+			var enumerable = source.ToList();
 			return !enumerable.Any()
 				? default(T)
-				: enumerable.ElementAt(UnityEngine.Random.Range(0, enumerable.Count));
+				: enumerable.ElementAt(Random.Range(0, enumerable.Count));
 		}
 
-		public static T RandomAt<T>(this IEnumerable<T> ie, [NotNull] Func<T, bool> predicate)
+		public static T RandomAt<T>([NotNull] this IEnumerable<T> source, [NotNull] Func<T, bool> predicate)
 		{
-			if (ie == null) throw new ArgumentNullException(nameof(ie));
+			if (source == null) throw new ArgumentNullException(nameof(source));
 			if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-			var enumerable = ie.Where(predicate).ToList();
+			var enumerable = source.Where(predicate).ToList();
 			return !enumerable.Any()
 				? default(T)
-				: enumerable.ElementAt(UnityEngine.Random.Range(0, enumerable.Count));
+				: enumerable.ElementAt(Random.Range(0, enumerable.Count));
 		}
 
 		public static IEnumerable<T> TakeRandom<T>([NotNull] this IEnumerable<T> source, int count)
@@ -43,13 +44,13 @@ namespace Reqweldzen.Extensions
 				
 				for (var i = array.Length - 1; i > 0; i--)
 				{
-					var r = Mathf.FloorToInt(UnityEngine.Random.value * (i + 1));
+					var r = Mathf.FloorToInt(Random.value * (i + 1));
 					var tmp = array[i];
 					array[i] = array[r];
 					array[r] = tmp;
 				}
 				
-				foreach (T source1 in array)
+				foreach (var source1 in array)
 				{
 					yield return source1;
 					if (--count == 0)

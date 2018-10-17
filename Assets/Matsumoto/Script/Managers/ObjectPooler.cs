@@ -157,7 +157,7 @@ public class ObjectPooler : MonoBehaviour {
 		//	}
 
 		//	//シーン移動時に削除されたオブジェクトを補てんする
-		//	newPool.Generate(newPool.parent);
+		//	newPool.Build(newPool.parent);
 		//};
 
 		return newPool;
