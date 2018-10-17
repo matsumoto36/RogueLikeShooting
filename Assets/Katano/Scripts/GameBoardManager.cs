@@ -1,47 +1,38 @@
 using System;
-using System.Threading;
 using UniRx;
-using UniRx.Async;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace RougeLike.Katano.Maze
 {
 	/// <summary>
-	/// ゲームボードマネージャ
+	///     ゲームボードマネージャ
 	/// </summary>
 	public class GameBoardManager : MonoBehaviour
 	{
-		private CancellationTokenSource _tokenSource;
-		
-		public Button CreateButton;
-		
-		public int Width = 4;
-		public int Height = 4;
-		
 		private readonly AsyncSubject<Maze> _onBuiltMaze = new AsyncSubject<Maze>();
 		public IObservable<Maze> OnBuiltMaze => _onBuiltMaze;
 		
+		[SerializeField]
+		private bool _buildOnAwake = true;
 		
+		public int Width = 4;
+		public int Height = 4;
+
 		private void Start()
 		{
-			async UniTaskVoid OnStart()
-			{
-				await CreateButton.OnClickAsync(_tokenSource.Token);
-				
-				var maze = MazeBuilder.CreateSquare(Width, Height)
-					.FillGrid()
-					.ShortenRoom(0.5f)
-					.Decoration<LabyrinthDecorator>();
+			if (_buildOnAwake)
+				OnStart();
+		}
 
-				_onBuiltMaze.OnNext(maze);
-				_onBuiltMaze.OnCompleted();
-			}
+		public void OnStart()
+		{
+			var maze = MazeBuilder.CreateSquare(Width, Height)
+				.FillGrid()
+				.ShortenRoom(0.3f)
+				.Decoration(new LabyrinthDecorator());
 
-			_tokenSource = new CancellationTokenSource();
-			_tokenSource.CancelWith(this);
-
-			OnStart().Forget();
+			_onBuiltMaze.OnNext(maze);
+			_onBuiltMaze.OnCompleted();
 		}
 	}
 }

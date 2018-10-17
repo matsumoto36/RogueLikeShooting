@@ -264,11 +264,6 @@ namespace RougeLike.Katano.Maze
 			}
 		}
 
-		public static implicit operator Maze(MazeBuilder builder)
-		{
-			return builder.Build();
-		}
-
 		/// <summary>
 		///     等価性の比較処理クラス
 		/// </summary>

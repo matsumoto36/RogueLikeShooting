@@ -12,12 +12,7 @@ namespace RougeLike.Katano.Maze
 
 		public static Maze Decoration(this MazeBuilder builder, IMazeDecorator decorator)
 		{
-			return decorator.Decoration(builder);
-		}
-
-		public static Maze Decoration<T>(this MazeBuilder builder) where T : IMazeDecorator, new()
-		{
-			return new T().Decoration(builder);
+			return decorator.Decoration(builder.Build());
 		}
 		
 		public static void SetMark(this Room room, int mark)
@@ -60,17 +55,12 @@ namespace RougeLike.Katano.Maze
 
 		private static IEnumerable<Room> GetIsolatedRoomInternal(RoomList roomList, IEnumerable<Aisle> aisles)
 		{
-			var aisleList = aisles.ToList();
+			var aisleList = aisles.ToArray();
 
 			foreach (var room in roomList)
 			{
-				foreach (var aisle in aisleList)
-				{
-					if (room == aisle.Room0 || room == aisle.Room1)
-						continue;
-
+				if (!aisleList.Any(aisle => room == aisle.Room0 || room == aisle.Room1))
 					yield return room;
-				}
 			}
 		}
 	}

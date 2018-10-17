@@ -19,13 +19,7 @@ namespace RougeLike.Katano.Maze
 		
 		public MazeDataAssetBase MazeDataAsset;
 
-		private void Start()
-		{
-			var boardManager = GetComponent<GameBoardManager>();
-			boardManager.OnBuiltMaze.Subscribe(MakeView).AddTo(this);
-		}
-
-		private void MakeView(Maze maze)
+		public void BuildView(Maze maze)
 		{
 			_roomViews.Clear();
 			
@@ -35,6 +29,8 @@ namespace RougeLike.Katano.Maze
 				for (var j = 0; j < maze.RoomList.Vertical; j++)
 				{
 					if (!maze.RoomList[i, j].IsEnable.Value) continue;
+					
+					Debug.Log("Loop");
 					
 					var view = Instantiate(MazeDataAsset.RoomPrefabList.RandomAt(), new Vector3(i + Interval * i, 0, j + Interval * j), Quaternion.identity, transform);
 					_roomViews.Add(maze.RoomList[i,j].Id, view);
