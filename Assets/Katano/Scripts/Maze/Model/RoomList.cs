@@ -8,10 +8,12 @@ namespace RougeLike.Katano.Maze
 	/// <summary>
 	/// 部屋コンテナ
 	/// </summary>
-	public class RoomContainer : IEnumerable<Room>
+	public class RoomList : IEnumerable<Room>
 	{
 		public int Horizontal { get; }
 		public int Vertical { get; }
+		
+		public int Length => Horizontal * Vertical;
 
 		private readonly Room[,] _rooms;
 		public Room this[int i, int j]
@@ -25,7 +27,7 @@ namespace RougeLike.Katano.Maze
 			}
 		}
 
-		public RoomContainer(int horizontal, int vertical)
+		public RoomList(int horizontal, int vertical)
 		{
 			Horizontal = horizontal;
 			Vertical = vertical;
@@ -39,6 +41,8 @@ namespace RougeLike.Katano.Maze
 				}
 			}
 		}
+
+		
 
 		public IEnumerator<Room> GetEnumerator()
 		{
