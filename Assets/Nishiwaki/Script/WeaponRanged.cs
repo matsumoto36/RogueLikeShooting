@@ -8,10 +8,8 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRanged : MonoBehaviour, IWeapon
     {
-        protected IBullet ibullet;
+        public WeaponRangedParameter weaponRangedPara;
 
-        // 仮の時間制限
-        float WaitTime = 1.0f;
         public bool CanShot { get; private set; } = true;
 
         // Use this for initialization
@@ -19,7 +17,8 @@ namespace RogueLike.Nishiwaki.Item
         {
             var bullet = new BulletProjectile();
             bullet.BulletPrefabPath = "Bullet/NormalBullet";
-            ibullet = bullet;
+
+            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet);
         }
 
         // Update is called once per frame
@@ -36,7 +35,7 @@ namespace RogueLike.Nishiwaki.Item
             CanShot = false;
             // 弾の発射位置
             StartCoroutine("canShot");
-            ibullet.SpawnCreate(transform);
+            weaponRangedPara.ibullet.SpawnCreate(transform);
         }
         public void AttackUp()
         {
@@ -49,7 +48,7 @@ namespace RogueLike.Nishiwaki.Item
 
         IEnumerator canShot()
         {
-            yield return new WaitForSeconds(WaitTime);
+            yield return new WaitForSeconds(weaponRangedPara.WaitTime);
             CanShot = true;
         }
     }
