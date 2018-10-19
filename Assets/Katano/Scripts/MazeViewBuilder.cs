@@ -59,11 +59,6 @@ namespace RougeLike.Katano.Maze
 				cube.transform.localPosition = spawn;
 				cube.transform.SetParent(transform);
 			}
-
-			foreach (var surface in _roomViews.Values.Select(x => x.GetComponent<NavMeshSurface>()))
-			{
-				surface.BuildNavMesh();
-			}
 		}
 	}
 }

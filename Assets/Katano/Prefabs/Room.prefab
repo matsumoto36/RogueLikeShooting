@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 33381728047029792}
   - component: {fileID: 23791966115817114}
   - component: {fileID: 114813723650003266}
-  - component: {fileID: 114133696116828466}
   - component: {fileID: 114064540700267784}
   m_Layer: 0
   m_Name: Room
@@ -128,18 +127,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
---- !u!114 &114133696116828466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1997199809448966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5d40ca3bc134e1eafd1fcdb55fc9f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_NavMeshData: {fileID: 23800000, guid: e1b508fb232ad5046a65539b0eab359c, type: 2}
 --- !u!114 &114813723650003266
 MonoBehaviour:
   m_ObjectHideFlags: 1

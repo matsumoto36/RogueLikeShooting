@@ -32,14 +32,6 @@ namespace RougeLike.Katano.Maze
 			Component.IsEnable
 				.SubscribeWithState(gameObject, (flag, go) => go.SetActive(flag))
 				.AddTo(this);
-
-//			Component.Mark
-//				.SubscribeWithState2(_renderer, _label, (mark, renderer, label) =>
-//				{
-//					renderer.material.color = ColorTable[mark % 7];
-//					label.text = mark.ToString();
-//				})
-//				.AddTo(this);
 		}
 	}
 }

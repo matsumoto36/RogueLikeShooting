@@ -7,7 +7,7 @@ namespace RougeLike.Katano.Maze
 	{
 		private Aisle _model;
 
-		public void Initialize(Aisle observable)
+		public void Subscribe(Aisle observable)
 		{
 			_model = observable;
 
