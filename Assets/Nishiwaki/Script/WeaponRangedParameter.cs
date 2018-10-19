@@ -9,12 +9,15 @@ namespace RogueLike.Nishiwaki.Item
         public IBullet ibullet;
 
         public float WaitTime;
+        public int FireType;
+        //enum FireType { Semi, Auto, Laser };
 
-        public WeaponRangedParameter(float waittime, IBullet ibullet)
+        public WeaponRangedParameter(float waittime, IBullet ibullet, int firetype)
         {
             //とりあえず思いついたパラメーターたち
             WaitTime = waittime;
             this.ibullet = ibullet;
+            FireType = firetype;
         }
     }
 }

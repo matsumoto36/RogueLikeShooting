@@ -18,7 +18,7 @@ namespace RogueLike.Nishiwaki.Item
             var bullet = new BulletProjectile();
             bullet.BulletPrefabPath = "Bullet/NormalBullet";
 
-            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet);
+            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet, 0);
         }
 
         // Update is called once per frame
@@ -26,7 +26,18 @@ namespace RogueLike.Nishiwaki.Item
         {
             if (Input.GetKey(KeyCode.Z))
             {
-                Attack();
+                switch (weaponRangedPara.FireType)
+                {
+                    case 0:
+                        Attack();
+                        break;
+                    case 1:
+                        AttackDown();
+                        break;
+                    case 2:
+                        AttackUp();
+                        break;
+                }
             }
         }
         public void Attack()
@@ -34,7 +45,7 @@ namespace RogueLike.Nishiwaki.Item
             if (!CanShot) return;
             CanShot = false;
             // 弾の発射位置
-            StartCoroutine("canShot");
+            StartCoroutine(canShot());
             weaponRangedPara.ibullet.SpawnCreate(transform);
         }
         public void AttackUp()
@@ -43,7 +54,11 @@ namespace RogueLike.Nishiwaki.Item
         }
         public void AttackDown()
         {
-            //ibullet.SpawnCreate(transform);
+            if (!CanShot) return;
+            CanShot = false;
+            // 弾の発射位置
+            StartCoroutine(canShot());
+            weaponRangedPara.ibullet.SpawnCreate(transform);
         }
 
         IEnumerator canShot()
