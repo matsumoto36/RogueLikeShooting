@@ -29,9 +29,7 @@ namespace RougeLike.Katano.Maze
 				for (var j = 0; j < maze.RoomList.Vertical; j++)
 				{
 					if (!maze.RoomList[i, j].IsEnable.Value) continue;
-					
-					Debug.Log("Loop");
-					
+				
 					var view = Instantiate(MazeDataAsset.RoomPrefabList.RandomAt(), new Vector3(i + Interval * i, 0, j + Interval * j), Quaternion.identity, transform);
 					_roomViews.Add(maze.RoomList[i,j].Id, view);
 				}

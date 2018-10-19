@@ -1,8 +1,10 @@
 using RogueLike.Matsumoto;
+using RougeLike.Katano;
 using RougeLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Katano
 {
@@ -14,6 +16,8 @@ namespace Katano
 		public GameBoardManager GameBoardManager;
 		public MazeViewBuilder MazeViewBuilder;
 		public CharacterSpawner CharacterSpawner;
+		[FormerlySerializedAs("PlayerCamera")]
+		public DebugPlayerCamera DebugPlayerCamera;
 
 		private void Start()
 		{
@@ -23,7 +27,9 @@ namespace Katano
 				
 				MazeViewBuilder.BuildView(maze);
 
-				CharacterSpawner.Spawn();
+				var character = CharacterSpawner.Spawn();
+
+				DebugPlayerCamera.Target = character.transform;
 			}
 
 			OnStart().Forget();
