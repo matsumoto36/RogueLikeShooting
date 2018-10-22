@@ -1,6 +1,6 @@
 using RogueLike.Matsumoto;
-using RougeLike.Katano;
-using RougeLike.Katano.Maze;
+using RogueLike.Katano;
+using RogueLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;

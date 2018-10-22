@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	[CreateAssetMenu(fileName = "MazeDataAsset", menuName = "Maze/Create Maze Asset")]
 	public class MazeDataAssetBase : ScriptableObject

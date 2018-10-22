@@ -1,8 +1,11 @@
 using UniRx;
 using UnityEngine;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze.Debug
 {
+	/// <summary>
+	/// 通路
+	/// </summary>
 	public class AisleView : MonoBehaviour
 	{
 		private Aisle _model;

@@ -1,4 +1,4 @@
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	public interface IMazeDecorator
 	{

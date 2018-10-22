@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	public static class MazeExtensions
 	{
 		public static MazeBuilder Decoration(this MazeBuilder builder, IMazeDecorator decorator)
 		{
 			return decorator.Decoration(builder);
+		}
+
+		public static Aisle WithState(this Aisle aisle, AisleChainState aisleChainState)
+		{
+			aisle.AisleChainState = aisleChainState;
+			return aisle;
 		}
 		
 		public static void SetMark(this Room room, int mark)
@@ -43,12 +49,12 @@ namespace RougeLike.Katano.Maze
 			aisle.IsCompleted = false;
 		}
 
-		public static IEnumerable<Room> GetIsolatedRoom(this RoomList roomList, IEnumerable<Aisle> aisles)
+		public static IEnumerable<Room> GetIsolatedRoom(this Room[,] roomList, IEnumerable<Aisle> aisles)
 		{
 			return GetIsolatedRoomInternal(roomList, aisles);
 		}
 
-		private static IEnumerable<Room> GetIsolatedRoomInternal(RoomList roomList, IEnumerable<Aisle> aisles)
+		private static IEnumerable<Room> GetIsolatedRoomInternal(Room[,] roomList, IEnumerable<Aisle> aisles)
 		{
 			var aisleList = aisles.ToArray();
 

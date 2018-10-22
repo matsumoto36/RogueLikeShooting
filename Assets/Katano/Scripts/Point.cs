@@ -1,4 +1,4 @@
-namespace RougeLike.Katano
+namespace RogueLike.Katano
 {
 	public struct Point
 	{

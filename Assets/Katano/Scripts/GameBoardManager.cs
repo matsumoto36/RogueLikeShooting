@@ -2,7 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	/// <summary>
 	///     ゲームボードマネージャ
@@ -30,6 +30,8 @@ namespace RougeLike.Katano.Maze
 			var options = new MazeBuildOptions(Width, Height, EnumDecorationState.Labyrinth);
 			var director = new MazeDirector(builder, options);
 
+			_onBuiltMaze.Subscribe();
+			
 			_onBuiltMaze.OnNext(director.Construct());
 			_onBuiltMaze.OnCompleted();
 		}

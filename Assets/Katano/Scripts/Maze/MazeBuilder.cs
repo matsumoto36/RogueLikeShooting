@@ -5,21 +5,41 @@ using Katano;
 using Reqweldzen.Extensions;
 using UnityEngine;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	/// <summary>
 	///     迷路ビルダー
 	/// </summary>
 	public class MazeBuilder
 	{
+		/// <summary>
+		/// ビルドオプション
+		/// </summary>
 		private MazeBuildOptions _buildOptions;
+		
+		/// <summary>
+		/// 部屋リスト
+		/// </summary>
+		private Room[,] _roomList;
+		
+		/// <summary>
+		/// 廊下リスト
+		/// </summary>
+		private HashSet<Aisle> _aisleList;
+		
 		private bool _builtAisle;
-
 		private bool _builtRoom;
 		private bool _cleanup = true;
-		private HashSet<Aisle> _rawAisleList;
-
-		private RoomList _roomList;
+		
+		
+		/// <summary>
+		/// オプションを設定する
+		/// </summary>
+		/// <param name="options"></param>
+		public void SetOptions(MazeBuildOptions options)
+		{
+			_buildOptions = options;
+		}
 		
 		/// <summary>
 		///     部屋を作成する
@@ -27,13 +47,15 @@ namespace RougeLike.Katano.Maze
 		/// <returns></returns>
 		public void BuildRoom()
 		{
-			_roomList = new RoomList(_buildOptions.Width, _buildOptions.Height);
+			Room ConstructMethod(int x, int y)
+			{
+				var height = _buildOptions.Height;
+				return new Room(height * y + x);
+			}
+			
+			_roomList = new Room[_buildOptions.Width, _buildOptions.Height]
+				.Initialize(ConstructMethod);
 			_builtRoom = true;
-		}
-
-		public void SetOptions(MazeBuildOptions options)
-		{
-			_buildOptions = options;
 		}
 
 		/// <summary>
@@ -47,7 +69,7 @@ namespace RougeLike.Katano.Maze
 			MakeAisle(ref aisles);
 
 			// 重複する通路データを省く
-			_rawAisleList = new HashSet<Aisle>(aisles, new AisleEqualityComparer());
+			_aisleList = new HashSet<Aisle>(aisles);
 
 			_builtAisle = true;
 		}
@@ -79,9 +101,9 @@ namespace RougeLike.Katano.Maze
 			if (!_builtAisle)
 				throw new MazeException("Aisles has not been built yet.");
 
-			foreach (var room in _roomList.TakeRandom(count)) room.IsEnable = false;
+			foreach (var room in _roomList.OfType<Room>().TakeRandom(count)) room.IsEnable = false;
 
-			_rawAisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
+			_aisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
 
 			_cleanup = false;
 
@@ -94,7 +116,7 @@ namespace RougeLike.Katano.Maze
 		private void RemoveIsolatedRoom()
 		{
 			// ぼっちは生きられない
-			foreach (var room in _roomList.GetIsolatedRoom(_rawAisleList)) room.IsEnable = false;
+			foreach (var room in _roomList.GetIsolatedRoom(_aisleList)) room.IsEnable = false;
 		}
 
 		/// <summary>
@@ -102,35 +124,62 @@ namespace RougeLike.Katano.Maze
 		/// </summary>
 		private void RemoveSmallCluster()
 		{
-			var roomList = _roomList.Where(x => x.IsEnable).ToList();
-			var checkedRoomList = new HashSet<Room>(new RoomEqualityComparer());
-			var checkedRoomSet = new List<List<Room>>();
+			
+			
+			var roomList = _roomList.OfType<Room>().Where(x => x.IsEnable).ToList();
+			var cluster = new HashSet<Room>();
+			var clusterList = new List<List<Room>>();
 
-			var pick = roomList.RandomAt();
-			CountChainRooms(pick, ref checkedRoomList);
+			// ランダムに部屋を一つ選択する
+			var origin = roomList.RandomAt();
 
-			if (checkedRoomList.Count < roomList.Count / 2)
+			// 部屋に接続しているすべての部屋を探索する
+			CountChainRooms(origin, ref cluster);
+
+			if (cluster.Count >= roomList.Count / 2)
+			{
+				// 大きいクラスター以外の部屋を無効化
+				foreach (var room in roomList.Except(cluster)) room.IsEnable = false;
+				return;
+			}
+
+			
+
+			DiscoverAll();
+
+			RemoveCluster();
+
+			// 全探索する
+			void DiscoverAll()
 			{
 				while (true)
 				{
-					checkedRoomSet.Add(checkedRoomList.ToList());
-					roomList = roomList.Except(checkedRoomSet.SelectMany(x => x)).ToList();
-					checkedRoomList.Clear();
+					clusterList.Add(cluster.ToList());
+					roomList = roomList.Except(clusterList.SelectMany(x => x)).ToList();
+					if (!roomList.Any()) return;
 
-					if (!roomList.Any()) break;
-
-					pick = roomList.RandomAt();
-					CountChainRooms(pick, ref checkedRoomList);
+					// 部屋バッファを初期化
+					cluster.Clear();
+					origin = roomList.RandomAt();
+					CountChainRooms(origin, ref cluster);
 				}
-
-				foreach (var room in checkedRoomSet.OrderByDescending(x => x.Count)
-					.ThenByDescending(x => x.OrderByDescending(y => y.Id).ElementAt(0).Id).Skip(1)
-					.SelectMany(x => x)) room.IsEnable = false;
 			}
-			else
+
+			// 小クラスタを削除
+			void RemoveCluster()
 			{
-				// 大きいクラスター以外の部屋を無効化
-				foreach (var room in roomList.Except(checkedRoomList)) room.IsEnable = false;
+				var smallClusters = clusterList
+					// 要素数で並べかえ(降順)
+					.OrderByDescending(x => x.Count)
+					// さらにID(昇順)で並べかえ(降順)
+					.ThenByDescending(x => x.OrderBy(y => y.Id).ElementAt(0).Id)
+					// 1つ目を飛ばして平坦化
+					.Skip(1).SelectMany(x => x);
+				
+				foreach (var room in smallClusters)
+				{
+					room.IsEnable = false;
+				}
 			}
 		}
 
@@ -146,7 +195,7 @@ namespace RougeLike.Katano.Maze
 			// つながりが少ない部屋を消す
 			RemoveSmallCluster();
 
-			_rawAisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
+			_aisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
 
 			_cleanup = true;
 		}
@@ -158,7 +207,7 @@ namespace RougeLike.Katano.Maze
 		private void CountChainRooms(Room origin, ref HashSet<Room> checkedList)
 		{
 			// 部屋に接続しているすべての通路
-			foreach (var aisle in _rawAisleList.GetConnectingAisle(origin))
+			foreach (var aisle in _aisleList.GetConnectingAisle(origin))
 			{
 				// つながってる部屋を取得
 				var counterSide = aisle.GetCounterSide(origin);
@@ -183,7 +232,7 @@ namespace RougeLike.Katano.Maze
 			if (!_builtAisle) throw new MazeException("Aisles has not been built yet.");
 			if (!_cleanup) throw new MazeException("Maze has not been cleaned yet.");
 
-			return new Maze(_roomList, _rawAisleList.ToArray());
+			return new Maze(_roomList, _aisleList.ToArray(), _buildOptions.Width, _buildOptions.Height);
 		}
 
 		/// <summary>
@@ -194,25 +243,32 @@ namespace RougeLike.Katano.Maze
 		{
 			for (var i = 0; i < _buildOptions.Width; i++)
 			for (var j = 0; j < _buildOptions.Height; j++)
-			for (var k = 0; k < Utilities.Neighbors.Length; k++)
 			{
-				// Point
-				var (x, y) = Utilities.Neighbors[k];
+				var origin = _roomList[i, j];
+				for (var k = 0; k < Utilities.Neighbors.Length; k++)
+				{
+					// 四方向相対座標テーブルから座標を得る
+					var (x, y) = Utilities.Neighbors[k];
 
-				// 範囲外は除外
-				if (i + x < 0 || i + x >= _buildOptions.Width) continue;
-				if (j + y < 0 || j + y >= _buildOptions.Height) continue;
+					// 範囲外は除外
+					if (i + x < 0 || i + x >= _buildOptions.Width) continue;
+					if (j + y < 0 || j + y >= _buildOptions.Height) continue;
 
-				_roomList[i + x, j + y].AdjacentSide |= (AdjacentSides) (1 << k);
+					// 隣接する部屋
+					var neighbor = _roomList[i + x, j + y];
+				
+					// 隣接する部屋の方向のビットフラグを立てる
+					origin.AdjacentSide |= (AdjacentSides) (1 << k);
 
-				var aisle = new Aisle(
-					_roomList[i, j],
-					_roomList[i + x, j + y],
-					k % 2 == 0
-						? AisleTypes.Vertical
-						: AisleTypes.Horizontal);
-
-				aisles.Add(aisle);
+					// 新しい通路を作成
+					var aisle = (origin + neighbor)
+						.WithState(k % 2 == 0
+							? AisleChainState.Vertical
+							: AisleChainState.Horizontal);
+				
+					// 通路リストに追加
+					aisles.Add(aisle);
+				}
 			}
 		}
 
@@ -236,7 +292,7 @@ namespace RougeLike.Katano.Maze
 			void FillMark(Room origin)
 			{
 				// 部屋に接続しているすべての通路
-				foreach (var aisle in _rawAisleList.GetConnectingAisle(origin))
+				foreach (var aisle in _aisleList.GetConnectingAisle(origin))
 				{
 					if (!aisle.IsEnable) continue;
 					
@@ -252,13 +308,13 @@ namespace RougeLike.Katano.Maze
 			}
 			
 			// 通路のチェック済みフラグを消す
-			foreach (var aisle in _rawAisleList)
+			foreach (var aisle in _aisleList)
 			{
 				aisle.Reset();
 			}
 			
 			// 有効な部屋のリスト
-			var roomList = _roomList.Where(x => x.IsEnable).ToList();
+			var roomList = _roomList.OfType<Room>().Where(x => x.IsEnable).ToList();
 			
 			// マーキング
 			var mark = 0;
@@ -270,10 +326,10 @@ namespace RougeLike.Katano.Maze
 			}
 			
 			// 通路の数だけループする
-			for (var i = 0; i < _rawAisleList.Count ; i++)
+			for (var i = 0; i < _aisleList.Count ; i++)
 			{
 				// 未チェックかつ有効な通路を選択
-				var aisle = _rawAisleList.RandomAt(x => !x.IsCompleted && x.IsEnable);
+				var aisle = _aisleList.RandomAt(x => !x.IsCompleted && x.IsEnable);
 				
 				// 通路を無効化
 				aisle.IsEnable = false;
@@ -300,45 +356,6 @@ namespace RougeLike.Katano.Maze
 
 				// 処理済みとしてチェック
 				aisle.IsCompleted = true;
-			}
-		}
-
-		private class RoomEqualityComparer : IEqualityComparer<Room>
-		{
-			public bool Equals(Room x, Room y)
-			{
-				if (x == null && y == null)
-					return true;
-				if (x == null || y == null)
-					return false;
-
-				return x.Id == y.Id;
-			}
-
-			public int GetHashCode(Room obj)
-			{
-				return obj.Id.GetHashCode();
-			}
-		}
-
-		/// <summary>
-		///     等価性の比較処理クラス
-		/// </summary>
-		private class AisleEqualityComparer : IEqualityComparer<Aisle>
-		{
-			public bool Equals(Aisle x, Aisle y)
-			{
-				if (x == null && y == null)
-					return true;
-				if (x == null || y == null)
-					return false;
-				return x.Room0.Id == y.Room0.Id && x.Room1.Id == y.Room1.Id;
-			}
-
-			public int GetHashCode(Aisle obj)
-			{
-				var hashCode = obj.Room0.Id ^ obj.Room1.Id;
-				return hashCode.GetHashCode();
 			}
 		}
 	}

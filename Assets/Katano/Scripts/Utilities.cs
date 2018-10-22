@@ -1,4 +1,4 @@
-using RougeLike.Katano;
+using RogueLike.Katano;
 using UnityEngine;
 
 namespace Katano

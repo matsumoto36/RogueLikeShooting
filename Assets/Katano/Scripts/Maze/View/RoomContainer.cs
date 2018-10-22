@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace RougeLike.Katano.Maze.View
+namespace RogueLike.Katano.Maze.View
 {
 	/// <summary>
 	/// ルームコンテナ

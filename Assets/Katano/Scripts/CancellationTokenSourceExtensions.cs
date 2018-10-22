@@ -3,7 +3,7 @@ using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
 
-namespace RougeLike.Katano
+namespace RogueLike.Katano
 {
 	public static class CancellationTokenSourceExtensions
 	{

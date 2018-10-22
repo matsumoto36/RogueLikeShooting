@@ -1,12 +1,11 @@
 using System;
-using UniRx;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	/// <summary>
 	/// 通路
 	/// </summary>
-	public class Aisle
+	public class Aisle : IEquatable<Aisle>
 	{
 		/// <summary>
 		/// 接続している部屋A
@@ -17,31 +16,61 @@ namespace RougeLike.Katano.Maze
 		/// </summary>
 		public Room Room1 { get; }
 
-		public bool IsCompleted { get; set; }
+		/// <summary>
+		/// 迷路内で有効フラグ
+		/// </summary>
 		public bool IsEnable { get; set; }
-		public AisleTypes AisleType { get; }
 		
-		public Aisle(Room room0, Room room1, AisleTypes aisleType)
+		/// <summary>
+		/// 処理フラグ
+		/// </summary>
+		public bool IsCompleted { get; set; }
+		
+		/// <summary>
+		/// 通路のタイプ
+		/// </summary>
+		public AisleChainState AisleChainState { get; set; }
+		
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="room0"></param>
+		/// <param name="room1"></param>
+		/// <param name="aisleChainState"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public Aisle(Room room0, Room room1, AisleChainState aisleChainState = AisleChainState.Invalid)
 		{
-			if (room0 == room1)
-				throw new ArgumentException("The arguments are the same.");
+			if (room0 == null)
+				throw new ArgumentNullException(nameof(room0));
 
-			if (aisleType == AisleTypes.Invalid)
-				throw new ArgumentException("Invalid argument.", nameof(aisleType));
+			if (room1 == null)
+				throw new ArgumentNullException(nameof(room1));
+			
+			if (room0.Equals(room1))
+				throw new ArgumentException("The arguments are the same.");
+//
+//			if (aisleType == AisleTypes.Invalid)
+//				throw new ArgumentException("Invalid argument.", nameof(aisleType));
 			
 			(Room0, Room1) = room0.Id < room1.Id ? (room0, room1) : (room1, room0);
-			AisleType = aisleType;
+			AisleChainState = aisleChainState;
 		}
 
-		public Room GetCounterSide(Room self)
+		/// <summary>
+		/// 接続している反対側の部屋を取得
+		/// </summary>
+		/// <param name="origin"></param>
+		/// <returns></returns>
+		/// <exception cref="MazeException"></exception>
+		public Room GetCounterSide(Room origin)
 		{
-			// 自分ではない方を入れる
-			if (Room0 == self)
+			// 自分ではない方を返す
+			if (Room0.Equals(origin))
 			{
 				return Room1;
 			}
 
-			if (Room1 == self)
+			if (Room1.Equals(origin))
 			{
 				return Room0;
 			}
@@ -54,9 +83,40 @@ namespace RougeLike.Katano.Maze
 		{
 			return $"[Aisle]({Room0.Id},{Room1.Id})";
 		}
+
+		public bool Equals(Aisle other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Room0.Equals(other.Room0) && Room1.Equals(other.Room1);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != GetType()) return false;
+			return Equals((Aisle) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = Room0.Id ^ Room1.Id;
+			return hashCode.GetHashCode();
+		}
+
+		public static bool operator ==(Aisle left, Aisle right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(Aisle left, Aisle right)
+		{
+			return !Equals(left, right);
+		}
 	}
 
-	public enum AisleTypes
+	public enum AisleChainState
 	{
 		Invalid,
 		Horizontal,

@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	public class RoomView : MonoBehaviour
 	{
