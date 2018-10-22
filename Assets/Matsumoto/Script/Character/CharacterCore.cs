@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 using RogueLike.Matsumoto.Attack;
 
 namespace RogueLike.Matsumoto.Character {
@@ -11,8 +12,11 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		[SerializeField]
 		protected CharacterParameter _parameter;
+
+		public List<IStatusChange> StatusChanges {
+			get; protected set;
+		} = new List<IStatusChange>();
 
 		public CharacterParameter Parameter {
 			get { return _parameter; }
@@ -26,17 +30,19 @@ namespace RogueLike.Matsumoto.Character {
 		/// <param name="damage"></param>
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
-			var message = "";
 			switch(attacker) {
-				case CharacterAttacker cAttacker:
-					message = cAttacker.Attacker.name;
+				case CharacterAttacker sAttacker:
+					Debug.Log($"{sAttacker.Attacker.name}は{name}に{damage}ダメージ与えた");
+					break;
+				case StatusAttacker sAttacker:
+					
+					Debug.Log($"{name}は{damage}の{sAttacker.Attacker.GetStatusName()}ダメージを食らった");
 					break;
 				default:
-					message = "Unknown";
+					Debug.Log($"Unknownは{name}に{damage}ダメージ与えた");
 					break;
 			}
 
-			Debug.Log($"{message}は{name}に{damage}ダメージ与えた");
 
 			_parameter.HP -= damage;
 			if(_parameter.HP <= 0) {
@@ -53,8 +59,11 @@ namespace RogueLike.Matsumoto.Character {
 
 			var message = "";
 			switch(attacker) {
-				case CharacterAttacker cAttacker:
-					message = cAttacker.Attacker.name;
+				case CharacterAttacker sAttacker:
+					message = sAttacker.Attacker.name;
+					break;
+				case StatusAttacker sAttacker:
+					message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
 					break;
 				default:
 					message = "Unknown";
@@ -67,6 +76,26 @@ namespace RogueLike.Matsumoto.Character {
 		}
 
 		/// <summary>
+		/// ステータス変化を取り付ける
+		/// </summary>
+		/// <param name="changer"></param>
+		public void AttachStatus(IStatusChange changer) {
+
+			StatusChanges.Add(changer);
+			changer.OnAttachStatus(this);
+
+			//効果時間が0以下になったら取り外す
+			changer.RemainingTime
+				.Where(x => x <= 0)
+				.Subscribe(_ => {
+
+					changer.OnDetachStatus(this);
+					StatusChanges.Remove(changer);
+				})
+				.AddTo(this);
+		}
+
+		/// <summary>
 		/// アセットから自身を生成する
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -76,17 +105,32 @@ namespace RogueLike.Matsumoto.Character {
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 			var chara = obj.AddComponent<T>();
-			chara._parameter = asset.CharacterParameter;
+			chara.Parameter = asset.CharacterParameter;
 			chara.OnSpawn(asset);
 
 			return chara;
+		}
+
+		protected virtual void Start() {
+
+			this.UpdateAsObservable()
+				.Subscribe(_ => {
+
+					//ステータス変化の更新
+					for(int i = 0; i < StatusChanges.Count;i++) {
+						StatusChanges[i].OnUpdateStatus(this);
+					}
+
+				})
+				.AddTo(this);
 		}
 
 		/// <summary>
 		/// 生成された瞬間に呼ばれる
 		/// </summary>
 		/// <param name="asset"></param>
-		protected abstract void OnSpawn(CharacterAsset asset);
+		protected virtual void OnSpawn(CharacterAsset asset) {
 
+		}
 	}
 }

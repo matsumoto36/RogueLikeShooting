@@ -15,7 +15,6 @@ namespace RogueLike.Matsumoto {
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-
 		public IInputEventProvider InputEventProvider { get; private set; }
 
 
@@ -25,7 +24,9 @@ namespace RogueLike.Matsumoto {
 			gameObject.AddComponent<PlayerAttack>();
 		}
 
-		void Start() {
+		protected override void Start() {
+			base.Start();
+
 			InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
 
 			this.UpdateAsObservable()
