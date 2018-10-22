@@ -8,10 +8,10 @@ namespace RougeLike.Katano.Maze
 	public class Room
 	{
 		public int Id { get; }
-		public IntReactiveProperty Mark { get; } = new IntReactiveProperty();
-		public BoolReactiveProperty IsEnable { get; } = new BoolReactiveProperty(true);
-		public bool IsCompleted;
-		public AdjacentSides AdjacentSide;
+		public int Mark { get; set; }
+		public bool IsEnable { get; set; }
+		public bool IsCompleted { get; set; }
+		public AdjacentSides AdjacentSide { get; set; }
 
 		public Room(int id)
 		{

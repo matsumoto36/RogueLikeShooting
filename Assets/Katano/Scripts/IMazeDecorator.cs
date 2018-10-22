@@ -2,6 +2,6 @@ namespace RougeLike.Katano.Maze
 {
 	public interface IMazeDecorator
 	{
-		Maze Decoration(Maze maze);
+		MazeBuilder Decoration(MazeBuilder maze);
 	}
 }

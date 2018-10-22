@@ -17,8 +17,8 @@ namespace RougeLike.Katano.Maze
 		/// </summary>
 		public Room Room1 { get; }
 
-		public bool IsCompleted;
-		public BoolReactiveProperty IsEnable { get; } = new BoolReactiveProperty();
+		public bool IsCompleted { get; set; }
+		public bool IsEnable { get; set; }
 		public AisleTypes AisleType { get; }
 		
 		public Aisle(Room room0, Room room1, AisleTypes aisleType)

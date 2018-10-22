@@ -26,12 +26,11 @@ namespace RougeLike.Katano.Maze
 
 		public void OnStart()
 		{
-			var maze = MazeBuilder.CreateSquare(Width, Height)
-				.FillGrid()
-				.ShortenRoom(0.3f)
-				.Decoration(new LabyrinthDecorator());
+			var builder = new MazeBuilder();
+			var options = new MazeBuildOptions(Width, Height, EnumDecorationState.Labyrinth);
+			var director = new MazeDirector(builder, options);
 
-			_onBuiltMaze.OnNext(maze);
+			_onBuiltMaze.OnNext(director.Construct());
 			_onBuiltMaze.OnCompleted();
 		}
 	}

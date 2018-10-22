@@ -1,5 +1,6 @@
 namespace RougeLike.Katano.Maze
 {
+	
 	/// <summary>
 	///     迷路データ
 	/// </summary>

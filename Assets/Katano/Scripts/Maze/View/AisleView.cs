@@ -11,7 +11,11 @@ namespace RougeLike.Katano.Maze
 		{
 			_model = observable;
 
-			_model.IsEnable.Subscribe(x => gameObject.SetActive(x)).AddTo(this);
+			this.ObserveEveryValueChanged(x => x._model.IsEnable)
+				.Subscribe(x => gameObject.SetActive(x))
+				.AddTo(this);
+			
+			// _model.IsEnable.Subscribe(x => gameObject.SetActive(x)).AddTo(this);
 		}
 	}
 }
