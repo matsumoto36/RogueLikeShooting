@@ -10,61 +10,48 @@ namespace RogueLike.Nishiwaki.Item
     {
         public WeaponRangedParameter weaponRangedPara;
 
-        public bool CanShot { get; private set; } = true;
-
         // Use this for initialization
         void Start()
         {
             var bullet = new BulletProjectile();
             bullet.BulletPrefabPath = "Bullet/NormalBullet";
 
-            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet, 0);
+            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet);
         }
 
         // Update is called once per frame
         void Update()
         {
+            // デバッグ用
             if (Input.GetKey(KeyCode.Z))
             {
-                switch (weaponRangedPara.FireType)
-                {
-                    case 0:
-                        Attack();
-                        break;
-                    case 1:
-                        AttackDown();
-                        break;
-                    case 2:
-                        AttackUp();
-                        break;
-                }
+
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+
+            }
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+
             }
         }
-        public void Attack()
+        public void SpawnBulletPoint()
         {
-            if (!CanShot) return;
-            CanShot = false;
             // 弾の発射位置
-            StartCoroutine(canShot());
-            weaponRangedPara.ibullet.SpawnCreate(transform);
-        }
-        public void AttackUp()
-        {
-            //ibullet.SpawnCreate(transform);
-        }
-        public void AttackDown()
-        {
-            if (!CanShot) return;
-            CanShot = false;
-            // 弾の発射位置
-            StartCoroutine(canShot());
             weaponRangedPara.ibullet.SpawnCreate(transform);
         }
 
-        IEnumerator canShot()
+        public virtual void Attack()
         {
-            yield return new WaitForSeconds(weaponRangedPara.WaitTime);
-            CanShot = true;
+        }
+
+        public virtual void AttackUp()
+        {
+        }
+
+        public virtual void AttackDown()
+        {
         }
     }
 }
