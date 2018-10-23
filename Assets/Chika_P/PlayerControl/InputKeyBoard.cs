@@ -14,7 +14,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
         public override Vector3 GetMoveVector()
         {
             //WASDキーで移動
-            return new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+            return new Vector3(Input.GetAxisRaw("Keyboard_XAxis"), 0, Input.GetAxisRaw("Keyboard_YAxis")).normalized;
         }
 
         public override Vector3 GetPleyerDirection(Vector3 playerPos)
