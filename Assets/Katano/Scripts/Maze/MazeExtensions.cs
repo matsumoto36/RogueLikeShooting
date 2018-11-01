@@ -5,11 +5,6 @@ namespace RogueLike.Katano.Maze
 {
 	public static class MazeExtensions
 	{
-		public static MazeBuilder Decoration(this MazeBuilder builder, IMazeDecorator decorator)
-		{
-			return decorator.Decoration(builder);
-		}
-
 		public static Aisle WithState(this Aisle aisle, AisleChainState aisleChainState)
 		{
 			aisle.AisleChainState = aisleChainState;
