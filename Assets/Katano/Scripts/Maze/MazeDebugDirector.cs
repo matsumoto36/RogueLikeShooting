@@ -7,12 +7,8 @@ namespace RogueLike.Katano.Maze
 {
 	public class MazeDebugDirector : MonoBehaviour
 	{
-
-		public Button BuildRoom;
-		public Button BuildAisle;
-		public Button Shortening;
-		public Button Decoration;
-		public Button Apply;
+		[SerializeField]
+		private Button _stepButton;
 
 		private CancellationTokenSource _tokenSource;
 			
@@ -46,25 +42,33 @@ namespace RogueLike.Katano.Maze
 		{
 			_builder.SetOptions(_options);
 
-			await BuildRoom.OnClickAsync();
+			await ButtonClickAsync("Build Room");
 			
 			_builder.BuildRoom();
 
-			await BuildAisle.OnClickAsync();
+			await ButtonClickAsync("Build Aisle");
 			
 			_builder.BuildAisle();
 
-			await Shortening.OnClickAsync();
+			await ButtonClickAsync("Shorten Room");
 			
 			_builder.ShortenRoom(0.5f);
 
-			await Decoration.OnClickAsync();
+			await ButtonClickAsync("Decoration");
 			
 			_builder.Decoration();
 
-			await Apply.OnClickAsync();
+			await ButtonClickAsync("Apply Changes!");
 
 			return _builder.Build();
+		}
+
+		private UniTask ButtonClickAsync(string label)
+		{
+			var text = _stepButton.GetComponentInChildren<Text>();
+			text.text = label;
+
+			return _stepButton.OnClickAsync();
 		}
 	}
 }
