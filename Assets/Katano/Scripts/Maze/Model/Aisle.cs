@@ -8,6 +8,11 @@ namespace RogueLike.Katano.Maze
 	public class Aisle : IEquatable<Aisle>
 	{
 		/// <summary>
+		/// ID
+		/// </summary>
+		public int Id => GetHashCode();
+		
+		/// <summary>
 		/// 接続している部屋A
 		/// </summary>
 		public Room Room0 { get; }
@@ -79,6 +84,11 @@ namespace RogueLike.Katano.Maze
 			throw new MazeException("This aisle is not connected to the room");
 		}
 
+		public bool IsValid()
+		{
+			return Room0.IsEnable && Room1.IsEnable;
+		}
+		
 		public override string ToString()
 		{
 			return $"[Aisle]({Room0.Id},{Room1.Id})";

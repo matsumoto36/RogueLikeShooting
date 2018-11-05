@@ -1,8 +1,6 @@
 using System;
 using UniRx;
-using UniRx.Async;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RogueLike.Katano.Maze
 {
@@ -16,9 +14,6 @@ namespace RogueLike.Katano.Maze
 		
 		[SerializeField]
 		private bool _buildOnAwake = true;
-
-		[FormerlySerializedAs("_debugDirector")]
-		public MazeDebugDirector DebugDirector;
 		
 		public int Width = 4;
 		public int Height = 4;
@@ -26,16 +21,18 @@ namespace RogueLike.Katano.Maze
 		private void Start()
 		{
 			if (_buildOnAwake)
-				OnStart().Forget();
+				OnStart();
 		}
 
-		private async UniTaskVoid OnStart()
+		private void OnStart()
 		{
 			var builder = new MazeBuilder();
 			var options = new MazeBuildOptions(Width, Height, EnumDecorationState.Labyrinth);
-			DebugDirector.Initialize(builder, options);
+			//DebugDirector.Initialize(builder, options);
+			var director = new MazeDirector(builder, options);
 			
-			_onBuiltMaze.OnNext(await DebugDirector.ConstructAsync());
+			//_onBuiltMaze.OnNext(await DebugDirector.ConstructAsync());
+			_onBuiltMaze.OnNext(director.Construct());
 			_onBuiltMaze.OnCompleted();
 		}
 	}

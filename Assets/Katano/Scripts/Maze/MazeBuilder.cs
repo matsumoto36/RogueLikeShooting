@@ -103,7 +103,7 @@ namespace RogueLike.Katano.Maze
 
 			foreach (var room in _roomList.OfType<Room>().TakeRandom(count)) room.IsEnable = false;
 
-			_aisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
+			_aisleList.RemoveWhere(x => !x.IsValid());
 
 			_cleanup = false;
 
@@ -358,22 +358,5 @@ namespace RogueLike.Katano.Maze
 				aisle.IsCompleted = true;
 			}
 		}
-	}
-
-	/// <summary>
-	///     生成オプション
-	/// </summary>
-	public struct MazeBuildOptions
-	{
-		public MazeBuildOptions(int width, int height, EnumDecorationState decorationState)
-		{
-			Width = width;
-			Height = height;
-			DecorationState = decorationState;
-		}
-
-		public int Width { get; }
-		public int Height { get; }
-		public EnumDecorationState DecorationState { get; }
 	}
 }

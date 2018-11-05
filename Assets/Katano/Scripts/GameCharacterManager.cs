@@ -4,7 +4,6 @@ using RogueLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Katano
 {
@@ -14,22 +13,18 @@ namespace Katano
 	public class GameCharacterManager : MonoBehaviour
 	{
 		public GameBoardManager GameBoardManager;
+		public MazeCharacterSpawner CharacterSpawner;
 		public MazeViewBuilder MazeViewBuilder;
-		public CharacterSpawner CharacterSpawner;
-		[FormerlySerializedAs("PlayerCamera")]
-		public DebugPlayerCamera DebugPlayerCamera;
-
+		
 		private void Start()
 		{
 			async UniTaskVoid OnStart()
 			{
 				var maze = await GameBoardManager.OnBuiltMaze;
 				
-				MazeViewBuilder.BuildView(maze);
+				var viewer = MazeViewBuilder.BuildView(maze);
 
-				var character = CharacterSpawner.Spawn();
-
-				DebugPlayerCamera.Target = character.transform;
+				CharacterSpawner.Spawn(viewer);
 			}
 
 			OnStart().Forget();

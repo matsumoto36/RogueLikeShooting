@@ -10,7 +10,7 @@ namespace RogueLike.Katano.Maze
 	{
 		public int Id { get; }
 		public int Mark { get; set; }
-		public bool IsEnable { get; set; }
+		public bool IsEnable { get; set; } = true;
 		public bool IsCompleted { get; set; }
 		public AdjacentSides AdjacentSide { get; set; }
 

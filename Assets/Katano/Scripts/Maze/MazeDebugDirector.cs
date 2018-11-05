@@ -52,7 +52,7 @@ namespace RogueLike.Katano.Maze
 
 			await ButtonClickAsync("Shorten Room");
 			
-			_builder.ShortenRoom(0.5f);
+			_builder.ShortenRoom(0);
 
 			await ButtonClickAsync("Decoration");
 			
