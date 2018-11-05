@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using RogueLike.Matsumoto.Attack;
+using RogueLike.Nishiwaki;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -12,15 +13,29 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		protected CharacterParameter _parameter;
-
 		public List<IStatusChange> StatusChanges {
 			get; protected set;
 		} = new List<IStatusChange>();
 
-		public CharacterParameter Parameter {
-			get { return _parameter; }
-			protected set { _parameter = value; }
+		public IWeapon Weapon { get; private set; }
+
+		public abstract int HP {
+			get; protected set;
+		}
+
+		/// <summary>
+		/// 武器を装備する
+		/// </summary>
+		/// <param name="weapon"></param>
+		public void AttachWeapon(IWeapon weapon) {
+			Weapon = weapon;
+		}
+
+		/// <summary>
+		/// 武器を外す
+		/// </summary>
+		public void DetachWeapon() {
+			Weapon = null;
 		}
 
 		/// <summary>
@@ -44,9 +59,9 @@ namespace RogueLike.Matsumoto.Character {
 			}
 
 
-			_parameter.HP -= damage;
-			if(_parameter.HP <= 0) {
-				_parameter.HP = 0;
+			HP -= damage;
+			if(HP <= 0) {
+				HP = 0;
 				Kill(attacker);
 			}
 		}
@@ -105,7 +120,6 @@ namespace RogueLike.Matsumoto.Character {
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 			var chara = obj.AddComponent<T>();
-			chara.Parameter = asset.CharacterParameter;
 			chara.OnSpawn(asset);
 
 			return chara;

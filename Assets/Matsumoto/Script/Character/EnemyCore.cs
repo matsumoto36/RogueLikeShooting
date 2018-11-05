@@ -20,12 +20,17 @@ namespace RogueLike.Matsumoto.Character {
 			get; protected set;
 		} = true;
 
+		public override int HP {
+			get; protected set;
+		}
+
 		/// <summary>
 		/// 移動する。AIが利用する。
 		/// </summary>
 		/// <param name="vec"></param>
 		public void Move(Vector3 vec) {
-			transform.position += vec * Parameter.MoveSpeed * Time.deltaTime;
+			//武器依存で移動したい
+			transform.position += vec * 4 * Time.deltaTime;
 		}
 
 		/// <summary>
@@ -55,6 +60,9 @@ namespace RogueLike.Matsumoto.Character {
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
+
+			//HPを設定
+			HP = asset.HP;
 
 			//AIの設定
 			switch(asset.EnemyAIType) {

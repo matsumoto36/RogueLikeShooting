@@ -10,14 +10,14 @@ using RogueLike.Matsumoto;
 public class CharacterAssetInspector : Editor {
 
 	SerializedProperty _characterType;
-	SerializedProperty _characterParameter;
+	SerializedProperty _characterHP;
 	SerializedProperty _modelPrefab;
 	SerializedProperty _enemyAIType;
 
 	void OnEnable() {
 
 		_characterType = serializedObject.FindProperty("CharacterType");
-		_characterParameter = serializedObject.FindProperty("CharacterParameter");
+		_characterHP = serializedObject.FindProperty("HP");
 		_modelPrefab = serializedObject.FindProperty("ModelPrefab");
 		_enemyAIType = serializedObject.FindProperty("EnemyAIType");
 
@@ -28,8 +28,7 @@ public class CharacterAssetInspector : Editor {
 		serializedObject.Update();
 
 		EditorGUILayout.PropertyField(_characterType);
-		EditorGUILayout.PropertyField(_characterParameter.FindPropertyRelative("HP"));
-		EditorGUILayout.PropertyField(_characterParameter.FindPropertyRelative("MoveSpeed"));
+		EditorGUILayout.PropertyField(_characterHP);
 
 		EditorGUILayout.PropertyField(_modelPrefab);
 		if(_characterType.enumValueIndex == (int)CharacterType.Enemy)

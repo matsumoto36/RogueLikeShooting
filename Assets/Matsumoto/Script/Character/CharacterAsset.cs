@@ -6,7 +6,7 @@ namespace RogueLike.Matsumoto.Character {
 	public class CharacterAsset : ScriptableObject {
 
 		public CharacterType CharacterType;
-		public CharacterParameter CharacterParameter;
+		public int HP;
 		public GameObject ModelPrefab;
 		public EnemyAIType EnemyAIType;
 	}
