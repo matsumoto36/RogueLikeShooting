@@ -24,7 +24,7 @@ namespace Katano
 				
 				var viewer = MazeViewBuilder.BuildView(maze);
 
-				CharacterSpawner.Spawn(viewer);
+				CharacterSpawner.Spawn(null);
 			}
 
 			OnStart().Forget();

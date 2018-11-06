@@ -1,25 +1,23 @@
 using UniRx;
+using UniRx.Async;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace RogueLike.Katano.Maze
 {
 	public class RoomView : MonoBehaviour
 	{
-		private Room _model;
 		
-		public void Initialize(Room observable)
+		[SerializeField]
+		private BoxCollider _roomBounds;
+		
+		
+
+		public async UniTaskVoid SpawnEnemyAsync()
 		{
-			_model = observable;
+			var collision = await _roomBounds.OnCollisionEnterAsObservable().ToUniTask();
 
-			this.ObserveEveryValueChanged(x => x._model.IsEnable)
-				.SubscribeWithState(gameObject, (flag, go) => go.SetActive(flag))
-				.AddTo(this);
-
-//			Component.IsEnable
-//				.SubscribeWithState(gameObject, (flag, go) => go.SetActive(flag))
-//				.AddTo(this);
-
-
+			
 		}
 	}
 }

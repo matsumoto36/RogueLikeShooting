@@ -8,17 +8,37 @@ namespace RogueLike.Katano.Maze
 {
 	public class MazeCharacterSpawner : MonoBehaviour
 	{
-		public CharacterSpawner CharacterSpawner;
-		public DebugPlayerCamera DebugPlayerCamera;
+		private MazeViewer _mazeViewer;
 
-		public void Spawn(MazeViewer mazeViewer)
+		public void Initialize(MazeViewer mazeViewer)
 		{
-			var character = CharacterSpawner.Spawn();
+			_mazeViewer = mazeViewer;
+		}
+		
+		public void Spawn(CharacterSpawner spawner)
+		{
+			var character = spawner.Spawn();
 
-			var spawnRoom = mazeViewer.Maze.RoomList.OfType<Room>().RandomAt(x => x.IsEnable);
-			character.transform.position = mazeViewer.Rooms[spawnRoom.Id].transform.position;
-			
-			DebugPlayerCamera.Target = character.transform;
+			var spawnRoom = _mazeViewer.Maze.RoomList.OfType<Room>().RandomAt(x => x.IsEnable);
+			character.transform.position = _mazeViewer.Rooms[spawnRoom.Id].transform.position;
+		}
+
+		public void Spawn(EnemyGroup enemyGroup)
+		{
+			foreach (var spawner in enemyGroup.SpawnerList)
+			{
+				var character = spawner.Spawn();
+			}
+		}
+
+		public struct EnemyGroup
+		{
+			public readonly CharacterSpawner[] SpawnerList;
+
+			public EnemyGroup(CharacterSpawner[] spawnerList)
+			{
+				SpawnerList = spawnerList;
+			}
 		}
 	}
 }
