@@ -70,7 +70,7 @@ namespace RogueLike.Matsumoto.Character {
 		/// 殺す
 		/// </summary>
 		/// <param name="attacker"></param>
-		public void Kill(IAttacker attacker) {
+		public virtual void Kill(IAttacker attacker) {
 
 			var message = "";
 			switch(attacker) {

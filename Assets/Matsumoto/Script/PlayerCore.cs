@@ -15,28 +15,43 @@ namespace RogueLike.Matsumoto {
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-		static PlayerHPProvider playerHPProvider = null;
+		static List<PlayerCore> _players = new List<PlayerCore>();
+		static PlayerHPProvider _playerHPProvider = null;
 
 		public IInputEventProvider InputEventProvider { get; private set; }
 
 		public override int HP {
 			get {
-				return playerHPProvider.HP;
+				return _playerHPProvider.HP;
 			}
 			protected set {
-				playerHPProvider.HP = value;
+				_playerHPProvider.HP = value;
 			}
+		}
+
+		public override void Kill(IAttacker attacker) {
+			base.Kill(attacker);
+
+			//リストから削除
+			_players.Remove(this);
+
+			//他も殺す
+			if(_players.Count > 0)
+				_players[0].Kill(attacker);
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
 
+			//リストに追加
+			_players.Add(this);
+
 			//HPの設定
-			if(!playerHPProvider) {
-				if(!(playerHPProvider = FindObjectOfType<PlayerHPProvider>())) {
-					playerHPProvider = new GameObject("[PlayerHPProvider]")
+			if(!_playerHPProvider) {
+				if(!(_playerHPProvider = FindObjectOfType<PlayerHPProvider>())) {
+					_playerHPProvider = new GameObject("[PlayerHPProvider]")
 						.AddComponent<PlayerHPProvider>();
 
-					playerHPProvider.HP = asset.HP;
+					_playerHPProvider.HP = asset.HP;
 				}
 			}
 

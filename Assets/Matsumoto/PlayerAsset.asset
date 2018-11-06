@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Name: PlayerAsset
   m_EditorClassIdentifier: 
   CharacterType: 0
-  CharacterParameter:
-    HP: 100
-    MoveSpeed: 5
+  HP: 100
   ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
     type: 2}
   EnemyAIType: 0
