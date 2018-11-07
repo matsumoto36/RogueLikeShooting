@@ -10,42 +10,43 @@ namespace RogueLike.Chikazawa.InputEventProvider
      /// </summary>
     public class InputController : PlayerInputProvider
     {
-        bool dead = false;  //deadPointは有効
-
-        public override Vector3 GetMoveVector()
+        public override Vector3 GetMoveVector(int controllerNo)
         {
+            Vector2 inputMove = GamePad.GetAxis(GamePad.Axis.LeftStick, (GamePad.Index)controllerNo, false);
             //左スティックで移動
-            return new Vector3(GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One, dead).x,
+            return new Vector3(inputMove.x,
                                0,
-                               GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One, dead).y)
+                               inputMove.y)
                                .normalized;
         }
 
-        public override Vector3 GetPleyerDirection(Vector3 playerPos)
+        public override Vector3 GetPleyerDirection(Vector3 playerPos, int controllerNo)
         {
+            Vector2 inputDirection = GamePad.GetAxis(GamePad.Axis.RightStick, (GamePad.Index)controllerNo, false);
+
             //右スティックで方向入力
             //Playerの座標に入力を加算している
-            return new Vector3(GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.One, dead).x,
+            return new Vector3(inputDirection.x,
                                0,
-                               GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.One, dead).y)
+                               inputDirection.y)
                                .normalized
                                + playerPos;
         }
 
-        public override bool GetShotButton()
+        public override bool GetShotButton(int controllerNo)
         {
             //L1キーで攻撃
-            return GamePad.GetButton(GamePad.Button.LeftShoulder,GamePad.Index.One);
+            return GamePad.GetButton(GamePad.Button.LeftShoulder,(GamePad.Index)controllerNo);
         }
-        public override bool GetShotDown()
+        public override bool GetShotDown(int controllerNo)
         {
-            //左クリック押して起動
-            return GamePad.GetButtonDown(GamePad.Button.LeftShoulder, GamePad.Index.One);
+            //L1押して起動
+            return GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)controllerNo);
         }
-        public override bool GetShotUp()
+        public override bool GetShotUp(int controllerNo)
         {
-            //左クリック離して起動
-            return GamePad.GetButtonUp(GamePad.Button.LeftShoulder, GamePad.Index.One);
+            //L1離して起動
+            return GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)controllerNo);
         }
 
     }

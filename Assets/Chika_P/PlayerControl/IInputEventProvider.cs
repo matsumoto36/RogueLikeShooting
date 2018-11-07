@@ -15,17 +15,17 @@ namespace RogueLike.Chikazawa
         /// コントローラー：L１ボタン
         /// </summary>
         /// <returns></returns>
-        bool GetShotButton();
+        bool GetShotButton(int controllerNo);
         /// <summary>
         /// 攻撃タメフラグ
         /// </summary>
         /// <returns></returns>
-        bool GetShotDown();
+        bool GetShotDown(int controllerNo);
         /// <summary>
         /// 攻撃放出フラグ
         /// </summary>
         /// <returns></returns>
-        bool GetShotUp();
+        bool GetShotUp(int controllerNo);
         /// <summary>
         /// 正面方向の入力
         /// キーボード：マウス ／
@@ -33,14 +33,14 @@ namespace RogueLike.Chikazawa
         /// </summary>
         /// <param name="plaryerPos"></param>
         /// <returns></returns>
-        Vector3 GetPleyerDirection(Vector3 plaryerPos);
+        Vector3 GetPleyerDirection(Vector3 plaryerPos, int controllerNo);
         /// <summary>
         /// 移動の入力
         /// キーボード：WASDキー or 矢印キー ／
         /// コントローラー：左スティック
         /// </summary>
         /// <returns></returns>
-        Vector3 GetMoveVector();
+        Vector3 GetMoveVector(int controllerNo);
     }
 }
 
