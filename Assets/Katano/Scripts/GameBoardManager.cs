@@ -1,4 +1,5 @@
 using System;
+using RogueLike.Katano.Maze.View;
 using UniRx;
 using UnityEngine;
 
@@ -9,11 +10,14 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class GameBoardManager : MonoBehaviour
 	{
-		private readonly AsyncSubject<Maze> _onBuiltMaze = new AsyncSubject<Maze>();
-		public IObservable<Maze> OnBuiltMaze => _onBuiltMaze;
+		private readonly AsyncSubject<MazeView> _onBuiltMaze = new AsyncSubject<MazeView>();
+		public IObservable<MazeView> OnBuiltMaze => _onBuiltMaze;
 		
 		[SerializeField]
 		private bool _buildOnAwake = true;
+
+		[SerializeField]
+		private MazeDataAssetBase _mazeDataAsset;
 		
 		public int Width = 4;
 		public int Height = 4;
@@ -26,14 +30,36 @@ namespace RogueLike.Katano.Maze
 
 		private void OnStart()
 		{
+			var maze = ConstructMaze();
+			var view = ConstructMazeView(maze);
+			
+			_onBuiltMaze.OnNext(view);
+			_onBuiltMaze.OnCompleted();
+		}
+
+		/// <summary>
+		/// 迷宮を生成
+		/// </summary>
+		/// <returns></returns>
+		private Maze ConstructMaze()
+		{
 			var builder = new MazeBuilder();
 			var options = new MazeBuildOptions(Width, Height, EnumDecorationState.Labyrinth);
-			//DebugDirector.Initialize(builder, options);
 			var director = new MazeDirector(builder, options);
 			
-			//_onBuiltMaze.OnNext(await DebugDirector.ConstructAsync());
-			_onBuiltMaze.OnNext(director.Construct());
-			_onBuiltMaze.OnCompleted();
+			return director.Construct();
+		}
+
+		/// <summary>
+		/// 迷宮を実体化する
+		/// </summary>
+		/// <param name="maze"></param>
+		/// <returns></returns>
+		private MazeView ConstructMazeView(Maze maze)
+		{
+			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset, transform);
+
+			return viewBuilder.Construct();
 		}
 	}
 }

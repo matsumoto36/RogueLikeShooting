@@ -1,6 +1,5 @@
-using RogueLike.Matsumoto;
-using RogueLike.Katano;
 using RogueLike.Katano.Maze;
+using RogueLike.Katano.Maze.View;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace Katano
 	public class GameCharacterManager : MonoBehaviour
 	{
 		public GameBoardManager GameBoardManager;
-		public MazeCharacterSpawner CharacterSpawner;
 		public MazeViewBuilder MazeViewBuilder;
 		
 		private void Start()
@@ -22,12 +20,21 @@ namespace Katano
 			{
 				var maze = await GameBoardManager.OnBuiltMaze;
 				
-				var viewer = MazeViewBuilder.BuildView(maze);
-
-				CharacterSpawner.Spawn(null);
+				
+				
+				//CharacterSpawner.Spawn((SpawnDataAsset)null);
 			}
 
-			OnStart().Forget();
+			// OnStart().Forget();
+		}
+
+		/// <summary>
+		/// プレイヤーのスポーン場所を選定する
+		/// </summary>
+		/// <param name="view"></param>
+		private void ChoosePlayerSpawnPoint(MazeView view)
+		{
+			
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace RogueLike.Katano.Maze
 			Room ConstructMethod(int x, int y)
 			{
 				var height = _buildOptions.Height;
-				return new Room(height * y + x);
+				return new Room(height * y + x, new Point(x,y));
 			}
 			
 			_roomList = new Room[_buildOptions.Width, _buildOptions.Height]

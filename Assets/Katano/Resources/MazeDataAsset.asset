@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d1a75769784f8883f1d61c90d66eca, type: 3}
   m_Name: MazeDataAsset
   m_EditorClassIdentifier: 
+  PlayerRoomPrefab: {fileID: 1074016792276738, guid: f4d0626d6f62dce45a3b159d3d51ab06,
+    type: 2}
   RoomPrefabList:
   - {fileID: 1074016792276738, guid: 3e3502d7af2909946bf2e87a925ac9a7, type: 2}
   AislePrefabList: []

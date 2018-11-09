@@ -58,5 +58,29 @@ namespace Reqweldzen.Extensions
 				}
 			}
 		}
+
+		public static IEnumerable<T> Shuffle<T>([NotNull] this IEnumerable<T> source)
+		{
+			if (source == null) throw new ArgumentNullException(nameof(source));
+			return ShuffleIterator(source);
+		}
+
+		private static IEnumerable<T> ShuffleIterator<T>(IEnumerable<T> source)
+		{
+			var array = source.ToArray();
+				
+			for (var i = array.Length - 1; i > 0; i--)
+			{
+				var r = Mathf.FloorToInt(Random.value * (i + 1));
+				var tmp = array[i];
+				array[i] = array[r];
+				array[r] = tmp;
+			}
+				
+			foreach (var source1 in array)
+			{
+				yield return source1;
+			}
+		}
 	}
 }

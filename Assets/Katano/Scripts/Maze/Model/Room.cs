@@ -9,14 +9,18 @@ namespace RogueLike.Katano.Maze
 	public class Room : IEquatable<Room>
 	{
 		public int Id { get; }
+		
+		public Point Coord { get; }
+		
 		public int Mark { get; set; }
 		public bool IsEnable { get; set; } = true;
 		public bool IsCompleted { get; set; }
 		public AdjacentSides AdjacentSide { get; set; }
 
-		public Room(int id)
+		public Room(int id, Point coord)
 		{
 			Id = id;
+			Coord = coord;
 		}
 
 		public bool Equals(Room other)

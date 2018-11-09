@@ -24,14 +24,28 @@ GameObject:
   - component: {fileID: 64231594027696706}
   - component: {fileID: 114252219551166132}
   - component: {fileID: 114854913249438880}
-  - component: {fileID: 114392596005422032}
   - component: {fileID: 114583449490700670}
   m_Layer: 0
-  m_Name: RoomView
+  m_Name: PlayerRoomView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
+  m_IsActive: 1
+--- !u!1 &1375254485160608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4331011273710264}
+  m_Layer: 0
+  m_Name: CharacterSpawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1712659939937422
 GameObject:
@@ -60,8 +74,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4941112021389658}
+  - {fileID: 4331011273710264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4331011273710264
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1375254485160608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4161910624545448}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4941112021389658
 Transform:
@@ -2395,18 +2423,6 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
---- !u!114 &114392596005422032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1074016792276738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9fea4feae854e0f859f654486b90c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _navMeshSurface: {fileID: 114854913249438880}
 --- !u!114 &114583449490700670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2418,6 +2434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8623e28dbb452cb3980ef48b7bbfcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _navMeshSurface: {fileID: 114854913249438880}
   _roomBounds: {fileID: 65449035992523744}
 --- !u!114 &114854913249438880
 MonoBehaviour:

@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace RogueLike.Katano.Maze.Debug
+namespace RogueLike.Katano.Maze
 {
 	/// <summary>
 	/// 通路
