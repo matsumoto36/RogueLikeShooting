@@ -368,7 +368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a213c719366450d409bff9af747d7fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Players: 
   DefaultBody: {fileID: 1062963399884852, guid: eecd3e183d776f4468b03b803eb77d31,
     type: 2}
 --- !u!4 &934665561

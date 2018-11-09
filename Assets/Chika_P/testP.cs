@@ -15,14 +15,20 @@ public class testP : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Debug.Log(Input.GetJoystickNames().Length);
         if (ControllerNo != 0)
         {
             eventProvider = new InputController();
-            Input.GetJoystickNames()[ControllerNo-1] = ("Player" + ControllerNo);
+            Debug.Log("プレイヤー" + ControllerNo + "がコントローラーで参加しました。");
         }
         else
+        {
             eventProvider = new InputKeyBoard();
+            Debug.Log("プレイヤー" + ControllerNo + "がキーボードで参加しました。");
+        }
+        if (PlayerEntry.Players[0] == ControllerNo)
+        {
+            Debug.Log("プレイヤー" + ControllerNo + "がリーダーです");
+        }
     }
 
     // Update is called once per frame

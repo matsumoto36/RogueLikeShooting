@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 1062963399884852}
-  ControllerNo: 1
+  ControllerNo: 0
 --- !u!136 &136371506062325642
 CapsuleCollider:
   m_ObjectHideFlags: 1
