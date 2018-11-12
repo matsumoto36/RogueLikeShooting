@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Nishiwaki
+namespace RogueLike.Nishiwaki.Bullet
 {
-    public interface IBullet
+    public enum BulletType
     {
-        void BulletBase();
+
+        Projectile, Lazer
+
     }
 }

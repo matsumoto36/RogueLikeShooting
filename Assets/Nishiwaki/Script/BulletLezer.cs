@@ -6,6 +6,9 @@ namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletLezer : BulletBase
     {
+        public BulletLezer(BulletAsset asset) : base(asset)
+        {
+        }
 
         // Use this for initialization
         void Start()

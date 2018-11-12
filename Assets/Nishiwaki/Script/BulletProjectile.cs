@@ -7,16 +7,19 @@ namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletProjectile : BulletBase
     {
-        // Use this for initialization
-        void Start()
+        public BulletProjectile(BulletAsset asset) : base(asset)
         {
 
         }
 
-        // Update is called once per frame
-        void Update()
+        public static BulletProjectile Create(BulletAsset asset, Transform Transform)
         {
+            var obj = UnityEngine.Object.Instantiate(asset.BulletPrefab, Transform.position, Transform.rotation);
+            var bullet = obj.AddComponent<BulletBase>();
+            bullet.bulletPara = asset.BulletParameter;
 
+            return bullet;
         }
+
     }
 }

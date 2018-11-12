@@ -13,33 +13,18 @@ namespace RogueLike.Nishiwaki.Item
         // Use this for initialization
         void Start()
         {
-            var bullet = new BulletProjectile();
-            bullet.BulletPrefabPath = "Bullet/NormalBullet";
-
-            weaponRangedPara = new WeaponRangedParameter(0.1f, bullet);
+            //var bullet = new BulletProjectile();
+            //bullet.BulletPrefabPath = "Bullet/NormalBullet";
         }
 
         // Update is called once per frame
         void Update()
         {
-            // デバッグ用
-            if (Input.GetKey(KeyCode.Z))
-            {
-
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-
-            }
-            if (Input.GetKeyUp(KeyCode.Z))
-            {
-
-            }
         }
         public void SpawnBulletPoint()
         {
             // 弾の発射位置
-            weaponRangedPara.ibullet.SpawnCreate(transform);
+            //weaponRangedPara.ibullet.SpawnCreate(transform);
         }
 
         public virtual void Attack()
@@ -52,6 +37,16 @@ namespace RogueLike.Nishiwaki.Item
 
         public virtual void AttackDown()
         {
+        }
+
+        public static WeaponRanged Create(WeaponRangedAsset asset, Transform Transform)
+        {
+            var obj = Instantiate(asset.WeaponRangedPrefab, Transform.position, Transform.rotation);
+            var weapon = obj.AddComponent<WeaponRangedAuto>();
+            weapon.weaponRangedPara = asset.WeaponRangedParameter;
+            weapon.weaponRangedPara.ibullet = BulletBase.Create(asset.BulletAsset);
+
+            return weapon;
         }
     }
 }

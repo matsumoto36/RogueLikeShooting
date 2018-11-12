@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace RogueLike.Nishiwaki.Item
 {
+    [System.Serializable]
     public struct WeaponRangedParameter
     {
         public IBullet ibullet;

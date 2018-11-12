@@ -4,15 +4,17 @@ using UnityEngine;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
+    [System.Serializable]
+
     public struct BulletParameter
     {
         public float Speed, Power;
 
-        public BulletParameter(float p1, float p2)
+        public BulletParameter(float speed, float power)
         {
             //とりあえず思いついたパラメーターたち
-            Speed = p1;
-            Power = p2;
+            Speed = speed;
+            Power = power;
         }
     }
 }

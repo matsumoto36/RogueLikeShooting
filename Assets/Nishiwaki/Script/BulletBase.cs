@@ -7,19 +7,43 @@ namespace RogueLike.Nishiwaki.Bullet
 {
     public abstract class BulletBase : IBullet
     {
-        public BulletParameter bulletPara;
-        int fream;
+        // 弾のパラメータ
+        public BulletParameter BulletPara;
         // 弾プレハブ
-        public string BulletPrefabPath;
-
-        //public float BulletSpeed, BulletPower;
-
-
-        public void SpawnCreate(Transform BulletPop)
-        {
-            // 弾丸の複製
-            var prefab = Resources.Load<GameObject>(BulletPrefabPath);
-            UnityEngine.Object.Instantiate(prefab, BulletPop.position, BulletPop.rotation);
+        public GameObject BulletPrefab;
+        
+        protected BulletBase(BulletAsset asset) {
+            BulletPara = asset.BulletParameter;
+            BulletPrefab = asset.BulletPrefab;
         }
+
+        //public void SpawnCreate(Transform BulletPop)
+        //{
+        //    // 弾丸の複製
+        //    //var prefab = Resources.Load<GameObject>(BulletPrefab);
+        //    UnityEngine.Object.Instantiate(BulletPrefab, BulletPop.position, BulletPop.rotation);
+        //}
+
+        // 弾の生成
+        public static BulletBase Create(BulletAsset BulletAsset)
+        {
+            BulletBase BulletBase;
+
+            // 弾の種類を判断
+            switch (BulletAsset.BulletType)
+            {
+                case BulletType.Projectile:
+                    BulletBase = new BulletProjectile(BulletAsset);
+                    break;
+                case BulletType.Lazer:
+                    BulletBase = new BulletLezer(BulletAsset);
+                    break;
+                default:
+                    BulletBase = null;
+                    break;
+            }
+            return BulletBase;
+        }
+
     }
 }
