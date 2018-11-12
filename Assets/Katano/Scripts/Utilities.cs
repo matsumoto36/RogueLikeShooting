@@ -5,8 +5,7 @@ namespace Katano
 {
 	public static class Utilities
 	{
-		public static readonly Point[] Neighbors =
-			{new Point(0, 1), new Point(-1, 0), new Point(0, -1), new Point(1, 0)};
+		
 		
 		public static readonly Color[] ColorTable =
 		{

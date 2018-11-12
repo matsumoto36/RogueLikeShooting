@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Katano;
 using Reqweldzen.Extensions;
 using UnityEngine;
 
@@ -12,6 +11,9 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class MazeBuilder
 	{
+		public static readonly Point[] Neighbors =
+			{new Point(0, 1), new Point(-1, 0), new Point(0, -1), new Point(1, 0)};
+		
 		/// <summary>
 		/// ビルドオプション
 		/// </summary>
@@ -245,10 +247,10 @@ namespace RogueLike.Katano.Maze
 			for (var j = 0; j < _buildOptions.Height; j++)
 			{
 				var origin = _roomList[i, j];
-				for (var k = 0; k < Utilities.Neighbors.Length; k++)
+				for (var k = 0; k < Neighbors.Length; k++)
 				{
 					// 四方向相対座標テーブルから座標を得る
-					var (x, y) = Utilities.Neighbors[k];
+					var (x, y) = Neighbors[k];
 
 					// 範囲外は除外
 					if (i + x < 0 || i + x >= _buildOptions.Width) continue;

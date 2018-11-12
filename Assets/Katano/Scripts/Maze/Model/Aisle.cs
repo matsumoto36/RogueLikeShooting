@@ -91,7 +91,7 @@ namespace RogueLike.Katano.Maze
 		
 		public override string ToString()
 		{
-			return $"[Aisle]({Room0.Id},{Room1.Id})";
+			return $"[Aisle] Couple:{Room0.Id},{Room1.Id}";
 		}
 
 		public bool Equals(Aisle other)
@@ -111,7 +111,7 @@ namespace RogueLike.Katano.Maze
 
 		public override int GetHashCode()
 		{
-			var hashCode = Room0.Id ^ Room1.Id;
+			var hashCode = Room0.Id ^ Room1.Id << 2;
 			return hashCode.GetHashCode();
 		}
 

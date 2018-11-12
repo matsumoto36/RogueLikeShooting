@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
+using System.Threading;
 using RogueLike.Katano.Maze.View;
 using UniRx;
+using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano.Maze
@@ -10,9 +13,6 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class GameBoardManager : MonoBehaviour
 	{
-		private readonly AsyncSubject<MazeView> _onBuiltMaze = new AsyncSubject<MazeView>();
-		public IObservable<MazeView> OnBuiltMaze => _onBuiltMaze;
-		
 		[SerializeField]
 		private bool _buildOnAwake = true;
 
@@ -22,19 +22,29 @@ namespace RogueLike.Katano.Maze
 		public int Width = 4;
 		public int Height = 4;
 
+		private CancellationTokenSource _tokenSource;
+
 		private void Start()
 		{
+			_tokenSource = new CancellationTokenSource();
+			_tokenSource.CancelWith(this);
+			
 			if (_buildOnAwake)
-				OnStart();
+				OnStart(_tokenSource.Token).Forget();
 		}
 
-		private void OnStart()
+		private async UniTaskVoid OnStart(CancellationToken token)
 		{
-			var maze = ConstructMaze();
-			var view = ConstructMazeView(maze);
-			
-			_onBuiltMaze.OnNext(view);
-			_onBuiltMaze.OnCompleted();
+			while (!token.IsCancellationRequested)
+			{
+				var maze = ConstructMaze();
+				var view = ConstructMazeView(maze);
+				Debug.Log("Maze build done.");
+
+				await UniTask.Delay(150, cancellationToken: token);
+				
+				Destruct(view);
+			}
 		}
 
 		/// <summary>
@@ -60,6 +70,16 @@ namespace RogueLike.Katano.Maze
 			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset, transform);
 
 			return viewBuilder.Construct();
+		}
+
+		private void Destruct(MazeView view)
+		{
+			foreach (var mazeComponents in view.Rooms.Values.Concat<Component>(view.Aisles.Values))
+			{
+				Destroy(mazeComponents.gameObject);
+			}
+
+			Destroy(view.gameObject);
 		}
 	}
 }

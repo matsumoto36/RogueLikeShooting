@@ -1,4 +1,6 @@
-namespace RogueLike.Katano
+using System.Collections.Generic;
+
+namespace RogueLike.Katano.Maze
 {
 	public struct Point
 	{

@@ -1,5 +1,5 @@
 using System;
-using UniRx;
+using UnityEngine;
 
 namespace RogueLike.Katano.Maze
 {
@@ -56,6 +56,11 @@ namespace RogueLike.Katano.Maze
 		public static Aisle operator +(Room left, Room right)
 		{
 			return new Aisle(left, right, AisleChainState.Invalid);
+		}
+
+		public new string ToString()
+		{
+			return $"[Room] Id:{Id} Coord:{Coord}";
 		}
 	}
 }
