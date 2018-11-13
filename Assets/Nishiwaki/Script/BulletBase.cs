@@ -10,7 +10,7 @@ namespace RogueLike.Nishiwaki.Bullet
         // 弾のパラメータ
         public BulletParameter BulletPara;
         // 弾プレハブ
-        public GameObject BulletPrefab;
+        public BulletObject BulletPrefab;
         
         protected BulletBase(BulletAsset asset) {
             BulletPara = asset.BulletParameter;
@@ -24,7 +24,10 @@ namespace RogueLike.Nishiwaki.Bullet
         //    UnityEngine.Object.Instantiate(BulletPrefab, BulletPop.position, BulletPop.rotation);
         //}
 
-        // 弾の生成
+        public void BulletCreate(Transform transform)
+        {
+            UnityEngine.Object.Instantiate(BulletPrefab, transform);
+        }
         public static BulletBase Create(BulletAsset BulletAsset)
         {
             BulletBase BulletBase;

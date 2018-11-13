@@ -9,17 +9,7 @@ namespace RogueLike.Nishiwaki.Bullet
     {
         public BulletProjectile(BulletAsset asset) : base(asset)
         {
-
+            //BulletCreate(transform);
         }
-
-        public static BulletProjectile Create(BulletAsset asset, Transform Transform)
-        {
-            var obj = UnityEngine.Object.Instantiate(asset.BulletPrefab, Transform.position, Transform.rotation);
-            var bullet = obj.AddComponent<BulletBase>();
-            bullet.bulletPara = asset.BulletParameter;
-
-            return bullet;
-        }
-
     }
 }

@@ -21,7 +21,7 @@ namespace RogueLike.Nishiwaki.Item
             // 弾の発射位置
             StartCoroutine(canShot());
 
-            BulletProjectile.Create(BulletAsset, transform);
+            //BulletProjectile.Create(BulletAsset, transform);
         }
         IEnumerator canShot()
         {

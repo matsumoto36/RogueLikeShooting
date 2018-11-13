@@ -6,6 +6,6 @@ namespace RogueLike.Nishiwaki
 {
     public interface IBullet
     {
-        void BulletBase();
+        void BulletCreate(Transform transform);
     }
 }

@@ -24,7 +24,7 @@ namespace RogueLike.Nishiwaki.Item
         public void SpawnBulletPoint()
         {
             // 弾の発射位置
-            //weaponRangedPara.ibullet.SpawnCreate(transform);
+            weaponRangedPara.ibullet.BulletCreate(transform);
         }
 
         public virtual void Attack()
