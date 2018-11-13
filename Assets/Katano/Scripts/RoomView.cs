@@ -36,11 +36,13 @@ namespace RogueLike.Katano.Maze
 			Room = room;
 		}
 		
-		public async UniTaskVoid SpawnEnemyAsync()
+		public void SpawnCharacterAsync(DebugPlayerCamera playerCamera)
 		{
-			var collision = await _roomBounds.OnCollisionEnterAsObservable().ToUniTask();
-
-			
+			foreach (var spawner in _characterSpawners)
+			{
+				var chara = spawner.Spawn();
+				playerCamera.Target = chara.transform;
+			}
 		}
 	}
 }

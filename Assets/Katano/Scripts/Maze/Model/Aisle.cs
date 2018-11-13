@@ -7,10 +7,12 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class Aisle : IEquatable<Aisle>
 	{
+		private static int _uniqueId;
+		
 		/// <summary>
 		/// ID
 		/// </summary>
-		public int Id => GetHashCode();
+		public int Id { get; }
 		
 		/// <summary>
 		/// 接続している部屋A
@@ -53,6 +55,9 @@ namespace RogueLike.Katano.Maze
 			
 			if (room0.Equals(room1))
 				throw new ArgumentException("The arguments are the same.");
+
+			Id = _uniqueId++;
+			
 //
 //			if (aisleType == AisleTypes.Invalid)
 //				throw new ArgumentException("Invalid argument.", nameof(aisleType));
@@ -111,8 +116,7 @@ namespace RogueLike.Katano.Maze
 
 		public override int GetHashCode()
 		{
-			var hashCode = Room0.Id ^ Room1.Id << 2;
-			return hashCode.GetHashCode();
+			return Room0.Id.GetHashCode() ^ Room1.Id.GetHashCode() << 2;
 		}
 
 		public static bool operator ==(Aisle left, Aisle right)

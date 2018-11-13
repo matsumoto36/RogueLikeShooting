@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.Maze.View
 {
 	/// <summary>
-	/// ñ¿òHÇÃViewÉIÉuÉWÉFÉNÉg
+	///     Ëø∑Ë∑Ø„ÅÆView„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà
 	/// </summary>
 	public class MazeView : MonoBehaviour
 	{
@@ -13,16 +14,30 @@ namespace RogueLike.Katano.Maze.View
 		public IReadOnlyDictionary<int, AisleView> Aisles { get; private set; }
 
 		/// <summary>
-		/// .ctor
+		///     .ctor
 		/// </summary>
 		/// <param name="maze"></param>
 		/// <param name="rooms"></param>
 		/// <param name="aisles"></param>
-		public void Construct(Maze maze, IReadOnlyDictionary<int, RoomView> rooms, IReadOnlyDictionary<int, AisleView> aisles)
+		public void Construct(Maze maze, IReadOnlyDictionary<int, RoomView> rooms,
+			IReadOnlyDictionary<int, AisleView> aisles)
 		{
 			Maze = maze;
 			Rooms = rooms;
 			Aisles = aisles;
+		}
+
+		public void Dispose()
+		{
+			foreach (var mazeComponents in Rooms.Values.Concat<Component>(Aisles.Values))
+				Destroy(mazeComponents.gameObject);
+
+
+			Maze = null;
+			Rooms = null;
+			Aisles = null;
+
+			Destroy(this);
 		}
 	}
 }

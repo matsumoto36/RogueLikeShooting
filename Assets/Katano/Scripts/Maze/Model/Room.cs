@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RogueLike.Katano.Maze
 {
@@ -55,9 +55,10 @@ namespace RogueLike.Katano.Maze
 
 		public static Aisle operator +(Room left, Room right)
 		{
-			return new Aisle(left, right, AisleChainState.Invalid);
+			return new Aisle(left, right);
 		}
 
+		[SuppressMessage("ReSharper", "UnusedMember.Global")]
 		public new string ToString()
 		{
 			return $"[Room] Id:{Id} Coord:{Coord}";

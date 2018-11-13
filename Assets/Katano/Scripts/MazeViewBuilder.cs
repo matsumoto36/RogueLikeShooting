@@ -30,11 +30,10 @@ namespace RogueLike.Katano.Maze
 			_mazeDataAsset = mazeDataAsset;
 			_transform = transform;
 		}
-		
+
 		/// <summary>
 		/// 迷宮を実体化する
 		/// </summary>
-		/// <param name="maze"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentOutOfRangeException"></exception>
 		public MazeView Construct()

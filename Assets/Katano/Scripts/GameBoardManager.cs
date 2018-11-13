@@ -18,34 +18,27 @@ namespace RogueLike.Katano.Maze
 
 		[SerializeField]
 		private MazeDataAssetBase _mazeDataAsset;
+
+		[SerializeField]
+		private DebugPlayerCamera _playerCamera;
 		
 		public int Width = 4;
 		public int Height = 4;
 
-		private CancellationTokenSource _tokenSource;
-
 		private void Start()
 		{
-			_tokenSource = new CancellationTokenSource();
-			_tokenSource.CancelWith(this);
+			if (!_buildOnAwake) return;
 			
-			if (_buildOnAwake)
-				OnStart(_tokenSource.Token).Forget();
-		}
+			var maze = ConstructMaze();
+			var view = ConstructMazeView(maze);
+			Debug.Log("Maze build done.");
 
-		private async UniTaskVoid OnStart(CancellationToken token)
-		{
-			while (!token.IsCancellationRequested)
-			{
-				var maze = ConstructMaze();
-				var view = ConstructMazeView(maze);
-				Debug.Log("Maze build done.");
-
-				await UniTask.Delay(150, cancellationToken: token);
-				
-				Destruct(view);
-			}
+			var playerRoom = view.Rooms.FirstOrDefault().Value;
+			playerRoom.SpawnCharacterAsync(_playerCamera);
+			
+			
 		}
+		
 
 		/// <summary>
 		/// 迷宮を生成
@@ -74,12 +67,7 @@ namespace RogueLike.Katano.Maze
 
 		private void Destruct(MazeView view)
 		{
-			foreach (var mazeComponents in view.Rooms.Values.Concat<Component>(view.Aisles.Values))
-			{
-				Destroy(mazeComponents.gameObject);
-			}
-
-			Destroy(view.gameObject);
+			view.Dispose();
 		}
 	}
 }
