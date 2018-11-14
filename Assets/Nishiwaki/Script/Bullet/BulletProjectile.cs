@@ -9,7 +9,11 @@ namespace RogueLike.Nishiwaki.Bullet
     {
         public BulletProjectile(BulletAsset asset) : base(asset)
         {
-            //BulletCreate(transform);
+
+        }
+
+        void Update()
+        {
         }
     }
 }

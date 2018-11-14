@@ -26,17 +26,21 @@ namespace RogueLike.Nishiwaki.Bullet
 
         public void BulletCreate(Transform transform)
         {
-            UnityEngine.Object.Instantiate(BulletPrefab, transform);
+            //if (BulletPrefab) Debug.Break();
+            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
+            bullet.BulletPara = BulletPara;
+            //Debug.Break();
+            Debug.Log("BulletCreate");
         }
         public static BulletBase Create(BulletAsset BulletAsset)
         {
             BulletBase BulletBase;
-
             // 弾の種類を判断
             switch (BulletAsset.BulletType)
             {
                 case BulletType.Projectile:
                     BulletBase = new BulletProjectile(BulletAsset);
+                    Debug.Log("呼ばれた");
                     break;
                 case BulletType.Lazer:
                     BulletBase = new BulletLezer(BulletAsset);
@@ -47,6 +51,5 @@ namespace RogueLike.Nishiwaki.Bullet
             }
             return BulletBase;
         }
-
     }
 }

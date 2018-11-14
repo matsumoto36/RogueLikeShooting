@@ -6,14 +6,22 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRangedSemi : WeaponRanged
     {
-        WeaponRanged weaponRanged = new WeaponRanged();
-
         public override void AttackUp()
         {
+
         }
         public override void AttackDown()
         {
-            weaponRanged.SpawnBulletPoint();
+            iBullet.BulletCreate(transform);
         }
+        void Update()
+        {
+            // デバッグ用
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                AttackDown();
+            }
+        }
+
     }
 }

@@ -7,11 +7,6 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRangedAuto : WeaponRanged
     {
-
-        [SerializeField] BulletAsset BulletAsset;
-
-        WeaponRanged weaponRanged = new WeaponRanged();
-
         public bool CanShot { get; private set; } = true;
 
         public override void Attack()
@@ -20,13 +15,22 @@ namespace RogueLike.Nishiwaki.Item
             CanShot = false;
             // 弾の発射位置
             StartCoroutine(canShot());
-
-            //BulletProjectile.Create(BulletAsset, transform);
+            Debug.Log("Attack()");
+            iBullet.BulletCreate(transform);
         }
         IEnumerator canShot()
         {
-            yield return new WaitForSeconds(weaponRangedPara.WaitTime);
+            yield return new WaitForSeconds(WeaponRangedPara.WaitTime);
             CanShot = true;
         }
+        void Update()
+        {
+            // デバッグ用
+            if (Input.GetKey(KeyCode.Z))
+            {
+                Attack();
+            }
+        }
+
     }
 }

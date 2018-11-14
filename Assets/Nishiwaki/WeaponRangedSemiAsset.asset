@@ -8,11 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37349f00bb0dda41992c2328a0279b4, type: 3}
-  m_Name: NewWeaponRangedAsset
+  m_Script: {fileID: 11500000, guid: de4429e0769ac314da78f87428ff61e0, type: 3}
+  m_Name: WeaponRangedSemiAsset
   m_EditorClassIdentifier: 
   WeaponRangedParameter:
-    WaitTime: 1
+    WaitTime: 0.1
   WeaponRangedPrefab: {fileID: 1953310769096552, guid: 2864e88da2319df49b25c08f472f5544,
     type: 2}
   BulletAsset: {fileID: 11400000, guid: 7c5d583755b166544be9db28eaeff099, type: 2}

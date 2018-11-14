@@ -8,7 +8,9 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRanged : MonoBehaviour, IWeapon
     {
-        public WeaponRangedParameter weaponRangedPara;
+        public IBullet iBullet;
+
+        public WeaponRangedParameter WeaponRangedPara;
 
         // Use this for initialization
         void Start()
@@ -24,7 +26,7 @@ namespace RogueLike.Nishiwaki.Item
         public void SpawnBulletPoint()
         {
             // 弾の発射位置
-            weaponRangedPara.ibullet.BulletCreate(transform);
+            iBullet.BulletCreate(transform);
         }
 
         public virtual void Attack()
@@ -42,9 +44,23 @@ namespace RogueLike.Nishiwaki.Item
         public static WeaponRanged Create(WeaponRangedAsset asset, Transform Transform)
         {
             var obj = Instantiate(asset.WeaponRangedPrefab, Transform.position, Transform.rotation);
-            var weapon = obj.AddComponent<WeaponRangedAuto>();
-            weapon.weaponRangedPara = asset.WeaponRangedParameter;
-            weapon.weaponRangedPara.ibullet = BulletBase.Create(asset.BulletAsset);
+            WeaponRanged weapon;
+            switch (asset)
+            {
+                case WeaponRangedAutoAsset autoAsset:
+                    weapon = obj.AddComponent<WeaponRangedAuto>();
+                    break;
+                case WeaponRangedSemiAsset semiAsset:
+                    weapon = obj.AddComponent<WeaponRangedSemi>();
+                    break;
+                default:
+                    weapon = null;
+                    break;
+            }
+
+            weapon.WeaponRangedPara = asset.WeaponRangedParameter;
+            weapon.iBullet = BulletBase.Create(asset.BulletAsset);
+            Debug.Log("WeaponRanged Create");
 
             return weapon;
         }

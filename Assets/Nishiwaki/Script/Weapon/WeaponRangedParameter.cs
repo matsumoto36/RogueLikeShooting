@@ -7,16 +7,13 @@ namespace RogueLike.Nishiwaki.Item
     [System.Serializable]
     public struct WeaponRangedParameter
     {
-        public IBullet ibullet;
-
         public float WaitTime;
         //enum FireType { Semi, Auto, Laser };
 
-        public WeaponRangedParameter(float waittime, IBullet ibullet)
+        public WeaponRangedParameter(float waitTime)
         {
             //とりあえず思いついたパラメーターたち
-            WaitTime = waittime;
-            this.ibullet = ibullet;
+            WaitTime = waitTime;
         }
     }
 }
