@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using RogueLike.Matsumoto.Character.Asset;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -61,11 +62,13 @@ namespace RogueLike.Matsumoto.Character {
 
 		protected override void OnSpawn(CharacterAsset asset) {
 
+			var enemyAsset = (EnemyAsset)asset;
+
 			//HPを設定
-			HP = asset.HP;
+			HP = enemyAsset.HP;
 
 			//AIの設定
-			switch(asset.EnemyAIType) {
+			switch(enemyAsset.EnemyAIType) {
 				case EnemyAIType.Attacker:
 					_enemyAI = new EnemyAI.EnemyAIAttacker();
 					break;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using RogueLike.Matsumoto.Character;
+using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Chikazawa;
 
 namespace RogueLike.Matsumoto {
@@ -18,6 +19,7 @@ namespace RogueLike.Matsumoto {
 		static List<PlayerCore> _players = new List<PlayerCore>();
 		static PlayerHPProvider _playerHPProvider = null;
 
+		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; private set; }
 
 		public override int HP {
@@ -42,8 +44,13 @@ namespace RogueLike.Matsumoto {
 
 		protected override void OnSpawn(CharacterAsset asset) {
 
+			var playerAsset = (PlayerAsset)asset;
+
 			//リストに追加
 			_players.Add(this);
+
+			//IDの設定
+			ID = playerAsset.ID;
 
 			//HPの設定
 			if(!_playerHPProvider) {
@@ -51,7 +58,7 @@ namespace RogueLike.Matsumoto {
 					_playerHPProvider = new GameObject("[PlayerHPProvider]")
 						.AddComponent<PlayerHPProvider>();
 
-					_playerHPProvider.HP = asset.HP;
+					_playerHPProvider.HP = playerAsset.HP;
 				}
 			}
 

@@ -27,13 +27,13 @@ namespace RogueLike.Matsumoto.Character {
 			//攻撃
 			playerComponent.PlayerUpdate
 				.Subscribe(player => {
-					if(player.InputEventProvider.GetShotDown())
+					if(player.InputEventProvider.GetShotDown(player.ID))
 						playerComponent.Weapon?.AttackDown();
 
-					if(player.InputEventProvider.GetShotButton())
+					if(player.InputEventProvider.GetShotButton(player.ID))
 						playerComponent.Weapon?.Attack();
 
-					if(player.InputEventProvider.GetShotUp())
+					if(player.InputEventProvider.GetShotUp(player.ID))
 						playerComponent.Weapon?.AttackUp();
 				});
 		}

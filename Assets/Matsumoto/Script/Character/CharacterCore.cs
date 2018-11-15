@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Matsumoto.Attack;
 using RogueLike.Nishiwaki;
 

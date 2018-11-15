@@ -3,36 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using RogueLike.Matsumoto.Character;
-using RogueLike.Matsumoto;
+using RogueLike.Matsumoto.Character.Asset;
 
 [CanEditMultipleObjects]
-[CustomEditor(typeof(CharacterAsset))]
-public class CharacterAssetInspector : Editor {
+[CustomEditor(typeof(PlayerAsset))]
+public class PlayerAssetInspector : Editor {
 
-	SerializedProperty _characterType;
+	SerializedProperty _playerID;
 	SerializedProperty _characterHP;
 	SerializedProperty _modelPrefab;
-	SerializedProperty _enemyAIType;
 
 	void OnEnable() {
 
-		_characterType = serializedObject.FindProperty("CharacterType");
+		_playerID = serializedObject.FindProperty("ID");
 		_characterHP = serializedObject.FindProperty("HP");
 		_modelPrefab = serializedObject.FindProperty("ModelPrefab");
-		_enemyAIType = serializedObject.FindProperty("EnemyAIType");
-
 	}
 
 	public override void OnInspectorGUI() {
 
 		serializedObject.Update();
 
-		EditorGUILayout.PropertyField(_characterType);
+		EditorGUILayout.PropertyField(_playerID);
 		EditorGUILayout.PropertyField(_characterHP);
-
 		EditorGUILayout.PropertyField(_modelPrefab);
-		if(_characterType.enumValueIndex == (int)CharacterType.Enemy)
-			EditorGUILayout.PropertyField(_enemyAIType);
+
+		serializedObject.ApplyModifiedProperties();
+	}
+
+}
+
+[CanEditMultipleObjects]
+[CustomEditor(typeof(EnemyAsset))]
+public class EnemyAssetInspector : Editor {
+
+	SerializedProperty _characterHP;
+	SerializedProperty _modelPrefab;
+	SerializedProperty _enemyAIType;
+
+	void OnEnable() {
+
+		_characterHP = serializedObject.FindProperty("HP");
+		_modelPrefab = serializedObject.FindProperty("ModelPrefab");
+		_enemyAIType = serializedObject.FindProperty("EnemyAIType");
+	}
+
+	public override void OnInspectorGUI() {
+
+		serializedObject.Update();
+
+		EditorGUILayout.PropertyField(_characterHP);
+		EditorGUILayout.PropertyField(_modelPrefab);
+		EditorGUILayout.PropertyField(_enemyAIType);
 
 		serializedObject.ApplyModifiedProperties();
 	}
