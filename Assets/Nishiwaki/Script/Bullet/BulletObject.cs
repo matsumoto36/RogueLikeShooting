@@ -7,15 +7,16 @@ namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletObject : MonoBehaviour
     {
-        BulletParameter bulletPara;
+
+        public BulletParameter BulletPara;
         // 消滅用の時間
-        float DTime = 0f;
+        float DestroyTime = 0.0f;
 
         // Use this for initialization
         void Start()
         {
             // BulletParameterからSpeed,Power,WaitTime
-            bulletPara = new BulletParameter(1.0f, 1.0f);
+            //bulletPara = new BulletParameter(1.0f, 1.0f);
         }
 
         // Update is called once per frame
@@ -25,13 +26,13 @@ namespace RogueLike.Nishiwaki.Bullet
 
             Vector3 now = rig.position;
 
-            now += transform.forward * bulletPara.Speed;
+            now += transform.forward * BulletPara.Speed;
 
             rig.position = now;
             // 自動消滅の時間
-            DTime += 1 * Time.deltaTime;
+            DestroyTime += Time.deltaTime;
             // 消滅
-            if (DTime >= 3)
+            if (DestroyTime >= BulletPara.LifeTime)
             {
                 Destroy(gameObject);
             }

@@ -6,6 +6,6 @@ namespace RogueLike.Nishiwaki
 {
     public interface IBullet
     {
-        void SpawnCreate(Transform BulletPop);
+        void BulletCreate(Transform transform);
     }
 }
