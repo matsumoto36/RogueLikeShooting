@@ -9,6 +9,5 @@ namespace RogueLike.Nishiwaki
         void Attack();
         void AttackUp();
         void AttackDown();
-
     }
 }
