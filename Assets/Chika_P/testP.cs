@@ -25,10 +25,10 @@ public class testP : MonoBehaviour
             eventProvider = new InputKeyBoard();
             Debug.Log("プレイヤー" + ControllerNo + "がキーボードで参加しました。");
         }
-        if (PlayerEntry.Players[0] == ControllerNo)
-        {
-            Debug.Log("プレイヤー" + ControllerNo + "がリーダーです");
-        }
+        //if (PlayerEntry.Players[0] == ControllerNo)
+        //{
+        //    Debug.Log("プレイヤー" + ControllerNo + "がリーダーです");
+        //}
     }
 
     // Update is called once per frame

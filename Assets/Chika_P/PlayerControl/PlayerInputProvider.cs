@@ -9,7 +9,6 @@ namespace RogueLike.Chikazawa.InputEventProvider
     /// </summary>
     public abstract class PlayerInputProvider : IInputEventProvider
     {
-
         /// <summary>
         /// 移動入力を取得
         /// キーボード：WASDキー * 加速
