@@ -1,7 +1,7 @@
+using System;
 using RogueLike.Matsumoto;
 using UniRx;
-using UniRx.Async;
-using UniRx.Triggers;
+using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,14 +18,16 @@ namespace RogueLike.Katano.Maze
 		[SerializeField]
 		private BoxCollider _roomBounds;
 
-		private CharacterSpawner[] _characterSpawners;
+		[SerializeField]
+		private PlayerRoomTriggerSystem _roomTriggerSystem;
 		
 		public Room Room { get; private set; }
-
-		private void Awake()
-		{
-			_characterSpawners = GetComponentsInChildren<CharacterSpawner>();
-		}
+		
+		private readonly Subject<Unit> _onEnterSubject = new Subject<Unit>();
+		public IObservable<Unit> OnEnterAsObservable => _onEnterSubject;
+		
+		private readonly Subject<Unit> _onExitSubject = new Subject<Unit>();
+		public IObservable<Unit> OnExitAsObservable => _onExitSubject;
 
 		/// <summary>
 		/// .ctor
@@ -35,14 +37,15 @@ namespace RogueLike.Katano.Maze
 		{
 			Room = room;
 		}
-		
-		public void SpawnCharacterAsync(DebugPlayerCamera playerCamera)
+
+		public void Enter()
 		{
-			foreach (var spawner in _characterSpawners)
-			{
-				var chara = spawner.Spawn();
-				playerCamera.Target = chara.transform;
-			}
+			_roomTriggerSystem.Spawn();
+		}
+
+		public void Exit()
+		{
+			_onExitSubject.OnNext(Unit.Default);
 		}
 	}
 }

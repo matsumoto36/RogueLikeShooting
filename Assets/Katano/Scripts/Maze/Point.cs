@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-
 namespace RogueLike.Katano.Maze
 {
+	/// <summary>
+	/// 座標構造体
+	/// </summary>
 	public struct Point
 	{
 		public int X { get; }

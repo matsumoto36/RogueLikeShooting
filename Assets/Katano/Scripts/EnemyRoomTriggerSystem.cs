@@ -1,11 +1,13 @@
 using RogueLike.Katano.Maze;
 using RogueLike.Matsumoto;
+using UniRx;
+using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano
 {
 	[DisallowMultipleComponent]
-	public class MazeRoomTriggerSystem : MonoBehaviour
+	public class EnemyRoomTriggerSystem : MonoBehaviour
 	{
 		[SerializeField]
 		private CharacterSpawner[] _characterSpawners;
@@ -15,10 +17,10 @@ namespace RogueLike.Katano
 			var roomView = GetComponent<RoomView>();
 			if (roomView == null)
 				throw new MissingComponentException("RoomView");
-			
-			
-		}
 
+			roomView.OnEnterAsObservable.Subscribe(_ => Spawn());
+		}
+		
 		public void Spawn()
 		{
 			foreach (var spawner in _characterSpawners)

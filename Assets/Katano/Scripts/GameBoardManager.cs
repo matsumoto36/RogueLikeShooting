@@ -31,12 +31,10 @@ namespace RogueLike.Katano.Maze
 			
 			var maze = ConstructMaze();
 			var view = ConstructMazeView(maze);
+			
+			view.Startup();
+			
 			Debug.Log("Maze build done.");
-
-			var playerRoom = view.Rooms.FirstOrDefault().Value;
-			playerRoom.SpawnCharacterAsync(_playerCamera);
-			
-			
 		}
 		
 

@@ -27,6 +27,11 @@ namespace RogueLike.Katano.Maze.View
 			Aisles = aisles;
 		}
 
+		public void Startup()
+		{
+			Rooms.ElementAt(0).Value.Enter();
+		}
+
 		public void Dispose()
 		{
 			foreach (var mazeComponents in Rooms.Values.Concat<Component>(Aisles.Values))
