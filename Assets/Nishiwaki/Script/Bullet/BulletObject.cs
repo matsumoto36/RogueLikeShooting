@@ -7,17 +7,16 @@ namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletObject : MonoBehaviour
     {
-        BulletParameter bulletbase;
+
+        public BulletParameter BulletPara;
         // 消滅用の時間
-        float DTime = 0f;
+        float DestroyTime = 0.0f;
 
         // Use this for initialization
         void Start()
         {
-            // BulletParameterからSpeedとPower
-            bulletbase = new BulletParameter(1, 1);
-            //bulletbase.BulletSpeed = 1.0f;
-            //bulletbase.BulletPower = 1.0f;
+            // BulletParameterからSpeed,Power,WaitTime
+            //bulletPara = new BulletParameter(1.0f, 1.0f);
         }
 
         // Update is called once per frame
@@ -26,19 +25,19 @@ namespace RogueLike.Nishiwaki.Bullet
             Rigidbody rig = GetComponent<Rigidbody>();
 
             Vector3 now = rig.position;
-            // 銃に依存?
-            //now += transform.forward * bulletbase.BulletSpeed;
-            now += transform.forward * bulletbase.Speed;
+
+            now += transform.forward * BulletPara.Speed;
 
             rig.position = now;
-
-            DTime += 1 * Time.deltaTime;
-
-            if (Time.deltaTime >= 3)
+            // 自動消滅の時間
+            DestroyTime += Time.deltaTime;
+            // 消滅
+            if (DestroyTime >= BulletPara.LifeTime)
             {
                 Destroy(gameObject);
             }
         }
+        // まだ仮
         void OnTriggerEnter(Collider other)
         {
             // 敵に当たったら
