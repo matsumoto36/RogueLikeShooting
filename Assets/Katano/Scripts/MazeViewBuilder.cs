@@ -13,9 +13,24 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class MazeViewBuilder
 	{
+		/// <summary>
+		/// 迷宮データ
+		/// </summary>
 		private readonly Maze _maze;
+		
+		/// <summary>
+		/// 迷宮構築アセットデータ
+		/// </summary>
 		private readonly MazeDataAssetBase _mazeDataAsset;
+		
+		/// <summary>
+		/// 親Transform
+		/// </summary>
 		private readonly Transform _transform;
+		
+		/// <summary>
+		/// 部屋の配置インターバル
+		/// </summary>
 		private const int Interval = 25;
 
 		/// <summary>
@@ -44,9 +59,6 @@ namespace RogueLike.Katano.Maze
 			MakeRoomView(ref rooms);
 			MakeAisleView(ref aisles, rooms);
 			
-			
-			
-			
 			var mazeView = _transform.gameObject.AddComponent<MazeView>();
 			mazeView.Construct(_maze, rooms, aisles);
 			return mazeView;
@@ -64,16 +76,15 @@ namespace RogueLike.Katano.Maze
 			{
 				GameObject obj;
 				var room = shuffledRooms[i];
-				if (i == 0)
-				{
-					obj = Object.Instantiate(_mazeDataAsset.PlayerRoomPrefab, new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y), Quaternion.identity, _transform);
-//					obj.AddComponent<PlayerRoomTriggerSystem>();
-				}
-				else
-				{
-					obj = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y), Quaternion.identity, _transform);
-//					obj.AddComponent<EnemyRoomTriggerSystem>();
-				}
+				
+				var coord = new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y);
+				
+				obj = Object.Instantiate(i == 0 
+					? _mazeDataAsset.PlayerRoomPrefab 
+					: _mazeDataAsset.RoomPrefabList.RandomAt(), 
+					coord,
+					Quaternion.identity, 
+					_transform);
 
 				var view = obj.GetComponent<RoomView>();
 				view.Construct(room);

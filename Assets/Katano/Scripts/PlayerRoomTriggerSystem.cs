@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RogueLike.Katano.Maze;
 using RogueLike.Matsumoto;
 using UniRx;
@@ -5,11 +6,10 @@ using UnityEngine;
 
 namespace RogueLike.Katano
 {
-	[DisallowMultipleComponent]
-	public class PlayerRoomTriggerSystem : MonoBehaviour
+	
+	public class PlayerRoomTriggerSystem : RoomTriggerSystem
 	{
-		[SerializeField]
-		private CharacterSpawner[] _playerSpawners;
+		private IEnumerable<CharacterSpawner> _spawners;
 
 		private void Awake()
 		{
@@ -18,9 +18,14 @@ namespace RogueLike.Katano
 				throw new MissingComponentException("RoomView");
 		}
 
-		public void Spawn()
+		public override void Construct(IEnumerable<CharacterSpawner> spawners)
 		{
-			foreach (var spawner in _playerSpawners)
+			_spawners = spawners;
+		}
+
+		public override void Spawn()
+		{
+			foreach (var spawner in _spawners)
 			{
 				spawner.Spawn();
 			}
