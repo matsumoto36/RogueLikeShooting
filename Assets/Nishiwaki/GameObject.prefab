@@ -51,4 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3145a5746a1e0c4eac898d14b4e8feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponRangedAsset: {fileID: 11400000, guid: bb3828694f34f0e40acf28fa57778902, type: 2}
+  WeaponRangedAsset: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
