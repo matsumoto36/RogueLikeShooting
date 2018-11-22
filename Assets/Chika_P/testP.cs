@@ -15,16 +15,6 @@ public class testP : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        if (ControllerNo != 0)
-        {
-            eventProvider = new InputController();
-            Debug.Log("プレイヤー" + ControllerNo + "がコントローラーで参加しました。");
-        }
-        else
-        {
-            eventProvider = new InputKeyBoard();
-            Debug.Log("プレイヤー" + ControllerNo + "がキーボードで参加しました。");
-        }
         //if (PlayerEntry.Players[0] == ControllerNo)
         //{
         //    Debug.Log("プレイヤー" + ControllerNo + "がリーダーです");
@@ -37,27 +27,27 @@ public class testP : MonoBehaviour
   //      if (ControllerNo != 0)
             //Debug.Log("コントローラー" + ControllerNo + "は" + Input.GetJoystickNames()[ControllerNo]);
         //移動をオブジェクトに反映させる
-        this.gameObject.transform.position += eventProvider.GetMoveVector(ControllerNo);
+        this.gameObject.transform.position += eventProvider.GetMoveVector();
 
         //コントローラーの場合、右スティックの入力が無いときは動作しない
-        if (eventProvider.GetPleyerDirection(PlayerObj.transform.position, ControllerNo) - PlayerObj.transform.position != Vector3.zero)
+        if (eventProvider.GetPleyerDirection(PlayerObj.transform.position) - PlayerObj.transform.position != Vector3.zero)
         {
             //マウスor右スティックの方向を向くように回転・右スティックの入力を反映
             this.gameObject.transform.rotation
-                = Quaternion.LookRotation(eventProvider.GetPleyerDirection(PlayerObj.transform.position, ControllerNo) - PlayerObj.transform.position).normalized;
+                = Quaternion.LookRotation(eventProvider.GetPleyerDirection(PlayerObj.transform.position) - PlayerObj.transform.position).normalized;
         }
         //射撃が入力されると起動
-        if (eventProvider.GetShotDown(ControllerNo))
+        if (eventProvider.GetShotDown())
         {
 
         }
-        if (eventProvider.GetShotButton(ControllerNo))
+        if (eventProvider.GetShotButton())
         {
             //射撃方向(プレイヤーの正面方向)を入力
             //現行ではクリック中は毎フレーム射撃
             //    Debug.Log(PlayerObj.transform.forward + " の方向に発射");
         }
-        if (eventProvider.GetShotUp(ControllerNo))
+        if (eventProvider.GetShotUp())
         {
 
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamepadInput;
 
-using RogueLike.Chikazawa;
+using RogueLike.Chikazawa.InputEventProvider;
 using RogueLike.Matsumoto;
 
 /// <summary>
@@ -13,8 +13,8 @@ public class PlayerEntry : MonoBehaviour
 {
         
     public static List<int> ControllerList;//参加人数と使用コントローラーの状況
-     int[] bindID = new int[4];
     public PlayerCore Players { get; private set; }
+    public CharacterSpawner Spawner;
 
     [SerializeField]
     GameObject DefaultBody;         //スポーン（エントリー）したときのオブジェクト
@@ -41,13 +41,9 @@ public class PlayerEntry : MonoBehaviour
                 ControllerList.Remove(0);
                 return;
             }
-            //実際のオブジェクトをデフォルトの状態で生成
-            GameObject KeyPlayer = Instantiate(DefaultBody);
-
-            //bindIDにPlayerCoreを紐づけする
-            bindID[ControllerList.IndexOf(0)] = Players.ID;
-            //IDの場所が名前
-            KeyPlayer.name = "Player" + ControllerList.IndexOf(0) + 1;
+            Spawner.OverrideID = 0;
+            Spawner.Spawn();
+            Players.InputEventProvider = new InputKeyBoard();
         }
         //Deleteで退出
         if (Input.GetKeyDown(KeyCode.Delete) && IsEntry(0))
@@ -70,13 +66,11 @@ public class PlayerEntry : MonoBehaviour
                         ControllerList.Remove(i);
                         return;
                     }
-
-                    GameObject ConPlayer = Instantiate(DefaultBody);
-
-                    bindID[ControllerList.IndexOf(i)] = Players.ID;
-
-                    ConPlayer.name = "Player" + i;
                 }
+                Spawner.OverrideID = i;
+                Spawner.Spawn();
+                Players.InputEventProvider = new InputController(i);
+
             }
             //セレクト(Back)で退出
             if (GamePad.GetButtonDown(GamePad.Button.Back, (GamePad.Index)i) && IsEntry(i))
