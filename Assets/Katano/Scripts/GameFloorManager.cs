@@ -11,7 +11,7 @@ namespace RogueLike.Katano.Maze
 	/// <summary>
 	///     ゲームボードマネージャ
 	/// </summary>
-	public class GameBoardManager : MonoBehaviour
+	public class GameFloorManager : MonoBehaviour
 	{
 		[SerializeField]
 		private bool _buildOnAwake = true;
@@ -25,18 +25,53 @@ namespace RogueLike.Katano.Maze
 		public int Width = 4;
 		public int Height = 4;
 
-		private void Start()
+		private MazeView _mazeView;
+
+		private bool _isReady;
+
+		public void Initialize()
 		{
-			if (!_buildOnAwake) return;
+			MessageBroker.Default
+				.Receive<MazeSignal.FloorStarted>()
+				.Subscribe(_ =>
+				{
+					Startup();
+				});
 			
-			var maze = ConstructMaze();
-			var view = ConstructMazeView(maze);
+			Log("Initialized.");
+		}
+
+		public void Startup()
+		{
+			if (!_isReady)
+				throw new MazeException("Maze has not been generated.");
 			
-			view.Startup();
 			
-			Debug.Log("Maze build done.");
+			
+			Log("Startup.");
 		}
 		
+		public void Construct()
+		{
+			var maze = ConstructMaze();
+			var view = ConstructMazeView(maze);
+			_mazeView = view;
+			
+			_mazeView.Startup();
+
+			Log("Constructed.");
+			
+			_isReady = true;
+		}
+
+		public void Destruct()
+		{
+			Destruct(_mazeView);
+			
+			Log("Destructed.");
+			
+			_isReady = false;
+		}
 
 		/// <summary>
 		/// 迷宮を生成
@@ -63,9 +98,14 @@ namespace RogueLike.Katano.Maze
 			return viewBuilder.Construct();
 		}
 
-		private void Destruct(MazeView view)
+		private static void Destruct(MazeView view)
 		{
 			view.Dispose();
+		}
+		
+		private static void Log(string log)
+		{
+			Debug.Log($"[FloorManager] {log}");
 		}
 	}
 }

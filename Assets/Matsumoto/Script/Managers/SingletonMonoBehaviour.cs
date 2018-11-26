@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// シングルトンの親クラス
+///     シングルトンの親クラス
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
+public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+{
+	private static T _instance;
 
-	public static T instance {
+	public static T instance
+	{
 		get
 		{
 			if (!_instance) Create();
 			return _instance;
 		}
 	}
-	static T _instance;
 
-	static void Create()
+	private static void Create()
 	{
-		_instance = new GameObject(string.Format("[Singleton - {0}]", typeof(T).ToString()))
+		_instance = new GameObject($"[Singleton - {typeof(T)}]")
 			.AddComponent<T>();
 
 		DontDestroyOnLoad(_instance.gameObject);
@@ -30,11 +28,20 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 	}
 
 	/// <summary>
-	/// 初期化用
+	///     初期化用
 	/// </summary>
-	protected virtual void Init() { }
+	protected virtual void Init()
+	{
+	}
 
-	void Awake() {
-		if(_instance) Destroy(gameObject);
+	private void Awake()
+	{
+		if (_instance)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		
+		Create();
 	}
 }

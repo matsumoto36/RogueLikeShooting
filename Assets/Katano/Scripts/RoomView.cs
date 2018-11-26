@@ -1,7 +1,5 @@
 using System;
-using RogueLike.Matsumoto;
 using UniRx;
-using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -42,7 +40,7 @@ namespace RogueLike.Katano.Maze
 		{
 			_roomTriggerSystem.Spawn();
 		}
-
+	
 		public void Exit()
 		{
 			_onExitSubject.OnNext(Unit.Default);

@@ -1,6 +1,5 @@
 using RogueLike.Katano.Maze;
 using RogueLike.Matsumoto;
-using UniRx;
 using UnityEngine;
 
 namespace RogueLike.Katano
@@ -22,7 +21,7 @@ namespace RogueLike.Katano
 		{
 			foreach (var spawner in _playerSpawners)
 			{
-				spawner.Spawn();
+				spawner.Spawn().transform.SetParent(transform);
 			}
 		}
 	}
