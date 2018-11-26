@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RogueLike.Nishiwaki.Bullet;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
-    public class BulletProjectile : BulletBase
+    public class BulletLezer : BulletBase
     {
+        public BulletLezer(BulletAsset asset) : base(asset)
+        {
+        }
+
         // Use this for initialization
         void Start()
         {

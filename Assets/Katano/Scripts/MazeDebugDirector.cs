@@ -32,10 +32,9 @@ namespace RogueLike.Katano.Maze
 		
 		public UniTask<Maze> ConstructAsync()
 		{
-			if (!_isInit)
-				return UniTask.FromException<Maze>(new MazeException("Director has not been initialize yet."));
-			
-			return new UniTask<Maze>(ConstructInternal);
+			return !_isInit 
+				? UniTask.FromException<Maze>(new MazeException("Director has not been initialize yet."))
+				: new UniTask<Maze>(ConstructInternal);
 		}
 
 		private async UniTask<Maze> ConstructInternal()

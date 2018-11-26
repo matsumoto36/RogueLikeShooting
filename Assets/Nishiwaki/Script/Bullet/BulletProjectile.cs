@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RogueLike.Nishiwaki.Bullet;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
-    public class BulletLezer : BulletBase
+    public class BulletProjectile : BulletBase
     {
-
-        // Use this for initialization
-        void Start()
+        public BulletProjectile(BulletAsset asset) : base(asset)
         {
 
         }
 
-        // Update is called once per frame
         void Update()
         {
-
         }
     }
 }
