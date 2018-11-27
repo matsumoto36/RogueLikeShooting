@@ -22,7 +22,7 @@ namespace RogueLike.Katano
 			_spawners = spawners;
 		}
 
-		public override void Spawn()
+		public override void Initialize()
 		{
 			foreach (var spawner in _spawners)
 			{

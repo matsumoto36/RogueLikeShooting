@@ -1,36 +1,46 @@
-using RogueLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RogueLike.Katano
+namespace RogueLike.Katano.Managers
 {
 	/// <summary>
 	/// ゲームシーンマネージャ
 	/// </summary>
 	public class MainGameManager : MonoBehaviour
 	{
+		private readonly MessageBroker _mainEventBroker = new MessageBroker();
+		
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
 		
-		/// <summary>
-		/// 初期化
-		/// </summary>
+		
 		private void Start()
 		{
-			FloorManager.Initialize();
-			UIManager.Initialize();
-
-			// フロア踏破イベントの購読
-			MessageBroker.Default
-				.Receive<MazeSignal.FloorEnded>()
-				.Subscribe(_ =>
-				{
-					OnFloorEnded().Forget();
-				});
+			Initialize();
 			
 			// フロアを準備する
 			PreparingMaze().Forget();
+		}
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		private void Initialize()
+		{
+			FloorManager.Initialize(_mainEventBroker);
+			UIManager.Initialize(_mainEventBroker);
+
+			SetEvents();
+		}
+
+		/// <summary>
+		/// イベントを購読する
+		/// </summary>
+		private void SetEvents()
+		{
+			// フロア踏破イベントの購読
+			_mainEventBroker.Receive<MazeSignal.FloorEnded>().Subscribe(_ => OnFloorEnded().Forget()).AddTo(this);
 		}
 
 		/// <summary>
@@ -46,7 +56,7 @@ namespace RogueLike.Katano
 			await UIManager.FadeInAsync();
 			
 			// ゲームスタート
-			MessageBroker.Default.Publish(new MazeSignal.FloorStarted());
+			_mainEventBroker.Publish(new MazeSignal.FloorStarted());
 		}
 
 		/// <summary>
@@ -65,11 +75,12 @@ namespace RogueLike.Katano
 			PreparingMaze().Forget();
 		}
 
+		
 		public void FloorEnded()
 		{
 			Log("FloorEnd signal published!");
 			
-			MessageBroker.Default.Publish(new MazeSignal.FloorEnded());
+			_mainEventBroker.Publish(new MazeSignal.FloorEnded());
 		}
 
 		private static void Log(string log)

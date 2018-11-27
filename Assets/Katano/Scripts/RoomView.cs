@@ -11,22 +11,13 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class RoomView : MonoBehaviour
 	{
+		[SerializeField]
 		private NavMeshSurface _navMeshSurface;
+		
+		[SerializeField]
 		private RoomTriggerSystem _roomTriggerSystem;
 		
 		public Room Room { get; private set; }
-		
-		private readonly Subject<Unit> _onEnterSubject = new Subject<Unit>();
-		public IObservable<Unit> OnEnterAsObservable => _onEnterSubject;
-		
-		private readonly Subject<Unit> _onExitSubject = new Subject<Unit>();
-		public IObservable<Unit> OnExitAsObservable => _onExitSubject;
-
-		private void Awake()
-		{
-			_navMeshSurface = GetComponent<NavMeshSurface>();
-			_roomTriggerSystem = GetComponent<RoomTriggerSystem>();
-		}
 
 		/// <summary>
 		/// .ctor
@@ -38,6 +29,11 @@ namespace RogueLike.Katano.Maze
 			
 			Room = room;
 			_roomTriggerSystem.Construct(spawners);
+		}
+
+		public void Initialize()
+		{
+			_roomTriggerSystem.Initialize();
 		}
 
 		public void Enter()

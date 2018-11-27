@@ -304,11 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02445702cee04daf959fd417ad95a3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawners:
-  - {fileID: 114169332178348520}
-  - {fileID: 114146798421434428}
-  - {fileID: 114828121721319318}
-  - {fileID: 114559529180260756}
 --- !u!114 &114146798421434428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2611,7 +2606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshSurface: {fileID: 114854913249438880}
-  _roomBounds: {fileID: 65449035992523744}
   _roomTriggerSystem: {fileID: 114008313490005090}
 --- !u!114 &114828121721319318
 MonoBehaviour:

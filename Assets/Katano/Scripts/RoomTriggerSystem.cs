@@ -8,6 +8,7 @@ namespace RogueLike.Katano
 	public abstract class RoomTriggerSystem : MonoBehaviour
 	{
 		public abstract void Construct(IEnumerable<CharacterSpawner> spawners);
-		public abstract void Spawn();
+		public virtual void Initialize() {}
+		public virtual void Spawn() {}
 	}
 }

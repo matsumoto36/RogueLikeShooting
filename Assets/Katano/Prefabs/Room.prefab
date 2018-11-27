@@ -139,5 +139,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8623e28dbb452cb3980ef48b7bbfcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _label: {fileID: 0}
-  _renderer: {fileID: 23791966115817114}
+  _navMeshSurface: {fileID: 114064540700267784}
+  _roomTriggerSystem: {fileID: 0}

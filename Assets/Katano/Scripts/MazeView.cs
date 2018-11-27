@@ -25,11 +25,11 @@ namespace RogueLike.Katano.Maze.View
 			Maze = maze;
 			Rooms = rooms;
 			Aisles = aisles;
-		}
 
-		public void Startup()
-		{
-			Rooms.ElementAt(0).Value.Enter();
+			foreach (var room in Rooms.Values)
+			{
+				room.Initialize();
+			}
 		}
 
 		public void Dispose()
