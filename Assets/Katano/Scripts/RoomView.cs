@@ -1,4 +1,5 @@
 using System;
+using RogueLike.Matsumoto;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,7 +34,10 @@ namespace RogueLike.Katano.Maze
 		/// <param name="room"></param>
 		public void Construct(Room room)
 		{
+			var spawners = GetComponentsInChildren<CharacterSpawner>();
+			
 			Room = room;
+			_roomTriggerSystem.Construct(spawners);
 		}
 
 		public void Enter()

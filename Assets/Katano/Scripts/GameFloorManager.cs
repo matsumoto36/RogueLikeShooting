@@ -1,9 +1,6 @@
-using System;
-using System.Linq;
-using System.Threading;
 using RogueLike.Katano.Maze.View;
+using RogueLike.Katano.Model;
 using UniRx;
-using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano.Maze
@@ -17,13 +14,15 @@ namespace RogueLike.Katano.Maze
 		private bool _buildOnAwake = true;
 
 		[SerializeField]
-		private MazeDataAssetBase _mazeDataAsset;
+		private MazeDataAsset _mazeDataAsset;
 
 		[SerializeField]
-		private DebugPlayerCamera _playerCamera;
+		private MazeFloorSettings _floorSettings;
 		
-		public int Width = 4;
-		public int Height = 4;
+		[SerializeField]
+		private DebugPlayerCamera _playerCamera;
+
+		
 
 		private MazeView _mazeView;
 
@@ -31,13 +30,6 @@ namespace RogueLike.Katano.Maze
 
 		public void Initialize()
 		{
-			MessageBroker.Default
-				.Receive<MazeSignal.FloorStarted>()
-				.Subscribe(_ =>
-				{
-					Startup();
-				});
-			
 			Log("Initialized.");
 		}
 
@@ -46,7 +38,7 @@ namespace RogueLike.Katano.Maze
 			if (!_isReady)
 				throw new MazeException("Maze has not been generated.");
 			
-			
+			Startup();
 			
 			Log("Startup.");
 		}
@@ -80,7 +72,7 @@ namespace RogueLike.Katano.Maze
 		private Maze ConstructMaze()
 		{
 			var builder = new MazeBuilder();
-			var options = new MazeBuildOptions(Width, Height, EnumDecorationState.Labyrinth);
+			var options = new MazeBuildOptions(_floorSettings.Width, _floorSettings.Height, EnumDecorationState.Labyrinth);
 			var director = new MazeDirector(builder, options);
 			
 			return director.Construct();

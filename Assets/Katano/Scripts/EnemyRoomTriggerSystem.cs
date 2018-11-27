@@ -1,7 +1,6 @@
 using RogueLike.Katano.Maze;
 using RogueLike.Matsumoto;
 using UniRx;
-using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano

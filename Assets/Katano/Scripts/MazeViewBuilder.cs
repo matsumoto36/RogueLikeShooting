@@ -21,7 +21,7 @@ namespace RogueLike.Katano.Maze
 		/// <summary>
 		/// 迷宮構築アセットデータ
 		/// </summary>
-		private readonly MazeDataAssetBase _mazeDataAsset;
+		private readonly MazeDataAsset _mazeDataAsset;
 		
 		/// <summary>
 		/// 親Transform
@@ -39,7 +39,7 @@ namespace RogueLike.Katano.Maze
 		/// <param name="maze"></param>
 		/// <param name="mazeDataAsset"></param>
 		/// <param name="transform"></param>
-		public MazeViewBuilder(Maze maze, MazeDataAssetBase mazeDataAsset, Transform transform)
+		public MazeViewBuilder(Maze maze, MazeDataAsset mazeDataAsset, Transform transform)
 		{
 			_maze = maze;
 			_mazeDataAsset = mazeDataAsset;
