@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
-using RogueLike.Katano.Maze.View;
+using RogueLike.Katano.View;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -24,11 +24,6 @@ namespace RogueLike.Katano.Maze
 		private readonly MazeDataAsset _mazeDataAsset;
 		
 		/// <summary>
-		/// 親Transform
-		/// </summary>
-		private readonly Transform _transform;
-		
-		/// <summary>
 		/// 部屋の配置インターバル
 		/// </summary>
 		private const int Interval = 25;
@@ -38,19 +33,16 @@ namespace RogueLike.Katano.Maze
 		/// </summary>
 		/// <param name="maze"></param>
 		/// <param name="mazeDataAsset"></param>
-		/// <param name="transform"></param>
-		public MazeViewBuilder(Maze maze, MazeDataAsset mazeDataAsset, Transform transform)
+		public MazeViewBuilder(Maze maze, MazeDataAsset mazeDataAsset)
 		{
 			_maze = maze;
 			_mazeDataAsset = mazeDataAsset;
-			_transform = transform;
 		}
 
 		/// <summary>
 		/// 迷宮を実体化する
 		/// </summary>
 		/// <returns></returns>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
 		public MazeView Construct()
 		{
 			var rooms = new Dictionary<int, RoomView>();
@@ -58,10 +50,8 @@ namespace RogueLike.Katano.Maze
 			
 			MakeRoomView(ref rooms);
 			MakeAisleView(ref aisles, rooms);
-			
-			var mazeView = _transform.gameObject.AddComponent<MazeView>();
-			mazeView.Construct(_maze, rooms, aisles);
-			return mazeView;
+
+			return MazeView.Create(_maze, rooms, aisles);
 		}
 
 		/// <summary>
@@ -74,17 +64,15 @@ namespace RogueLike.Katano.Maze
 			var shuffledRooms = _maze.RoomList.OfType<Room>().Where(x => x.IsEnable).Shuffle().ToList();
 			for (var i = 0; i < shuffledRooms.Count; i++)
 			{
-				GameObject obj;
 				var room = shuffledRooms[i];
 				
 				var coord = new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y);
 				
-				obj = Object.Instantiate(i == 0 
-					? _mazeDataAsset.PlayerRoomPrefab 
-					: _mazeDataAsset.RoomPrefabList.RandomAt(), 
+				var obj = Object.Instantiate(i == 0 
+						? _mazeDataAsset.PlayerRoomPrefab 
+						: _mazeDataAsset.RoomPrefabList.RandomAt(), 
 					coord,
-					Quaternion.identity, 
-					_transform);
+					Quaternion.identity);
 
 				var view = obj.GetComponent<RoomView>();
 				view.Construct(room);
@@ -116,7 +104,6 @@ namespace RogueLike.Katano.Maze
 						throw new ArgumentOutOfRangeException();
 				}
 				obj.transform.localPosition = spawn;
-				obj.transform.SetParent(_transform);
 
 				var view = obj.AddComponent<AisleView>();
 				view.Construct(aisle);

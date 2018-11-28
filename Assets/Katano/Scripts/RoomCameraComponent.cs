@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using RogueLike.Katano.Maze;
+using RogueLike.Katano.View;
 using RogueLike.Matsumoto;
 using UniRx;
 using UnityEngine;
 
 namespace RogueLike.Katano
 {
-	[DisallowMultipleComponent]
-	public class RoomCameraComponent : MonoBehaviour
+	public class RoomCameraComponent : RoomComponent
 	{
 		private RoomView _roomView;
 		
@@ -16,6 +17,11 @@ namespace RogueLike.Katano
 			if (!_roomView)
 				throw new MissingComponentException(nameof(RoomView));
 		}
+		
+		public override void Construct(IEnumerable<CharacterSpawner> spawners)
+		{
+			throw new System.NotImplementedException();
+		}
 
 		private void OnPlayerEnter()
 		{
@@ -23,5 +29,7 @@ namespace RogueLike.Katano
 			
 			// TODO: PlayerOverlookCamera will include
 		}
+
+		
 	}
 }

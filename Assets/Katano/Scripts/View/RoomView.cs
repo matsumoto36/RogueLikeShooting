@@ -1,23 +1,33 @@
-using System;
+using System.Collections.Generic;
+using RogueLike.Katano.Maze;
 using RogueLike.Matsumoto;
-using UniRx;
+using Unity.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
-namespace RogueLike.Katano.Maze
+namespace RogueLike.Katano.View
 {
 	/// <summary>
 	/// 部屋のViewオブジェクト
 	/// </summary>
 	public class RoomView : MonoBehaviour
 	{
+		public IEnumerable<CharacterSpawner> CharacterSpawners { get; private set; }
+
 		[SerializeField]
 		private NavMeshSurface _navMeshSurface;
 		
+		[FormerlySerializedAs("_roomTriggerSystem")]
 		[SerializeField]
-		private RoomTriggerSystem _roomTriggerSystem;
+		private RoomComponent _roomComponent;
 		
 		public Room Room { get; private set; }
+
+		private void Awake()
+		{
+			CharacterSpawners = gameObject.Children().OfComponent<CharacterSpawner>();
+		}
 
 		/// <summary>
 		/// .ctor
@@ -25,20 +35,20 @@ namespace RogueLike.Katano.Maze
 		/// <param name="room"></param>
 		public void Construct(Room room)
 		{
-			var spawners = GetComponentsInChildren<CharacterSpawner>();
+			
 			
 			Room = room;
-			_roomTriggerSystem.Construct(spawners);
+			_roomComponent.Construct(spawners);
 		}
 
 		public void Initialize()
 		{
-			_roomTriggerSystem.Initialize();
+			_roomComponent.Initialize();
 		}
 
 		public void Enter()
 		{
-			_roomTriggerSystem.Spawn();
+			_roomComponent.Spawn();
 		}
 	
 		public void Exit()

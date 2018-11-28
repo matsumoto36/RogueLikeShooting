@@ -1,13 +1,13 @@
 using RogueLike.Katano.Maze;
-using RogueLike.Katano.Maze.View;
 using RogueLike.Katano.Model;
+using RogueLike.Katano.View;
 using UniRx;
 using UnityEngine;
 
 namespace RogueLike.Katano.Managers
 {
 	/// <summary>
-	///     ゲームボードマネージャ
+	/// 階層マネージャ
 	/// </summary>
 	[DisallowMultipleComponent]
 	public class GameFloorManager : MonoBehaviour
@@ -96,14 +96,15 @@ namespace RogueLike.Katano.Managers
 		/// <returns></returns>
 		private MazeView ConstructMazeView(Maze.Maze maze)
 		{
-			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset, transform);
+			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset);
 
 			return viewBuilder.Construct();
 		}
 
 		private static void Destruct(MazeView view)
 		{
-			view.Dispose();
+			// Destroy MazeView
+			Destroy(view.gameObject);
 		}
 		
 		private static void Log(string log)

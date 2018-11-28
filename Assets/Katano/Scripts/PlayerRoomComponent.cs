@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
+using RogueLike.Katano.View;
 using RogueLike.Matsumoto;
-using UniRx;
 using UnityEngine;
 
 namespace RogueLike.Katano
 {
-	[DisallowMultipleComponent]
-	public class EnemyRoomTriggerSystem : RoomTriggerSystem
+	
+	public class PlayerRoomComponent : RoomComponent
 	{
 		private IEnumerable<CharacterSpawner> _spawners;
 
-		private void Start()
+		private void Awake()
 		{
 			var roomView = GetComponent<RoomView>();
 			if (roomView == null)
@@ -25,14 +25,9 @@ namespace RogueLike.Katano
 
 		public override void Initialize()
 		{
-			
-		}
-
-		public override void Spawn()
-		{
 			foreach (var spawner in _spawners)
 			{
-				spawner.Spawn();
+				spawner.Spawn().transform.SetParent(transform);
 			}
 		}
 	}
