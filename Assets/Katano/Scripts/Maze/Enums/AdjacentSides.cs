@@ -1,6 +1,6 @@
 using System;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	[Flags]
 	public enum AdjacentSides
