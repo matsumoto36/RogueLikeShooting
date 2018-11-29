@@ -29,6 +29,12 @@ namespace RogueLike.Nishiwaki.Item
             {
                 range = 100.0f;
             }
+
+            // デバッグ用
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                AttackUp();
+            }
         }
 
         public override void AttackUp()

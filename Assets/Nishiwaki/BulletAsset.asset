@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4444ef86efbaa3147aa9be549958309e, type: 3}
-  m_Name: NewBulletAsset
+  m_Name: BulletAsset
   m_EditorClassIdentifier: 
   BulletType: 0
   BulletParameter:
@@ -19,3 +19,4 @@ MonoBehaviour:
     Range: 100
   BulletPrefab: {fileID: 114385723476110262, guid: 427337b2cce5d974bb021ae99e7854b9,
     type: 2}
+  LaserPrefab: {fileID: 0}
