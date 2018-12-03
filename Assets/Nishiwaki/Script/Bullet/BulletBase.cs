@@ -38,12 +38,12 @@ namespace RogueLike.Nishiwaki.Bullet
                 // 弾
                 case BulletType.Projectile:
                     BulletBase = new BulletProjectile(BulletAsset);
-                    Debug.Log("BulletTypeProjectile");
+                    Debug.Log("Bulletrojectile");
                     break;
                 // レーザー
                 case BulletType.Lazer:
                     BulletBase = new BulletProjectileLaser(BulletAsset);
-                    Debug.Log("BulletTypeLaser");
+                    Debug.Log("BulletLaser");
                     break;
                 default:
                     BulletBase = null;

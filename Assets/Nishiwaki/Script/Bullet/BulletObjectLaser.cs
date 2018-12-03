@@ -8,10 +8,12 @@ namespace RogueLike.Nishiwaki.Bullet
     public class BulletObjectLaser : MonoBehaviour
     {
         public BulletParameter BulletPara;
-
+        public WeaponRangedLaser WeaponRangedLaser;
+        float time;
         // Use this for initialization
         void Start()
         {
+            time = WeaponRangedLaser.ChargeTime;
             StartCoroutine(LaserShot());
         }
 
@@ -23,7 +25,7 @@ namespace RogueLike.Nishiwaki.Bullet
 
         IEnumerator LaserShot()
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(time);
             Destroy(gameObject);
         }
 

@@ -10,6 +10,7 @@ namespace RogueLike.Nishiwaki.Bullet
         public BulletProjectileLaser(BulletAsset asset) : base(asset)
         {
         }
+
         public override void BulletCreate(Transform transform)
         {
             var bullet = UnityEngine.Object.Instantiate(LaserPrefab, transform);
