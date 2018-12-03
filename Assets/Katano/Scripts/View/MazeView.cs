@@ -40,11 +40,6 @@ namespace RogueLike.Katano.View
 			Aisles = aisles;
 
 			this.OnDestroyAsObservable().Subscribe(_ => Destruct());
-			
-			foreach (var room in Rooms.Values)
-			{
-				room.Initialize();
-			}
 		}
 
 		private void Destruct()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
+using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
 using Unity.Linq;
 using UnityEngine;
@@ -18,10 +19,6 @@ namespace RogueLike.Katano.View
 		[SerializeField]
 		private NavMeshSurface _navMeshSurface;
 		
-		[FormerlySerializedAs("_roomTriggerSystem")]
-		[SerializeField]
-		private RoomComponent _roomComponent;
-		
 		public Room Room { get; private set; }
 
 		private void Awake()
@@ -35,25 +32,21 @@ namespace RogueLike.Katano.View
 		/// <param name="room"></param>
 		public void Construct(Room room)
 		{
-			
-			
 			Room = room;
-			_roomComponent.Construct(spawners);
+
+			var components = gameObject.Children().OfComponent<RoomComponent>();
+			foreach (var component in components)
+			{
+				component.OnInitialize();
+			}
 		}
 
-		public void Initialize()
+		public void Enter(IEnumerable<PlayerCore> players)
 		{
-			_roomComponent.Initialize();
-		}
-
-		public void Enter()
-		{
-			_roomComponent.Spawn();
-		}
-	
-		public void Exit()
-		{
-			
+			foreach (var player in players)
+			{
+				player.transform.SetParent(transform);
+			}
 		}
 	}
 }

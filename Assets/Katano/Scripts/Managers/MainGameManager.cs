@@ -17,6 +17,7 @@ namespace RogueLike.Katano.Managers
 		
 		private void Start()
 		{
+			// 初期化する
 			Initialize();
 			
 			// フロアを準備する

@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using RogueLike.Katano.View;
-using RogueLike.Matsumoto;
 using UnityEngine;
 
-namespace RogueLike.Katano
+namespace RogueLike.Katano.View.Components
 {
 	[DisallowMultipleComponent]
 	public abstract class RoomComponent : MonoBehaviour
@@ -15,7 +12,7 @@ namespace RogueLike.Katano
 			Owner = GetComponent<RoomView>();
 		}
 		
-		public abstract void Construct(IEnumerable<CharacterSpawner> spawners);
+		public abstract void OnInitialize();
 		public virtual void Initialize() {}
 		public virtual void Spawn() {}
 	}

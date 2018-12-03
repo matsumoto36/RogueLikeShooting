@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
 using RogueLike.Katano.View;
+using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
 using UnityEngine;
 
@@ -18,9 +19,9 @@ namespace RogueLike.Katano
 				throw new MissingComponentException("RoomView");
 		}
 
-		public override void Construct(IEnumerable<CharacterSpawner> spawners)
+		public override void OnInitialize()
 		{
-			_spawners = spawners;
+			
 		}
 
 		public override void Initialize()
