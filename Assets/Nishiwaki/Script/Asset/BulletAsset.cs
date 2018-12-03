@@ -11,6 +11,6 @@ namespace RogueLike.Nishiwaki.Bullet {
         public BulletType BulletType;
         public BulletParameter BulletParameter;
         public BulletObject BulletPrefab;
-        
+        public BulletObjectLaser LaserPrefab;
     }
 }

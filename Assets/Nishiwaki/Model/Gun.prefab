@@ -1568,3 +1568,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80e473210d1b844fa2f97667e1439a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponRangedPara:
+    WaitTime: 0

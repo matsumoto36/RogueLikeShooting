@@ -5,17 +5,17 @@ using RogueLike.Nishiwaki.Bullet;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
-    public class BulletProjectile : BulletBase
+    public class BulletProjectileLaser : BulletBase
     {
-        public BulletProjectile(BulletAsset asset) : base(asset)
+        public BulletProjectileLaser(BulletAsset asset) : base(asset)
         {
         }
 
         public override void BulletCreate(Transform transform)
         {
-            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
+            var bullet = UnityEngine.Object.Instantiate(LaserPrefab, transform);
             bullet.BulletPara = BulletPara;
-            Debug.Log("BulletCreate");
+            Debug.Log("LaserCreate");
         }
     }
 }
