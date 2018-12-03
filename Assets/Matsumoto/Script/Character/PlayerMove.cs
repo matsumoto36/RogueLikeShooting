@@ -16,11 +16,11 @@ namespace RogueLike.Matsumoto.Character {
 
 					var input = player.InputEventProvider;
 
-					//移動
-					//transform.position += player.Parameter.MoveSpeed * input.GetMoveVector() * Time.deltaTime;
-
-					////向きの変更
-					//transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
+//					//移動
+//					transform.position += player.Parameter.MoveSpeed * input.GetMoveVector() * Time.deltaTime;
+//
+//					//向きの変更
+//					transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
 				})
 				.AddTo(this);
 		}

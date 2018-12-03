@@ -1,21 +1,67 @@
-using UniRx;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
-namespace RougeLike.Katano.Maze
+namespace RogueLike.Katano.Maze
 {
 	/// <summary>
 	/// 部屋
 	/// </summary>
-	public class Room
+	public class Room : IEquatable<Room>
 	{
 		public int Id { get; }
-		public IntReactiveProperty Mark { get; } = new IntReactiveProperty();
-		public BoolReactiveProperty IsEnable { get; } = new BoolReactiveProperty(true);
-		public bool IsCompleted;
-		public AdjacentSides AdjacentSide;
+		
+		public Point Coord { get; }
+		
+		public int Mark { get; set; }
+		public bool IsEnable { get; set; } = true;
+		public bool IsCompleted { get; set; }
+		public AdjacentSides AdjacentSide { get; set; }
 
-		public Room(int id)
+		public Room(int id, Point coord)
 		{
 			Id = id;
+			Coord = coord;
+		}
+
+		public bool Equals(Room other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Id == other.Id;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != GetType()) return false;
+			return Equals((Room) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return Id;
+		}
+		
+		public static bool operator ==(Room left, Room right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(Room left, Room right)
+		{
+			return !Equals(left, right);
+		}
+
+		public static Aisle operator +(Room left, Room right)
+		{
+			return new Aisle(left, right);
+		}
+
+		[SuppressMessage("ReSharper", "UnusedMember.Global")]
+		public new string ToString()
+		{
+			return $"[Room] Id:{Id} Coord:{Coord}";
 		}
 	}
 }
