@@ -47,12 +47,16 @@ namespace RogueLike.Matsumoto.Character {
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
 			switch(attacker) {
-				case CharacterAttacker sAttacker:
-					Debug.Log($"{sAttacker.Attacker.name}は{name}に{damage}ダメージ与えた");
-					break;
-				case StatusAttacker sAttacker:
-					
-					Debug.Log($"{name}は{damage}の{sAttacker.Attacker.GetStatusName()}ダメージを食らった");
+				case CharacterAttacker cAttacker:
+
+					var message = "Unknown";
+
+					if(cAttacker.Attacker) {
+						message = cAttacker.Attacker.name;
+					}
+
+					Debug.Log($"{message}は{name}に{damage}ダメージ与えた");
+
 					break;
 				default:
 					Debug.Log($"Unknownは{name}に{damage}ダメージ与えた");
@@ -75,11 +79,8 @@ namespace RogueLike.Matsumoto.Character {
 
 			var message = "";
 			switch(attacker) {
-				case CharacterAttacker sAttacker:
-					message = sAttacker.Attacker.name;
-					break;
-				case StatusAttacker sAttacker:
-					message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
+				case CharacterAttacker cAttacker:
+					message = !cAttacker.Attacker ? "Unknown" : cAttacker.Attacker.name;
 					break;
 				default:
 					message = "Unknown";
@@ -132,7 +133,7 @@ namespace RogueLike.Matsumoto.Character {
 				.Subscribe(_ => {
 
 					//ステータス変化の更新
-					for(int i = 0; i < StatusChanges.Count;i++) {
+					for(int i = 0;i < StatusChanges.Count;i++) {
 						StatusChanges[i].OnUpdateStatus(this);
 					}
 

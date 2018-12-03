@@ -31,6 +31,5 @@ namespace RogueLike.Nishiwaki.Item
                 Attack();
             }
         }
-
     }
 }

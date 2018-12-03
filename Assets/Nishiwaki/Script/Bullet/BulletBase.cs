@@ -11,26 +11,22 @@ namespace RogueLike.Nishiwaki.Bullet
         public BulletParameter BulletPara;
         // 弾プレハブ
         public BulletObject BulletPrefab;
-        
+        public BulletObjectLaser LaserPrefab;
+
         protected BulletBase(BulletAsset asset) {
             BulletPara = asset.BulletParameter;
             BulletPrefab = asset.BulletPrefab;
+            LaserPrefab = asset.LaserPrefab;
         }
 
-        //public void SpawnCreate(Transform BulletPop)
+        //public void BulletCreate(Transform transform)
         //{
-        //    // 弾丸の複製
-        //    //var prefab = Resources.Load<GameObject>(BulletPrefab);
-        //    UnityEngine.Object.Instantiate(BulletPrefab, BulletPop.position, BulletPop.rotation);
+        //    var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
+        //    bullet.BulletPara = BulletPara;
+        //    Debug.Log("BulletCreate");
         //}
-
-        public void BulletCreate(Transform transform)
+        public virtual void BulletCreate(Transform transform)
         {
-            //if (BulletPrefab) Debug.Break();
-            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
-            bullet.BulletPara = BulletPara;
-            //Debug.Break();
-            Debug.Log("BulletCreate");
         }
         public static BulletBase Create(BulletAsset BulletAsset)
         {
@@ -38,12 +34,15 @@ namespace RogueLike.Nishiwaki.Bullet
             // 弾の種類を判断
             switch (BulletAsset.BulletType)
             {
+                // 弾
                 case BulletType.Projectile:
                     BulletBase = new BulletProjectile(BulletAsset);
-                    Debug.Log("呼ばれた");
+                    Debug.Log("Bulletrojectile");
                     break;
+                // レーザー
                 case BulletType.Lazer:
-                    BulletBase = new BulletLezer(BulletAsset);
+                    BulletBase = new BulletProjectileLaser(BulletAsset);
+                    Debug.Log("BulletLaser");
                     break;
                 default:
                     BulletBase = null;

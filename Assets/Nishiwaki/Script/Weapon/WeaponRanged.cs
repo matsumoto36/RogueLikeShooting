@@ -47,11 +47,14 @@ namespace RogueLike.Nishiwaki.Item
             WeaponRanged weapon;
             switch (asset)
             {
-                case WeaponRangedAutoAsset autoAsset:
+                case WeaponRangedAutoAsset AutoAsset:
                     weapon = obj.AddComponent<WeaponRangedAuto>();
                     break;
-                case WeaponRangedSemiAsset semiAsset:
+                case WeaponRangedSemiAsset SemiAsset:
                     weapon = obj.AddComponent<WeaponRangedSemi>();
+                    break;
+                case WeaponRangedLaserAsset LaserAsset:
+                    weapon = obj.AddComponent<WeaponRangedLaser>();
                     break;
                 default:
                     weapon = null;
