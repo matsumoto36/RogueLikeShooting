@@ -9,12 +9,12 @@ namespace RogueLike.Nishiwaki.Bullet
     {
         public BulletParameter BulletPara;
         public WeaponRangedLaser WeaponRangedLaser;
-        float time;
+        //float time;
         // Use this for initialization
         void Start()
         {
-            time = WeaponRangedLaser.ChargeTime;
-            StartCoroutine(LaserShot());
+            //time = WeaponRangedLaser.ChargeTime;
+            //StartCoroutine(LaserShot());
         }
 
         // Update is called once per frame
@@ -23,11 +23,11 @@ namespace RogueLike.Nishiwaki.Bullet
             gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, BulletPara.Range);
         }
 
-        IEnumerator LaserShot()
-        {
-            yield return new WaitForSeconds(time);
-            Destroy(gameObject);
-        }
+        //IEnumerator LaserShot()
+        //{
+        //    yield return new WaitForSeconds(2);
+        //    Destroy(gameObject);
+        //}
 
     }
 }

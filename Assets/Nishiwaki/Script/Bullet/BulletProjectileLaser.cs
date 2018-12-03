@@ -15,7 +15,7 @@ namespace RogueLike.Nishiwaki.Bullet
         {
             var bullet = UnityEngine.Object.Instantiate(LaserPrefab, transform);
             bullet.BulletPara = BulletPara;
-            Debug.Log("BulletCreate");
+            Debug.Log("LaserCreate");
         }
     }
 }

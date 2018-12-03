@@ -29,7 +29,15 @@ namespace RogueLike.Matsumoto.Character {
 			var message = "";
 			switch(attacker) {
 				case CharacterAttacker cAttacker:
-					message = cAttacker.Attacker.name;
+
+                    //debug
+                    if (!cAttacker.Attacker)
+                    {
+                        message = "Unknown";
+                        break;
+                    }
+
+                    message = cAttacker.Attacker.name;
 					break;
 				default:
 					message = "Unknown";
@@ -54,7 +62,15 @@ namespace RogueLike.Matsumoto.Character {
 			var message = "";
 			switch(attacker) {
 				case CharacterAttacker cAttacker:
-					message = cAttacker.Attacker.name;
+
+                    //debug
+                    if (!cAttacker.Attacker)
+                    {
+                        message = "Unknown";
+                        break;
+                    }
+
+                    message = cAttacker.Attacker.name;
 					break;
 				default:
 					message = "Unknown";

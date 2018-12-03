@@ -12,7 +12,6 @@ namespace RogueLike.Nishiwaki.Bullet
         // 弾プレハブ
         public BulletObject BulletPrefab;
         public BulletObjectLaser LaserPrefab;
-        public GameObject Prefab;
 
         protected BulletBase(BulletAsset asset) {
             BulletPara = asset.BulletParameter;

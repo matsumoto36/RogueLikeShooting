@@ -7,6 +7,7 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRangedLaser : WeaponRanged
     {
+        BulletParameter bulletParameter;
         Ray ray;        //レイ
         RaycastHit hit; //ヒットしたオブジェクト情報
         public float Range;
@@ -41,25 +42,26 @@ namespace RogueLike.Nishiwaki.Item
             {
                 AttackDown();
             }
-
-            if (!CanShot)
-            {
-                ChargeTime += Time.deltaTime;
-                Debug.Log(ChargeTime);
-            }
+            bulletParameter.Range = Range;
+            //if (!CanShot)
+            //{
+            //    ChargeTime += Time.deltaTime;
+            //    Debug.Log(ChargeTime);
+            //}
         }
 
         public override void AttackUp()
         {
-            iBullet.BulletCreate(transform);
+            
         }
         public override void AttackDown()
         {
-            if (CanShot)
-            {
-                ChargeTime = 0;
-                CanShot = false;
-            }
+            //if (CanShot)
+            //{
+            //    ChargeTime = 0;
+            //    CanShot = false;
+            //}
+            iBullet.BulletCreate(transform);
         }
 
     }
