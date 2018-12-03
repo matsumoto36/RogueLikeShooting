@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using GamepadInput;
 
+using RogueLike.Chikazawa;
 using RogueLike.Chikazawa.InputEventProvider;
 using RogueLike.Matsumoto;
 
@@ -11,13 +13,11 @@ using RogueLike.Matsumoto;
 /// </summary>
 public class PlayerEntry : MonoBehaviour
 {
-        
-    public static List<int> ControllerList;//参加人数と使用コントローラーの状況
-    public PlayerCore Players { get; private set; }
+    public List<int> ControllerList;//参加人数と使用コントローラーの状況
     public CharacterSpawner Spawner;
+    public PlayerList PlayerList;
+    //GameObject DefaultBody;         //スポーン（エントリー）したときのオブジェクト
 
-    [SerializeField]
-    GameObject DefaultBody;         //スポーン（エントリー）したときのオブジェクト
 
     // Use this for initialization
     void Start()
@@ -30,28 +30,26 @@ public class PlayerEntry : MonoBehaviour
     {
         //キーボード
         //スペースキーでエントリー
-        if (Input.GetKeyDown(KeyCode.Space) && !IsEntry(0))
+        if (Input.GetKeyDown(KeyCode.Space) && !IsEntry(-1))
         {
 
             //プレイヤー操作リストに追加
-            ControllerList.Add(0);
+            ControllerList.Add(-1);
             //ControllerListが4つ以上入っていれば削除する
-            if (ControllerList.IndexOf(0) >= 5)
+            if (ControllerList.IndexOf(-1) >= 5)
             {
-                ControllerList.Remove(0);
+                ControllerList.Remove(-1);
                 return;
             }
-            Spawner.OverrideID = 0;
             Spawner.Spawn();
-            Players.InputEventProvider = new InputKeyBoard();
         }
         //Deleteで退出
-        if (Input.GetKeyDown(KeyCode.Delete) && IsEntry(0))
+        if (Input.GetKeyDown(KeyCode.Delete) && IsEntry(-1))
         {
-            //操作オブジェクトを削除
-            Destroy(GameObject.Find("Player" + 0));
-            //プレイヤー操作リストから探し出して削除
-            ControllerList.Remove(0);
+            ////操作オブジェクトを削除
+            //Destroy(GameObject.Find("Player" + -1));
+            ////プレイヤー操作リストから探し出して削除
+            //ControllerList.Remove(-1);
         }
         for (int i = 1; i < 5; i++)
         {
@@ -67,21 +65,19 @@ public class PlayerEntry : MonoBehaviour
                         return;
                     }
                 }
-                Spawner.OverrideID = i;
                 Spawner.Spawn();
-                Players.InputEventProvider = new InputController(i);
+                //Players.InputEventProvider = new InputController(i);
 
             }
             //セレクト(Back)で退出
             if (GamePad.GetButtonDown(GamePad.Button.Back, (GamePad.Index)i) && IsEntry(i))
             {
-                {
-                    //操作オブジェクトを名前で検索して削除
-                    Destroy(GameObject.Find("Player" + i));
-                    //プレイヤー操作リストから探し出して削除
-                    ControllerList.Remove(i);
-                }
+                ////操作オブジェクトを名前で検索して削除
+                //Destroy(GameObject.Find("Player" + i));
+                ////プレイヤー操作リストから探し出して削除
+                //ControllerList.Remove(i);
             }
+            
         }
     }
     /// <summary>
