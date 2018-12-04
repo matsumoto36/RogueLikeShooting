@@ -7,93 +7,101 @@ using GamepadInput;
 using RogueLike.Chikazawa;
 using RogueLike.Chikazawa.InputEventProvider;
 using RogueLike.Matsumoto;
+using System.Linq;
 
-/// <summary>
-/// エントリーシステム
-/// </summary>
-public class PlayerEntry : MonoBehaviour
+namespace RogueLike.Chikazawa
 {
-    public List<int> ControllerList;//参加人数と使用コントローラーの状況
-    public CharacterSpawner Spawner;
-    public PlayerList PlayerList;
-    //GameObject DefaultBody;         //スポーン（エントリー）したときのオブジェクト
-
-
-    // Use this for initialization
-    void Start()
-    {
-        ControllerList = new List<int>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //キーボード
-        //スペースキーでエントリー
-        if (Input.GetKeyDown(KeyCode.Space) && !IsEntry(-1))
-        {
-
-            //プレイヤー操作リストに追加
-            ControllerList.Add(-1);
-            //ControllerListが4つ以上入っていれば削除する
-            if (ControllerList.IndexOf(-1) >= 5)
-            {
-                ControllerList.Remove(-1);
-                return;
-            }
-            Spawner.Spawn();
-        }
-        //Deleteで退出
-        if (Input.GetKeyDown(KeyCode.Delete) && IsEntry(-1))
-        {
-            ////操作オブジェクトを削除
-            //Destroy(GameObject.Find("Player" + -1));
-            ////プレイヤー操作リストから探し出して削除
-            //ControllerList.Remove(-1);
-        }
-        for (int i = 1; i < 5; i++)
-        {
-            //スタートボタンでエントリー
-            if (GamePad.GetButtonDown(GamePad.Button.Start, (GamePad.Index)i) && !IsEntry(i))
-            {
-                {
-                    ControllerList.Add(i);
-                    //ControllerListが4つ以上入っていれば削除する
-                    if (ControllerList.IndexOf(i) >= 5)
-                    {
-                        ControllerList.Remove(i);
-                        return;
-                    }
-                }
-                Spawner.Spawn();
-                //Players.InputEventProvider = new InputController(i);
-
-            }
-            //セレクト(Back)で退出
-            if (GamePad.GetButtonDown(GamePad.Button.Back, (GamePad.Index)i) && IsEntry(i))
-            {
-                ////操作オブジェクトを名前で検索して削除
-                //Destroy(GameObject.Find("Player" + i));
-                ////プレイヤー操作リストから探し出して削除
-                //ControllerList.Remove(i);
-            }
-            
-        }
-    }
     /// <summary>
-    /// コントローラーの参加状態の確認 
+    /// エントリーシステム
     /// </summary>
-    /// <param name="Controller">入力コントローラー</param>
-    /// <returns></returns>
-    bool IsEntry(int Controller)
+    public class PlayerEntry : MonoBehaviour
     {
-        //リスト内に入力コントローラーがあるか確認
-        foreach (var item in ControllerList)
-        {
-            if (item == Controller)
-                return true;
-        }
-        return false;
-    }
+        public int[] ControllerList = new int[4];//参加人数と使用コントローラーの状況
+        public GameObject[] gameObjectsList = new GameObject[4];//スポーン（エントリー）したときのオブジェクト
+        public PlayerList List;
 
+        // Use this for initialization
+        void Start()
+        {
+            for (int i = 0; i < ControllerList.Length; i++)
+            {
+                ControllerList[i] = -1;
+            }
+        }
+        
+        // Update is called once per frame
+        void Update()
+        {
+            //キーボード
+            //スペースキーでエントリー
+            if (Input.GetKeyDown(KeyCode.Space) && !IsEntry(0))
+            {
+
+                //プレイヤー操作リストに追加
+                if (ControllerList.Any(x => x == -1))
+                {
+                    var nowIdx = ControllerList.ToList().IndexOf(-1);
+                    ControllerList[nowIdx] = 0;
+
+                    gameObjectsList[ControllerList.ToList().IndexOf(-1)].SetActive(true);
+                }
+            }
+            //Deleteで退出
+            if (Input.GetKeyDown(KeyCode.Delete) && IsEntry(0))
+            {
+                //操作オブジェクトを非表示
+                gameObjectsList[ControllerList.ToList().IndexOf(0)].SetActive(false);
+                //プレイヤー操作リストから探し出して
+                ControllerList[ControllerList.ToList().IndexOf(0)] = -1;
+            }
+            for (int i = 1; i < 5; i++)
+            {
+                //スタートボタンでエントリー
+                if (GamePad.GetButtonDown(GamePad.Button.Start, (GamePad.Index)i) && !IsEntry(i))
+                {
+                    //プレイヤー操作リストに空きがあればそこに追加
+                    if (ControllerList.Any(x => x == -1))
+                    {
+                        var nowIdx = ControllerList.ToList().IndexOf(-1);
+                        ControllerList[nowIdx] = i;
+                        gameObjectsList[nowIdx].SetActive(true);
+                    }
+
+                }
+                //セレクト(Back)で退出
+                if (GamePad.GetButtonDown(GamePad.Button.Back, (GamePad.Index)i) && IsEntry(i))
+                {
+                    //操作オブジェクトを非表示
+                    gameObjectsList[ControllerList.ToList().IndexOf(i)].SetActive(false);
+                    //プレイヤー操作リストから探し出して
+                    ControllerList[ControllerList.ToList().IndexOf(i)] = -1;
+                }
+            }
+            //保存
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    List.PList[i] = ControllerList[i];
+                }
+            }
+
+            /// <summary>
+            /// コントローラーの参加状態の確認 
+            /// </summary>
+            /// <param name="Controller">入力コントローラー</param>
+            /// <returns></returns>
+            bool IsEntry(int Controller)
+            {
+                //リスト内に入力コントローラーがあるか確認
+                foreach (var item in ControllerList)
+                {
+                    if (item == Controller)
+                        return true;
+                }
+                return false;
+            }
+
+        }
+    }
 }

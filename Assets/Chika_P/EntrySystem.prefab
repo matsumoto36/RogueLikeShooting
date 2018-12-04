@@ -51,5 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a213c719366450d409bff9af747d7fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControllerList: 
-  Spawner: {fileID: 0}
+  ControllerList: 00000000000000000000000000000000
+  gameObjectsList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  List: {fileID: 0}

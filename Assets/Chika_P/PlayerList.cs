@@ -7,6 +7,7 @@ namespace RogueLike.Chikazawa
     [CreateAssetMenu(fileName = "EntryList", menuName = "EntrySystem")]
     public class PlayerList : ScriptableObject
     {
+        
         public int[] PList = new int[4];
     }
 }
