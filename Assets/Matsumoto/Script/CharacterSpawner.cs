@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Matsumoto.Character;
+using RogueLike.Matsumoto.Character.Asset;
 
 namespace RogueLike.Matsumoto {
 
@@ -10,15 +11,24 @@ namespace RogueLike.Matsumoto {
 		[SerializeField] CharacterAsset CharacterAsset;
 
 		public bool SpawnOnAwake;
-
+		public bool PlayerIDOverride;
+		public int OverrideID;
 
 		public CharacterCore Spawn() {
 
-			switch(CharacterAsset.CharacterType) {
-				case CharacterType.Player:
-					return CharacterCore.Create<PlayerCore>(CharacterAsset, transform);
-				case CharacterType.Enemy:
-					return CharacterCore.Create<EnemyCore>(CharacterAsset, transform);
+			switch(CharacterAsset) {
+				case PlayerAsset asset:
+					int id = asset.ID;
+					if(PlayerIDOverride)
+						asset.ID = OverrideID;
+
+					var player = CharacterCore.Create<PlayerCore>(asset, transform);
+
+					asset.ID = id;
+
+					return player;
+				case EnemyAsset asset:
+					return CharacterCore.Create<EnemyCore>(asset, transform);
 				default:
 					return null;
 			}

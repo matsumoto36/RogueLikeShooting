@@ -8,10 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8716533bf00b94447aa1f650c42a0d4c, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: f5d4ce04ceb5d1e41928c418c08e00a2, type: 3}
+  m_Name: EntryList
   m_EditorClassIdentifier: 
-  HP: 0
-  ModelPrefab: {fileID: 1709342743240602, guid: 3f6435e34cefc4747a0fb5362004db6f,
-    type: 2}
-  EnemyAIType: 0
+  PList: 00000000000000000000000000000000

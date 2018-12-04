@@ -15,8 +15,6 @@ namespace RogueLike.Matsumoto.Character {
 	[RequireComponent(typeof(PlayerCore))]
 	public class PlayerAttack : MonoBehaviour {
 
-		public IWeapon Weapon { get; private set; }
-
 		void Start() {
 
 			var playerComponent = GetComponent<PlayerCore>();
@@ -24,11 +22,12 @@ namespace RogueLike.Matsumoto.Character {
 			//装備
 			var g = new GameObject("Weapon");
 			g.transform.parent = transform;
-			Weapon = g.AddComponent<WeaponRanged>();
+			playerComponent.AttachWeapon(g.AddComponent<WeaponRanged>());
 
 			//攻撃
 			playerComponent.PlayerUpdate
 				.Subscribe(player => {
+        
 //					if(player.InputEventProvider.GetShotDown())
 //						Weapon?.AttackDown();
 //
@@ -37,6 +36,7 @@ namespace RogueLike.Matsumoto.Character {
 //
 //					if(player.InputEventProvider.GetShotUp())
 //						Weapon?.AttackUp();
+
 				});
 		}
 	}

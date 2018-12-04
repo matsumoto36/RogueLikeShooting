@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using RogueLike.Matsumoto.Character.Asset;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -20,12 +21,17 @@ namespace RogueLike.Matsumoto.Character {
 			get; protected set;
 		} = true;
 
+		public override int HP {
+			get; protected set;
+		}
+
 		/// <summary>
 		/// 移動する。AIが利用する。
 		/// </summary>
 		/// <param name="vec"></param>
 		public void Move(Vector3 vec) {
-			transform.position += vec * Parameter.MoveSpeed * Time.deltaTime;
+			//武器依存で移動したい
+			transform.position += vec * 4 * Time.deltaTime;
 		}
 
 		/// <summary>
@@ -56,8 +62,13 @@ namespace RogueLike.Matsumoto.Character {
 
 		protected override void OnSpawn(CharacterAsset asset) {
 
+			var enemyAsset = (EnemyAsset)asset;
+
+			//HPを設定
+			HP = enemyAsset.HP;
+
 			//AIの設定
-			switch(asset.EnemyAIType) {
+			switch(enemyAsset.EnemyAIType) {
 				case EnemyAIType.Attacker:
 					_enemyAI = new EnemyAI.EnemyAIAttacker();
 					break;

@@ -14,7 +14,7 @@ namespace RogueLike.Matsumoto.Character.EnemyAI {
 			   
 		public void AIUpdate(EnemyCore enemy) {
 
-			if(!_target) _target = enemy.RetrieveNearestPlayer();
+			if(!_target || Time.frameCount % 60 == 0) _target = enemy.RetrieveNearestPlayer();
 			if(!_target) return;
 
 			var dist = _target.transform.position - enemy.transform.position;
