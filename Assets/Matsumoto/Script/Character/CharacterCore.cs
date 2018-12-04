@@ -80,8 +80,20 @@ namespace RogueLike.Matsumoto.Character {
 
 			var message = "";
 			switch(attacker) {
+
 				case CharacterAttacker cAttacker:
-					message = !cAttacker.Attacker ? "Unknown" : cAttacker.Attacker.name;
+
+                    //debug
+                    if (!cAttacker.Attacker)
+                    {
+                        message = "Unknown";
+                        break;
+                    }
+
+                    message = cAttacker.Attacker.name;
+          break;
+          case StatusAttacker sAttacker:
+					    message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
 					break;
 				default:
 					message = "Unknown";
