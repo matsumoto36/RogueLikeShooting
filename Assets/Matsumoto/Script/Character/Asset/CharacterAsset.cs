@@ -6,5 +6,6 @@ namespace RogueLike.Matsumoto.Character.Asset {
 
 		public int HP;
 		public GameObject ModelPrefab;
+		public Nishiwaki.Item.WeaponRangedAsset Weapon;
 	}
 }

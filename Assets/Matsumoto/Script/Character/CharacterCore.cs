@@ -6,6 +6,7 @@ using UniRx.Triggers;
 using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Matsumoto.Attack;
 using RogueLike.Nishiwaki;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -121,7 +122,13 @@ namespace RogueLike.Matsumoto.Character {
 		/// <returns></returns>
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
+
 			var chara = obj.AddComponent<T>();
+
+			//武器の生成
+			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
+			weapon.transform.SetParent(chara.transform);
+
 			chara.OnSpawn(asset);
 
 			return chara;
