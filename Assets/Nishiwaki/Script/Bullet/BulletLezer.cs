@@ -8,17 +8,6 @@ namespace RogueLike.Nishiwaki.Bullet
     {
         public BulletLezer(BulletAsset asset) : base(asset)
         {
-        }
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
 
         }
     }

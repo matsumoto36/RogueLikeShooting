@@ -47,12 +47,17 @@ namespace RogueLike.Matsumoto.Character {
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
 			switch(attacker) {
-				case CharacterAttacker sAttacker:
-					Debug.Log($"{sAttacker.Attacker.name}は{name}に{damage}ダメージ与えた");
-					break;
-				case StatusAttacker sAttacker:
-					
-					Debug.Log($"{name}は{damage}の{sAttacker.Attacker.GetStatusName()}ダメージを食らった");
+
+				case CharacterAttacker cAttacker:
+
+                    //debug
+                    if (!cAttacker.Attacker)
+                    {
+                        message = "Unknown";
+                        break;
+                    }
+
+                    message = cAttacker.Attacker.name;
 					break;
 				default:
 					Debug.Log($"Unknownは{name}に{damage}ダメージ与えた");
@@ -75,11 +80,20 @@ namespace RogueLike.Matsumoto.Character {
 
 			var message = "";
 			switch(attacker) {
-				case CharacterAttacker sAttacker:
-					message = sAttacker.Attacker.name;
-					break;
-				case StatusAttacker sAttacker:
-					message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
+
+				case CharacterAttacker cAttacker:
+
+                    //debug
+                    if (!cAttacker.Attacker)
+                    {
+                        message = "Unknown";
+                        break;
+                    }
+
+                    message = cAttacker.Attacker.name;
+          break;
+          case StatusAttacker sAttacker:
+					    message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
 					break;
 				default:
 					message = "Unknown";

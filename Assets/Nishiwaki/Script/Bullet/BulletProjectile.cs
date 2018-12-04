@@ -9,11 +9,13 @@ namespace RogueLike.Nishiwaki.Bullet
     {
         public BulletProjectile(BulletAsset asset) : base(asset)
         {
-
         }
 
-        void Update()
+        public override void BulletCreate(Transform transform)
         {
+            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
+            bullet.BulletPara = BulletPara;
+            Debug.Log("BulletCreate");
         }
     }
 }

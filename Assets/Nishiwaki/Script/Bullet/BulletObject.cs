@@ -41,10 +41,13 @@ namespace RogueLike.Nishiwaki.Bullet
         void OnTriggerEnter(Collider other)
         {
             // 敵に当たったら
-            if (other.gameObject.tag == "Enemy")
+            var enemy = other.GetComponentInParent<Matsumoto.Character.EnemyCore>();
+            if (enemy)
             {
-                Debug.Log("HIT");
-                Destroy(gameObject);
+                // 敵にダメージを与える
+                // nullの部分は攻撃者
+                enemy.ApplyDamage(
+                    new Matsumoto.Attack.CharacterAttacker(null), (int)BulletPara.Power);
             }
         }
     }
