@@ -2,17 +2,19 @@ using System;
 using GamepadInput;
 using RogueLike.Chikazawa;
 using UniRx.Async;
-using UniRx.Async.Triggers;
 using UnityEngine;
 
 namespace RogueLike.Katano
 {
 	/// <summary>
-	/// ゲームエントリーマネージャ
+	///     ゲームエントリーマネージャ
 	/// </summary>
 	public class GameEntriesManager : MonoBehaviour
 	{
+		[SerializeField]
+		private PlayerEntrySystem _entrySystem;
 		private TitleState _state;
+
 		private TitleState State
 		{
 			get => _state;
@@ -22,8 +24,6 @@ namespace RogueLike.Katano
 				OnStateChanged();
 			}
 		}
-		
-		private PlayerEntrySystem _entrySystem;
 
 		private void Start()
 		{
@@ -41,6 +41,7 @@ namespace RogueLike.Katano
 				}
 				case TitleState.Entry:
 				{
+					OnPlayerEntry().Forget();
 					break;
 				}
 				default:
@@ -48,15 +49,46 @@ namespace RogueLike.Katano
 			}
 		}
 
+		/// <summary>
+		///     タイトル画面
+		/// </summary>
+		/// <returns></returns>
 		private async UniTaskVoid OnTitle()
 		{
-			await UniTask.WaitUntil(() => GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any));
+			await UniTask.WaitUntil(() =>
+				GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Space));
+			Debug.Log("Trans");
+
+			await UniTask.Delay(200);
+
+			Debug.Log("Entry");
+
+			State = TitleState.Entry;
+		}
+
+		private async UniTaskVoid OnPlayerEntry()
+		{
+			// エントリシステムを初期化
+			_entrySystem.Initialize();
+
+			var result = await _entrySystem.PlayerEntryAsync();
+
+			if (result)
+			{
+				Debug.Log("Entry Success!");
+				_entrySystem.Save();
+				// SceneManager.LoadScene("GamaeScene");
+			}
+			else
+			{
+				State = TitleState.Title;
+			}
 		}
 
 		private enum TitleState
 		{
 			Title,
-			Entry,
+			Entry
 		}
 	}
 }

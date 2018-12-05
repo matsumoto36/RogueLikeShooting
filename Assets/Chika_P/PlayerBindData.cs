@@ -9,12 +9,12 @@ namespace RogueLike.Chikazawa
     /// <summary>
     /// プレイヤーバインドデータ
     /// </summary>
-    // [CreateAssetMenu(fileName = "EntryList", menuName = "EntrySystem")]
+    [CreateAssetMenu(fileName = "PlayerBindData", menuName = "Game/Player Bind Data")]
     public class PlayerBindData : ScriptableObject
     {
         /// <summary>
         /// エントリーリスト
         /// </summary>
-        public List<int> PlayerEntries = new List<int>(4);
+        public List<ControllerIndex> PlayerEntries = new List<ControllerIndex>(4);
     }
 }

@@ -315,8 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: 197a666659c4cc14da47e570432ab69c, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
   SpawnOnAwake: 0
+  PlayerIDOverride: 0
+  OverrideID: 0
 --- !u!114 &114169332178348520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,8 +330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: 197a666659c4cc14da47e570432ab69c, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
   SpawnOnAwake: 0
+  PlayerIDOverride: 0
+  OverrideID: 0
 --- !u!114 &114252219551166132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2592,8 +2596,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: 197a666659c4cc14da47e570432ab69c, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
   SpawnOnAwake: 0
+  PlayerIDOverride: 0
+  OverrideID: 0
 --- !u!114 &114583449490700670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2618,8 +2624,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: 197a666659c4cc14da47e570432ab69c, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
   SpawnOnAwake: 0
+  PlayerIDOverride: 0
+  OverrideID: 0
 --- !u!114 &114854913249438880
 MonoBehaviour:
   m_ObjectHideFlags: 1
