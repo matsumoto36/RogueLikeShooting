@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Katano/Scenes/GameEntry.unity
+    guid: 63c1a6d304f873c41b8b58cc936fbcf3
   - enabled: 1
-    path: Assets/Chika_P/aaa.unity
-    guid: be01346d2248fa245a6604217406ba2b
-  - enabled: 1
-    path: Assets/Chika_P/Chikazawa_test.unity
-    guid: 0cea31f423e05b644984df57b185f57d
+    path: Assets/Katano/Scenes/GameFlowSample.unity
+    guid: f2ad418ce10b5bc47a8ecb712b5ffb64
   m_configObjects: {}
