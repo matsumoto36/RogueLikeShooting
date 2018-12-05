@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletProjectileLaser : BulletBase
     {
         BulletObjectLaser bulletObjectLaser;
-        public BulletProjectileLaser(BulletAsset asset) : base(asset)
+        public BulletProjectileLaser(BulletAsset asset, WeaponRanged weaponRanged) : base(asset, weaponRanged)
         {
         }
 

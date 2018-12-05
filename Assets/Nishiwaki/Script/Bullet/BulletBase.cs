@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
@@ -12,8 +13,9 @@ namespace RogueLike.Nishiwaki.Bullet
         // 弾プレハブ
         public BulletObject BulletPrefab;
         public BulletObjectLaser LaserPrefab;
+        public WeaponRanged weaponRanged;
 
-        protected BulletBase(BulletAsset asset) {
+        protected BulletBase(BulletAsset asset, WeaponRanged weaponRanged) {
             BulletPara = asset.BulletParameter;
             BulletPrefab = asset.BulletPrefab;
             LaserPrefab = asset.LaserPrefab;
@@ -32,26 +34,30 @@ namespace RogueLike.Nishiwaki.Bullet
         {
         }
 
-        public static BulletBase Create(BulletAsset BulletAsset)
+        public static BulletBase Create(BulletAsset BulletAsset, WeaponRanged weaponRanged)
         {
             BulletBase BulletBase;
+
             // 弾の種類を判断
             switch (BulletAsset.BulletType)
             {
                 // 弾
                 case BulletType.Projectile:
-                    BulletBase = new BulletProjectile(BulletAsset);
+                    BulletBase = new BulletProjectile(BulletAsset, weaponRanged);
                     Debug.Log("Bulletrojectile");
                     break;
                 // レーザー
                 case BulletType.Lazer:
-                    BulletBase = new BulletProjectileLaser(BulletAsset);
+                    BulletBase = new BulletProjectileLaser(BulletAsset, weaponRanged);
                     Debug.Log("BulletLaser");
                     break;
                 default:
                     BulletBase = null;
                     break;
             }
+
+            BulletBase.weaponRanged = weaponRanged;
+
             return BulletBase;
         }
     }

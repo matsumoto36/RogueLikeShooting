@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
     public class BulletProjectile : BulletBase
     {
-        public BulletProjectile(BulletAsset asset) : base(asset)
+        public BulletProjectile(BulletAsset asset, WeaponRanged weaponRanged) : base(asset, weaponRanged)
         {
         }
 
@@ -15,6 +16,7 @@ namespace RogueLike.Nishiwaki.Bullet
         {
             var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform.position, transform.rotation);
             bullet.BulletPara = BulletPara;
+            bullet.weaponRanged = weaponRanged;
             Debug.Log("BulletCreate");
         }
     }
