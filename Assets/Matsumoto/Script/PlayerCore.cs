@@ -18,7 +18,7 @@ namespace RogueLike.Matsumoto {
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-		private static PlayerHPProvider _playerHPProvider = null;
+		private static PlayerHPProvider _playerHPProvider;
 
 
 		public int ID { get; private set; }
@@ -41,6 +41,8 @@ namespace RogueLike.Matsumoto {
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
+
+			CharacterType = CharacterType.Player;
 
 			var playerAsset = (PlayerAsset)asset;
 

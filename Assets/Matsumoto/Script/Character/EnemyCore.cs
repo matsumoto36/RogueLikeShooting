@@ -17,9 +17,11 @@ namespace RogueLike.Matsumoto.Character {
 		float _attackWaitTime = 1.0f;
 		IEnemyAI _enemyAI;
 
-		public bool CanAttack {
+		private bool _isAttackPrev;
+
+		public bool IsAttack {
 			get; protected set;
-		} = true;
+		}
 
 		public override int HP {
 			get; protected set;
@@ -37,17 +39,14 @@ namespace RogueLike.Matsumoto.Character {
 		/// <summary>
 		/// 攻撃する。AIが利用する。
 		/// </summary>
-		/// <param name="target"></param>
-		public void Attack(CharacterCore target) {
+		public void Attack() {
 
-			if(!CanAttack) return;
-			if(!target) return;
+			if (!IsAttack) {
+				Weapon?.AttackDown();
+				IsAttack = true;
+			}
 
-			CanAttack = false;
-			Observable.Timer(TimeSpan.FromSeconds(_attackWaitTime))
-				.Subscribe(_ => CanAttack = true);
-
-			target.ApplyDamage(new Attack.CharacterAttacker(this), 20);
+			Weapon?.Attack();
 		}
 
 		/// <summary>
@@ -56,11 +55,13 @@ namespace RogueLike.Matsumoto.Character {
 		/// <returns></returns>
 		public PlayerCore RetrieveNearestPlayer() {
 			return FindObjectsOfType<PlayerCore>()
-				.OrderBy((item) => (item.transform.position - transform.position).sqrMagnitude)
+				.OrderBy(item => (item.transform.position - transform.position).sqrMagnitude)
 				.FirstOrDefault();
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
+
+			CharacterType = CharacterType.Enemy;
 
 			var enemyAsset = (EnemyAsset)asset;
 
@@ -78,11 +79,19 @@ namespace RogueLike.Matsumoto.Character {
 
 		}
 
-		private void Start() {
-
+		protected override void Start() {
 
 			this.UpdateAsObservable()
-				.Subscribe(_ => _enemyAI?.AIUpdate(this))
+				.Subscribe(_ => {
+
+					_enemyAI?.AIUpdate(this);
+
+					if (_isAttackPrev && !IsAttack) {
+						Weapon?.AttackUp();
+					}
+
+					_isAttackPrev = IsAttack;
+				})
 				.AddTo(this);
 
 		}

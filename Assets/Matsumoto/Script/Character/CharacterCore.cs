@@ -15,9 +15,11 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		public List<IStatusChange> StatusChanges {
-			get; protected set;
-		} = new List<IStatusChange>();
+		public CharacterType CharacterType { get; protected set; }
+			= CharacterType.Invalid;
+
+		public List<IStatusChange> StatusChanges { get; protected set; }
+			= new List<IStatusChange>();
 
 		public IWeapon Weapon { get; private set; }
 
@@ -83,17 +85,16 @@ namespace RogueLike.Matsumoto.Character {
 
 				case CharacterAttacker cAttacker:
 
-                    //debug
-                    if (!cAttacker.Attacker)
-                    {
-                        message = "Unknown";
-                        break;
-                    }
+					//debug
+					if(!cAttacker.Attacker) {
+						message = "Unknown";
+						break;
+					}
 
-                    message = cAttacker.Attacker.name;
-          break;
-          case StatusAttacker sAttacker:
-					    message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
+					message = cAttacker.Attacker.name;
+					break;
+				case StatusAttacker sAttacker:
+					message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
 					break;
 				default:
 					message = "Unknown";
@@ -140,22 +141,25 @@ namespace RogueLike.Matsumoto.Character {
 			//武器の生成
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			weapon.transform.SetParent(chara.transform);
+			chara.Weapon = weapon;
 
 			chara.OnSpawn(asset);
 
 			return chara;
 		}
 
+		public static bool IsAttackable(CharacterCore from, CharacterCore to) {
+			return from.CharacterType != to.CharacterType;
+		}
+
 		protected virtual void Start() {
 
 			this.UpdateAsObservable()
 				.Subscribe(_ => {
-
 					//ステータス変化の更新
-					for(int i = 0;i < StatusChanges.Count;i++) {
-						StatusChanges[i].OnUpdateStatus(this);
+					foreach(var item in StatusChanges) {
+						item.OnUpdateStatus(this);
 					}
-
 				})
 				.AddTo(this);
 		}
