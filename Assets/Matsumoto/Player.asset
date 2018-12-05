@@ -14,4 +14,5 @@ MonoBehaviour:
   HP: 100
   ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
     type: 2}
-  ID: 1
+  Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
+  ID: 2

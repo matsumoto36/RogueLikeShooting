@@ -5,19 +5,30 @@ using UnityEditor;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Matsumoto.Character.Asset;
 
+public class CharacterAssetInspector : Editor {
+
+	protected SerializedProperty CharacterHp;
+	protected SerializedProperty ModelPrefab;
+	protected SerializedProperty Weapon;
+
+	protected virtual void OnEnable() {
+
+		CharacterHp = serializedObject.FindProperty("HP");
+		ModelPrefab = serializedObject.FindProperty("ModelPrefab");
+		Weapon = serializedObject.FindProperty("Weapon");
+	}
+}
+
 [CanEditMultipleObjects]
 [CustomEditor(typeof(PlayerAsset))]
-public class PlayerAssetInspector : Editor {
+public class PlayerAssetInspector : CharacterAssetInspector {
 
-	SerializedProperty _playerID;
-	SerializedProperty _characterHP;
-	SerializedProperty _modelPrefab;
+	private SerializedProperty _playerID;
 
-	void OnEnable() {
+	protected override void OnEnable() {
+		base.OnEnable();
 
 		_playerID = serializedObject.FindProperty("ID");
-		_characterHP = serializedObject.FindProperty("HP");
-		_modelPrefab = serializedObject.FindProperty("ModelPrefab");
 	}
 
 	public override void OnInspectorGUI() {
@@ -25,8 +36,9 @@ public class PlayerAssetInspector : Editor {
 		serializedObject.Update();
 
 		EditorGUILayout.PropertyField(_playerID);
-		EditorGUILayout.PropertyField(_characterHP);
-		EditorGUILayout.PropertyField(_modelPrefab);
+		EditorGUILayout.PropertyField(CharacterHp);
+		EditorGUILayout.PropertyField(ModelPrefab);
+		EditorGUILayout.PropertyField(Weapon);
 
 		serializedObject.ApplyModifiedProperties();
 	}
@@ -35,16 +47,13 @@ public class PlayerAssetInspector : Editor {
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(EnemyAsset))]
-public class EnemyAssetInspector : Editor {
+public class EnemyAssetInspector : CharacterAssetInspector {
 
-	SerializedProperty _characterHP;
-	SerializedProperty _modelPrefab;
-	SerializedProperty _enemyAIType;
+	private SerializedProperty _enemyAIType;
 
-	void OnEnable() {
+	protected override void OnEnable() {
+		base.OnEnable();
 
-		_characterHP = serializedObject.FindProperty("HP");
-		_modelPrefab = serializedObject.FindProperty("ModelPrefab");
 		_enemyAIType = serializedObject.FindProperty("EnemyAIType");
 	}
 
@@ -52,9 +61,10 @@ public class EnemyAssetInspector : Editor {
 
 		serializedObject.Update();
 
-		EditorGUILayout.PropertyField(_characterHP);
-		EditorGUILayout.PropertyField(_modelPrefab);
+		EditorGUILayout.PropertyField(CharacterHp);
+		EditorGUILayout.PropertyField(ModelPrefab);
 		EditorGUILayout.PropertyField(_enemyAIType);
+		EditorGUILayout.PropertyField(Weapon);
 
 		serializedObject.ApplyModifiedProperties();
 	}

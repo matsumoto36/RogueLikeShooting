@@ -20,7 +20,7 @@ namespace RogueLike.Matsumoto.Character.EnemyAI {
 			var dist = _target.transform.position - enemy.transform.position;
 
 			if(dist.sqrMagnitude < Mathf.Pow(attackRadius, 2))
-				enemy.Attack(_target);
+				enemy.Attack();
 			else
 				enemy.Move(dist.normalized);
 

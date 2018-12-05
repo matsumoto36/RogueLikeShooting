@@ -6,6 +6,7 @@ using UniRx.Triggers;
 using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Matsumoto.Attack;
 using RogueLike.Nishiwaki;
+using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Matsumoto.Character {
 
@@ -14,9 +15,11 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		public List<IStatusChange> StatusChanges {
-			get; protected set;
-		} = new List<IStatusChange>();
+		public CharacterType CharacterType { get; protected set; }
+			= CharacterType.Invalid;
+
+		public List<IStatusChange> StatusChanges { get; protected set; }
+			= new List<IStatusChange>();
 
 		public IWeapon Weapon { get; private set; }
 
@@ -47,17 +50,16 @@ namespace RogueLike.Matsumoto.Character {
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
 			switch(attacker) {
-
 				case CharacterAttacker cAttacker:
 
-                    //debug
-                    if (!cAttacker.Attacker)
-                    {
-                        message = "Unknown";
-                        break;
-                    }
+					var message = "Unknown";
 
-                    message = cAttacker.Attacker.name;
+					if(cAttacker.Attacker) {
+						message = cAttacker.Attacker.name;
+					}
+
+					Debug.Log($"{message}は{name}に{damage}ダメージ与えた");
+
 					break;
 				default:
 					Debug.Log($"Unknownは{name}に{damage}ダメージ与えた");
@@ -83,17 +85,16 @@ namespace RogueLike.Matsumoto.Character {
 
 				case CharacterAttacker cAttacker:
 
-                    //debug
-                    if (!cAttacker.Attacker)
-                    {
-                        message = "Unknown";
-                        break;
-                    }
+					//debug
+					if(!cAttacker.Attacker) {
+						message = "Unknown";
+						break;
+					}
 
-                    message = cAttacker.Attacker.name;
-          break;
-          case StatusAttacker sAttacker:
-					    message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
+					message = cAttacker.Attacker.name;
+					break;
+				case StatusAttacker sAttacker:
+					message = sAttacker.StatusOwner.name + "の" + sAttacker.Attacker.GetStatusName();
 					break;
 				default:
 					message = "Unknown";
@@ -134,22 +135,31 @@ namespace RogueLike.Matsumoto.Character {
 		/// <returns></returns>
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
+
 			var chara = obj.AddComponent<T>();
+
+			//武器の生成
+			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
+			weapon.transform.SetParent(chara.transform);
+			chara.Weapon = weapon;
+
 			chara.OnSpawn(asset);
 
 			return chara;
+		}
+
+		public static bool IsAttackable(CharacterCore from, CharacterCore to) {
+			return from.CharacterType != to.CharacterType;
 		}
 
 		protected virtual void Start() {
 
 			this.UpdateAsObservable()
 				.Subscribe(_ => {
-
 					//ステータス変化の更新
-					for(int i = 0; i < StatusChanges.Count;i++) {
-						StatusChanges[i].OnUpdateStatus(this);
+					foreach(var item in StatusChanges) {
+						item.OnUpdateStatus(this);
 					}
-
 				})
 				.AddTo(this);
 		}

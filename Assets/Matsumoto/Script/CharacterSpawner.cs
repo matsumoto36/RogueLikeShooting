@@ -18,7 +18,7 @@ namespace RogueLike.Matsumoto {
 
 			switch(CharacterAsset) {
 				case PlayerAsset asset:
-					int id = asset.ID;
+					var id = asset.ID;
 					if(PlayerIDOverride)
 						asset.ID = OverrideID;
 

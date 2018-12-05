@@ -14,40 +14,40 @@ namespace RogueLike.Matsumoto {
 	/// </summary>
 	public class PlayerCore : CharacterCore {
 
+		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
+
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-		static List<PlayerCore> _players = new List<PlayerCore>();
-		static PlayerHPProvider _playerHPProvider = null;
+		private static PlayerHPProvider _playerHPProvider;
+
 
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; private set; }
 
 		public override int HP {
-			get {
-				return _playerHPProvider.HP;
-			}
-			protected set {
-				_playerHPProvider.HP = value;
-			}
+			get => _playerHPProvider.HP;
+			protected set => _playerHPProvider.HP = value;
 		}
 
 		public override void Kill(IAttacker attacker) {
 			base.Kill(attacker);
 
 			//リストから削除
-			_players.Remove(this);
+			Players.Remove(this);
 
 			//他も殺す
-			if(_players.Count > 0)
-				_players[0].Kill(attacker);
+			if(Players.Count > 0)
+				Players[0].Kill(attacker);
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
 
+			CharacterType = CharacterType.Player;
+
 			var playerAsset = (PlayerAsset)asset;
 
 			//リストに追加
-			_players.Add(this);
+			Players.Add(this);
 
 			//IDの設定
 			ID = playerAsset.ID;
@@ -75,6 +75,15 @@ namespace RogueLike.Matsumoto {
 			this.UpdateAsObservable()
 				.Subscribe(_ => PlayerUpdate.OnNext(this))
 				.AddTo(this);
+		}
+
+		/// <summary>
+		/// プレイヤーをIDから取得する
+		/// </summary>
+		/// <returns></returns>
+		public static PlayerCore GetPlayerFromID(int id) {
+			return Players
+				.Find(item => item.ID == id);
 		}
 
 	}

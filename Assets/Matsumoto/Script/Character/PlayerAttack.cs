@@ -19,23 +19,18 @@ namespace RogueLike.Matsumoto.Character {
 
 			var playerComponent = GetComponent<PlayerCore>();
 
-			//装備
-			var g = new GameObject("Weapon");
-			g.transform.parent = transform;
-			playerComponent.AttachWeapon(g.AddComponent<WeaponRanged>());
-
 			//攻撃
 			playerComponent.PlayerUpdate
 				.Subscribe(player => {
-        
-//					if(player.InputEventProvider.GetShotDown())
-//						Weapon?.AttackDown();
-//
-//					if(player.InputEventProvider.GetShotButton())
-//						Weapon?.Attack();
-//
-//					if(player.InputEventProvider.GetShotUp())
-//						Weapon?.AttackUp();
+
+					if(player.InputEventProvider.GetShotDown())
+						player.Weapon?.AttackDown();
+
+					if(player.InputEventProvider.GetShotButton())
+						player.Weapon?.Attack();
+
+					if(player.InputEventProvider.GetShotUp())
+						player.Weapon?.AttackUp();
 
 				});
 		}

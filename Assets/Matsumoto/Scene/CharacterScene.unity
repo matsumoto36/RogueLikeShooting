@@ -488,7 +488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1644170497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 0}
+  CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
   SpawnOnAwake: 1
   PlayerIDOverride: 0
   OverrideID: 0
@@ -588,7 +588,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a213c719366450d409bff9af747d7fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultBody: {fileID: 0}
+  ControllerList: 00000000000000000000000000000000
+  gameObjectsList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  List: {fileID: 0}
 --- !u!4 &2000898467
 Transform:
   m_ObjectHideFlags: 0

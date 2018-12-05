@@ -14,4 +14,5 @@ MonoBehaviour:
   HP: 0
   ModelPrefab: {fileID: 1709342743240602, guid: 3f6435e34cefc4747a0fb5362004db6f,
     type: 2}
+  Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
   EnemyAIType: 0
