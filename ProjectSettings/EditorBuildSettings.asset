@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Chika_P/aaa.unity
+    guid: be01346d2248fa245a6604217406ba2b
+  - enabled: 1
+    path: Assets/Chika_P/Chikazawa_test.unity
+    guid: 0cea31f423e05b644984df57b185f57d
   m_configObjects: {}

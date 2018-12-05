@@ -14,7 +14,7 @@ namespace RogueLike.Matsumoto.Audio {
 		const string BGMPath = "Sounds/BGM/";					//BGMのフォルダーパス
 		const string SEPath = "Sounds/SE/";						//SEのフォルダーパス
 
-		AudioMixerGroup[] _mixerGroups = new AudioMixerGroup[2];//ミキサーのグループ [0]SE [1]BGM
+		private readonly AudioMixerGroup[] _mixerGroups = new AudioMixerGroup[2];//ミキサーのグループ [0]SE [1]BGM
 
 		Dictionary<string, AudioClipInfo> _SEclips;				//SE再生用リスト
 		Dictionary<string, AudioClip> _BGMclips;				//BGM再生用リスト
@@ -33,10 +33,10 @@ namespace RogueLike.Matsumoto.Audio {
 		public static void Load() {
 
 			//LoadMixer
-			instance.Mixer = Resources.Load<AudioMixer>(MixerPath);
-			if(instance.Mixer) {
-				instance._mixerGroups[0] = instance.Mixer.FindMatchingGroups("SE")[0];
-				instance._mixerGroups[1] = instance.Mixer.FindMatchingGroups("BGM")[0];
+			Instance.Mixer = Resources.Load<AudioMixer>(MixerPath);
+			if(Instance.Mixer) {
+				Instance._mixerGroups[0] = Instance.Mixer.FindMatchingGroups("SE")[0];
+				Instance._mixerGroups[1] = Instance.Mixer.FindMatchingGroups("BGM")[0];
 			}
 			else {
 				Debug.LogError("Failed Load AudioMixer! Path=" + MixerPath);
@@ -44,15 +44,15 @@ namespace RogueLike.Matsumoto.Audio {
 
 
 			//BGM読み込み
-			instance._BGMclips = new Dictionary<string, AudioClip>();
+			Instance._BGMclips = new Dictionary<string, AudioClip>();
 			foreach(var item in Resources.LoadAll<AudioClip>(BGMPath)) {
-				instance._BGMclips.Add(item.name, item);
+				Instance._BGMclips.Add(item.name, item);
 			}
 
 			//SE読み込み
-			instance._SEclips = new Dictionary<string, AudioClipInfo>();
+			Instance._SEclips = new Dictionary<string, AudioClipInfo>();
 			foreach(var item in Resources.LoadAll<AudioClip>(SEPath)) {
-				instance._SEclips.Add(item.name, new AudioClipInfo(item));
+				Instance._SEclips.Add(item.name, new AudioClipInfo(item));
 			}
 
 		}
@@ -80,10 +80,10 @@ namespace RogueLike.Matsumoto.Audio {
 				//情報を取り付ける
 				//Poolしたい
 				var src = new GameObject("[Audio SE - " + SEName + "]").AddComponent<AudioSource>();
-				src.transform.SetParent(instance.transform);
+				src.transform.SetParent(Instance.transform);
 				src.clip = info.Clip;
 				src.volume = seInfo.Volume * vol;
-				src.outputAudioMixerGroup = instance._mixerGroups[0];
+				src.outputAudioMixerGroup = Instance._mixerGroups[0];
 				src.Play();
 
 				//管理用情報を付加
@@ -112,13 +112,13 @@ namespace RogueLike.Matsumoto.Audio {
 			//BGM取得
 			var clip = GetBGM(BGMName);
 			if(!clip) return null;
-			if(instance._currentPlayingBGM) Destroy(instance._currentPlayingBGM.gameObject);
+			if(Instance._currentPlayingBGM) Destroy(Instance._currentPlayingBGM.gameObject);
 
 			var src = new GameObject("[Audio BGM - " + BGMName + "]").AddComponent<AudioSource>();
-			src.transform.SetParent(instance.transform);
+			src.transform.SetParent(Instance.transform);
 			src.clip = clip;
 			src.volume = vol;
-			src.outputAudioMixerGroup = instance._mixerGroups[1];
+			src.outputAudioMixerGroup = Instance._mixerGroups[1];
 			src.Play();
 
 			if(isLoop) {
@@ -128,8 +128,8 @@ namespace RogueLike.Matsumoto.Audio {
 				Destroy(src.gameObject, clip.length + 0.1f);
 			}
 
-			instance._currentPlayingBGM = src;
-			instance._currentPlayedBGMName = BGMName;
+			Instance._currentPlayingBGM = src;
+			Instance._currentPlayedBGMName = BGMName;
 
 			return src;
 		}
@@ -142,7 +142,7 @@ namespace RogueLike.Matsumoto.Audio {
 		/// <param name="vol">新しいBGMの大きさ</param>
 		/// <param name="isLoop">新しいBGMがループするか</param>
 		public static void FadeIn(float fadeTime, string BGMName, float vol = 1.0f, bool isLoop = true) {
-			instance._fadeInCol = instance.StartCoroutine(instance.FadeInAnim(fadeTime, BGMName, vol, isLoop));
+			Instance._fadeInCol = Instance.StartCoroutine(Instance.FadeInAnim(fadeTime, BGMName, vol, isLoop));
 		}
 
 		/// <summary>
@@ -150,7 +150,7 @@ namespace RogueLike.Matsumoto.Audio {
 		/// </summary>
 		/// <param name="fadeTime">フェードする時間</param>
 		public static void FadeOut(float fadeTime) {
-			instance.StartCoroutine(instance.FadeOutAnim(fadeTime));
+			Instance.StartCoroutine(Instance.FadeOutAnim(fadeTime));
 		}
 
 		/// <summary>
@@ -161,8 +161,8 @@ namespace RogueLike.Matsumoto.Audio {
 		/// <param name="vol">新しいBGMの大きさ</param>
 		/// <param name="isLoop">新しいBGMがループするか</param>
 		public static void CrossFade(float fadeTime, string fadeInBGMName, float vol = 1.0f, bool isLoop = true) {
-			instance.StartCoroutine(instance.FadeOutAnim(fadeTime));
-			instance._fadeInCol = instance.StartCoroutine(instance.FadeInAnim(fadeTime, fadeInBGMName, vol, isLoop));
+			Instance.StartCoroutine(Instance.FadeOutAnim(fadeTime));
+			Instance._fadeInCol = Instance.StartCoroutine(Instance.FadeInAnim(fadeTime, fadeInBGMName, vol, isLoop));
 		}
 
 		protected override void Init() {
@@ -178,11 +178,11 @@ namespace RogueLike.Matsumoto.Audio {
 		/// <returns>SE</returns>
 		static AudioClipInfo GetSEInfo(string SEName) {
 
-			if(!instance._SEclips.ContainsKey(SEName)) {
+			if(!Instance._SEclips.ContainsKey(SEName)) {
 				Debug.LogWarning("SEName:" + SEName + " is not found.");
 				return null;
 			}
-			return instance._SEclips[SEName];
+			return Instance._SEclips[SEName];
 		}
 
 		/// <summary>
@@ -192,11 +192,11 @@ namespace RogueLike.Matsumoto.Audio {
 		/// <returns>BGM</returns>
 		static AudioClip GetBGM(string BGMName) {
 
-			if(!instance._BGMclips.ContainsKey(BGMName)) {
+			if(!Instance._BGMclips.ContainsKey(BGMName)) {
 				Debug.LogError("BGMName:" + BGMName + " is not found.");
 				return null;
 			}
-			return instance._BGMclips[BGMName];
+			return Instance._BGMclips[BGMName];
 		}
 
 		/// <summary>
@@ -215,7 +215,7 @@ namespace RogueLike.Matsumoto.Audio {
 
 			//初期設定
 			_fadeInAudio = new GameObject("[Audio BGM - " + BGMName + " - FadeIn ]").AddComponent<AudioSource>();
-			_fadeInAudio.transform.SetParent(instance.transform);
+			_fadeInAudio.transform.SetParent(Instance.transform);
 			_fadeInAudio.clip = clip;
 			_fadeInAudio.volume = 0;
 			_fadeInAudio.outputAudioMixerGroup = _mixerGroups[1];
@@ -255,7 +255,7 @@ namespace RogueLike.Matsumoto.Audio {
 			//フェードイン中にフェードアウトが呼ばれた場合
 			if(!src) {
 				//フェードイン処理停止
-				instance.StopCoroutine(_fadeInCol);
+				Instance.StopCoroutine(_fadeInCol);
 				src = _fadeInAudio;
 
 				if(!src) yield break;

@@ -8,13 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d32bb0749d51c45896e77642599dfa, type: 3}
-  m_Name: PlayerAsset
-  m_EditorClassIdentifier: 
-  CharacterType: 0
-  CharacterParameter:
-    HP: 100
-    MoveSpeed: 5
+  m_Script: {fileID: 0}
+  m_Name: Player
+  m_EditorClassIdentifier: Assembly-CSharp:RogueLike.Matsumoto.Character.Asset:PlayerAsset
+  HP: 100
   ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
     type: 2}
-  EnemyAIType: 0
+  Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
+  ID: 2

@@ -8,13 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d32bb0749d51c45896e77642599dfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 8716533bf00b94447aa1f650c42a0d4c, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  CharacterType: 1
-  CharacterParameter:
-    HP: 100
-    MoveSpeed: 3
+  HP: 0
   ModelPrefab: {fileID: 1709342743240602, guid: 3f6435e34cefc4747a0fb5362004db6f,
     type: 2}
+  Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
   EnemyAIType: 0

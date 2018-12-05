@@ -14,7 +14,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
         /// キーボード：WASDキー * 加速
         /// コントローラー：左スティック
         /// </summary>
-        public abstract Vector3 GetMoveVector(int controllerNo);
+        public abstract Vector3 GetMoveVector();
         /// <summary>
         /// 正面方向の入力(Y軸はプレイヤーの位置)
         /// キーボード：マウスの位置
@@ -22,23 +22,23 @@ namespace RogueLike.Chikazawa.InputEventProvider
         /// </summary>
         /// <returns>
         /// </returns>>
-        public abstract Vector3 GetPleyerDirection(Vector3 playerPos, int controllerNo);
+        public abstract Vector3 GetPleyerDirection(Vector3 playerPos);
         /// <summary>
         /// 攻撃(射撃)ボタン
         /// キーボード：左クリック
         /// コントローラー：L１ボタン
         /// </summary>
         /// <returns></returns>
-        public abstract bool GetShotButton(int controllerNo);
+        public abstract bool GetShotButton();
         /// <summary>
         /// 攻撃タメフラグ
         /// </summary>
         /// <returns></returns>
-        public abstract bool GetShotDown(int controllerNo);
+        public abstract bool GetShotDown();
         /// <summary>
         /// 攻撃放出フラグ
         /// </summary>
         /// <returns></returns>
-        public abstract bool GetShotUp(int controllerNo);
+        public abstract bool GetShotUp();
     }
 }
