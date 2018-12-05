@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Nishiwaki.Bullet;
+using RogueLike.Nishiwaki.Item;
+using RogueLike.Matsumoto.Character;
 
 namespace RogueLike.Nishiwaki.Bullet
 {
@@ -9,24 +11,21 @@ namespace RogueLike.Nishiwaki.Bullet
     {
 
         public BulletParameter BulletPara;
+        public WeaponRanged weaponRanged;
         // 消滅用の時間
         float DestroyTime = 0.0f;
 
-        // Use this for initialization
         void Start()
         {
-            // BulletParameterからSpeed,Power,WaitTime
-            //bulletPara = new BulletParameter(1.0f, 1.0f);
         }
 
-        // Update is called once per frame
         void Update()
         {
             Rigidbody rig = GetComponent<Rigidbody>();
 
             Vector3 now = rig.position;
 
-            now += transform.forward * BulletPara.Speed;
+            now += transform.forward * (BulletPara.Speed * 0.1f);
 
             rig.position = now;
             // 自動消滅の時間
@@ -41,13 +40,15 @@ namespace RogueLike.Nishiwaki.Bullet
         void OnTriggerEnter(Collider other)
         {
             // 敵に当たったら
-            var enemy = other.GetComponentInParent<Matsumoto.Character.EnemyCore>();
-            if (enemy)
+            var character = other.GetComponentInParent<CharacterCore>();
+            if (!character) return;
+            if (CharacterCore.IsAttackable(weaponRanged.CharacterCore, character))
             {
                 // 敵にダメージを与える
                 // nullの部分は攻撃者
-                enemy.ApplyDamage(
-                    new Matsumoto.Attack.CharacterAttacker(null), (int)BulletPara.Power);
+                character.ApplyDamage(
+                    new Matsumoto.Attack.CharacterAttacker(weaponRanged.CharacterCore), (int)BulletPara.Power);
+                Destroy(gameObject);
             }
         }
     }

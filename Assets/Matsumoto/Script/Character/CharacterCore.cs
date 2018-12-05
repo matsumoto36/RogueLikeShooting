@@ -32,7 +32,9 @@ namespace RogueLike.Matsumoto.Character {
 		/// </summary>
 		/// <param name="weapon"></param>
 		public void AttachWeapon(IWeapon weapon) {
+            Weapon?.SetOwner(null);
 			Weapon = weapon;
+            Weapon?.SetOwner(this);
 		}
 
 		/// <summary>
@@ -143,8 +145,8 @@ namespace RogueLike.Matsumoto.Character {
 			//武器の生成
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			weapon.transform.SetParent(chara.transform);
-			chara.Weapon = weapon;
 
+            chara.AttachWeapon(weapon);
 			chara.OnSpawn(asset);
 
 			return chara;

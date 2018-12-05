@@ -6,6 +6,8 @@ namespace RogueLike.Nishiwaki
 {
     public interface IWeapon
     {
+        void SetOwner(Matsumoto.Character.CharacterCore character);
+
         void Attack();
         void AttackUp();
         void AttackDown();
