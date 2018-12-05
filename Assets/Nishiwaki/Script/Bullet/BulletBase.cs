@@ -28,6 +28,10 @@ namespace RogueLike.Nishiwaki.Bullet
         public virtual void BulletCreate(Transform transform)
         {
         }
+        public virtual void BulletDestroy()
+        {
+        }
+
         public static BulletBase Create(BulletAsset BulletAsset)
         {
             BulletBase BulletBase;

@@ -13,7 +13,7 @@ namespace RogueLike.Nishiwaki.Bullet
 
         public override void BulletCreate(Transform transform)
         {
-            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform);
+            var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform.position, transform.rotation);
             bullet.BulletPara = BulletPara;
             Debug.Log("BulletCreate");
         }

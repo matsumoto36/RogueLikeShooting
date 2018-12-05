@@ -7,7 +7,7 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRangedLaser : WeaponRanged
     {
-        BulletParameter bulletParameter;
+        BulletParameter BulletPara;
         Ray ray;        //レイ
         RaycastHit hit; //ヒットしたオブジェクト情報
         public float Range;
@@ -25,12 +25,12 @@ namespace RogueLike.Nishiwaki.Item
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 if (hit.distance <= 100)
                 {
-                    Range = hit.distance;
+                    BulletPara.Range = hit.distance;
                 }
             }
             else
             {
-                Range = 100.0f;
+                BulletPara.Range = 100.0f;
             }
 
             // デバッグ用
@@ -42,7 +42,6 @@ namespace RogueLike.Nishiwaki.Item
             {
                 AttackDown();
             }
-            bulletParameter.Range = Range;
             //if (!CanShot)
             //{
             //    ChargeTime += Time.deltaTime;
@@ -52,7 +51,9 @@ namespace RogueLike.Nishiwaki.Item
 
         public override void AttackUp()
         {
-            
+            //BulletPara.ChargeTime = ChargeTime;
+            //StartCoroutine(LaserShot());
+            iBullet.BulletDestroy();
         }
         public override void AttackDown()
         {
@@ -63,6 +64,10 @@ namespace RogueLike.Nishiwaki.Item
             //}
             iBullet.BulletCreate(transform);
         }
-
+        //IEnumerator LaserShot()
+        //{
+        //    yield return new WaitForSeconds(ChargeTime);
+        //    CanShot = true;
+        //}
     }
 }
