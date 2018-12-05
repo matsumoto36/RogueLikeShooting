@@ -1,12 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using GamepadInput;
-
-using RogueLike.Chikazawa;
-using RogueLike.Chikazawa.InputEventProvider;
-using RogueLike.Matsumoto;
 using System.Linq;
 
 namespace RogueLike.Chikazawa
@@ -14,11 +7,17 @@ namespace RogueLike.Chikazawa
     /// <summary>
     /// エントリーシステム
     /// </summary>
-    public class PlayerEntry : MonoBehaviour
+    public class PlayerEntrySystem : MonoBehaviour
     {
+        /// <summary>
+        /// プレイヤーバインドデータ
+        /// </summary>
+        [SerializeField]
+        private PlayerBindData _bindData;
+        
         public int[] ControllerList = new int[4];//参加人数と使用コントローラーの状況
         public GameObject[] gameObjectsList = new GameObject[4];//スポーン（エントリー）したときのオブジェクト
-        public PlayerList List;
+        
 
         // Use this for initialization
         void Start()
@@ -78,19 +77,14 @@ namespace RogueLike.Chikazawa
                 }
             }
             //保存
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    List.PList[i] = ControllerList[i];
-                }
-            }
+//            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+//            {
+//                for (int i = 0; i < 4; i++)
+//                {
+//                    _bindData.PlayerEntries[i] = ControllerList[i];
+//                }
+//            }
 
-            /// <summary>
-            /// コントローラーの参加状態の確認 
-            /// </summary>
-            /// <param name="Controller">入力コントローラー</param>
-            /// <returns></returns>
             bool IsEntry(int Controller)
             {
                 //リスト内に入力コントローラーがあるか確認
@@ -102,6 +96,17 @@ namespace RogueLike.Chikazawa
                 return false;
             }
 
+        }
+
+        /// <summary>
+        /// エントリーデータを保存
+        /// </summary>
+        public void Save()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                _bindData.PlayerEntries[i] = ControllerList[i];
+            }
         }
     }
 }

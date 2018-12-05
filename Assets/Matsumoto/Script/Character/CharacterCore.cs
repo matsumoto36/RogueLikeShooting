@@ -46,6 +46,8 @@ namespace RogueLike.Matsumoto.Character {
 		/// <param name="damage"></param>
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
+			var message = "";
+			
 			switch(attacker) {
 
 				case CharacterAttacker cAttacker:
