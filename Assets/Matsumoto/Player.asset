@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6679d5cd785144442aaee877462524ea, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp:RogueLike.Matsumoto.Character.Asset:PlayerAsset
-  HP: 100
+  HP: 1000
   ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
     type: 2}
   Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}

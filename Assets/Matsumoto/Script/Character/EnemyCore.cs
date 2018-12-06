@@ -37,6 +37,16 @@ namespace RogueLike.Matsumoto.Character {
 		}
 
 		/// <summary>
+		/// 指定された方向を向く。AIが利用する
+		/// </summary>
+		/// <param name="vec"></param>
+		public void ChangeAngle(Vector3 vec) {
+
+			//向きの変更
+			transform.rotation = Quaternion.LookRotation(vec);
+		}
+
+		/// <summary>
 		/// 攻撃する。AIが利用する。
 		/// </summary>
 		public void Attack() {
