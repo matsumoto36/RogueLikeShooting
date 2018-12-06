@@ -41,6 +41,11 @@ namespace RogueLike.Matsumoto.Character {
             Weapon?.SetOwner(this);
 
 			//武器の本体を取得し、子にする
+			var t = Weapon.GetBody().transform;
+			transform.position = t.position;
+			t.SetParent(transform);
+
+			//プレイヤーのモデルの操作
 		}
 
 		/// <summary>
@@ -50,7 +55,11 @@ namespace RogueLike.Matsumoto.Character {
 			if (Weapon == null) return;
 
 			Weapon = null;
+
 			//武器の本体を取得し、子から外す
+			Weapon.GetBody()
+				.transform
+				.SetParent(null);
 		}
 
 		/// <summary>
@@ -123,7 +132,7 @@ namespace RogueLike.Matsumoto.Character {
 		protected virtual void Death() {
 
 			//武器を放出
-			AttachWeapon(null);
+			DetachWeapon();
 
 			Destroy(gameObject);
 		}
