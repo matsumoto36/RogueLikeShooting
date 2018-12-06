@@ -8,9 +8,9 @@ namespace RogueLike.Nishiwaki.Bullet
 
     public struct BulletParameter
     {
-        public float Speed, Power, LifeTime;
+        public float Speed, Power, LifeTime, Range, ChargeTime;
 
-        public BulletParameter(float speed, float power, float lifeTime)
+        public BulletParameter(float speed, float power, float lifeTime, float range, float chargeTime)
         {
             //とりあえず思いついたパラメーターたち
             // 速度
@@ -19,6 +19,12 @@ namespace RogueLike.Nishiwaki.Bullet
             Power = power;
             // 持続時間
             LifeTime = lifeTime;
+
+            // 以下レーザー
+            // 射程
+            Range = range;
+            // チャージ時間
+            ChargeTime = chargeTime;
         }
     }
 }

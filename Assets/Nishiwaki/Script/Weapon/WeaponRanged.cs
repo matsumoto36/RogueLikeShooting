@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RogueLike.Nishiwaki;
 using RogueLike.Nishiwaki.Bullet;
+using RogueLike.Matsumoto.Character;
 
 namespace RogueLike.Nishiwaki.Item
 {
@@ -11,12 +12,11 @@ namespace RogueLike.Nishiwaki.Item
         public IBullet iBullet;
 
         public WeaponRangedParameter WeaponRangedPara;
+        public CharacterCore CharacterCore;
 
         // Use this for initialization
         void Start()
         {
-            //var bullet = new BulletProjectile();
-            //bullet.BulletPrefabPath = "Bullet/NormalBullet";
         }
 
         // Update is called once per frame
@@ -27,6 +27,11 @@ namespace RogueLike.Nishiwaki.Item
         {
             // 弾の発射位置
             iBullet.BulletCreate(transform);
+        }
+
+        public void SetOwner(CharacterCore character)
+        {
+            CharacterCore = character;
         }
 
         public virtual void Attack()
@@ -47,11 +52,14 @@ namespace RogueLike.Nishiwaki.Item
             WeaponRanged weapon;
             switch (asset)
             {
-                case WeaponRangedAutoAsset autoAsset:
+                case WeaponRangedAutoAsset AutoAsset:
                     weapon = obj.AddComponent<WeaponRangedAuto>();
                     break;
-                case WeaponRangedSemiAsset semiAsset:
+                case WeaponRangedSemiAsset SemiAsset:
                     weapon = obj.AddComponent<WeaponRangedSemi>();
+                    break;
+                case WeaponRangedLaserAsset LaserAsset:
+                    weapon = obj.AddComponent<WeaponRangedLaser>();
                     break;
                 default:
                     weapon = null;
@@ -59,10 +67,12 @@ namespace RogueLike.Nishiwaki.Item
             }
 
             weapon.WeaponRangedPara = asset.WeaponRangedParameter;
-            weapon.iBullet = BulletBase.Create(asset.BulletAsset);
+            weapon.iBullet = BulletBase.Create(asset.BulletAsset, weapon);
             Debug.Log("WeaponRanged Create");
 
             return weapon;
         }
+
+
     }
 }

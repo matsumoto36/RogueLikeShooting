@@ -7,5 +7,6 @@ namespace RogueLike.Nishiwaki
     public interface IBullet
     {
         void BulletCreate(Transform transform);
+        void BulletDestroy();
     }
 }

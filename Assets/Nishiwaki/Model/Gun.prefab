@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 54059882722464756}
   - component: {fileID: 65141195014836742}
   - component: {fileID: 114922940578844758}
+  - component: {fileID: 114948864849621868}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Item
@@ -1566,5 +1567,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d80e473210d1b844fa2f97667e1439a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponRangedPara:
+    WaitTime: 0
+--- !u!114 &114948864849621868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953310769096552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702486bb7e5d70a41b0a3ce1e4cba546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
