@@ -73,6 +73,9 @@ namespace RogueLike.Nishiwaki.Item
             return weapon;
         }
 
-
+        public GameObject GetBody()
+        {
+            return gameObject;
+        }
     }
 }
