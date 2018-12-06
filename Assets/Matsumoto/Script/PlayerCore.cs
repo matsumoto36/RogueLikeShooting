@@ -20,9 +20,9 @@ namespace RogueLike.Matsumoto {
 
 		private static PlayerHPProvider _playerHPProvider;
 
-
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; private set; }
+		public bool IsFreeze { get; set; }
 
 		public override int HP {
 			get => _playerHPProvider.HP;
@@ -73,6 +73,7 @@ namespace RogueLike.Matsumoto {
 			InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
 
 			this.UpdateAsObservable()
+				.Where(_ => !IsFreeze)
 				.Subscribe(_ => PlayerUpdate.OnNext(this))
 				.AddTo(this);
 		}

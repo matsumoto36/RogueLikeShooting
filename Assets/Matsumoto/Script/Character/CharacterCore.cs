@@ -32,16 +32,34 @@ namespace RogueLike.Matsumoto.Character {
 		/// </summary>
 		/// <param name="weapon"></param>
 		public void AttachWeapon(IWeapon weapon) {
-            Weapon?.SetOwner(null);
+
+			//武器を外す
+			DetachWeapon();
+
+			//武器を付ける
 			Weapon = weapon;
             Weapon?.SetOwner(this);
+
+			//武器の本体を取得し、子にする
+			var t = Weapon.GetBody().transform;
+			transform.position = t.position;
+			t.SetParent(transform);
+
+			//プレイヤーのモデルの操作
 		}
 
 		/// <summary>
 		/// 武器を外す
 		/// </summary>
 		public void DetachWeapon() {
+			if (Weapon == null) return;
+
 			Weapon = null;
+
+			//武器の本体を取得し、子から外す
+			Weapon.GetBody()
+				.transform
+				.SetParent(null);
 		}
 
 		/// <summary>
@@ -104,6 +122,17 @@ namespace RogueLike.Matsumoto.Character {
 			}
 
 			Debug.Log($"{name}は{message}に倒された!");
+
+			Death();
+		}
+
+		/// <summary>
+		/// キャラクターだ死んだときに呼ばれる
+		/// </summary>
+		protected virtual void Death() {
+
+			//武器を放出
+			DetachWeapon();
 
 			Destroy(gameObject);
 		}
