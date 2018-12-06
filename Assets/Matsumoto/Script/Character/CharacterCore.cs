@@ -51,8 +51,6 @@ namespace RogueLike.Matsumoto.Character {
 		/// <param name="damage"></param>
 		public void ApplyDamage(IAttacker attacker, int damage) {
 
-			var message = "";
-			
 			switch(attacker) {
 				case CharacterAttacker cAttacker:
 
@@ -146,7 +144,7 @@ namespace RogueLike.Matsumoto.Character {
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			weapon.transform.SetParent(chara.transform);
 
-            chara.AttachWeapon(weapon);
+			chara.AttachWeapon(weapon);
 			chara.OnSpawn(asset);
 
 			return chara;
