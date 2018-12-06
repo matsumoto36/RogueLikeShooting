@@ -5,7 +5,7 @@ using RogueLike.Nishiwaki.Item;
 
 namespace RogueLike.Nishiwaki.Item
 {
-    public class WaeponRangedSpawner : MonoBehaviour
+    public class WeaponRangedSpawner : MonoBehaviour
     {
         [SerializeField] WeaponRangedAsset WeaponRangedAsset;
 
