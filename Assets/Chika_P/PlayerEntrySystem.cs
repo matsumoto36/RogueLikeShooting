@@ -76,20 +76,6 @@ namespace RogueLike.Chikazawa
 			}
 		}
 
-		// Update is called once per frame
-//		private void Update()
-//		{
-//			// 保存
-//            if (Input.GetKeyDown(KeyCode.KeypadEnter))
-//            {
-//                for (int i = 0; i < 4; i++)
-//                {
-//                    _bindData.PlayerEntries[i] = ControllerList[i];
-//                }
-//            }
-//		}
-
-
 	    /// <summary>
 	    ///     キーボードからの入力
 	    /// </summary>

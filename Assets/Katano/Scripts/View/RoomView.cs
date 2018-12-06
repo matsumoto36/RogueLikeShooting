@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using RogueLike.Katano.Maze;
 using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
+using UniRx;
+using UniRx.Triggers;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace RogueLike.Katano.View
 {
@@ -21,6 +22,10 @@ namespace RogueLike.Katano.View
 		
 		public Room Room { get; private set; }
 
+		[SerializeField]
+		private Transform _gameCameraAnchor;
+		public Transform GameCameraAnchor => _gameCameraAnchor;
+		
 		private void Awake()
 		{
 			CharacterSpawners = gameObject.Children().OfComponent<CharacterSpawner>();

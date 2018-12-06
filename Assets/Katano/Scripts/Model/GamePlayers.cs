@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RogueLike.Matsumoto;
+using RogueLike.Matsumoto.Character;
 using UnityEngine;
 
 namespace RogueLike.Katano.Model
@@ -10,18 +11,18 @@ namespace RogueLike.Katano.Model
 	// [CreateAssetMenu(fileName = "GamePlayers", menuName = "Maze/Game Characters")]
 	public sealed class GamePlayers : ScriptableObject
 	{
-		private PlayerCore[] _playerList;
+		private CharacterCore[] _playerList;
 
 		/// <summary>
 		/// プレイヤーリスト
 		/// </summary>
-		public IEnumerable<PlayerCore> PlayerList => _playerList;
+		public IEnumerable<CharacterCore> PlayerList => _playerList;
 
 		/// <summary>
 		/// プレイヤーを設定する
 		/// </summary>
 		/// <param name="players"></param>
-		public void Register(PlayerCore[] players)
+		public void Register(CharacterCore[] players)
 		{
 			_playerList = players;
 		}

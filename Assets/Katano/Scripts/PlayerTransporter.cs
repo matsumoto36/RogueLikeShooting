@@ -19,11 +19,15 @@ namespace RogueLike.Katano
 
 		private async UniTask OnTransportInternal()
 		{
+			// foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
+			
 			// await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.DoChangeAsync(Status.Photosphere)));
 			
 			// await GameCamera.MoveAsync(NextRoom);
 			
 			// await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.DoChangeAsync(Status.Neutral)));
+			
+			// foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
 		}
 	}
 }

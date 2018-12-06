@@ -3,6 +3,7 @@ using GamepadInput;
 using RogueLike.Chikazawa;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Katano
 {
@@ -77,7 +78,7 @@ namespace RogueLike.Katano
 			{
 				Debug.Log("Entry Success!");
 				_entrySystem.Save();
-				// SceneManager.LoadScene("GamaeScene");
+				SceneManager.LoadScene("GameFlowSample");
 			}
 			else
 			{

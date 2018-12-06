@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
+using UniRx.Async;
 using UniRx.Triggers;
+using Unity.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.View
@@ -38,21 +40,6 @@ namespace RogueLike.Katano.View
 			Maze = maze;
 			Rooms = rooms;
 			Aisles = aisles;
-
-			this.OnDestroyAsObservable().Subscribe(_ => Destruct());
-		}
-
-		private void Destruct()
-		{
-			foreach (var mazeComponents in Rooms.Values.Concat<Component>(Aisles.Values))
-				Destroy(mazeComponents.gameObject);
-
-
-			Maze = null;
-			Rooms = null;
-			Aisles = null;
-
-			Destroy(this);
 		}
 
 		/// <summary>

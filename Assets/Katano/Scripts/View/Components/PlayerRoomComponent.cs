@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-using RogueLike.Katano.Maze;
+using RogueLike.Chikazawa;
+using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
+using RogueLike.Matsumoto.Character;
 using UnityEngine;
 
 namespace RogueLike.Katano
@@ -10,8 +12,13 @@ namespace RogueLike.Katano
 	
 	public class PlayerRoomComponent : RoomComponent
 	{
+		private PlayerBindData _playerBind;
+		private GamePlayers _gamePlayers;
+
+		
 		private IEnumerable<CharacterSpawner> _spawners;
 
+		
 		private void Awake()
 		{
 			var roomView = GetComponent<RoomView>();
@@ -26,10 +33,16 @@ namespace RogueLike.Katano
 
 		public override void Initialize()
 		{
+			var list = new List<CharacterCore>();
 			foreach (var spawner in _spawners)
 			{
-				spawner.Spawn().transform.SetParent(transform);
+				var player = spawner.Spawn();
+				player.transform.SetParent(transform);
+				
+				list.Add(player);
 			}
+
+			_gamePlayers.Register(list.ToArray());
 		}
 	}
 }
