@@ -12,28 +12,12 @@ namespace RogueLike.Katano.View.Components
 	/// </summary>
 	public class PlayerTransportComponent : RoomComponent
 	{
-		[SerializeField]
-		private Collider _bounds;
-		
-		private RoomView _owner;
+		private PlayerTransporter _transporter;
 
-		/// <summary>
-		/// イベントを購読
-		/// </summary>
-		private void SetEvents()
-		{
-			_bounds.OnCollisionEnterAsObservable()
-				.Where(x => x.gameObject.GetComponent<PlayerCore>())
-				.Select(x => x.gameObject.GetComponent<PlayerCore>())
-				.Subscribe(_ =>
-				{
-					
-				});
-		}
-
+		/// <inheritdoc />
 		public override void OnInitialize()
 		{
-			
+			_transporter = FindObjectOfType<PlayerTransporter>();
 		}
 		
 		public void Send()

@@ -75,7 +75,7 @@ namespace RogueLike.Katano.Maze
 					Quaternion.identity);
 
 				var view = obj.GetComponent<RoomView>();
-				view.Construct(room);
+				view.Initialize(room);
 				roomViewList.Add(room.Id, view);
 			}
 		}

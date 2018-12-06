@@ -1,33 +1,51 @@
-using System;
 using RogueLike.Katano.Model;
-using UniRx;
+using RogueLike.Katano.View;
+using RogueLike.Katano.View.Components;
+using RogueLike.Katano.View.Player;
 using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano
 {
+	/// <summary>
+	/// プレイヤー転送モジュール
+	/// </summary>
 	public class PlayerTransporter : MonoBehaviour
 	{
 		[SerializeField]
 		private GamePlayers _gamePlayers;
 
-		public IObservable<Unit> Transport()
+		/// <summary>
+		/// ゲームカメラ
+		/// </summary>
+		public GameCamera GameCamera;
+
+		/// <summary>
+		/// 転送
+		/// </summary>
+		/// <param name="nextRoom"></param>
+		/// <returns></returns>
+		public UniTask TransportAsync(RoomView nextRoom)
 		{
 			// TODO: Play Transport Animation
-			return OnTransportInternal().ToObservable();
+			return new UniTask(() => OnTransportInternal(nextRoom));
 		}
 
-		private async UniTask OnTransportInternal()
+		private async UniTask OnTransportInternal(RoomView nextRoom)
 		{
-			// foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
+			// プレイヤーの入力を停止
+			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
 			
-			// await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.DoChangeAsync(Status.Photosphere)));
+			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Photosphere)));
 			
-			// await GameCamera.MoveAsync(NextRoom);
+			await GameCamera.MoveAsync(nextRoom);
 			
-			// await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.DoChangeAsync(Status.Neutral)));
+			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Neutral)));
 			
-			// foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
+			// プレイヤーの入力を再開
+			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
+
+			nextRoom.Enter(_gamePlayers.PlayerList);
 		}
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using GamepadInput;
 using RogueLike.Katano;
 using UniRx;
@@ -35,43 +37,58 @@ namespace RogueLike.Chikazawa
 			for (var i = 0; i < _controllerIndices.Count; i++) _controllerIndices[i] = ControllerIndex.Invalid;
 		}
 
-		public async UniTask<bool> PlayerEntryAsync()
+		/// <summary>
+		/// プレイヤーエントリー処理
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="InvalidEnumArgumentException"></exception>
+		public async UniTask<bool> EntrySequenceAsync(CancellationToken token = default)
 		{
 			while (true)
 			{
+				if (token.IsCancellationRequested) return false;
+				
 				OnInputKeyboard();
 				OnInputGamepad();
 
-				if (_controllerIndices[0] != ControllerIndex.Invalid)
+				var index = _controllerIndices[0];
+				switch (index)
 				{
-					var index = _controllerIndices[0];
-					
-					switch (index)
+					// 各コントローラー
+					case ControllerIndex.One:
+					case ControllerIndex.Two:
+					case ControllerIndex.Three:
+					case ControllerIndex.Four:
 					{
-						case ControllerIndex.One:
-						case ControllerIndex.Two:
-						case ControllerIndex.Three:
-						case ControllerIndex.Four:
-						{
-							if (GamePad.GetButtonDown(GamePad.Button.Start, index.ToGamePadIndex()))
-								return true;
-							break;
-						}
-						case ControllerIndex.Keyboard:
-							if (Input.GetKeyDown(KeyCode.Return))
-								return true;
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
+						// スタートボタンで開始
+						if (GamePad.GetButtonDown(GamePad.Button.Start, index.ToGamePadIndex()))
+							return true;
+						break;
 					}
+
+					// キーボード
+					case ControllerIndex.Keyboard:
+					{
+						// Enterキーで開始
+						if (Input.GetKeyDown(KeyCode.Return))
+							return true;
+						break;
+					}
+					
+					// 未エントリー
+					case ControllerIndex.Invalid:
+					{
+						// 戻るボタンで戻る
+						var isCancelled = Input.GetKeyDown(KeyCode.Escape) || GamePad.GetButtonDown(GamePad.Button.Back, GamePad.Index.Any);
+						if (isCancelled) return false;
+						
+						break;
+					}
+
+					default:
+						throw new InvalidEnumArgumentException();
 				}
-				else
-				{
-					if (GamePad.GetButtonDown(GamePad.Button.Back, GamePad.Index.Any) 
-					    || Input.GetKeyDown(KeyCode.Escape))
-						return false;
-				}
-				
+
 				await UniTask.Yield();
 			}
 		}

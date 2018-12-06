@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
 using RogueLike.Katano.View.Components;
@@ -26,6 +27,9 @@ namespace RogueLike.Katano.View
 		private Transform _gameCameraAnchor;
 		public Transform GameCameraAnchor => _gameCameraAnchor;
 		
+		private readonly AsyncSubject<Unit> _onInitialize = new AsyncSubject<Unit>();
+		public IObservable<Unit> OnInitialize => _onInitialize;
+		
 		private void Awake()
 		{
 			CharacterSpawners = gameObject.Children().OfComponent<CharacterSpawner>();
@@ -35,17 +39,18 @@ namespace RogueLike.Katano.View
 		/// .ctor
 		/// </summary>
 		/// <param name="room"></param>
-		public void Construct(Room room)
+		public void Initialize(Room room)
 		{
 			Room = room;
 
-			var components = gameObject.Children().OfComponent<RoomComponent>();
-			foreach (var component in components)
-			{
-				component.OnInitialize();
-			}
+			_onInitialize.OnNext(Unit.Default);
+			_onInitialize.OnCompleted();
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="players"></param>
 		public void Enter(IEnumerable<PlayerCore> players)
 		{
 			foreach (var player in players)

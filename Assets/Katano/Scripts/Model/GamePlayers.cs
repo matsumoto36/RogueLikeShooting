@@ -11,18 +11,18 @@ namespace RogueLike.Katano.Model
 	// [CreateAssetMenu(fileName = "GamePlayers", menuName = "Maze/Game Characters")]
 	public sealed class GamePlayers : ScriptableObject
 	{
-		private CharacterCore[] _playerList;
+		private PlayerCore[] _playerList;
 
 		/// <summary>
 		/// プレイヤーリスト
 		/// </summary>
-		public IEnumerable<CharacterCore> PlayerList => _playerList;
+		public IEnumerable<PlayerCore> PlayerList => _playerList;
 
 		/// <summary>
 		/// プレイヤーを設定する
 		/// </summary>
 		/// <param name="players"></param>
-		public void Register(CharacterCore[] players)
+		public void Register(PlayerCore[] players)
 		{
 			_playerList = players;
 		}

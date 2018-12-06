@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RogueLike.Chikazawa;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
@@ -18,31 +19,30 @@ namespace RogueLike.Katano
 		
 		private IEnumerable<CharacterSpawner> _spawners;
 
-		
-		private void Awake()
-		{
-			var roomView = GetComponent<RoomView>();
-			if (roomView == null)
-				throw new MissingComponentException("RoomView");
-		}
 
+		/// <inheritdoc />
 		public override void OnInitialize()
 		{
-			
-		}
-
-		public override void Initialize()
-		{
-			var list = new List<CharacterCore>();
+			var list = new List<PlayerCore>();
 			foreach (var spawner in _spawners)
 			{
-				var player = spawner.Spawn();
-				player.transform.SetParent(transform);
+				var player = (PlayerCore) spawner.Spawn();
+				
+				PlayerSetup(player);
 				
 				list.Add(player);
 			}
 
-			_gamePlayers.Register(list.ToArray());
+			_gamePlayers.Register(list.Cast<PlayerCore>().ToArray());
+		}
+
+		/// <summary>
+		/// プレイヤーの初期設定
+		/// </summary>
+		/// <param name="player"></param>
+		private void PlayerSetup(PlayerCore player)
+		{
+			player.transform.SetParent(transform);
 		}
 	}
 }
