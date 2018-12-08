@@ -8,6 +8,7 @@ namespace RogueLike.Nishiwaki
     {
         void SetOwner(Matsumoto.Character.CharacterCore character);
         GameObject GetBody();
+        Transform PlayerSetPosition();
         void Attack();
         void AttackUp();
         void AttackDown();
