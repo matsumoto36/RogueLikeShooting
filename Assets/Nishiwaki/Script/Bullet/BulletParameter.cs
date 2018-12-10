@@ -15,7 +15,7 @@ namespace RogueLike.Nishiwaki.Bullet
             //とりあえず思いついたパラメーターたち
             // 速度
             Speed = speed;
-            // 威力　今は使っていない
+            // 威力
             Power = power;
             // 持続時間
             LifeTime = lifeTime;
