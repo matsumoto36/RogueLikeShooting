@@ -44,10 +44,14 @@ namespace RogueLike.Matsumoto.Character {
 
 			//武器の本体を取得し、子にする
 			var t = Weapon.GetBody().transform;
+			transform.rotation = t.rotation;
 			transform.position = t.position;
 			t.SetParent(transform);
 
 			//キャラクターのモデルの操作
+			var anchor = weapon.PlayerSetPosition();
+			CharacterModel.transform.position = anchor.position;
+			CharacterModel.transform.rotation = anchor.rotation;
 		}
 
 		/// <summary>
@@ -63,7 +67,6 @@ namespace RogueLike.Matsumoto.Character {
 
 			Weapon = null;
 			
-			//キャラクターのモデルの操作
 		}
 
 		/// <summary>

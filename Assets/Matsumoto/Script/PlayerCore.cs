@@ -81,7 +81,16 @@ namespace RogueLike.Matsumoto {
 
 			this.UpdateAsObservable()
 				.Where(_ => !IsFreeze)
-				.Subscribe(_ => PlayerUpdate.OnNext(this))
+				.Subscribe(_ => {
+					PlayerUpdate.OnNext(this);
+
+					//暫定で武器切り替え Rキー
+					if (Input.GetKeyDown(KeyCode.R)) {
+						var w = GetNearestWeapon(EquipWeaponRange);
+						AttachWeapon(w);
+					}
+
+				})
 				.AddTo(this);
 		}
 
@@ -94,27 +103,34 @@ namespace RogueLike.Matsumoto {
 				.Find(item => item.ID == id);
 		}
 
-		/// <summary>
-		/// TODO プレイヤーから一番近い取り付けられる武器を取得
-		/// </summary>
-		/// <returns></returns>
-		private Nishiwaki.IWeapon GetNearestWeapon() {
 
-			//return FindObjectsOfType<Component>()
-			//	//キャスト
-			//	.OfType<Nishiwaki.IWeapon>()
-			//	//オーナーがいない = 取り付けられる (予定)
-			//	//.Where(item => !item.GetOwner())
+		/// <summary>
+		/// プレイヤーから一番近い取り付けられる武器を取得
+		/// </summary>
+		/// <param name="range"></param>
+		/// <returns></returns>
+		private IWeapon GetNearestWeapon(float range) {
+
+			//下記の内容が実装されるまで使う
+			return FindObjectsOfType<Component>()
+				//キャスト
+				.OfType<IWeapon>()
+				//オーナーがいない = 取り付けられる (予定)
+				.Where(item => !item.GetOwner())
+				.Select(item => (item, (item.GetBody().transform.position - transform.position).sqrMagnitude))
+				//一定距離以下のみ抽出
+				.Where(item => item.Item2 <= range * range)
+				//距離で並べ替える
+				.OrderBy(item => item.Item2)
+				//一番近いやつを返す
+				.Select(item => item.Item1)
+				.FirstOrDefault();
+
+			//return GameInstance.AttachableWeaponList
 			//	//距離で並べ替える
 			//	.OrderBy(item => (item.GetBody().transform.position - transform.position).sqrMagnitude)
 			//	//一番近いやつを返す
 			//	.FirstOrDefault();
-
-			return GameInstance.AttachableWeaponList
-				//距離で並べ替える
-				.OrderBy(item => (item.GetBody().transform.position - transform.position).sqrMagnitude)
-				//一番近いやつを返す
-				.FirstOrDefault();
 
 		}
 
