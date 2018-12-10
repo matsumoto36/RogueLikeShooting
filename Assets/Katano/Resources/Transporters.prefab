@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4812862947809084}
+  - component: {fileID: 114762500497802864}
   m_Layer: 0
   m_Name: Transporters
   m_TagString: Untagged
@@ -34,6 +35,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4640433167886940}
+  - component: {fileID: 114250466150815444}
   m_Layer: 0
   m_Name: NORTH
   m_TagString: Untagged
@@ -49,6 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4007109583211718}
+  - component: {fileID: 114133474384671748}
   m_Layer: 0
   m_Name: SOUTH
   m_TagString: Untagged
@@ -64,6 +67,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4581856208195718}
+  - component: {fileID: 114184405278078492}
   m_Layer: 0
   m_Name: EAST
   m_TagString: Untagged
@@ -79,6 +83,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4458827752981168}
+  - component: {fileID: 114164641411217366}
   m_Layer: 0
   m_Name: WEST
   m_TagString: Untagged
@@ -155,3 +160,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114133474384671748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1498961117981162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+--- !u!114 &114164641411217366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790732911802010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+--- !u!114 &114184405278078492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565173849307632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+--- !u!114 &114250466150815444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382508375403264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+--- !u!114 &114762500497802864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149443754278876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a72c6f9b934e6bbdec48b8ce711cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  North: {fileID: 114250466150815444}
+  East: {fileID: 114184405278078492}
+  South: {fileID: 114133474384671748}
+  West: {fileID: 114164641411217366}

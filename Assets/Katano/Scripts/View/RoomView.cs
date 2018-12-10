@@ -15,27 +15,29 @@ namespace RogueLike.Katano.View
 	/// </summary>
 	public class RoomView : MonoBehaviour
 	{
-		public IEnumerable<CharacterSpawner> CharacterSpawners { get; private set; }
-
+		public Room Room { get; private set; }
+		
 		[SerializeField]
 		private NavMeshSurface _navMeshSurface;
-		
-		public Room Room { get; private set; }
 
 		[SerializeField]
 		private Transform _gameCameraAnchor;
+		/// <summary>
+		/// ゲームカメラアンカー
+		/// </summary>
 		public Transform GameCameraAnchor => _gameCameraAnchor;
 		
-		private readonly AsyncSubject<Unit> _onInitialize = new AsyncSubject<Unit>();
-		public IObservable<Unit> OnInitialize => _onInitialize;
+		private readonly AsyncSubject<Unit> _onInitializeAsync = new AsyncSubject<Unit>();
+		/// <summary>
+		/// 初期化イベント
+		/// </summary>
+		public IObservable<Unit> OnInitializeAsync => _onInitializeAsync;
 		
-		private readonly Subject<Unit> _onEnter = new Subject<Unit>();
-		public IObservable<Unit> OnEnter => _onEnter;
-
-		private void Awake()
-		{
-			CharacterSpawners = gameObject.Children().OfComponent<CharacterSpawner>();
-		}
+		private readonly Subject<Unit> _onEnterObservable = new Subject<Unit>();
+		/// <summary>
+		/// プレイヤー入場イベント
+		/// </summary>
+		public IObservable<Unit> OnEnterObservable => _onEnterObservable;
 
 		/// <summary>
 		/// .ctor
@@ -45,8 +47,8 @@ namespace RogueLike.Katano.View
 		{
 			Room = room;
 
-			_onInitialize.OnNext(Unit.Default);
-			_onInitialize.OnCompleted();
+			_onInitializeAsync.OnNext(Unit.Default);
+			_onInitializeAsync.OnCompleted();
 		}
 
 		/// <summary>
@@ -59,11 +61,13 @@ namespace RogueLike.Katano.View
 			{
 				player.transform.SetParent(transform);
 			}
+			
+			_onEnterObservable.OnNext(Unit.Default);
 		}
 
 		private void OnDestroy()
 		{
-			_onEnter.Dispose();
+			_onEnterObservable.Dispose();
 		}
 	}
 }

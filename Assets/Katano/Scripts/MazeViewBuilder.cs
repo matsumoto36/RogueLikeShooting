@@ -84,7 +84,7 @@ namespace RogueLike.Katano.Maze
 					case Room.RoomAttributes.Stair:
 					{
 						// 階段コンポーネントを追加
-						obj.AddComponent<StairComponent>();
+						obj.AddComponent<SpawnStairComponent>();
 						break;
 					}
 					case Room.RoomAttributes.Others:

@@ -14,7 +14,7 @@ namespace RogueLike.Katano.View.RoomComponents
 		{
 			Owner = GetComponent<RoomView>();
 
-			Owner.OnInitialize.Subscribe(_ => OnInitialize()).AddTo(this);
+			Owner.OnInitializeAsync.Subscribe(_ => OnInitialize()).AddTo(this);
 
 			OnStart();
 		}

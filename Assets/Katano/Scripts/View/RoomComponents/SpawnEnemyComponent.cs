@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Matsumoto;
 using RogueLike.Matsumoto.Character;
 using UniRx;
-using UniRx.Async;
 using Unity.Linq;
 using UnityEngine;
 
@@ -18,14 +16,18 @@ namespace RogueLike.Katano.View.RoomComponents
 	{
 		private CharacterSpawner[] _spawners = new CharacterSpawner[0];
 		
-		private Subject<Unit> _onEnemyDownAsync = new Subject<Unit>();
+		private readonly AsyncSubject<Unit> _onEnemyDownAsync = new AsyncSubject<Unit>();
+		/// <summary>
+		/// 敵を全滅させたイベント
+		/// </summary>
 		public IObservable<Unit> OnEnemyDownAsync => _onEnemyDownAsync;
 
+		/// <inheritdoc />
 		public override void OnInitialize()
 		{
 			gameObject.Children().OfComponent<CharacterSpawner>().ToArrayNonAlloc(ref _spawners);
 			
-			Owner.OnEnter.Subscribe(_ => Spawn());
+			Owner.OnEnterObservable.Subscribe(_ => Spawn());
 		}
 
 		private void Spawn()

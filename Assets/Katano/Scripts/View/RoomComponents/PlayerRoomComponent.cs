@@ -14,10 +14,13 @@ namespace RogueLike.Katano.View.RoomComponents
 	public class PlayerRoomComponent : RoomComponent
 	{
 		[SerializeField]
+		private GamePlayers _gamePlayers;
+		
+		[SerializeField]
 		private List<CharacterSpawner> _spawners = new List<CharacterSpawner>(4);
 		
 		private PlayerBindData _playerBind;
-		private GamePlayers _gamePlayers;
+		
 
 		/// <inheritdoc />
 		public override void OnInitialize()

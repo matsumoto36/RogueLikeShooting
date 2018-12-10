@@ -53,8 +53,8 @@ GameObject:
   - component: {fileID: 4996109684123632}
   - component: {fileID: 114186472287831540}
   - component: {fileID: 114912817725936170}
-  - component: {fileID: 114490376990752994}
   - component: {fileID: 114169803844142224}
+  - component: {fileID: 114490376990752994}
   m_Layer: 0
   m_Name: EnemyHubRoom
   m_TagString: Untagged

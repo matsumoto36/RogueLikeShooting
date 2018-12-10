@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace RogueLike.Katano.Maze
@@ -17,6 +18,8 @@ namespace RogueLike.Katano.Maze
 		public bool IsEnable { get; set; } = true;
 		public bool IsCompleted { get; set; }
 		public AdjacentSides AdjacentSide { get; set; }
+		
+		public Dictionary<AdjacentSides, Aisle> ConnectingAisles { get; } = new Dictionary<AdjacentSides, Aisle>();
 
 		public Room(int id, Point coord)
 		{

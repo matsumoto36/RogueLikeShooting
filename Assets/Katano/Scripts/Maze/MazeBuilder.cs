@@ -259,14 +259,17 @@ namespace RogueLike.Katano.Maze
 					// 隣接する部屋
 					var neighbor = _roomList[i + x, j + y];
 				
-					// 隣接する部屋の方向のビットフラグを立てる
-					origin.AdjacentSide |= (AdjacentSides) (1 << k);
-
 					// 新しい通路を作成
 					var aisle = (origin + neighbor)
 						.WithState(k % 2 == 0
 							? AisleChainState.Vertical
 							: AisleChainState.Horizontal);
+					
+					// 隣接する部屋の方向のビットフラグを立てる
+					origin.AdjacentSide |= (AdjacentSides) (1 << k);
+					origin.ConnectingAisles.Add((AdjacentSides) (1 << k), aisle);
+
+					
 				
 					// 通路リストに追加
 					aisles.Add(aisle);
