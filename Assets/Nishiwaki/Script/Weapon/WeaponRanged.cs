@@ -11,7 +11,7 @@ namespace RogueLike.Nishiwaki.Item
     {
         public IBullet iBullet;
         public WeaponRangedParameter WeaponRangedPara;
-        public CharacterCore CharacterCore;
+        public CharacterCore characterCore;
         Transform playerSetPosition;
 
         // Use this for initialization
@@ -31,7 +31,11 @@ namespace RogueLike.Nishiwaki.Item
 
         public void SetOwner(CharacterCore character)
         {
-            CharacterCore = character;
+            characterCore = character;
+        }
+        public CharacterCore GetOwner()
+        {
+            return characterCore;
         }
 
         public virtual void Attack()
