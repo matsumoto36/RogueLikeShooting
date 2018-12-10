@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1818695050342226}
+  m_RootGameObject: {fileID: 1766213586716048}
   m_IsPrefabAsset: 1
---- !u!1 &1818695050342226
+--- !u!1 &1766213586716048
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4886835766326076}
-  - component: {fileID: 114537859672176984}
+  - component: {fileID: 4398324457954858}
+  - component: {fileID: 114130815942802548}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -27,28 +27,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4886835766326076
+--- !u!4 &4398324457954858
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1818695050342226}
+  m_GameObject: {fileID: 1766213586716048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -3.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114537859672176984
+--- !u!114 &114130815942802548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1818695050342226}
+  m_GameObject: {fileID: 1766213586716048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3145a5746a1e0c4eac898d14b4e8feb, type: 3}
+  m_Script: {fileID: 11500000, guid: 37ecd10b8493c7042a7bb02861d4c210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponRangedAsset: {fileID: 11400000, guid: 81032f97be077e0429520aad9e387de8, type: 2}
+  weaponRangedAsset: {fileID: 11400000, guid: 81032f97be077e0429520aad9e387de8, type: 2}

@@ -8,6 +8,7 @@ namespace RogueLike.Nishiwaki.Item
     public class WeaponRangedLaser : WeaponRanged
     {
         BulletParameter BulletPara;
+        WeaponRangedAsset asset;
         Ray ray;        //レイ
         RaycastHit hit; //ヒットしたオブジェクト情報
         public float Range;
@@ -26,11 +27,13 @@ namespace RogueLike.Nishiwaki.Item
                 if (hit.distance <= 100)
                 {
                     BulletPara.Range = hit.distance;
+                    //asset.BulletAsset.BulletParameter.Range = hit.distance;
                 }
             }
             else
             {
                 BulletPara.Range = 100.0f;
+                //asset.BulletAsset.BulletParameter.Range = 100;
             }
 
             // デバッグ用

@@ -10,9 +10,9 @@ namespace RogueLike.Nishiwaki.Item
     public class WeaponRanged : MonoBehaviour, IWeapon
     {
         public IBullet iBullet;
-
         public WeaponRangedParameter WeaponRangedPara;
-        public CharacterCore CharacterCore;
+        public CharacterCore characterCore;
+        Transform playerSetPosition;
 
         // Use this for initialization
         void Start()
@@ -31,7 +31,11 @@ namespace RogueLike.Nishiwaki.Item
 
         public void SetOwner(CharacterCore character)
         {
-            CharacterCore = character;
+            characterCore = character;
+        }
+        public CharacterCore GetOwner()
+        {
+            return characterCore;
         }
 
         public virtual void Attack()
@@ -68,6 +72,7 @@ namespace RogueLike.Nishiwaki.Item
 
             weapon.WeaponRangedPara = asset.WeaponRangedParameter;
             weapon.iBullet = BulletBase.Create(asset.BulletAsset, weapon);
+            weapon.playerSetPosition = asset.PlayerSetPosition;
             Debug.Log("WeaponRanged Create");
 
             return weapon;
@@ -76,6 +81,11 @@ namespace RogueLike.Nishiwaki.Item
         public GameObject GetBody()
         {
             return gameObject;
+        }
+
+        public Transform PlayerSetPosition()
+        {
+            return playerSetPosition;
         }
     }
 }
