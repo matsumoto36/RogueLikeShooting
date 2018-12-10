@@ -26,14 +26,14 @@ namespace RogueLike.Nishiwaki.Item
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 if (hit.distance <= 100)
                 {
-                    //BulletPara.Range = hit.distance;
-                    asset.BulletAsset.BulletParameter.Range = hit.distance;
+                    BulletPara.Range = hit.distance;
+                    //asset.BulletAsset.BulletParameter.Range = hit.distance;
                 }
             }
             else
             {
-                //BulletPara.Range = 100.0f;
-                asset.BulletAsset.BulletParameter.Range = 100;
+                BulletPara.Range = 100.0f;
+                //asset.BulletAsset.BulletParameter.Range = 100;
             }
 
             // デバッグ用
