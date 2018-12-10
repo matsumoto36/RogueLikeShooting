@@ -7,11 +7,11 @@ namespace RogueLike.Nishiwaki.Item
 {
     public class WeaponRangedSpawner : MonoBehaviour
     {
-        [SerializeField] WeaponRangedAsset WeaponRangedAsset;
+        [SerializeField] WeaponRangedAsset weaponRangedAsset;
 
         void Start()
         {
-            WeaponRanged.Create(WeaponRangedAsset, transform);
+            WeaponRanged.Create(weaponRangedAsset, transform);
         }
     }
 }
