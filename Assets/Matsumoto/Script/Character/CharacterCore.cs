@@ -29,6 +29,9 @@ namespace RogueLike.Matsumoto.Character {
 			get; protected set;
 		}
 
+		public ReactiveProperty<bool> IsDead { get; }
+			= new ReactiveProperty<bool>();
+
 		/// <summary>
 		/// 武器を装備する
 		/// </summary>
@@ -40,16 +43,18 @@ namespace RogueLike.Matsumoto.Character {
 
 			//武器を付ける
 			Weapon = weapon;
-            Weapon?.SetOwner(this);
+			if (Weapon == null) return;
+
+            Weapon.SetOwner(this);
 
 			//武器の本体を取得し、子にする
-			var t = Weapon.GetBody().transform;
-			transform.rotation = t.rotation;
-			transform.position = t.position;
-			t.SetParent(transform);
+			var body = Weapon.GetBody().transform;
+			transform.rotation = body.rotation;
+			transform.position = body.position;
+			body.SetParent(transform);
 
 			//キャラクターのモデルの操作
-			var anchor = weapon.PlayerSetPosition();
+			var anchor = Weapon.PlayerSetPosition();
 			CharacterModel.transform.position = anchor.position;
 			CharacterModel.transform.rotation = anchor.rotation;
 		}
@@ -59,6 +64,9 @@ namespace RogueLike.Matsumoto.Character {
 		/// </summary>
 		public void DetachWeapon() {
 			if (Weapon == null) return;
+
+			//武器のオーナーを解除
+			Weapon.SetOwner(null);
 
 			//武器の本体を取得し、子から外す
 			Weapon.GetBody()
@@ -141,7 +149,11 @@ namespace RogueLike.Matsumoto.Character {
 			//武器を放出
 			DetachWeapon();
 
-			Destroy(gameObject);
+			//死亡通知
+			IsDead.Value = true;
+
+			//隠しておく
+			gameObject.SetActive(false);
 		}
 
 		/// <summary>
@@ -174,19 +186,15 @@ namespace RogueLike.Matsumoto.Character {
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 
 			//本体の生成
-			var character = new GameObject("").AddComponent<T>();
+			var character = new GameObject(asset.name).AddComponent<T>();
 			character.transform.position = spawnTransform.position;
 			character.transform.rotation = spawnTransform.rotation;
 
 			//モデルの生成
 			character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
-			if (character.CharacterModel) {
-				character.CharacterModel.transform.SetParent(character.transform);
-			}
+			character.CharacterModel.transform.SetParent(character.transform);
 
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
-			weapon.transform.SetParent(character.transform);
-
 			character.AttachWeapon(weapon);
 			character.OnSpawn(asset);
 

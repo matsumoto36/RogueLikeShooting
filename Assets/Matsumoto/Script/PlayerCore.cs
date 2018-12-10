@@ -87,7 +87,8 @@ namespace RogueLike.Matsumoto {
 					//暫定で武器切り替え Rキー
 					if (Input.GetKeyDown(KeyCode.R)) {
 						var w = GetNearestWeapon(EquipWeaponRange);
-						AttachWeapon(w);
+						if(w != null)
+							AttachWeapon(w);
 					}
 
 				})
