@@ -21,7 +21,7 @@ namespace RogueLike.Nishiwaki.Bullet
         }
         public override void BulletDestroy()
         {
-            bulletObjectLaser.BulletDestroy();
+            //bulletObjectLaser.BulletDestroy();
         }
     }
 }

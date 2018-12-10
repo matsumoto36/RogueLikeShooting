@@ -16,7 +16,8 @@ MonoBehaviour:
     Speed: 0
     Power: 0
     LifeTime: 0
-    Range: 100
+    Range: 0
+    ChargeTime: 0
   BulletPrefab: {fileID: 0}
   LaserPrefab: {fileID: 114974963082186966, guid: 752fcac58d4ca9d489ea0fbf4e377055,
     type: 2}

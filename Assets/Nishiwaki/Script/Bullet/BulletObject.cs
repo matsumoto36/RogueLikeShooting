@@ -42,12 +42,12 @@ namespace RogueLike.Nishiwaki.Bullet
             // 敵に当たったら
             var character = other.GetComponentInParent<CharacterCore>();
             if (!character) return;
-            if (CharacterCore.IsAttackable(weaponRanged.CharacterCore, character))
+            if (CharacterCore.IsAttackable(weaponRanged.characterCore, character))
             {
                 // 敵にダメージを与える
                 // nullの部分は攻撃者
                 character.ApplyDamage(
-                    new Matsumoto.Attack.CharacterAttacker(weaponRanged.CharacterCore), (int)BulletPara.Power);
+                    new Matsumoto.Attack.CharacterAttacker(weaponRanged.characterCore), (int)BulletPara.Power);
                 Destroy(gameObject);
             }
         }
