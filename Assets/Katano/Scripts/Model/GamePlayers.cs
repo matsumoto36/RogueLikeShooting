@@ -17,6 +17,8 @@ namespace RogueLike.Katano.Model
 		/// プレイヤーリスト
 		/// </summary>
 		public IEnumerable<PlayerCore> PlayerList => _playerList;
+		
+		public int JoinedPlayerCount { get; private set; }
 
 		/// <summary>
 		/// プレイヤーを設定する
@@ -25,6 +27,7 @@ namespace RogueLike.Katano.Model
 		public void Register(PlayerCore[] players)
 		{
 			_playerList = players;
+			JoinedPlayerCount = players.Length;
 		}
 	}
 }

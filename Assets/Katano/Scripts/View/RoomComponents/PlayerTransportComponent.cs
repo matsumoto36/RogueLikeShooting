@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using RogueLike.Matsumoto;
-using UniRx;
-using UniRx.Async;
-using UniRx.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.Components
+namespace RogueLike.Katano.View.RoomComponents
 {
 	/// <summary>
 	/// プレイヤー転送システム
 	/// </summary>
+	[DisallowMultipleComponent]
 	public class PlayerTransportComponent : RoomComponent
 	{
 		private PlayerTransporter _transporter;

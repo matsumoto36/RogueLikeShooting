@@ -1,7 +1,7 @@
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
-using RogueLike.Katano.View.Components;
 using RogueLike.Katano.View.Player;
+using RogueLike.Katano.View.RoomComponents;
 using UniRx.Async;
 using UnityEngine;
 

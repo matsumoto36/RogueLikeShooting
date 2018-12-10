@@ -11,6 +11,7 @@ namespace RogueLike.Katano.Maze
 		public int Id { get; }
 		
 		public Point Coord { get; }
+		public RoomAttributes RoomAttribute { get; set; } = RoomAttributes.None;
 		
 		public int Mark { get; set; }
 		public bool IsEnable { get; set; } = true;
@@ -62,6 +63,32 @@ namespace RogueLike.Katano.Maze
 		public new string ToString()
 		{
 			return $"[Room] Id:{Id} Coord:{Coord}";
+		}
+
+		/// <summary>
+		/// ルームタイプ
+		/// </summary>
+		public enum RoomAttributes
+		{
+			/// <summary>
+			/// 未設定
+			/// </summary>
+			None,
+			
+			/// <summary>
+			/// スポーン場所
+			/// </summary>
+			FloorStart,
+			
+			/// <summary>
+			/// 階段のある部屋
+			/// </summary>
+			Stair,
+			
+			/// <summary>
+			/// その他
+			/// </summary>
+			Others
 		}
 	}
 }

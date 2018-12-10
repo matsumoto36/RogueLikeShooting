@@ -2,23 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
 using RogueLike.Katano.Model;
-using RogueLike.Katano.View;
-using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
-using RogueLike.Matsumoto.Character;
 using UnityEngine;
 
-namespace RogueLike.Katano
+namespace RogueLike.Katano.View.RoomComponents
 {
-	
+	/// <summary>
+	/// プレイヤーを生成するコンポーネント
+	/// </summary>
+	[DisallowMultipleComponent]
 	public class PlayerRoomComponent : RoomComponent
 	{
+		[SerializeField]
+		private List<CharacterSpawner> _spawners = new List<CharacterSpawner>(4);
+		
 		private PlayerBindData _playerBind;
 		private GamePlayers _gamePlayers;
-
-		
-		private IEnumerable<CharacterSpawner> _spawners;
-
 
 		/// <inheritdoc />
 		public override void OnInitialize()
@@ -33,7 +32,7 @@ namespace RogueLike.Katano
 				list.Add(player);
 			}
 
-			_gamePlayers.Register(list.Cast<PlayerCore>().ToArray());
+			_gamePlayers.Register(list.ToArray());
 		}
 
 		/// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
 using RogueLike.Katano.View;
+using RogueLike.Katano.View.RoomComponents;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -74,6 +75,26 @@ namespace RogueLike.Katano.Maze
 					coord,
 					Quaternion.identity);
 
+				switch (room.RoomAttribute)
+				{
+					case Room.RoomAttributes.FloorStart:
+					{
+						break;
+					}
+					case Room.RoomAttributes.Stair:
+					{
+						// 階段コンポーネントを追加
+						obj.AddComponent<StairComponent>();
+						break;
+					}
+					case Room.RoomAttributes.Others:
+					{
+						break;
+					}
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+				
 				var view = obj.GetComponent<RoomView>();
 				view.Initialize(room);
 				roomViewList.Add(room.Id, view);

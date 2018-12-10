@@ -1,12 +1,11 @@
 using UniRx;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.Components
+namespace RogueLike.Katano.View.RoomComponents
 {
 	/// <summary>
 	/// 部屋コンポーネント
 	/// </summary>
-	[DisallowMultipleComponent]
 	public abstract class RoomComponent : MonoBehaviour
 	{
 		protected RoomView Owner;
@@ -25,7 +24,5 @@ namespace RogueLike.Katano.View.Components
 		/// </summary>
 		public abstract void OnInitialize();
 		public virtual void OnStart() {}
-
-		public virtual void Spawn() {}
 	}
 }

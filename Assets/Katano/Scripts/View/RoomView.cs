@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
-using RogueLike.Katano.View.Components;
 using RogueLike.Matsumoto;
 using UniRx;
-using UniRx.Triggers;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+// ReSharper disable NotAccessedField.Local
 
 namespace RogueLike.Katano.View
 {
@@ -30,6 +29,9 @@ namespace RogueLike.Katano.View
 		private readonly AsyncSubject<Unit> _onInitialize = new AsyncSubject<Unit>();
 		public IObservable<Unit> OnInitialize => _onInitialize;
 		
+		private readonly Subject<Unit> _onEnter = new Subject<Unit>();
+		public IObservable<Unit> OnEnter => _onEnter;
+
 		private void Awake()
 		{
 			CharacterSpawners = gameObject.Children().OfComponent<CharacterSpawner>();
@@ -48,7 +50,7 @@ namespace RogueLike.Katano.View
 		}
 
 		/// <summary>
-		/// 
+		/// 部屋に入場する
 		/// </summary>
 		/// <param name="players"></param>
 		public void Enter(IEnumerable<PlayerCore> players)
@@ -57,6 +59,11 @@ namespace RogueLike.Katano.View
 			{
 				player.transform.SetParent(transform);
 			}
+		}
+
+		private void OnDestroy()
+		{
+			_onEnter.Dispose();
 		}
 	}
 }

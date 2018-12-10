@@ -128,7 +128,7 @@ namespace RogueLike.Katano.Maze
 		{
 			
 			
-			var roomList = _roomList.OfType<Room>().Where(x => x.IsEnable).ToList();
+			var roomList = _roomList.Cast<Room>().Where(x => x.IsEnable).ToList();
 			var cluster = new HashSet<Room>();
 			var clusterList = new List<List<Room>>();
 
@@ -358,6 +358,27 @@ namespace RogueLike.Katano.Maze
 
 				// 処理済みとしてチェック
 				aisle.IsCompleted = true;
+			}
+		}
+
+		public void OverrideAttribute()
+		{
+			var enabledRooms = _roomList.Cast<Room>().Where(x => x.IsEnable).Shuffle().ToList();
+
+			for (var i = 0; i < enabledRooms.Count; i++)
+			{
+				switch (i)
+				{
+					case 0:
+						enabledRooms[i].RoomAttribute = Room.RoomAttributes.FloorStart;
+						break;
+					case 1:
+						enabledRooms[i].RoomAttribute = Room.RoomAttributes.Stair;
+						break;
+					default:
+						enabledRooms[i].RoomAttribute = Room.RoomAttributes.Others;
+						break;
+				}
 			}
 		}
 	}
