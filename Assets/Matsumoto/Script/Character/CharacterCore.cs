@@ -15,6 +15,8 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
+		protected GameObject CharacterModel;
+
 		public CharacterType CharacterType { get; protected set; }
 			= CharacterType.Invalid;
 
@@ -45,7 +47,7 @@ namespace RogueLike.Matsumoto.Character {
 			transform.position = t.position;
 			t.SetParent(transform);
 
-			//プレイヤーのモデルの操作
+			//キャラクターのモデルの操作
 		}
 
 		/// <summary>
@@ -54,12 +56,14 @@ namespace RogueLike.Matsumoto.Character {
 		public void DetachWeapon() {
 			if (Weapon == null) return;
 
-			Weapon = null;
-
 			//武器の本体を取得し、子から外す
 			Weapon.GetBody()
 				.transform
 				.SetParent(null);
+
+			Weapon = null;
+			
+			//キャラクターのモデルの操作
 		}
 
 		/// <summary>
@@ -165,18 +169,25 @@ namespace RogueLike.Matsumoto.Character {
 		/// <param name="spawnTransform"></param>
 		/// <returns></returns>
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
-			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 
-			var chara = obj.AddComponent<T>();
+			//本体の生成
+			var character = new GameObject("").AddComponent<T>();
+			character.transform.position = spawnTransform.position;
+			character.transform.rotation = spawnTransform.rotation;
 
-			//武器の生成
+			//モデルの生成
+			character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
+			if (character.CharacterModel) {
+				character.CharacterModel.transform.SetParent(character.transform);
+			}
+
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
-			weapon.transform.SetParent(chara.transform);
+			weapon.transform.SetParent(character.transform);
 
-			chara.AttachWeapon(weapon);
-			chara.OnSpawn(asset);
+			character.AttachWeapon(weapon);
+			character.OnSpawn(asset);
 
-			return chara;
+			return character;
 		}
 
 		public static bool IsAttackable(CharacterCore from, CharacterCore to) {

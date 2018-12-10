@@ -21,6 +21,7 @@ namespace RogueLike.Matsumoto.Character {
 
 			//攻撃
 			playerComponent.PlayerUpdate
+				.Where(player => player.InputEventProvider != null)
 				.Subscribe(player => {
 
 					if(player.InputEventProvider.GetShotDown())
