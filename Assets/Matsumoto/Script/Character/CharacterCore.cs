@@ -15,6 +15,11 @@ namespace RogueLike.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
+		protected GameObject CharacterModel;
+
+		private readonly ReactiveProperty<bool> _isDead
+			= new BoolReactiveProperty();
+
 		public CharacterType CharacterType { get; protected set; }
 			= CharacterType.Invalid;
 
@@ -27,6 +32,8 @@ namespace RogueLike.Matsumoto.Character {
 			get; protected set;
 		}
 
+		public IReadOnlyReactiveProperty<bool> IsDead => _isDead;
+
 		/// <summary>
 		/// 武器を装備する
 		/// </summary>
@@ -38,14 +45,20 @@ namespace RogueLike.Matsumoto.Character {
 
 			//武器を付ける
 			Weapon = weapon;
-            Weapon?.SetOwner(this);
+			if (Weapon == null) return;
+
+            Weapon.SetOwner(this);
 
 			//武器の本体を取得し、子にする
-			var t = Weapon.GetBody().transform;
-			transform.position = t.position;
-			t.SetParent(transform);
+			var body = Weapon.GetBody().transform;
+			transform.rotation = body.rotation;
+			transform.position = body.position;
+			body.SetParent(transform);
 
-			//プレイヤーのモデルの操作
+			//キャラクターのモデルの操作
+			var anchor = Weapon.PlayerSetPosition();
+			CharacterModel.transform.position = anchor.position;
+			CharacterModel.transform.rotation = anchor.rotation;
 		}
 
 		/// <summary>
@@ -54,12 +67,16 @@ namespace RogueLike.Matsumoto.Character {
 		public void DetachWeapon() {
 			if (Weapon == null) return;
 
-			Weapon = null;
+			//武器のオーナーを解除
+			Weapon.SetOwner(null);
 
 			//武器の本体を取得し、子から外す
 			Weapon.GetBody()
 				.transform
 				.SetParent(null);
+
+			Weapon = null;
+			
 		}
 
 		/// <summary>
@@ -134,7 +151,11 @@ namespace RogueLike.Matsumoto.Character {
 			//武器を放出
 			DetachWeapon();
 
-			Destroy(gameObject);
+			//死亡通知
+			_isDead.Value = true;
+
+			//隠しておく
+			gameObject.SetActive(false);
 		}
 
 		/// <summary>
@@ -165,18 +186,21 @@ namespace RogueLike.Matsumoto.Character {
 		/// <param name="spawnTransform"></param>
 		/// <returns></returns>
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
-			var obj = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 
-			var chara = obj.AddComponent<T>();
+			//本体の生成
+			var character = new GameObject(asset.name).AddComponent<T>();
+			character.transform.position = spawnTransform.position;
+			character.transform.rotation = spawnTransform.rotation;
 
-			//武器の生成
+			//モデルの生成
+			character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
+			character.CharacterModel.transform.SetParent(character.transform);
+
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
-			weapon.transform.SetParent(chara.transform);
+			character.AttachWeapon(weapon);
+			character.OnSpawn(asset);
 
-			chara.AttachWeapon(weapon);
-			chara.OnSpawn(asset);
-
-			return chara;
+			return character;
 		}
 
 		public static bool IsAttackable(CharacterCore from, CharacterCore to) {

@@ -12,6 +12,7 @@ namespace RogueLike.Matsumoto.Character {
 		void Start() {
 
 			GetComponent<PlayerCore>().PlayerUpdate
+				.Where(player => player.InputEventProvider != null)
 				.Subscribe(player => {
 
 					var input = player.InputEventProvider;

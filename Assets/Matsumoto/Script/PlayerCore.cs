@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -6,6 +7,10 @@ using UniRx.Triggers;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Chikazawa;
+using RogueLike.Matsumoto.Managers;
+using RogueLike.Nishiwaki;
+using Unity.Linq;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Matsumoto {
 
@@ -14,6 +19,7 @@ namespace RogueLike.Matsumoto {
 	/// </summary>
 	public class PlayerCore : CharacterCore {
 
+		private const float EquipWeaponRange = 5;
 		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
@@ -21,7 +27,7 @@ namespace RogueLike.Matsumoto {
 		private static PlayerHPProvider _playerHPProvider;
 
 		public int ID { get; private set; }
-		public IInputEventProvider InputEventProvider { get; private set; }
+		public IInputEventProvider InputEventProvider { get; set; }
 		public bool IsFreeze { get; set; }
 
 		public override int HP {
@@ -70,11 +76,22 @@ namespace RogueLike.Matsumoto {
 		protected override void Start() {
 			base.Start();
 
-			InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
+			if(InputEventProvider == null)
+				InputEventProvider = new Chikazawa.InputEventProvider.InputKeyBoard();
 
 			this.UpdateAsObservable()
 				.Where(_ => !IsFreeze)
-				.Subscribe(_ => PlayerUpdate.OnNext(this))
+				.Subscribe(_ => {
+					PlayerUpdate.OnNext(this);
+
+					//暫定で武器切り替え Rキー
+					if (Input.GetKeyDown(KeyCode.R)) {
+						var w = GetNearestWeapon(EquipWeaponRange);
+						if(w != null)
+							AttachWeapon(w);
+					}
+
+				})
 				.AddTo(this);
 		}
 
@@ -85,6 +102,37 @@ namespace RogueLike.Matsumoto {
 		public static PlayerCore GetPlayerFromID(int id) {
 			return Players
 				.Find(item => item.ID == id);
+		}
+
+
+		/// <summary>
+		/// プレイヤーから一番近い取り付けられる武器を取得
+		/// </summary>
+		/// <param name="range"></param>
+		/// <returns></returns>
+		private IWeapon GetNearestWeapon(float range) {
+
+			//下記の内容が実装されるまで使う
+			return FindObjectsOfType<Component>()
+				//キャスト
+				.OfType<IWeapon>()
+				//オーナーがいない = 取り付けられる (予定)
+				.Where(item => !item.GetOwner())
+				.Select(item => (item, (item.GetBody().transform.position - transform.position).sqrMagnitude))
+				//一定距離以下のみ抽出
+				.Where(item => item.Item2 <= range * range)
+				//距離で並べ替える
+				.OrderBy(item => item.Item2)
+				//一番近いやつを返す
+				.Select(item => item.Item1)
+				.FirstOrDefault();
+
+			//return GameInstance.AttachableWeaponList
+			//	//距離で並べ替える
+			//	.OrderBy(item => (item.GetBody().transform.position - transform.position).sqrMagnitude)
+			//	//一番近いやつを返す
+			//	.FirstOrDefault();
+
 		}
 
 	}
