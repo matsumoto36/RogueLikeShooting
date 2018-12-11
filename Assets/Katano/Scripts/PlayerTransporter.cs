@@ -1,7 +1,6 @@
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using RogueLike.Katano.View.Player;
-using RogueLike.Katano.View.RoomComponents;
 using UniRx.Async;
 using UnityEngine;
 
@@ -20,6 +19,11 @@ namespace RogueLike.Katano
 		/// </summary>
 		public GameCamera GameCamera;
 
+		public void Initialize(RoomView initRoom)
+		{
+			GameCamera.Initialize(initRoom);
+		}
+		
 		/// <summary>
 		/// 転送
 		/// </summary>

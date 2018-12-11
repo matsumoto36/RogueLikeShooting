@@ -25,7 +25,7 @@ namespace RogueLike.Katano.View.RoomComponents
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
-			gameObject.Children().OfComponent<CharacterSpawner>().ToArrayNonAlloc(ref _spawners);
+			_spawners = gameObject.Children().OfComponent<CharacterSpawner>().ToArray();
 			
 			Owner.OnEnterObservable.Subscribe(_ => Spawn());
 		}
@@ -36,22 +36,14 @@ namespace RogueLike.Katano.View.RoomComponents
 			var enemies = _spawners.Select(spawner => spawner.Spawn() as EnemyCore).ToList();
 
 			// 敵が全滅したらイベントを発行
-			enemies.Select(enemy => enemy.IsDead())
+			enemies.Select(enemy => enemy.IsDead)
 				.Merge()
-				.Where(_ => enemies.All(enemy => enemy.IsDead().Value))
+				.Where(_ => enemies.All(enemy => enemy.IsDead.Value))
 				.Subscribe(_ =>
 				{
 					_onEnemyDownAsync.OnNext(Unit.Default);
 					_onEnemyDownAsync.OnCompleted();
 				});
-		}
-	}
-
-	public static class CharacterCoreEx
-	{
-		public static IReadOnlyReactiveProperty<bool> IsDead(this CharacterCore core)
-		{
-			return new BoolReactiveProperty(false);
 		}
 	}
 }

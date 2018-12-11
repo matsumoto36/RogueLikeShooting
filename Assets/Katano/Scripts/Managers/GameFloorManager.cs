@@ -1,7 +1,9 @@
+using System.Linq;
 using RogueLike.Katano.Maze;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using UniRx;
+using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano.Managers
@@ -19,6 +21,9 @@ namespace RogueLike.Katano.Managers
 
 		[SerializeField]
 		private MazeFloorSettings _floorSettings;
+
+		[SerializeField]
+		private PlayerTransporter _transporter;
 
 		private MazeView _mazeView;
 
@@ -57,7 +62,12 @@ namespace RogueLike.Katano.Managers
 		{
 			var maze = ConstructMaze();
 			var view = ConstructMazeView(maze);
-			_mazeView = view;	
+			_mazeView = view;
+
+			var entryPoint = maze.RoomList.Cast<Room>().First(x => x.RoomAttribute == Room.RoomAttributes.FloorStart);
+			var entryView = view.Rooms[entryPoint.Id];
+			
+			_transporter.Initialize(entryView);
 			
 			_isReady = true;
 			

@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: e8642110760ff5043a7e99881e1728d4, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 0
   OverrideID: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: e8642110760ff5043a7e99881e1728d4, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 0
   OverrideID: 0
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: e8642110760ff5043a7e99881e1728d4, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 0
   OverrideID: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d9399a332219540b42c6f01aa9300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterAsset: {fileID: 11400000, guid: e8642110760ff5043a7e99881e1728d4, type: 2}
+  CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 0
   OverrideID: 0

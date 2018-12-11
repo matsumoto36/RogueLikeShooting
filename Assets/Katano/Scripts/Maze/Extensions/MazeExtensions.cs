@@ -10,6 +10,11 @@ namespace RogueLike.Katano.Maze
 //			aisle.AisleChainState = aisleChainState;
 //			return aisle;
 //		}
+
+		public static IEnumerable<Room> ToEnumerable(this Room[,] rooms)
+		{
+			return rooms.
+		}
 		
 		public static void SetMark(this Room room, int mark)
 		{

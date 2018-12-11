@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
 using RogueLike.Katano.Model;
 using RogueLike.Matsumoto;
+using UniRx;
 using UnityEngine;
 
 namespace RogueLike.Katano.View.RoomComponents
@@ -11,7 +13,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// プレイヤーを生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class PlayerRoomComponent : RoomComponent
+	public class SpawnPlayerComponent : RoomComponent
 	{
 		[SerializeField]
 		private GamePlayers _gamePlayers;
@@ -21,6 +23,11 @@ namespace RogueLike.Katano.View.RoomComponents
 		
 		private PlayerBindData _playerBind;
 		
+		private readonly AsyncSubject<Unit> _onPlayerSpawnedAsync = new AsyncSubject<Unit>();
+		/// <summary>
+		/// 敵を全滅させたイベント
+		/// </summary>
+		public IObservable<Unit> OnPlayerSpawnedAsync => _onPlayerSpawnedAsync;
 
 		/// <inheritdoc />
 		public override void OnInitialize()
@@ -36,6 +43,9 @@ namespace RogueLike.Katano.View.RoomComponents
 			}
 
 			_gamePlayers.Register(list.ToArray());
+
+			_onPlayerSpawnedAsync.OnNext(Unit.Default);
+			_onPlayerSpawnedAsync.OnCompleted();
 		}
 
 		/// <summary>

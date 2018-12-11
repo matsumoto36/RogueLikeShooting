@@ -11,8 +11,16 @@ namespace RogueLike.Katano.Maze
 	/// </summary>
 	public class MazeBuilder
 	{
-		public static readonly Point[] Neighbors =
-			{new Point(0, -1), new Point(1, 0), new Point(0, 1), new Point(-1, 0)};
+		/// <summary>
+		/// 隣接マスアクセステーブル
+		/// </summary>
+		private static readonly Point[] Neighbors =
+		{
+			new Point(0, -1), 
+			new Point(1, 0), 
+			new Point(0, 1), 
+			new Point(-1, 0)
+		};
 		
 		/// <summary>
 		/// ビルドオプション
@@ -49,15 +57,16 @@ namespace RogueLike.Katano.Maze
 		/// <returns></returns>
 		public void BuildRoom()
 		{
+			var width = _buildOptions.Width;
+			var height = _buildOptions.Height;
+			
+			_roomList = new Room[width, height].Initialize(ConstructMethod);
+			_builtRoom = true;
+			
 			Room ConstructMethod(int x, int y)
 			{
-				var height = _buildOptions.Height;
 				return new Room(height * y + x, new Point(x,y));
 			}
-			
-			_roomList = new Room[_buildOptions.Width, _buildOptions.Height]
-				.Initialize(ConstructMethod);
-			_builtRoom = true;
 		}
 
 		/// <summary>
@@ -66,12 +75,12 @@ namespace RogueLike.Katano.Maze
 		/// <returns></returns>
 		public void BuildAisle()
 		{
-			var aisles = new List<Aisle>();
-
-			MakeAisle(ref aisles);
-
 			// 重複する通路データを省く
-			_aisleList = new HashSet<Aisle>(aisles);
+			_aisleList = new HashSet<Aisle>();
+
+			MakeAisle(ref _aisleList);
+
+			
 
 			_builtAisle = true;
 		}
@@ -103,10 +112,10 @@ namespace RogueLike.Katano.Maze
 			if (!_builtAisle)
 				throw new MazeException("Aisles has not been built yet.");
 
-			foreach (var room in _roomList.OfType<Room>().TakeRandom(count)) room.IsEnable = false;
+			foreach (var room in _roomList.TakeRandom(count)) room.IsEnable = false;
 
 			_aisleList.RemoveWhere(x => !x.IsValid());
-
+			
 			_cleanup = false;
 
 			return this;
@@ -126,8 +135,6 @@ namespace RogueLike.Katano.Maze
 		/// </summary>
 		private void RemoveSmallCluster()
 		{
-			
-			
 			var roomList = _roomList.Cast<Room>().Where(x => x.IsEnable).ToList();
 			var cluster = new HashSet<Room>();
 			var clusterList = new List<List<Room>>();
@@ -241,7 +248,7 @@ namespace RogueLike.Katano.Maze
 		///     部屋間に通路を敷く
 		/// </summary>
 		/// <param name="aisles"></param>
-		private void MakeAisle(ref List<Aisle> aisles)
+		private void MakeAisle(ref HashSet<Aisle> aisles)
 		{
 			for (var i = 0; i < _buildOptions.Width; i++)
 			for (var j = 0; j < _buildOptions.Height; j++)
@@ -364,11 +371,14 @@ namespace RogueLike.Katano.Maze
 			}
 		}
 
+		/// <summary>
+		/// 属性を上書きする
+		/// </summary>
 		public void OverrideAttribute()
 		{
-			var enabledRooms = _roomList.Cast<Room>().Where(x => x.IsEnable).Shuffle().ToList();
+			var enabledRooms = _roomList.Cast<Room>().Where(x => x.IsEnable).Shuffle().ToArray();
 
-			for (var i = 0; i < enabledRooms.Count; i++)
+			for (var i = 0; i < enabledRooms.Length; ++i)
 			{
 				switch (i)
 				{

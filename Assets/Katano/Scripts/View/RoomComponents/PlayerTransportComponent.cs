@@ -21,6 +21,7 @@ namespace RogueLike.Katano.View.RoomComponents
 		private TransporterHub TransporterHub { get; set; }
 		
 		private PlayerTransporter _transporter;
+		private SpawnPlayerComponent _spawnPlayerComponent;
 		private SpawnEnemyComponent _spawnEnemyComponent;
 
 		private void Awake()
@@ -34,17 +35,30 @@ namespace RogueLike.Katano.View.RoomComponents
 			TransporterHub = Instantiate(_hubPrefab, transform.localPosition, Quaternion.identity, transform);
 			
 			_transporter = FindObjectOfType<PlayerTransporter>();
+
+			_spawnPlayerComponent = GetComponent<SpawnPlayerComponent>();
+			if (_spawnPlayerComponent)
+			{
+				_spawnPlayerComponent
+					.OnPlayerSpawnedAsync
+					.Subscribe(_ =>
+					{
+						InitTransporters();
+						RaiseTransporter();
+					});
+			}
+			
 			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
-
-			InitTransporters();
-
 			if (_spawnEnemyComponent)
 			{
-
 				// 敵が全滅したら転送システムを起動する
 				_spawnEnemyComponent
 					.OnEnemyDownAsync
-					.Subscribe(_ => RaiseTransporter());
+					.Subscribe(_ =>
+					{
+						InitTransporters();
+						RaiseTransporter();
+					});
 			}
 		}
 

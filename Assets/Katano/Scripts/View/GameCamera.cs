@@ -12,6 +12,13 @@ namespace RogueLike.Katano.View
 	public class GameCamera : MonoBehaviour
 	{
 		public RoomView FocusTarget { get; private set; }
+
+		public void Initialize(RoomView initRoom)
+		{
+			FocusTarget = initRoom;
+			transform.position = FocusTarget.GameCameraAnchor.position;
+			transform.rotation = FocusTarget.GameCameraAnchor.rotation;
+		}
 		
 		/// <summary>
 		/// 部屋を移動する
