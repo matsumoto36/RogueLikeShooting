@@ -31,8 +31,8 @@ namespace RogueLike.Matsumoto {
 		public bool IsFreeze { get; set; }
 
 		public override int HP {
-			get => _playerHPProvider.HP;
-			protected set => _playerHPProvider.HP = value;
+			get => _playerHPProvider.NowHP;
+			protected set => _playerHPProvider.NowHP = value;
 		}
 
 		public override void Kill(IAttacker attacker) {
@@ -64,7 +64,11 @@ namespace RogueLike.Matsumoto {
 					_playerHPProvider = new GameObject("[PlayerHPProvider]")
 						.AddComponent<PlayerHPProvider>();
 
-					_playerHPProvider.HP = playerAsset.HP;
+					_playerHPProvider.MaxHP
+						= _playerHPProvider.NowHP
+							= playerAsset.HP;
+
+					UIManager.Instance.Show("PlayerStatus");
 				}
 			}
 

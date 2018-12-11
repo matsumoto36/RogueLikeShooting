@@ -204,6 +204,7 @@ namespace RogueLike.Matsumoto.Character {
 		}
 
 		public static bool IsAttackable(CharacterCore from, CharacterCore to) {
+			if (!from || !to) return false;
 			return from.CharacterType != to.CharacterType;
 		}
 

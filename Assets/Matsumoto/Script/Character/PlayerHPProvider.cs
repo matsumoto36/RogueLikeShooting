@@ -6,8 +6,8 @@ using System.Collections;
 /// </summary>
 public class PlayerHPProvider : MonoBehaviour {
 
-	public int HP {
-		get; set;
-	}
+	public int MaxHP { get; set; }
+
+	public int NowHP { get; set; }
 
 }
