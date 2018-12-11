@@ -38,7 +38,7 @@ namespace RogueLike.Tests
 		{
 			var room0 = new Room(0, new Point(0, 0));
 			var room1 = new Room(1, new Point(1, 0));
-			var aisle = new Aisle(room0, room1, AisleChainState.Horizontal);
+			var aisle = new Aisle(room0, room1);
 			
 			Assert.AreEqual(room0, aisle.Room0);
 			Assert.AreEqual(room1, aisle.Room1);

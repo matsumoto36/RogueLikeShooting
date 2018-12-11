@@ -50,7 +50,7 @@ namespace RogueLike.Katano.Maze
 			var aisles = new Dictionary<int, AisleView>();
 			
 			MakeRoomView(ref rooms);
-			MakeAisleView(ref aisles, rooms);
+//			MakeAisleView(ref aisles, rooms);
 
 			return MazeView.Create(_maze, rooms, aisles);
 		}
@@ -68,68 +68,72 @@ namespace RogueLike.Katano.Maze
 				var room = shuffledRooms[i];
 				
 				var coord = new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y);
-				
-				var obj = Object.Instantiate(i == 0 
-						? _mazeDataAsset.PlayerRoomPrefab 
-						: _mazeDataAsset.RoomPrefabList.RandomAt(), 
-					coord,
-					Quaternion.identity);
+
+				GameObject go;
+//				var obj = Object.Instantiate(i == 0 
+//						? _mazeDataAsset.PlayerRoomPrefab 
+//						: _mazeDataAsset.RoomPrefabList.RandomAt(), 
+//					coord,
+//					Quaternion.identity);
 
 				switch (room.RoomAttribute)
 				{
 					case Room.RoomAttributes.FloorStart:
 					{
+						go = Object.Instantiate(_mazeDataAsset.PlayerRoomPrefab, coord, Quaternion.identity);
 						break;
 					}
 					case Room.RoomAttributes.Stair:
 					{
+						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coord, Quaternion.identity);
 						// 階段コンポーネントを追加
-						obj.AddComponent<SpawnStairComponent>();
+						go.AddComponent<SpawnStairComponent>();
 						break;
 					}
 					case Room.RoomAttributes.Others:
 					{
+						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coord, Quaternion.identity);
 						break;
 					}
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
 				
-				var view = obj.GetComponent<RoomView>();
+				var view = go.GetComponent<RoomView>();
 				view.Initialize(room);
 				roomViewList.Add(room.Id, view);
 			}
 		}
 
-		private void MakeAisleView(ref Dictionary<int, AisleView> aisleViewList, IReadOnlyDictionary<int, RoomView> roomViewList)
-		{
-			// AisleViewの生成
-			foreach (var aisle in _maze.Aisles)
-			{
-				var spawn = Vector3.Lerp(roomViewList[aisle.Room0.Id].transform.position, roomViewList[aisle.Room1.Id].transform.position, 0.5f);
-				var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-				switch (aisle.AisleChainState)
-				{
-					case AisleChainState.Horizontal:
-					{
-						obj.transform.localScale = new Vector3(10, 0.1f, 1);
-						break;
-					}
-					case AisleChainState.Vertical:
-					{
-						obj.transform.localScale = new Vector3(1, 0.1f, 10);
-						break;
-					}
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
-				obj.transform.localPosition = spawn;
-
-				var view = obj.AddComponent<AisleView>();
-				view.Construct(aisle);
-				aisleViewList.Add(aisle.Id, view);
-			}
-		}
+//		private void MakeAisleView(ref Dictionary<int, AisleView> aisleViewList, IReadOnlyDictionary<int, RoomView> roomViewList)
+//		{
+//			// AisleViewの生成
+//			foreach (var aisle in _maze.Aisles)
+//			{
+//				var spawn = Vector3.Lerp(roomViewList[aisle.Room0.Id].transform.position, roomViewList[aisle.Room1.Id].transform.position, 0.5f);
+//				var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+//
+//				switch (aisle.AisleChainState)
+//				{
+//					case AisleChainState.Horizontal:
+//					{
+//						obj.transform.localScale = new Vector3(10, 0.1f, 1);
+//						break;
+//					}
+//					case AisleChainState.Vertical:
+//					{
+//						obj.transform.localScale = new Vector3(1, 0.1f, 10);
+//						break;
+//					}
+//					default:
+//						throw new ArgumentOutOfRangeException();
+//				}
+//				obj.transform.localPosition = spawn;
+//
+//				var view = obj.AddComponent<AisleView>();
+//				view.Construct(aisle);
+//				aisleViewList.Add(aisle.Id, view);
+//			}
+//		}
 	}
 }

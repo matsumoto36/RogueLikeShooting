@@ -37,11 +37,15 @@ namespace RogueLike.Katano.View.RoomComponents
 			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
 
 			InitTransporters();
-			
-			// 敵が全滅したら転送システムを起動する
-			_spawnEnemyComponent
-				.OnEnemyDownAsync
-				.Subscribe(_ => RaiseTransporter());
+
+			if (_spawnEnemyComponent)
+			{
+
+				// 敵が全滅したら転送システムを起動する
+				_spawnEnemyComponent
+					.OnEnemyDownAsync
+					.Subscribe(_ => RaiseTransporter());
+			}
 		}
 
 		private void InitTransporters()

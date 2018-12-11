@@ -32,20 +32,19 @@ namespace RogueLike.Katano.Maze
 		/// 処理フラグ
 		/// </summary>
 		public bool IsCompleted { get; set; }
-		
-		/// <summary>
-		/// 通路のタイプ
-		/// </summary>
-		public AisleChainState AisleChainState { get; set; }
-		
+//		
+//		/// <summary>
+//		/// 通路のタイプ
+//		/// </summary>
+//		public AisleChainState AisleChainState { get; set; }
+//		
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="room0"></param>
 		/// <param name="room1"></param>
-		/// <param name="aisleChainState"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public Aisle(Room room0, Room room1, AisleChainState aisleChainState = AisleChainState.Invalid)
+		public Aisle(Room room0, Room room1)
 		{
 			if (room0 == null)
 				throw new ArgumentNullException(nameof(room0));
@@ -63,7 +62,7 @@ namespace RogueLike.Katano.Maze
 //				throw new ArgumentException("Invalid argument.", nameof(aisleType));
 			
 			(Room0, Room1) = room0.Id < room1.Id ? (room0, room1) : (room1, room0);
-			AisleChainState = aisleChainState;
+//			AisleChainState = aisleChainState;
 		}
 
 		/// <summary>
@@ -130,10 +129,10 @@ namespace RogueLike.Katano.Maze
 		}
 	}
 
-	public enum AisleChainState
-	{
-		Invalid,
-		Horizontal,
-		Vertical
-	}
+//	public enum AisleChainState
+//	{
+//		Invalid,
+//		Horizontal,
+//		Vertical
+//	}
 }

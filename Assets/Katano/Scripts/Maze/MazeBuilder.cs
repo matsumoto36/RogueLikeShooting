@@ -12,7 +12,7 @@ namespace RogueLike.Katano.Maze
 	public class MazeBuilder
 	{
 		public static readonly Point[] Neighbors =
-			{new Point(0, 1), new Point(-1, 0), new Point(0, -1), new Point(1, 0)};
+			{new Point(0, -1), new Point(1, 0), new Point(0, 1), new Point(-1, 0)};
 		
 		/// <summary>
 		/// ビルドオプション
@@ -260,14 +260,14 @@ namespace RogueLike.Katano.Maze
 					var neighbor = _roomList[i + x, j + y];
 				
 					// 新しい通路を作成
-					var aisle = (origin + neighbor)
-						.WithState(k % 2 == 0
-							? AisleChainState.Vertical
-							: AisleChainState.Horizontal);
+					var aisle = origin + neighbor;
+//						.WithState(k % 2 == 0
+//							? AisleChainState.Vertical
+//							: AisleChainState.Horizontal);
 					
 					// 隣接する部屋の方向のビットフラグを立てる
-					origin.AdjacentSide |= (AdjacentSides) (1 << k);
-					origin.ConnectingAisles.Add((AdjacentSides) (1 << k), aisle);
+					// origin.AdjacentSide |= (AdjacentSides) (1 << k);
+					origin.ConnectingAisles.Add((AdjacentSides) k, aisle);
 
 					
 				
