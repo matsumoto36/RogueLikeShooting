@@ -17,6 +17,9 @@ namespace RogueLike.Matsumoto.Character {
 
 		protected GameObject CharacterModel;
 
+		private readonly ReactiveProperty<bool> _isDead
+			= new BoolReactiveProperty();
+
 		public CharacterType CharacterType { get; protected set; }
 			= CharacterType.Invalid;
 
@@ -29,8 +32,7 @@ namespace RogueLike.Matsumoto.Character {
 			get; protected set;
 		}
 
-		public ReactiveProperty<bool> IsDead { get; }
-			= new ReactiveProperty<bool>();
+		public IReadOnlyReactiveProperty<bool> IsDead => _isDead;
 
 		/// <summary>
 		/// 武器を装備する
@@ -150,7 +152,7 @@ namespace RogueLike.Matsumoto.Character {
 			DetachWeapon();
 
 			//死亡通知
-			IsDead.Value = true;
+			_isDead.Value = true;
 
 			//隠しておく
 			gameObject.SetActive(false);
