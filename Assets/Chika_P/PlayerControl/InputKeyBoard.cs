@@ -11,6 +11,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
     {
         Vector3 forwardDir;     //正面方向
 
+
         public override Vector3 GetMoveVector()
         {
             //WASDキーで移動
@@ -48,6 +49,10 @@ namespace RogueLike.Chikazawa.InputEventProvider
         {
             //左クリック離して起動
             return Input.GetMouseButtonUp(0);
+        }
+        public override bool GetChangeBody()
+        {
+            return Input.GetKey(KeyCode.LeftShift);
         }
 
     }

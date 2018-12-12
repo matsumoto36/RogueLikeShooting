@@ -15,6 +15,8 @@ namespace RogueLike.Matsumoto.Character {
 	[RequireComponent(typeof(PlayerCore))]
 	public class PlayerAttack : MonoBehaviour {
 
+		private bool isUsingWeapon;
+
 		void Start() {
 
 			var playerComponent = GetComponent<PlayerCore>();
@@ -24,14 +26,27 @@ namespace RogueLike.Matsumoto.Character {
 				.Where(player => player.InputEventProvider != null)
 				.Subscribe(player => {
 
-					if(player.InputEventProvider.GetShotDown())
-						player.Weapon?.AttackDown();
+					//武器切り替え時は攻撃キャンセル
+					if (player.ChangeTargetWeapon != null) {
+						if (!isUsingWeapon) return;
 
-					if(player.InputEventProvider.GetShotButton())
+						player.Weapon?.AttackUp();
+						isUsingWeapon = false;
+						return;
+					}
+
+					if (player.InputEventProvider.GetShotDown() && !isUsingWeapon) {
+						player.Weapon?.AttackDown();
+						isUsingWeapon = true;
+					}
+
+					if(player.InputEventProvider.GetShotButton() && isUsingWeapon)
 						player.Weapon?.Attack();
 
-					if(player.InputEventProvider.GetShotUp())
+					if (player.InputEventProvider.GetShotUp() && isUsingWeapon) {
 						player.Weapon?.AttackUp();
+						isUsingWeapon = false;
+					}
 
 				});
 		}

@@ -40,5 +40,10 @@ namespace RogueLike.Chikazawa.InputEventProvider
         /// </summary>
         /// <returns></returns>
         public abstract bool GetShotUp();
+        /// <summary>
+        /// 武器変更
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool GetChangeBody();
     }
 }
