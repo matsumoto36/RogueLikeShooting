@@ -16,3 +16,5 @@ MonoBehaviour:
   RoomPrefabList:
   - {fileID: 1265543982024840, guid: b5c1de880759bd245821735721759402, type: 2}
   AislePrefabList: []
+  CameraAnchor: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
+    type: 2}

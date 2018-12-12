@@ -5,6 +5,7 @@ using Reqweldzen.Extensions;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using RogueLike.Katano.View.Player;
+using RogueLike.Matsumoto;
 using UniRx.Async;
 using UnityEngine;
 
@@ -15,17 +16,28 @@ namespace RogueLike.Katano
 	/// </summary>
 	public class PlayerTransportSystem : MonoBehaviour
 	{
+		private const float TweenDuration = 2f;
+		
 		[SerializeField]
 		private GamePlayers _gamePlayers;
 
 		/// <summary>
 		/// ゲームカメラ
 		/// </summary>
-		public GameCamera GameCamera;
+		private GameCamera _gameCamera;
 
+		private void Awake()
+		{
+			_gameCamera = FindObjectOfType<GameCamera>();
+		}
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="initRoom"></param>
 		public void Initialize(RoomView initRoom)
 		{
-			GameCamera.Initialize(initRoom);
+			_gameCamera.Initialize(initRoom);
 		}
 
 		/// <summary>
@@ -44,26 +56,31 @@ namespace RogueLike.Katano
 
 		private async UniTask OnTransportInternal(TransporterView transporter)
 		{
+			var destination = transporter.transform.position;
+			var playerStateChangers = _gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToArray();
+			
 			// プレイヤーの入力を停止
 			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
 			
-			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Photosphere)));
+			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Photosphere)));
 			
-			var playerMoveAsync = _gamePlayers.PlayerList
-				.Select(player => player.transform
-						.DOMove(transporter.transform.position, 2f)
-						.SetEase(Ease.Linear)
-						.Play().ToUniTask())
-				.Append(GameCamera.MoveAsync(transporter.Owner));
+			var transportAsyncs = _gamePlayers.PlayerList
+				.Select(player => DoMovePlayer(player, destination, TweenDuration))
+				.Append(_gameCamera.MoveAsync(transporter.Owner));
 
-			await UniTask.WhenAll(playerMoveAsync);
+			await UniTask.WhenAll(transportAsyncs);
 			
-			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Neutral)));
+			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Neutral)));
 			
 			// プレイヤーの入力を再開
 			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
 
 			transporter.Owner.Enter(_gamePlayers.PlayerList);
+		}
+
+		private UniTask DoMovePlayer(PlayerCore player, Vector3 endValue, float duration)
+		{
+			return new UniTask(player.transform.DOMove(endValue, duration).SetEase(Ease.Linear).Play().GetAwaiter());
 		}
 	}
 }

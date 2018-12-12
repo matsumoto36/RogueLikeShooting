@@ -8,5 +8,6 @@ namespace RogueLike.Katano.Maze
 		public GameObject PlayerRoomPrefab;
 		public GameObject[] RoomPrefabList;
 		public GameObject[] AislePrefabList;
+		public GameObject CameraAnchor;
 	}
 }

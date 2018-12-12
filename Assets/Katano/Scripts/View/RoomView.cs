@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RogueLike.Katano.Maze;
+using RogueLike.Katano.Model;
 using RogueLike.Matsumoto;
 using UniRx;
 using Unity.Linq;
@@ -20,13 +21,11 @@ namespace RogueLike.Katano.View
 		
 		[SerializeField]
 		private NavMeshSurface _navMeshSurface;
-
-		[SerializeField]
-		private Transform _gameCameraAnchor;
+		
 		/// <summary>
 		/// ゲームカメラアンカー
 		/// </summary>
-		public Transform GameCameraAnchor => _gameCameraAnchor;
+		public Transform GameCameraAnchor { get; private set; }
 		
 		private readonly AsyncSubject<Unit> _onInitializeAsync = new AsyncSubject<Unit>();
 		/// <summary>
@@ -41,18 +40,19 @@ namespace RogueLike.Katano.View
 		public IObservable<Unit> OnEnterObservable => _onEnterObservable;
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="room"></param>
-		public void Construct(Room room)
-		{
-			Room = room;
-		}
-		
-		/// <summary>
 		/// .ctor
 		/// </summary>
 		/// <param name="room"></param>
+		/// <param name="cameraAnchor"></param>
+		public void Construct(Room room, Transform cameraAnchor)
+		{
+			Room = room;
+			GameCameraAnchor = cameraAnchor;
+		}
+		
+		/// <summary>
+		/// 初期化
+		/// </summary>
 		public void Initialize()
 		{
 			_onInitializeAsync.OnNext(Unit.Default);
