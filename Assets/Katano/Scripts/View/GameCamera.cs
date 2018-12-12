@@ -27,13 +27,9 @@ namespace RogueLike.Katano.View
 		/// <returns></returns>
 		public async UniTask MoveAsync(RoomView nextRoom)
 		{
-			var current = FocusTarget;
-			var tween = DOTween.To(
-				() => current.GameCameraAnchor.position, 
-				x => transform.position = x,
-				nextRoom.GameCameraAnchor.position,
-				2f)
-				.SetEase(Ease.Linear);
+			var start = FocusTarget.GameCameraAnchor.transform.position;
+			var end = nextRoom.GameCameraAnchor.transform.position;
+			var tween = DOTween.To(() => start, x => transform.position = x, end, 2f).SetEase(Ease.Linear);
 
 			await tween.Play();
 			

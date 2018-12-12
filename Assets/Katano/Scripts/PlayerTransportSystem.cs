@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using DG.Tweening;
+using Reqweldzen.Extensions;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using RogueLike.Katano.View.Player;
@@ -9,7 +13,7 @@ namespace RogueLike.Katano
 	/// <summary>
 	/// プレイヤー転送モジュール
 	/// </summary>
-	public class PlayerTransporter : MonoBehaviour
+	public class PlayerTransportSystem : MonoBehaviour
 	{
 		[SerializeField]
 		private GamePlayers _gamePlayers;
@@ -23,33 +27,43 @@ namespace RogueLike.Katano
 		{
 			GameCamera.Initialize(initRoom);
 		}
-		
+
 		/// <summary>
 		/// 転送
 		/// </summary>
-		/// <param name="nextRoom"></param>
+		/// <param name="transporter"></param>
 		/// <returns></returns>
-		public UniTask TransportAsync(RoomView nextRoom)
+		public UniTask TransportAsync(TransporterView transporter)
 		{
+			if (transporter == null)
+				throw new ArgumentNullException(nameof(transporter));
+			
 			// TODO: Play Transport Animation
-			return new UniTask(() => OnTransportInternal(nextRoom));
+			return new UniTask(() => OnTransportInternal(transporter));
 		}
 
-		private async UniTask OnTransportInternal(RoomView nextRoom)
+		private async UniTask OnTransportInternal(TransporterView transporter)
 		{
 			// プレイヤーの入力を停止
 			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
 			
 			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Photosphere)));
 			
-			await GameCamera.MoveAsync(nextRoom);
+			var playerMoveAsync = _gamePlayers.PlayerList
+				.Select(player => player.transform
+						.DOMove(transporter.transform.position, 2f)
+						.SetEase(Ease.Linear)
+						.Play().ToUniTask())
+				.Append(GameCamera.MoveAsync(transporter.Owner));
+
+			await UniTask.WhenAll(playerMoveAsync);
 			
 			await UniTask.WhenAll(_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>().DoChangeAsync(PlayerState.Neutral)));
 			
 			// プレイヤーの入力を再開
 			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
 
-			nextRoom.Enter(_gamePlayers.PlayerList);
+			transporter.Owner.Enter(_gamePlayers.PlayerList);
 		}
 	}
 }

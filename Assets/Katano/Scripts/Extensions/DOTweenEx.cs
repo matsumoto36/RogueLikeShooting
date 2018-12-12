@@ -7,6 +7,21 @@ namespace Reqweldzen.Extensions
 {
 	public static class TweenExt
 	{
+		public static UniTask ToUniTask(this Tween self)
+		{
+			var source = new UniTaskCompletionSource<Tween>();
+
+			void OnComplete()
+			{
+				self.onComplete -= OnComplete;
+				source.TrySetResult(self);
+			}
+
+			self.onComplete += OnComplete;
+
+			return source.Task;
+		}
+
 		public static IObservable<Tween> AsObservable(this Tween self)
 		{
 			return Observable.Create<Tween>(observer =>

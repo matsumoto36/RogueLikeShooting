@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using RogueLike.Katano.Maze;
+using UniRx.Async;
+using Unity.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.View
@@ -54,6 +58,12 @@ namespace RogueLike.Katano.View
 			@this.Construct(maze, rooms, aisles);
 
 			return @this;
+		}
+
+		private void OnDestroy()
+		{
+			Rooms.Values.Select(x => gameObject).Destroy();
+			Aisles.Values.Select(x => gameObject).Destroy();
 		}
 	}
 }

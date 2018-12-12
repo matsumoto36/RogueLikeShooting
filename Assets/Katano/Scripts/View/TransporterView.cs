@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using RogueLike.Katano.Model;
+using RogueLike.Matsumoto;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
@@ -23,11 +26,11 @@ namespace RogueLike.Katano.View
 		
 		private float _overlappedElapsedTime;
 		
-		private readonly Subject<Unit> _onTransportStartSubject = new Subject<Unit>();
+		private readonly Subject<TransporterView> _onTransportStartSubject = new Subject<TransporterView>();
 		/// <summary>
 		/// 転送開始イベント
 		/// </summary>
-		public IObservable<Unit> OnTransportStartObservable => _onTransportStartSubject;
+		public IObservable<TransporterView> OnTransportStartObservable => _onTransportStartSubject;
 
 		/// <summary>
 		/// 初期化
@@ -46,16 +49,27 @@ namespace RogueLike.Katano.View
 			while (!token.IsCancellationRequested)
 			{
 				// 当たっているプレイヤー
-				var collidee = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Player"));
-				if (collidee.Length == _gamePlayers.JoinedPlayerCount)
+				var collidee = Physics.OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Player"));
+				int playerCount = 0;
+				for (int i = 0; i < collidee.Length; i++)
+				{
+					var player = collidee[i].GetComponentInParent<PlayerCore>();
+					if (player != null)
+					{
+						playerCount++;
+					}
+				}
+				
+				
+				if (playerCount == _gamePlayers.JoinedPlayerCount)
 					_overlappedElapsedTime += Time.fixedDeltaTime;
 				else
 					_overlappedElapsedTime = 0;
 
 				if (_overlappedElapsedTime >= NextRoomJumpTime)
 				{
-					_onTransportStartSubject.OnNext(Unit.Default);
-					_overlappedElapsedTime = 0;
+					_onTransportStartSubject.OnNext(CounterSide);
+					await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: token);
 				}
 
 				await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
@@ -65,7 +79,7 @@ namespace RogueLike.Katano.View
 		/// <summary>
 		/// 有効化する
 		/// </summary>
-		public void SetVisible()
+		public bool SetVisible()
 		{
 			if (CounterSide != null)
 			{
@@ -73,7 +87,11 @@ namespace RogueLike.Katano.View
 				
 				gameObject.SetActive(true);
 				OnPlayerRiding(token).Forget();
+
+				return true;
 			}
+
+			return false;
 		}
 	}
 }

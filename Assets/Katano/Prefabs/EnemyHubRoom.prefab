@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 114912817725936170}
   - component: {fileID: 114169803844142224}
   - component: {fileID: 114490376990752994}
+  - component: {fileID: 65277183588487310}
   m_Layer: 0
   m_Name: EnemyHubRoom
   m_TagString: Untagged
@@ -203,13 +204,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937545823016088}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 6, z: -6}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4996109684123632}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4481098117825608
 Transform:
   m_ObjectHideFlags: 1
@@ -267,7 +268,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7072e43a7149daf469a57cad77f6f330, type: 3}
+  - {fileID: 2100000, guid: de8d16824c04ade4da41fc7aa23d902f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -294,6 +295,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621507854411502}
   m_Mesh: {fileID: 4300000, guid: 7072e43a7149daf469a57cad77f6f330, type: 3}
+--- !u!65 &65277183588487310
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265543982024840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 8}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &114099606853303492
 MonoBehaviour:
   m_ObjectHideFlags: 1
