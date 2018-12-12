@@ -27,6 +27,11 @@ namespace RogueLike.Chikazawa
         /// <returns></returns>
         bool GetShotUp();
         /// <summary>
+        /// 武器変更
+        /// </summary>
+        /// <returns></returns>
+        bool GetChangeBody(); 
+        /// <summary>
         /// 正面方向の入力
         /// キーボード：マウス ／
         /// コントローラー：右スティック
