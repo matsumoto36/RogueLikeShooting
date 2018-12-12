@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponRangedParameter:
     WaitTime: 0.1
-  WeaponRangedPrefab: {fileID: 1375219162363794, guid: 2864e88da2319df49b25c08f472f5544,
+  WeaponRangedPrefab: {fileID: 1556979509234130, guid: bbc31643825b247489f7feff41a7afbc,
     type: 2}
   BulletAsset: {fileID: 11400000, guid: a740cec9c6df85748bb084bd3f72bef8, type: 2}
-  PlayerSetPosition: {fileID: 4727859276407430, guid: 2864e88da2319df49b25c08f472f5544,
+  PlayerSetPosition: {fileID: 4175719013439384, guid: bbc31643825b247489f7feff41a7afbc,
     type: 2}
