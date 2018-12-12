@@ -10,6 +10,5 @@ namespace RogueLike.Nishiwaki.Item
         public WeaponRangedParameter WeaponRangedParameter;
         public GameObject WeaponRangedPrefab;
         public BulletAsset BulletAsset;
-        public Transform PlayerSetPosition;
     }
 }

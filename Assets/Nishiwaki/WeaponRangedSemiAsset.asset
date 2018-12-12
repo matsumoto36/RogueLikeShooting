@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponRangedParameter:
     WaitTime: 0.1
-  WeaponRangedPrefab: {fileID: 1953310769096552, guid: 2864e88da2319df49b25c08f472f5544,
+  WeaponRangedPrefab: {fileID: 1556979509234130, guid: bbc31643825b247489f7feff41a7afbc,
     type: 2}
   BulletAsset: {fileID: 11400000, guid: 7c5d583755b166544be9db28eaeff099, type: 2}

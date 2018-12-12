@@ -8,5 +8,6 @@ namespace RogueLike.Nishiwaki
     {
         void BulletCreate(Transform transform);
         void BulletDestroy();
+        void LaserRange(float Range);
     }
 }

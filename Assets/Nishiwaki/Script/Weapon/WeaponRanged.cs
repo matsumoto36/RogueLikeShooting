@@ -12,7 +12,7 @@ namespace RogueLike.Nishiwaki.Item
         public IBullet iBullet;
         public WeaponRangedParameter WeaponRangedPara;
         public CharacterCore characterCore;
-        Transform playerSetPosition;
+        public Transform playerSetPosition;
 
         // Use this for initialization
         void Start()
@@ -50,9 +50,9 @@ namespace RogueLike.Nishiwaki.Item
         {
         }
 
-        public static WeaponRanged Create(WeaponRangedAsset asset, Transform Transform)
+        public static WeaponRanged Create(WeaponRangedAsset asset, Transform transform)
         {
-            var obj = Instantiate(asset.WeaponRangedPrefab, Transform.position, Transform.rotation);
+            var obj = Instantiate(asset.WeaponRangedPrefab, transform.position, transform.rotation);
             WeaponRanged weapon;
             switch (asset)
             {
@@ -72,7 +72,7 @@ namespace RogueLike.Nishiwaki.Item
 
             weapon.WeaponRangedPara = asset.WeaponRangedParameter;
             weapon.iBullet = BulletBase.Create(asset.BulletAsset, weapon);
-            weapon.playerSetPosition = asset.PlayerSetPosition;
+            weapon.playerSetPosition = obj.transform.Find("PlayerSetPosition");
             Debug.Log("WeaponRanged Create");
 
             return weapon;
