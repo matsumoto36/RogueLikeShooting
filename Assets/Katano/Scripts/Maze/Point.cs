@@ -16,7 +16,7 @@ namespace RogueLike.Katano.Maze
 
 		public override string ToString()
 		{
-			return $"({0}, {1})";
+			return $"({X}, {Y})";
 		}
 
 		public void Deconstruct(out int x, out int y) => (x, y) = (X, Y);

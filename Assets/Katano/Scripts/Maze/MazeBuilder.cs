@@ -59,14 +59,18 @@ namespace RogueLike.Katano.Maze
 		{
 			var width = _buildOptions.Width;
 			var height = _buildOptions.Height;
-			
-			_roomList = new Room[width, height].Initialize(ConstructMethod);
-			_builtRoom = true;
-			
-			Room ConstructMethod(int x, int y)
+
+			_roomList = new Room[width, height];
+
+			for (int i = 0; i < _roomList.GetLength(0); i++)
 			{
-				return new Room(height * y + x, new Point(x,y));
+				for (int j = 0; j < _roomList.GetLength(1); j++)
+				{
+					_roomList[i,j] = new Room(height * j + i, new Point(i,j));
+				}
 			}
+			
+			_builtRoom = true;
 		}
 
 		/// <summary>
@@ -204,6 +208,20 @@ namespace RogueLike.Katano.Maze
 			// つながりが少ない部屋を消す
 			RemoveSmallCluster();
 
+			for (var i0 = 0; i0 < _roomList.GetLength(0); i0++)
+			for (var i1 = 0; i1 < _roomList.GetLength(1); i1++)
+			{
+				var room = _roomList[i0, i1];
+				room.RemoveEntries();
+			}
+
+			for (var i0 = 0; i0 < _roomList.GetLength(0); i0++)
+			for (var i1 = 0; i1 < _roomList.GetLength(1); i1++)
+			{
+				var room = _roomList[i0, i1];
+				room.CheckEntries();
+			}
+
 			_aisleList.RemoveWhere(x => !x.Room0.IsEnable || !x.Room1.IsEnable);
 
 			_cleanup = true;
@@ -326,7 +344,7 @@ namespace RogueLike.Katano.Maze
 			}
 			
 			// 有効な部屋のリスト
-			var roomList = _roomList.OfType<Room>().Where(x => x.IsEnable).ToList();
+			var roomList = _roomList.Cast<Room>().Where(x => x.IsEnable).ToList();
 			
 			// マーキング
 			var mark = 0;

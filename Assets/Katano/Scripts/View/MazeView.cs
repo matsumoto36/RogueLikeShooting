@@ -1,9 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using UniRx;
-using UniRx.Async;
-using UniRx.Triggers;
-using Unity.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.View

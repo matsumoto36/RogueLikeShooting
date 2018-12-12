@@ -45,5 +45,12 @@ namespace RogueLike.Katano.View.RoomComponents
 					_onEnemyDownAsync.OnCompleted();
 				});
 		}
+
+		[ContextMenu("KillEnemies")]
+		public void ForceKillEnemies()
+		{
+			_onEnemyDownAsync.OnNext(Unit.Default);
+			_onEnemyDownAsync.OnCompleted();
+		}
 	}
 }

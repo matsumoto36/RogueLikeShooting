@@ -8,6 +8,21 @@ namespace RogueLike.Tests
 {
 	public class _Maze_Tests
 	{
+		private Maze _maze;
+
+		[SetUp]
+		public void SetUp()
+		{
+			var width = 4;
+			var height = 4;
+			
+			var builder = new MazeBuilder();
+			var options = new MazeBuildOptions(width, height, EnumDecorationState.Labyrinth);
+			var director = new MazeDirector(builder, options);
+
+			_maze = director.Construct();
+		}
+		
 		[Test]
 		public void _Maze_TestsSimplePasses()
 		{
@@ -30,24 +45,17 @@ namespace RogueLike.Tests
 			var room = new Room(0, new Point());
 			
 			Assert.AreEqual(0, room.Id);
-			Assert.AreEqual(new Point(), room.Coord);
-		}
-
-		[Test]
-		public void _Create_Aisle_With_Id_Zero()
-		{
-			var room0 = new Room(0, new Point(0, 0));
-			var room1 = new Room(1, new Point(1, 0));
-			var aisle = new Aisle(room0, room1);
-			
-			Assert.AreEqual(room0, aisle.Room0);
-			Assert.AreEqual(room1, aisle.Room1);
-			Assert.AreEqual(room0.Id ^ room1.Id, aisle.Id);
+			Assert.AreEqual(new Point(), room.Coordinate);
 		}
 
 		public void _Create_Rooms_Of_Grid_Are_Progression()
 		{
 			var rooms = new Room[5, 5].Initialize((x, y)=> new Room(0, new Point(x,y)));
+		}
+
+		[Test]
+		public void _CreateRoom_Neighbors_Is_1()
+		{
 		}
 	}
 }

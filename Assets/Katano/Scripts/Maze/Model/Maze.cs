@@ -1,3 +1,5 @@
+using UnityEngine.XR.WSA.WebCam;
+
 namespace RogueLike.Katano.Maze
 {
 	
@@ -32,6 +34,22 @@ namespace RogueLike.Katano.Maze
 			Aisles = aisles;
 			Width = width;
 			Height = height;
+		}
+
+		public Room GetRoom(int id)
+		{
+			for (int i = 0; i < RoomList.GetLength(0); i++)
+			{
+				for (int j = 0; j < RoomList.GetLength(1); j++)
+				{
+					if (id == RoomList[i, j].Id)
+					{
+						return RoomList[i, j];
+					}
+				}
+			}
+
+			return null;
 		}
 	}
 }

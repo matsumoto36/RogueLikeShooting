@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Reqweldzen.Extensions;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
@@ -53,9 +54,11 @@ namespace RogueLike.Katano.Maze
 			MakeRoomView(ref rooms);
 //			MakeAisleView(ref aisles, rooms);
 
-			return MazeView.Create(_maze, rooms, aisles);
+			var mazeView = MazeView.Create(_maze, rooms, aisles);
+			
+			return mazeView;
 		}
-
+		
 		/// <summary>
 		/// 部屋オブジェクトを作成
 		/// </summary>
@@ -66,7 +69,7 @@ namespace RogueLike.Katano.Maze
 			var indexed = _maze.RoomList.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
 			foreach (var room in indexed)
 			{
-				var coord = new Vector3(room.Element.Coord.X + Interval * room.Element.Coord.X, 0, room.Element.Coord.Y + Interval * room.Element.Coord.Y);
+				var coord = new Vector3(room.Element.Coordinate.X + Interval * room.Element.Coordinate.X, 0, -(room.Element.Coordinate.Y + Interval) * room.Element.Coordinate.Y);
 
 				GameObject go;
 //				var obj = Object.Instantiate(i == 0 

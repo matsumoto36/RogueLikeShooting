@@ -22,12 +22,6 @@ namespace RogueLike.Katano.View.RoomComponents
 		private List<CharacterSpawner> _spawners = new List<CharacterSpawner>(4);
 		
 		private PlayerBindData _playerBind;
-		
-		private readonly AsyncSubject<Unit> _onPlayerSpawnedAsync = new AsyncSubject<Unit>();
-		/// <summary>
-		/// 敵を全滅させたイベント
-		/// </summary>
-		public IObservable<Unit> OnPlayerSpawnedAsync => _onPlayerSpawnedAsync;
 
 		/// <inheritdoc />
 		public override void OnInitialize()
@@ -43,9 +37,6 @@ namespace RogueLike.Katano.View.RoomComponents
 			}
 
 			_gamePlayers.Register(list.ToArray());
-
-			_onPlayerSpawnedAsync.OnNext(Unit.Default);
-			_onPlayerSpawnedAsync.OnCompleted();
 		}
 
 		/// <summary>

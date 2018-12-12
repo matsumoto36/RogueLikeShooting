@@ -1,4 +1,5 @@
 using System;
+using RogueLike.Katano.Managers;
 using RogueLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
@@ -24,6 +25,8 @@ namespace RogueLike.Katano.View.RoomComponents
 		private SpawnPlayerComponent _spawnPlayerComponent;
 		private SpawnEnemyComponent _spawnEnemyComponent;
 
+		private MazeView _mazeView;
+
 		private void Awake()
 		{
 			_hubPrefab = Resources.Load<TransporterHub>("Transporters");
@@ -32,6 +35,8 @@ namespace RogueLike.Katano.View.RoomComponents
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
+			_mazeView = FindObjectOfType<MazeView>();
+			
 			TransporterHub = Instantiate(_hubPrefab, transform.localPosition, Quaternion.identity, transform);
 			
 			_transporter = FindObjectOfType<PlayerTransporter>();
@@ -39,8 +44,10 @@ namespace RogueLike.Katano.View.RoomComponents
 			_spawnPlayerComponent = GetComponent<SpawnPlayerComponent>();
 			if (_spawnPlayerComponent)
 			{
-				_spawnPlayerComponent
-					.OnPlayerSpawnedAsync
+				var mainGameManager = FindObjectOfType<MainGameManager>();
+
+				mainGameManager.MainEventBroker
+					.Receive<MazeSignal.FloorStarted>()
 					.Subscribe(_ =>
 					{
 						InitTransporters();
@@ -61,47 +68,27 @@ namespace RogueLike.Katano.View.RoomComponents
 					});
 			}
 		}
-
+		
 		private void InitTransporters()
 		{
-			var mazeView = FindObjectOfType<MazeView>();
 			var room = Owner.Room;
+			
+			InitTransporter(AdjacentSides.North, TransporterHub.North, component => component.TransporterHub.South);
+			InitTransporter(AdjacentSides.East, TransporterHub.East, component => component.TransporterHub.West);
+			InitTransporter(AdjacentSides.South, TransporterHub.South, component => component.TransporterHub.North);
+			InitTransporter(AdjacentSides.West, TransporterHub.West, component => component.TransporterHub.East);
+			
+			void InitTransporter(AdjacentSides adjacentSides, TransporterView target, Func<PlayerTransportComponent, TransporterView> selector)
+			{
+				if (room.ConnectingAisles.ContainsKey(adjacentSides))
+				{
+					var connectRoom = room.ConnectingAisles[adjacentSides].GetCounterSide(room);
+					var roomView = _mazeView.Rooms[connectRoom.Id];
+					var transportComponent = roomView.GetComponent<PlayerTransportComponent>();
+					var transporter = selector(transportComponent);
 
-			if (room.ConnectingAisles.ContainsKey(AdjacentSides.North))
-			{
-				var counterSideRoom = room.ConnectingAisles[AdjacentSides.North].GetCounterSide(room);
-				var counterSide = mazeView.Rooms[counterSideRoom.Id]
-					.GetComponent<PlayerTransportComponent>()
-					.TransporterHub.South;
-				
-				TransporterHub.North.Initialze(Owner, counterSide);
-			}
-			if (room.ConnectingAisles.ContainsKey(AdjacentSides.East))
-			{
-				var counterSideRoom = room.ConnectingAisles[AdjacentSides.East].GetCounterSide(room);
-				var counterSide = mazeView.Rooms[counterSideRoom.Id]
-					.GetComponent<PlayerTransportComponent>()
-					.TransporterHub.West;
-				
-				TransporterHub.East.Initialze(Owner, counterSide);
-			}
-			if (room.ConnectingAisles.ContainsKey(AdjacentSides.South))
-			{
-				var counterSideRoom = room.ConnectingAisles[AdjacentSides.South].GetCounterSide(room);
-				var counterSide = mazeView.Rooms[counterSideRoom.Id]
-					.GetComponent<PlayerTransportComponent>()
-					.TransporterHub.North;
-				
-				TransporterHub.South.Initialze(Owner, counterSide);
-			}
-			if (room.ConnectingAisles.ContainsKey(AdjacentSides.West))
-			{
-				var counterSideRoom = room.ConnectingAisles[AdjacentSides.West].GetCounterSide(room);
-				var counterSide = mazeView.Rooms[counterSideRoom.Id]
-					.GetComponent<PlayerTransportComponent>()
-					.TransporterHub.East;
-
-				TransporterHub.West.Initialze(Owner, counterSide);
+					target.Initialze(Owner, transporter);
+				}
 			}
 		}
 

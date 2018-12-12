@@ -13,6 +13,7 @@ namespace RogueLike.Katano.View
 	/// <summary>
 	/// 部屋のViewオブジェクト
 	/// </summary>
+	[SelectionBase]
 	public class RoomView : MonoBehaviour
 	{
 		public Room Room { get; private set; }
