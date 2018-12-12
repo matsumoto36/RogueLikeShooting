@@ -33,6 +33,10 @@ namespace RogueLike.Nishiwaki.Bullet
         public virtual void BulletDestroy()
         {
         }
+        public void LaserRange(float Range)
+        {
+            BulletPara.Range = Range;
+        }
 
         public static BulletBase Create(BulletAsset BulletAsset, WeaponRanged weaponRanged)
         {
