@@ -39,8 +39,19 @@ namespace RogueLike.Katano.View
 			while (!token.IsCancellationRequested)
 			{
 				// 当たっているプレイヤー
-				var collidee = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Player"));
-				if (collidee.Length == _gamePlayers.JoinedPlayerCount)
+				var collidee = Physics.OverlapSphere(transform.position, 2, LayerMask.GetMask("Player"));
+				int playerCount = 0;
+				for (int i = 0; i < collidee.Length; i++)
+				{
+					var player = collidee[i].GetComponentInParent<PlayerCore>();
+					if (player != null)
+					{
+						playerCount++;
+					}
+				}
+				
+				
+				if (playerCount == _gamePlayers.JoinedPlayerCount)
 					_overlappedElapsedTime += Time.fixedDeltaTime;
 				else
 					_overlappedElapsedTime = 0;

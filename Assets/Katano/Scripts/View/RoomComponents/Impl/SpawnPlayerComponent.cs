@@ -57,18 +57,9 @@ namespace RogueLike.Katano.View.RoomComponents
 				
 				list.Add(player);
 			}
-			
-//			
-//			foreach (var spawner in spawners.Children().OfComponent<CharacterSpawner>().Where(x => x.gameObject.activeSelf))
-//			{
-//				var player = (PlayerCore) spawner.Spawn();
-//				
-//				PlayerSetup(player);
-//				
-//				list.Add(player);
-//			}
 
 			_gamePlayers.Register(list.ToArray());
+			Debug.Log(_gamePlayers.JoinedPlayerCount);
 		}
 
 		/// <summary>

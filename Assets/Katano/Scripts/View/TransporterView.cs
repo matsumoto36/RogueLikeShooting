@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using RogueLike.Katano.Model;
+using RogueLike.Matsumoto;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
@@ -46,8 +49,19 @@ namespace RogueLike.Katano.View
 			while (!token.IsCancellationRequested)
 			{
 				// 当たっているプレイヤー
-				var collidee = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Player"));
-				if (collidee.Length == _gamePlayers.JoinedPlayerCount)
+				var collidee = Physics.OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Player"));
+				int playerCount = 0;
+				for (int i = 0; i < collidee.Length; i++)
+				{
+					var player = collidee[i].GetComponentInParent<PlayerCore>();
+					if (player != null)
+					{
+						playerCount++;
+					}
+				}
+				
+				
+				if (playerCount == _gamePlayers.JoinedPlayerCount)
 					_overlappedElapsedTime += Time.fixedDeltaTime;
 				else
 					_overlappedElapsedTime = 0;
@@ -55,9 +69,7 @@ namespace RogueLike.Katano.View
 				if (_overlappedElapsedTime >= NextRoomJumpTime)
 				{
 					_onTransportStartSubject.OnNext(CounterSide);
-					_onTransportStartSubject.OnCompleted();
-
-					return;
+					await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: token);
 				}
 
 				await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
