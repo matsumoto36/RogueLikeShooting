@@ -17,6 +17,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
             _controller = Controller;
         }
 
+
         public override Vector3 GetMoveVector()
         {
             Vector2 inputMove = GamePad.GetAxis(GamePad.Axis.LeftStick, (GamePad.Index)_controller, false);
@@ -54,6 +55,11 @@ namespace RogueLike.Chikazawa.InputEventProvider
         {
             //L1離して起動
             return GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)_controller);
+        }
+
+        public override bool GetChangeBody()
+        {
+            return GamePad.GetButton(GamePad.Button.X, (GamePad.Index)_controller);
         }
 
     }
