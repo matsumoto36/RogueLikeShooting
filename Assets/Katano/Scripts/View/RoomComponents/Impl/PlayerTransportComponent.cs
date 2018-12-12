@@ -3,6 +3,7 @@ using RogueLike.Katano.Managers;
 using RogueLike.Katano.Maze;
 using UniRx;
 using UniRx.Async;
+using UniRx.Async.Triggers;
 using Unity.Linq;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace RogueLike.Katano.View.RoomComponents
 		/// </summary>
 		private TransporterHub TransporterHub { get; set; }
 		
-		private PlayerTransporter _transporter;
+		private PlayerTransportSystem _transportSystem;
 		private SpawnPlayerComponent _spawnPlayerComponent;
 		private SpawnEnemyComponent _spawnEnemyComponent;
 
@@ -39,7 +40,7 @@ namespace RogueLike.Katano.View.RoomComponents
 			
 			TransporterHub = Instantiate(_hubPrefab, transform.localPosition, Quaternion.identity, transform);
 			
-			_transporter = FindObjectOfType<PlayerTransporter>();
+			_transportSystem = FindObjectOfType<PlayerTransportSystem>();
 
 			_spawnPlayerComponent = GetComponent<SpawnPlayerComponent>();
 			if (_spawnPlayerComponent)
@@ -50,7 +51,6 @@ namespace RogueLike.Katano.View.RoomComponents
 					.Receive<MazeSignal.FloorStarted>()
 					.Subscribe(_ =>
 					{
-						InitTransporters();
 						RaiseTransporter();
 					});
 			}
@@ -58,15 +58,18 @@ namespace RogueLike.Katano.View.RoomComponents
 			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
 			if (_spawnEnemyComponent)
 			{
+				
+				
 				// 敵が全滅したら転送システムを起動する
 				_spawnEnemyComponent
 					.OnEnemyDownAsync
 					.Subscribe(_ =>
 					{
-						InitTransporters();
 						RaiseTransporter();
 					});
 			}
+
+			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(() => InitTransporters()).Forget();
 		}
 		
 		private void InitTransporters()
@@ -87,6 +90,9 @@ namespace RogueLike.Katano.View.RoomComponents
 					var transportComponent = roomView.GetComponent<PlayerTransportComponent>();
 					var transporter = selector(transportComponent);
 
+					if (transporter == null)
+						throw new MazeException("CounterSide transpoter is null.");
+					
 					target.Initialze(Owner, transporter);
 				}
 			}
@@ -97,10 +103,10 @@ namespace RogueLike.Katano.View.RoomComponents
 			var transporterViews = TransporterHub.gameObject.Children().OfComponent<TransporterView>();
 			foreach (var transporter in transporterViews)
 			{
-				transporter.SetVisible();
-				transporter.OnTransportStartObservable.Subscribe(_ =>
+				if (transporter.SetVisible())
+				transporter.OnTransportStartObservable.Subscribe(destination =>
 				{
-					_transporter.TransportAsync(transporter.Owner).Forget();
+					_transportSystem.TransportAsync(destination).Forget();
 				});
 			}
 		}

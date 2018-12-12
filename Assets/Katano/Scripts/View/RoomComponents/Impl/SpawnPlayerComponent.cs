@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
 using RogueLike.Katano.Model;
+using RogueLike.Katano.View.Player;
 using RogueLike.Matsumoto;
 using UniRx;
+using Unity.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.View.RoomComponents
@@ -15,26 +17,56 @@ namespace RogueLike.Katano.View.RoomComponents
 	[DisallowMultipleComponent]
 	public class SpawnPlayerComponent : RoomComponent
 	{
+		private GameObject _spawnersParent;
+		private CharacterSpawner[] _spawners;
+		
+		[SerializeField]
+		private PlayerBindData _bindData;
+		
 		[SerializeField]
 		private GamePlayers _gamePlayers;
 		
-		[SerializeField]
-		private List<CharacterSpawner> _spawners = new List<CharacterSpawner>(4);
-		
 		private PlayerBindData _playerBind;
 
+		private void Awake()
+		{
+			var prefab = Resources.Load<GameObject>("PlayerSpawners");
+			_spawnersParent = Instantiate(prefab, transform.position, Quaternion.identity, transform);
+			_spawners = _spawnersParent
+				.Children()
+				.OfComponent<CharacterSpawner>()
+				.Where(x => x.gameObject.activeSelf)
+				.ToArray();
+		}
+		
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
 			var list = new List<PlayerCore>();
-			foreach (var spawner in _spawners)
+
+			for (var i = 0; i < _bindData.PlayerEntries.Count; i++)
 			{
-				var player = (PlayerCore) spawner.Spawn();
+				var entry = _bindData.PlayerEntries[i];
+				if (entry == ControllerIndex.Invalid)
+					break;
+
+				var player = (PlayerCore) _spawners[i].Spawn();
+				player.gameObject.AddComponent<PlayerStateChanger>();
 				
 				PlayerSetup(player);
 				
 				list.Add(player);
 			}
+			
+//			
+//			foreach (var spawner in spawners.Children().OfComponent<CharacterSpawner>().Where(x => x.gameObject.activeSelf))
+//			{
+//				var player = (PlayerCore) spawner.Spawn();
+//				
+//				PlayerSetup(player);
+//				
+//				list.Add(player);
+//			}
 
 			_gamePlayers.Register(list.ToArray());
 		}

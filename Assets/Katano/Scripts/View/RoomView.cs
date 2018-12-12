@@ -71,6 +71,7 @@ namespace RogueLike.Katano.View
 			}
 			
 			_onEnterObservable.OnNext(Unit.Default);
+			Debug.Log($"{Room.ToString()} entered.");
 		}
 
 		private void OnDestroy()

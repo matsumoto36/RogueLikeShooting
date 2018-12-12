@@ -23,11 +23,11 @@ namespace RogueLike.Katano.View
 		
 		private float _overlappedElapsedTime;
 		
-		private readonly Subject<Unit> _onTransportStartSubject = new Subject<Unit>();
+		private readonly Subject<TransporterView> _onTransportStartSubject = new Subject<TransporterView>();
 		/// <summary>
 		/// 転送開始イベント
 		/// </summary>
-		public IObservable<Unit> OnTransportStartObservable => _onTransportStartSubject;
+		public IObservable<TransporterView> OnTransportStartObservable => _onTransportStartSubject;
 
 		/// <summary>
 		/// 初期化
@@ -54,8 +54,10 @@ namespace RogueLike.Katano.View
 
 				if (_overlappedElapsedTime >= NextRoomJumpTime)
 				{
-					_onTransportStartSubject.OnNext(Unit.Default);
-					_overlappedElapsedTime = 0;
+					_onTransportStartSubject.OnNext(CounterSide);
+					_onTransportStartSubject.OnCompleted();
+
+					return;
 				}
 
 				await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
@@ -65,7 +67,7 @@ namespace RogueLike.Katano.View
 		/// <summary>
 		/// 有効化する
 		/// </summary>
-		public void SetVisible()
+		public bool SetVisible()
 		{
 			if (CounterSide != null)
 			{
@@ -73,7 +75,11 @@ namespace RogueLike.Katano.View
 				
 				gameObject.SetActive(true);
 				OnPlayerRiding(token).Forget();
+
+				return true;
 			}
+
+			return false;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Matsumoto;
 using RogueLike.Matsumoto.Character;
@@ -14,7 +15,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	[DisallowMultipleComponent]
 	public class SpawnEnemyComponent : RoomComponent
 	{
-		private CharacterSpawner[] _spawners = new CharacterSpawner[0];
+		private CharacterSpawner[] _spawners;
 		
 		private readonly AsyncSubject<Unit> _onEnemyDownAsync = new AsyncSubject<Unit>();
 		/// <summary>
@@ -25,7 +26,7 @@ namespace RogueLike.Katano.View.RoomComponents
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
-			_spawners = gameObject.Children().OfComponent<CharacterSpawner>().ToArray();
+			_spawners = GetComponentsInChildren<CharacterSpawner>();
 			
 			Owner.OnEnterObservable.Subscribe(_ => Spawn());
 		}
@@ -41,9 +42,13 @@ namespace RogueLike.Katano.View.RoomComponents
 				.Where(_ => enemies.All(enemy => enemy.IsDead.Value))
 				.Subscribe(_ =>
 				{
+					Debug.Log($"[{Owner.Room.ToString()}] Enemies has been slain.");
+					
 					_onEnemyDownAsync.OnNext(Unit.Default);
 					_onEnemyDownAsync.OnCompleted();
 				});
+			
+			Debug.Log($"[{Owner.Room.ToString()}] Enemies was spawned.");
 		}
 
 		[ContextMenu("KillEnemies")]
