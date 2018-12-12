@@ -112,7 +112,7 @@ namespace RogueLike.Katano.Maze
 			if (!_builtAisle)
 				throw new MazeException("Aisles has not been built yet.");
 
-			foreach (var room in _roomList.TakeRandom(count)) room.IsEnable = false;
+			foreach (var room in _roomList.Cast<Room>().TakeRandom(count)) room.IsEnable = false;
 
 			_aisleList.RemoveWhere(x => !x.IsValid());
 			

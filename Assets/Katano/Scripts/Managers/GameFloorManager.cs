@@ -64,6 +64,11 @@ namespace RogueLike.Katano.Managers
 			var view = ConstructMazeView(maze);
 			_mazeView = view;
 
+			foreach (var roomView in _mazeView.Rooms.Values)
+			{
+				roomView.Initialize();
+			}
+
 			var entryPoint = maze.RoomList.Cast<Room>().First(x => x.RoomAttribute == Room.RoomAttributes.FloorStart);
 			var entryView = view.Rooms[entryPoint.Id];
 			

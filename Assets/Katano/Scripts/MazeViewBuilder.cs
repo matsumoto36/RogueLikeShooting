@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Reqweldzen.Extensions;
+using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using RogueLike.Katano.View.RoomComponents;
 using UnityEngine;
@@ -62,12 +63,10 @@ namespace RogueLike.Katano.Maze
 		private void MakeRoomView(ref Dictionary<int, RoomView> roomViewList)
 		{
 			// RoomViewの生成
-			var shuffledRooms = _maze.RoomList.OfType<Room>().Where(x => x.IsEnable).Shuffle().ToList();
-			for (var i = 0; i < shuffledRooms.Count; i++)
+			var indexed = _maze.RoomList.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
+			foreach (var room in indexed)
 			{
-				var room = shuffledRooms[i];
-				
-				var coord = new Vector3(room.Coord.X + Interval * room.Coord.X, 0, room.Coord.Y + Interval * room.Coord.Y);
+				var coord = new Vector3(room.Element.Coord.X + Interval * room.Element.Coord.X, 0, room.Element.Coord.Y + Interval * room.Element.Coord.Y);
 
 				GameObject go;
 //				var obj = Object.Instantiate(i == 0 
@@ -76,7 +75,7 @@ namespace RogueLike.Katano.Maze
 //					coord,
 //					Quaternion.identity);
 
-				switch (room.RoomAttribute)
+				switch (room.Element.RoomAttribute)
 				{
 					case Room.RoomAttributes.FloorStart:
 					{
@@ -100,8 +99,8 @@ namespace RogueLike.Katano.Maze
 				}
 				
 				var view = go.GetComponent<RoomView>();
-				view.Initialize(room);
-				roomViewList.Add(room.Id, view);
+				view.Construct(room.Element);
+				roomViewList.Add(room.Element.Id, view);
 			}
 		}
 

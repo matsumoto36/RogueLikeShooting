@@ -40,13 +40,20 @@ namespace RogueLike.Katano.View
 		public IObservable<Unit> OnEnterObservable => _onEnterObservable;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="room"></param>
+		public void Construct(Room room)
+		{
+			Room = room;
+		}
+		
+		/// <summary>
 		/// .ctor
 		/// </summary>
 		/// <param name="room"></param>
-		public void Initialize(Room room)
+		public void Initialize()
 		{
-			Room = room;
-
 			_onInitializeAsync.OnNext(Unit.Default);
 			_onInitializeAsync.OnCompleted();
 		}
