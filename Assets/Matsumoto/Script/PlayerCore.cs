@@ -20,11 +20,16 @@ namespace RogueLike.Matsumoto {
 	public class PlayerCore : CharacterCore {
 
 		private const float EquipWeaponRange = 5;
+		private const float ChangeWeaponWait = 3;
 		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
+
+		private static PlayerHPProvider _playerHPProvider;
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-		private static PlayerHPProvider _playerHPProvider;
+		public IWeapon ChangeTargetWeapon { get; private set; }
+		private bool _canChangeWeapon = true;
+		private float _changeWeaponTime;
 
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; set; }
@@ -68,6 +73,7 @@ namespace RogueLike.Matsumoto {
 						= _playerHPProvider.NowHP
 							= playerAsset.HP;
 
+					//暫定的にプレイヤーが出す
 					UIManager.Instance.Show("PlayerStatus");
 				}
 			}
@@ -88,15 +94,45 @@ namespace RogueLike.Matsumoto {
 				.Subscribe(_ => {
 					PlayerUpdate.OnNext(this);
 
-					//暫定で武器切り替え Rキー
-					if (Input.GetKeyDown(KeyCode.R)) {
-						var w = GetNearestWeapon(EquipWeaponRange);
-						if(w != null)
-							AttachWeapon(w);
-					}
+					//武器チェンジの更新
+					WeaponChangeUpdate();
 
 				})
 				.AddTo(this);
+		}
+
+		/// <summary>
+		/// 武器チェンジのボタン処理を行う
+		/// </summary>
+		public void WeaponChangeUpdate() {
+
+			void Reset(bool canChange) {
+				_changeWeaponTime = 0;
+				_canChangeWeapon = canChange;
+				ChangeTargetWeapon = null;
+			}
+
+			//武器切り替え
+			if (!InputEventProvider.GetChangeBody()) {
+				Reset(true);
+				return;
+			}
+
+			if (!_canChangeWeapon) return;
+
+			if(ChangeTargetWeapon == null)
+				ChangeTargetWeapon = GetNearestWeapon(EquipWeaponRange);
+
+			if (ChangeTargetWeapon == null) {
+				Reset(false);
+				return;
+			}
+
+			_changeWeaponTime += Time.deltaTime;
+			if (!(_changeWeaponTime > ChangeWeaponWait)) return;
+			AttachWeapon(ChangeTargetWeapon);
+			Reset(false);
+
 		}
 
 		/// <summary>
