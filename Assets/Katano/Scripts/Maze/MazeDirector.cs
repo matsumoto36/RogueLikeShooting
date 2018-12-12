@@ -27,6 +27,8 @@ namespace RogueLike.Katano.Maze
 			_mazeBuilder.BuildAisle();
 			_mazeBuilder.ShortenRoom(0.5f);
 			_mazeBuilder.Decoration();
+			_mazeBuilder.OverrideAttribute();
+			
 			
 			return _mazeBuilder.Build();
 		}

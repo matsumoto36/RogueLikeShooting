@@ -1,13 +1,15 @@
+using System.Linq;
 using RogueLike.Katano.Maze;
-using RogueLike.Katano.Maze.View;
 using RogueLike.Katano.Model;
+using RogueLike.Katano.View;
 using UniRx;
+using UniRx.Async;
 using UnityEngine;
 
 namespace RogueLike.Katano.Managers
 {
 	/// <summary>
-	///     ゲームボードマネージャ
+	/// 階層マネージャ
 	/// </summary>
 	[DisallowMultipleComponent]
 	public class GameFloorManager : MonoBehaviour
@@ -19,6 +21,9 @@ namespace RogueLike.Katano.Managers
 
 		[SerializeField]
 		private MazeFloorSettings _floorSettings;
+
+		[SerializeField]
+		private PlayerTransporter _transporter;
 
 		private MazeView _mazeView;
 
@@ -57,7 +62,17 @@ namespace RogueLike.Katano.Managers
 		{
 			var maze = ConstructMaze();
 			var view = ConstructMazeView(maze);
-			_mazeView = view;	
+			_mazeView = view;
+
+			foreach (var roomView in _mazeView.Rooms.Values)
+			{
+				roomView.Initialize();
+			}
+
+			var entryPoint = maze.RoomList.Cast<Room>().First(x => x.RoomAttribute == Room.RoomAttributes.FloorStart);
+			var entryView = view.Rooms[entryPoint.Id];
+			
+			_transporter.Initialize(entryView);
 			
 			_isReady = true;
 			
@@ -96,14 +111,15 @@ namespace RogueLike.Katano.Managers
 		/// <returns></returns>
 		private MazeView ConstructMazeView(Maze.Maze maze)
 		{
-			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset, transform);
+			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset);
 
 			return viewBuilder.Construct();
 		}
 
 		private static void Destruct(MazeView view)
 		{
-			view.Dispose();
+			// Destroy MazeView
+			Destroy(view.gameObject);
 		}
 		
 		private static void Log(string log)

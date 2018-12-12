@@ -10,13 +10,15 @@ namespace RogueLike.Katano.Managers
 	public class MainGameManager : MonoBehaviour
 	{
 		private readonly MessageBroker _mainEventBroker = new MessageBroker();
+
+		public IMessageBroker MainEventBroker => _mainEventBroker;
 		
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
 		
-		
 		private void Start()
 		{
+			// 初期化する
 			Initialize();
 			
 			// フロアを準備する

@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Reqweldzen.Extensions;
 
 namespace RogueLike.Katano.Maze
 {
@@ -10,17 +13,20 @@ namespace RogueLike.Katano.Maze
 	{
 		public int Id { get; }
 		
-		public Point Coord { get; }
+		public Point Coordinate { get; }
+		public RoomAttributes RoomAttribute { get; set; } = RoomAttributes.None;
 		
 		public int Mark { get; set; }
 		public bool IsEnable { get; set; } = true;
 		public bool IsCompleted { get; set; }
-		public AdjacentSides AdjacentSide { get; set; }
+		// public AdjacentSides AdjacentSide { get; set; }
+		
+		public Dictionary<AdjacentSides, Aisle> ConnectingAisles { get; } = new Dictionary<AdjacentSides, Aisle>();
 
-		public Room(int id, Point coord)
+		public Room(int id, Point coordinate)
 		{
 			Id = id;
-			Coord = coord;
+			Coordinate = coordinate;
 		}
 
 		public bool Equals(Room other)
@@ -36,6 +42,28 @@ namespace RogueLike.Katano.Maze
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != GetType()) return false;
 			return Equals((Room) obj);
+		}
+
+		public void RemoveEntries()
+		{
+			if (!IsEnable)
+			{
+				ConnectingAisles.Clear();
+			}
+		}
+
+		public void CheckEntries()
+		{
+			var list = ConnectingAisles.ToList();
+			foreach (var (dir, aisle) in list)
+			{
+				var connectRoom = aisle.GetCounterSide(this);
+				if (!connectRoom.IsEnable)
+				{
+					// Remove Entry
+					ConnectingAisles.Remove(dir);
+				}
+			}
 		}
 
 		public override int GetHashCode()
@@ -61,7 +89,33 @@ namespace RogueLike.Katano.Maze
 		[SuppressMessage("ReSharper", "UnusedMember.Global")]
 		public new string ToString()
 		{
-			return $"[Room] Id:{Id} Coord:{Coord}";
+			return $"[Room] Id:{Id} Coord:{Coordinate}";
+		}
+
+		/// <summary>
+		/// ルームタイプ
+		/// </summary>
+		public enum RoomAttributes
+		{
+			/// <summary>
+			/// 未設定
+			/// </summary>
+			None,
+			
+			/// <summary>
+			/// スポーン場所
+			/// </summary>
+			FloorStart,
+			
+			/// <summary>
+			/// 階段のある部屋
+			/// </summary>
+			Stair,
+			
+			/// <summary>
+			/// その他
+			/// </summary>
+			Others
 		}
 	}
 }

@@ -3,6 +3,7 @@ using GamepadInput;
 using RogueLike.Chikazawa;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Katano
 {
@@ -21,7 +22,7 @@ namespace RogueLike.Katano
 			set
 			{
 				_state = value;
-				OnStateChanged();
+				OnStateChanged(value);
 			}
 		}
 
@@ -30,18 +31,23 @@ namespace RogueLike.Katano
 			State = TitleState.Title;
 		}
 
-		private void OnStateChanged()
+		/// <summary>
+		/// ステート変更イベント
+		/// </summary>
+		/// <param name="state"></param>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		private void OnStateChanged(TitleState state)
 		{
-			switch (State)
+			switch (state)
 			{
 				case TitleState.Title:
 				{
-					OnTitle().Forget();
+					OnTitleState().Forget();
 					break;
 				}
 				case TitleState.Entry:
 				{
-					OnPlayerEntry().Forget();
+					OnEntryState().Forget();
 					break;
 				}
 				default:
@@ -53,7 +59,7 @@ namespace RogueLike.Katano
 		///     タイトル画面
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid OnTitle()
+		private async UniTaskVoid OnTitleState()
 		{
 			await UniTask.WaitUntil(() =>
 				GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Space));
@@ -66,18 +72,24 @@ namespace RogueLike.Katano
 			State = TitleState.Entry;
 		}
 
-		private async UniTaskVoid OnPlayerEntry()
+		/// <summary>
+		/// エントリー画面
+		/// </summary>
+		/// <returns></returns>
+		private async UniTaskVoid OnEntryState()
 		{
 			// エントリシステムを初期化
 			_entrySystem.Initialize();
 
-			var result = await _entrySystem.PlayerEntryAsync();
+			var result = await _entrySystem.EntrySequenceAsync();
 
 			if (result)
 			{
 				Debug.Log("Entry Success!");
+				
 				_entrySystem.Save();
-				// SceneManager.LoadScene("GamaeScene");
+				
+				SceneManager.LoadScene("GameFlowSample");
 			}
 			else
 			{
