@@ -19,9 +19,6 @@ namespace RogueLike.Katano.View
 	{
 		public Room Room { get; private set; }
 		
-		[SerializeField]
-		private NavMeshSurface _navMeshSurface;
-		
 		/// <summary>
 		/// ゲームカメラアンカー
 		/// </summary>

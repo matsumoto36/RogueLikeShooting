@@ -14,7 +14,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// プレイヤー転送システム
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class PlayerTransportComponent : RoomComponent
+	public class PlayerTransportComponent : BaseRoomComponent
 	{
 		private TransporterHub _hubPrefab;
 		/// <summary>
@@ -62,7 +62,7 @@ namespace RogueLike.Katano.View.RoomComponents
 				
 				// 敵が全滅したら転送システムを起動する
 				_spawnEnemyComponent
-					.OnEnemyDownAsync
+					.OnRoomCapturedAsync
 					.Subscribe(_ =>
 					{
 						RaiseTransporter();

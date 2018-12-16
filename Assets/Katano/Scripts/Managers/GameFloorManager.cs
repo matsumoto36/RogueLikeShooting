@@ -22,7 +22,6 @@ namespace RogueLike.Katano.Managers
 		[SerializeField]
 		private MazeFloorSettings _floorSettings;
 
-		[FormerlySerializedAs("_transporter")]
 		[SerializeField]
 		private PlayerTransportSystem _transportSystem;
 

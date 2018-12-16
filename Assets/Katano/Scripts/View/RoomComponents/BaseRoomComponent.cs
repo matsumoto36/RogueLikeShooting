@@ -6,7 +6,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// <summary>
 	/// 部屋コンポーネント
 	/// </summary>
-	public abstract class RoomComponent : MonoBehaviour
+	public abstract class BaseRoomComponent : MonoBehaviour
 	{
 		protected RoomView Owner;
 		

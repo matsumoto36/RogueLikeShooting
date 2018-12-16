@@ -15,7 +15,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// プレイヤーを生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnPlayerComponent : RoomComponent
+	public class SpawnPlayerComponent : BaseRoomComponent
 	{
 		private GameObject _spawnersParent;
 		private CharacterSpawner[] _spawners;

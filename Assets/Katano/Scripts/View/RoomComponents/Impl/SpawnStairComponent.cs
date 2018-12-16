@@ -7,7 +7,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// 階段を出現させるモジュール
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnStairComponent : RoomComponent
+	public class SpawnStairComponent : BaseRoomComponent
 	{
 		private StairView _stairPrefab;
 		private SpawnEnemyComponent _spawnEnemyComponent;
@@ -20,7 +20,7 @@ namespace RogueLike.Katano.View.RoomComponents
 			
 			// 敵が全滅したら階段を出す
 			_spawnEnemyComponent
-				.OnEnemyDownAsync
+				.OnRoomCapturedAsync
 				.Subscribe(_ => SpawnStair());
 		}
 
