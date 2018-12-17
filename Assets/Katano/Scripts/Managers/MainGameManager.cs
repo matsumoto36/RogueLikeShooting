@@ -60,7 +60,7 @@ namespace RogueLike.Katano.Managers
 
 		private async UniTaskVoid EndGame()
 		{
-			await UIManager.FadeOutAsync();
+			await UIManager.GameOverFadeOutAsync();
 			
 			FloorManager.Destruct();
 

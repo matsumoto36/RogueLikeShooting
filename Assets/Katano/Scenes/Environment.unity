@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3463101bbac4dcab5c1e0bb2312d53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resultData: {fileID: 0}
   _gameSettings: {fileID: 11400000, guid: da112ff734cd14847bb94a7235e7f8a8, type: 2}
   FloorManager: {fileID: 104625950}
   UIManager: {fileID: 104625953}
@@ -1122,7 +1123,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!225 &2126782881
 CanvasGroup:

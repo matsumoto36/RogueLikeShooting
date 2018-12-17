@@ -46,6 +46,22 @@ namespace RogueLike.Katano.Managers
 			return FadeOut();
 		}
 
+		public UniTask GameOverFadeOutAsync(CancellationToken token = default)
+		{
+			async UniTask FadeOut()
+			{
+				InfoScreenView.ShowText("あなたはやられてしまった");
+				
+				await InfoScreenView.CanvasGroup.DOFade(1, 3).Play();
+
+				await UniTask.Delay(1000, cancellationToken: token);
+				
+				InfoScreenView.HideText();
+			}
+
+			return FadeOut();
+		}
+
 		/// <summary>
 		/// フェードイン
 		/// </summary>
@@ -57,7 +73,12 @@ namespace RogueLike.Katano.Managers
 			{
 				Log("Start FadeIn.");
 
-				await InfoScreenView.ShowFloorText("ダンジョン", count, token);
+				InfoScreenView.ShowText($"ダンジョン\n{count}F");
+				
+				await UniTask.Delay(2000, cancellationToken: token);
+				InfoScreenView.HideText();
+				
+				await InfoScreenView.CanvasGroup.DOFade(0, 0.5f).Play();
 				
 				Log("End FadeIn.");
 			}
