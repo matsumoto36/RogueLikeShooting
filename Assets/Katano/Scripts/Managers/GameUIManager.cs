@@ -1,4 +1,6 @@
 using System.Threading;
+using DG.Tweening;
+using Reqweldzen.Extensions;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
@@ -11,6 +13,8 @@ namespace RogueLike.Katano.Managers
 	public class GameUIManager : MonoBehaviour
 	{
 		private IMessageReceiver _messageReceiver;
+
+		public GameInfoScreenView InfoScreenView;
 		
 		/// <summary>
 		/// 初期化
@@ -32,8 +36,8 @@ namespace RogueLike.Katano.Managers
 			async UniTask FadeOut()
 			{
 				Log("Start FadeOut.");
-				
-				await UniTask.Delay(1000, cancellationToken: token);
+
+				await InfoScreenView.CanvasGroup.DOFade(1, 1).Play();
 				
 				Log("End FadeOut.");
 			}
@@ -47,13 +51,13 @@ namespace RogueLike.Katano.Managers
 		/// </summary>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		public UniTask FadeInAsync(CancellationToken token = default)
+		public UniTask FadeInAsync(int count, CancellationToken token = default)
 		{
 			async UniTask FadeIn()
 			{
 				Log("Start FadeIn.");
-				
-				await UniTask.Delay(1000, cancellationToken: token);
+
+				await InfoScreenView.ShowFloorText("ダンジョン", count, token);
 				
 				Log("End FadeIn.");
 			}

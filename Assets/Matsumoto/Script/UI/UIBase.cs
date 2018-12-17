@@ -1,15 +1,14 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using RogueLike.Matsumoto.Managers;
+using UnityEngine;
 
-namespace RogueLike.Matsumoto.UI {
-
+namespace RogueLike.Matsumoto.UI
+{
 	/// <summary>
-	/// すべてのUIの親クラス
+	///     すべてのUIの親クラス
 	/// </summary>
-	public class UIBase : MonoBehaviour {
-
+	public class UIBase : MonoBehaviour
+	{
 		public bool IsInitialized { get; private set; }
 
 		public event Action OnInitialized;
@@ -17,12 +16,13 @@ namespace RogueLike.Matsumoto.UI {
 		public event Action<UIBase> OnHided;
 
 
-		private void Awake() {
+		private void Awake()
+		{
 			Initialize();
 		}
 
-		public void Initialize() {
-
+		public void Initialize()
+		{
 			if (IsInitialized) return;
 			IsInitialized = true;
 
@@ -33,21 +33,21 @@ namespace RogueLike.Matsumoto.UI {
 		}
 
 		/// <summary>
-		/// UIを表示する
+		///     UIを表示する
 		/// </summary>
-		public virtual void Show() {
+		public virtual void Show()
+		{
 			gameObject.SetActive(true);
 			OnShowed?.Invoke(this);
-
 		}
 
 		/// <summary>
-		/// UIを隠す
+		///     UIを隠す
 		/// </summary>
-		public virtual void Hide() {
+		public virtual void Hide()
+		{
 			gameObject.SetActive(false);
 			OnHided?.Invoke(this);
-
 		}
 	}
 }

@@ -4,5 +4,6 @@ namespace RogueLike.Katano
 	{
 		public struct FloorStarted {}
 		public struct FloorEnded {}
+		public struct PlayerKilled{}
 	}
 }
