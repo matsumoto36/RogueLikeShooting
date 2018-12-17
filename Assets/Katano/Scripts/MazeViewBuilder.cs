@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Reqweldzen.Extensions;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
@@ -69,40 +68,38 @@ namespace RogueLike.Katano.Maze
 			var indexed = _maze.RoomList.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
 			foreach (var room in indexed)
 			{
-				var coord = new Vector3(room.Element.Coordinate.X + Interval * room.Element.Coordinate.X, 0, -(room.Element.Coordinate.Y + Interval) * room.Element.Coordinate.Y);
+				var coordinate = new Vector3(room.Element.Coordinate.X + Interval * room.Element.Coordinate.X, 0, -(room.Element.Coordinate.Y + Interval) * room.Element.Coordinate.Y);
 
 				GameObject go;
-//				var obj = Object.Instantiate(i == 0 
-//						? _mazeDataAsset.PlayerRoomPrefab 
-//						: _mazeDataAsset.RoomPrefabList.RandomAt(), 
-//					coord,
-//					Quaternion.identity);
 
 				switch (room.Element.RoomAttribute)
 				{
 					case Room.RoomAttributes.FloorStart:
 					{
-						go = Object.Instantiate(_mazeDataAsset.PlayerRoomPrefab, coord, Quaternion.identity);
+						go = Object.Instantiate(_mazeDataAsset.PlayerRoomPrefab, coordinate, Quaternion.identity);
 						break;
 					}
 					case Room.RoomAttributes.Stair:
 					{
-						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coord, Quaternion.identity);
+						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coordinate, Quaternion.identity);
 						// 階段コンポーネントを追加
 						go.AddComponent<SpawnStairComponent>();
 						break;
 					}
 					case Room.RoomAttributes.Others:
 					{
-						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coord, Quaternion.identity);
+						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coordinate, Quaternion.identity);
 						break;
 					}
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
+
+				var goTransform = go.transform;
+				var cameraAnchor = Object.Instantiate(_mazeDataAsset.CameraAnchor, goTransform);
 				
 				var view = go.GetComponent<RoomView>();
-				view.Construct(room.Element);
+				view.Construct(room.Element, cameraAnchor.transform);
 				roomViewList.Add(room.Element.Id, view);
 			}
 		}

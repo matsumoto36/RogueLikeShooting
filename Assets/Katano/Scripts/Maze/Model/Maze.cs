@@ -1,5 +1,3 @@
-using UnityEngine.XR.WSA.WebCam;
-
 namespace RogueLike.Katano.Maze
 {
 	
@@ -36,11 +34,16 @@ namespace RogueLike.Katano.Maze
 			Height = height;
 		}
 
+		/// <summary>
+		/// 部屋を取得
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public Room GetRoom(int id)
 		{
-			for (int i = 0; i < RoomList.GetLength(0); i++)
+			for (var i = 0; i < RoomList.GetLength(0); i++)
 			{
-				for (int j = 0; j < RoomList.GetLength(1); j++)
+				for (var j = 0; j < RoomList.GetLength(1); j++)
 				{
 					if (id == RoomList[i, j].Id)
 					{

@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Matsumoto;
 using RogueLike.Matsumoto.Character;
 using UniRx;
-using Unity.Linq;
 using UnityEngine;
 
 namespace RogueLike.Katano.View.RoomComponents
@@ -13,15 +11,17 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// 敵を生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnEnemyComponent : RoomComponent
+	public class SpawnEnemyComponent : BaseRoomComponent
 	{
+		private bool _isCaptured;
+		
 		private CharacterSpawner[] _spawners;
 		
-		private readonly AsyncSubject<Unit> _onEnemyDownAsync = new AsyncSubject<Unit>();
+		private readonly AsyncSubject<Unit> _onRoomCapturedAsync = new AsyncSubject<Unit>();
 		/// <summary>
 		/// 敵を全滅させたイベント
 		/// </summary>
-		public IObservable<Unit> OnEnemyDownAsync => _onEnemyDownAsync;
+		public IObservable<Unit> OnRoomCapturedAsync => _onRoomCapturedAsync;
 
 		/// <inheritdoc />
 		public override void OnInitialize()
@@ -44,18 +44,21 @@ namespace RogueLike.Katano.View.RoomComponents
 				{
 					Debug.Log($"[{Owner.Room.ToString()}] Enemies has been slain.");
 					
-					_onEnemyDownAsync.OnNext(Unit.Default);
-					_onEnemyDownAsync.OnCompleted();
+					_onRoomCapturedAsync.OnNext(Unit.Default);
+					_onRoomCapturedAsync.OnCompleted();
 				});
 			
 			Debug.Log($"[{Owner.Room.ToString()}] Enemies was spawned.");
 		}
 
+		/// <summary>
+		/// Debug command: Immediate Kill Enemies.
+		/// </summary>
 		[ContextMenu("KillEnemies")]
 		public void ForceKillEnemies()
 		{
-			_onEnemyDownAsync.OnNext(Unit.Default);
-			_onEnemyDownAsync.OnCompleted();
+			_onRoomCapturedAsync.OnNext(Unit.Default);
+			_onRoomCapturedAsync.OnCompleted();
 		}
 	}
 }

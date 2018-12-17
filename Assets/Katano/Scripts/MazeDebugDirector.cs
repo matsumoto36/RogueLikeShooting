@@ -1,16 +1,20 @@
 using System.Threading;
 using UniRx.Async;
+using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace RogueLike.Katano.Maze
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class MazeDebugDirector : MonoBehaviour
 	{
 		[SerializeField]
 		private Button _stepButton;
 
-		private CancellationTokenSource _tokenSource;
+		private CancellationToken _token;
 			
 		private MazeBuilder _builder;
 		private MazeBuildOptions _options;
@@ -18,8 +22,7 @@ namespace RogueLike.Katano.Maze
 
 		private void Awake()
 		{
-			_tokenSource = new CancellationTokenSource();
-			_tokenSource.CancelWith(this);
+			_token = this.GetCancellationTokenOnDestroy();
 		}
 		
 		public void Initialize(MazeBuilder builder, MazeBuildOptions options)
@@ -30,6 +33,10 @@ namespace RogueLike.Katano.Maze
 			_isInit = true;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public UniTask<Maze> ConstructAsync()
 		{
 			return !_isInit 
@@ -67,7 +74,7 @@ namespace RogueLike.Katano.Maze
 			var text = _stepButton.GetComponentInChildren<Text>();
 			text.text = label;
 
-			return _stepButton.OnClickAsync();
+			return _stepButton.OnClickAsync(_token);
 		}
 	}
 }

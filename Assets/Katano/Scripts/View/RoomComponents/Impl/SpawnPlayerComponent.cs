@@ -15,7 +15,7 @@ namespace RogueLike.Katano.View.RoomComponents
 	/// プレイヤーを生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnPlayerComponent : RoomComponent
+	public class SpawnPlayerComponent : BaseRoomComponent
 	{
 		private GameObject _spawnersParent;
 		private CharacterSpawner[] _spawners;
@@ -25,13 +25,11 @@ namespace RogueLike.Katano.View.RoomComponents
 		
 		[SerializeField]
 		private GamePlayers _gamePlayers;
-		
-		private PlayerBindData _playerBind;
 
 		private void Awake()
 		{
 			var prefab = Resources.Load<GameObject>("PlayerSpawners");
-			_spawnersParent = Instantiate(prefab, transform.position, Quaternion.identity, transform);
+			_spawnersParent = Instantiate(prefab, transform);
 			_spawners = _spawnersParent
 				.Children()
 				.OfComponent<CharacterSpawner>()
@@ -59,7 +57,6 @@ namespace RogueLike.Katano.View.RoomComponents
 			}
 
 			_gamePlayers.Register(list.ToArray());
-			Debug.Log(_gamePlayers.JoinedPlayerCount);
 		}
 
 		/// <summary>

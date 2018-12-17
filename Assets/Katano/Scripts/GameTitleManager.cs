@@ -10,8 +10,11 @@ namespace RogueLike.Katano
 	/// <summary>
 	///     ゲームエントリーマネージャ
 	/// </summary>
-	public class GameEntriesManager : MonoBehaviour
+	public class GameTitleManager : MonoBehaviour
 	{
+		[SerializeField]
+		private GameSettings _gameSettings;
+		
 		[SerializeField]
 		private PlayerEntrySystem _entrySystem;
 		private TitleState _state;
@@ -89,7 +92,7 @@ namespace RogueLike.Katano
 				
 				_entrySystem.Save();
 				
-				SceneManager.LoadScene("GameFlowSample");
+				SceneManager.LoadScene(_gameSettings.TitleSettings.NextScene.ToString());
 			}
 			else
 			{
@@ -101,6 +104,12 @@ namespace RogueLike.Katano
 		{
 			Title,
 			Entry
+		}
+
+		[Serializable]
+		public class Settings
+		{
+			public GameScenes NextScene;
 		}
 	}
 }

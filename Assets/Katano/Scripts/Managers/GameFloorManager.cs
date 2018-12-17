@@ -3,7 +3,6 @@ using RogueLike.Katano.Maze;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View;
 using UniRx;
-using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,7 +22,6 @@ namespace RogueLike.Katano.Managers
 		[SerializeField]
 		private MazeFloorSettings _floorSettings;
 
-		[FormerlySerializedAs("_transporter")]
 		[SerializeField]
 		private PlayerTransportSystem _transportSystem;
 
