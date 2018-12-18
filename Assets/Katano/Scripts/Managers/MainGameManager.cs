@@ -1,6 +1,9 @@
+using System;
+using RogueLike.Katano.Model;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Katano.Managers
 {
@@ -9,12 +12,20 @@ namespace RogueLike.Katano.Managers
 	/// </summary>
 	public class MainGameManager : MonoBehaviour
 	{
+		[SerializeField]
+		private GameResultData _resultData;
+		
+		[SerializeField]
+		private GameSettings _gameSettings;
+		
 		private readonly MessageBroker _mainEventBroker = new MessageBroker();
 
 		public IMessageBroker MainEventBroker => _mainEventBroker;
 		
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
+
+		private int _currentFloor;
 		
 		private void Start()
 		{
@@ -43,6 +54,17 @@ namespace RogueLike.Katano.Managers
 		{
 			// フロア踏破イベントの購読
 			_mainEventBroker.Receive<MazeSignal.FloorEnded>().Subscribe(_ => OnFloorEnded().Forget()).AddTo(this);
+
+			_mainEventBroker.Receive<MazeSignal.PlayerKilled>().Subscribe(_ => EndGame().Forget()).AddTo(this);
+		}
+
+		private async UniTaskVoid EndGame()
+		{
+			await UIManager.GameOverFadeOutAsync();
+			
+			FloorManager.Destruct();
+
+			SceneManager.LoadScene(_gameSettings.MainGameSettings.NextScene.ToString());
 		}
 
 		/// <summary>
@@ -55,7 +77,7 @@ namespace RogueLike.Katano.Managers
 			FloorManager.Construct();
 
 			// フェードインする
-			await UIManager.FadeInAsync();
+			await UIManager.FadeInAsync(++_currentFloor);
 			
 			// ゲームスタート
 			_mainEventBroker.Publish(new MazeSignal.FloorStarted());
@@ -88,6 +110,12 @@ namespace RogueLike.Katano.Managers
 		private static void Log(string log)
 		{
 			Debug.Log($"[MainGameManager] {log}");
+		}
+
+		[Serializable]
+		public class Settings
+		{
+			public GameScenes NextScene;
 		}
 	}
 }

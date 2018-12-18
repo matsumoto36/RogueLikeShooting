@@ -13,3 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TitleSettings:
     NextScene: 4
+  MainGameSettings:
+    NextScene: 6

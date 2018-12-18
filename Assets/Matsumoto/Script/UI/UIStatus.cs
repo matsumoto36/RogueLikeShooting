@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-using UniRx;
+﻿using UniRx;
 using UnityEngine.UI;
 
 namespace RogueLike.Matsumoto.UI {
@@ -23,7 +20,7 @@ namespace RogueLike.Matsumoto.UI {
 				_provider = FindObjectOfType<PlayerHPProvider>();
 				_provider
 					.ObserveEveryValueChanged(x => x.NowHP)
-					.Subscribe(nowHP => ChangeGauge((float)nowHP / _provider.MaxHP));
+					.Subscribe(health => ChangeGauge((float)health / _provider.MaxHP));
 			}
 		}
 

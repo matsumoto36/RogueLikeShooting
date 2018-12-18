@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -7,10 +6,10 @@ using UniRx.Triggers;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Chikazawa;
+using RogueLike.Katano;
+using RogueLike.Katano.Managers;
 using RogueLike.Matsumoto.Managers;
 using RogueLike.Nishiwaki;
-using Unity.Linq;
-using UnityEngine.SceneManagement;
 
 namespace RogueLike.Matsumoto {
 
@@ -43,12 +42,19 @@ namespace RogueLike.Matsumoto {
 		public override void Kill(IAttacker attacker) {
 			base.Kill(attacker);
 
+			var isLast = Players.Count == 1 && Players[0] == this;
+
 			//リストから削除
 			Players.Remove(this);
 
 			//他も殺す
 			if(Players.Count > 0)
 				Players[0].Kill(attacker);
+
+			if (isLast)
+			{
+				FindObjectOfType<MainGameManager>().MainEventBroker.Publish(new MazeSignal.PlayerKilled());
+			}
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {

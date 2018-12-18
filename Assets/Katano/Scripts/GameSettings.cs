@@ -1,3 +1,4 @@
+using RogueLike.Katano.Managers;
 using UnityEngine;
 
 namespace RogueLike.Katano
@@ -6,5 +7,6 @@ namespace RogueLike.Katano
 	public class GameSettings : ScriptableObject
 	{
 		public GameTitleManager.Settings TitleSettings;
+		public MainGameManager.Settings MainGameSettings;
 	}
 }
