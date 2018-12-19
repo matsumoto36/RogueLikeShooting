@@ -46,6 +46,11 @@ namespace RogueLike.Katano.Managers
 			return FadeOut();
 		}
 
+		/// <summary>
+		/// ゲームオーバーフェードアウト
+		/// </summary>
+		/// <param name="token"></param>
+		/// <returns></returns>
 		public UniTask GameOverFadeOutAsync(CancellationToken token = default)
 		{
 			async UniTask FadeOut()

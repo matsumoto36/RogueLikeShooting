@@ -20,6 +20,9 @@ namespace RogueLike.Katano.Managers
 		
 		private readonly MessageBroker _mainEventBroker = new MessageBroker();
 
+		/// <summary>
+		/// メインイベントブローカー
+		/// </summary>
 		public IMessageBroker MainEventBroker => _mainEventBroker;
 		
 		public GameFloorManager FloorManager;
@@ -53,9 +56,16 @@ namespace RogueLike.Katano.Managers
 		private void SetEvents()
 		{
 			// フロア踏破イベントの購読
-			_mainEventBroker.Receive<MazeSignal.FloorEnded>().Subscribe(_ => OnFloorEnded().Forget()).AddTo(this);
+			_mainEventBroker
+				.Receive<MazeSignal.FloorEnded>()
+				.Subscribe(_ => OnFloorEnded().Forget())
+				.AddTo(this);
 
-			_mainEventBroker.Receive<MazeSignal.PlayerKilled>().Subscribe(_ => EndGame().Forget()).AddTo(this);
+			// プレイヤー全滅時イベントの購読
+			_mainEventBroker
+				.Receive<MazeSignal.PlayerKilled>()
+				.Subscribe(_ => EndGame().Forget())
+				.AddTo(this);
 		}
 
 		private async UniTaskVoid EndGame()
