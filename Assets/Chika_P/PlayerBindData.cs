@@ -9,7 +9,7 @@ namespace RogueLike.Chikazawa
     /// <summary>
     /// プレイヤーバインドデータ
     /// </summary>
-    [CreateAssetMenu(fileName = "PlayerBindData", menuName = "Game/Player Bind Data")]
+    //[CreateAssetMenu(fileName = "PlayerBindData", menuName = "Game/Player Bind Data")]
     public class PlayerBindData : ScriptableObject
     {
         /// <summary>

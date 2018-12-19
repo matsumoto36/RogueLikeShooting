@@ -17,6 +17,9 @@ namespace RogueLike.Matsumoto.Character {
 
 					var input = player.InputEventProvider;
 
+					//武器切り替え時は移動キャンセル
+					if (player.ChangeTargetWeapon != null) return;
+
 					//移動(武器依存で移動したい)
 					transform.position += 5 * input.GetMoveVector() * Time.deltaTime;
 

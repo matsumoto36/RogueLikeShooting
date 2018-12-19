@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -7,10 +6,10 @@ using UniRx.Triggers;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Matsumoto.Character.Asset;
 using RogueLike.Chikazawa;
+using RogueLike.Katano;
+using RogueLike.Katano.Managers;
 using RogueLike.Matsumoto.Managers;
 using RogueLike.Nishiwaki;
-using Unity.Linq;
-using UnityEngine.SceneManagement;
 
 namespace RogueLike.Matsumoto {
 
@@ -20,23 +19,30 @@ namespace RogueLike.Matsumoto {
 	public class PlayerCore : CharacterCore {
 
 		private const float EquipWeaponRange = 5;
+		private const float ChangeWeaponWait = 3;
 		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
+
+		private static PlayerHPProvider _playerHPProvider;
 
 		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
-		private static PlayerHPProvider _playerHPProvider;
+		public IWeapon ChangeTargetWeapon { get; private set; }
+		private bool _canChangeWeapon = true;
+		private float _changeWeaponTime;
 
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; set; }
 		public bool IsFreeze { get; set; }
 
 		public override int HP {
-			get => _playerHPProvider.HP;
-			protected set => _playerHPProvider.HP = value;
+			get => _playerHPProvider.NowHP;
+			protected set => _playerHPProvider.NowHP = value;
 		}
 
 		public override void Kill(IAttacker attacker) {
 			base.Kill(attacker);
+
+			var isLast = Players.Count == 1 && Players[0] == this;
 
 			//リストから削除
 			Players.Remove(this);
@@ -44,6 +50,11 @@ namespace RogueLike.Matsumoto {
 			//他も殺す
 			if(Players.Count > 0)
 				Players[0].Kill(attacker);
+
+			if (isLast)
+			{
+				FindObjectOfType<MainGameManager>().MainEventBroker.Publish(new MazeSignal.PlayerKilled());
+			}
 		}
 
 		protected override void OnSpawn(CharacterAsset asset) {
@@ -64,7 +75,12 @@ namespace RogueLike.Matsumoto {
 					_playerHPProvider = new GameObject("[PlayerHPProvider]")
 						.AddComponent<PlayerHPProvider>();
 
-					_playerHPProvider.HP = playerAsset.HP;
+					_playerHPProvider.MaxHP
+						= _playerHPProvider.NowHP
+							= playerAsset.HP;
+
+					//暫定的にプレイヤーが出す
+					UIManager.Instance.Show("PlayerStatus");
 				}
 			}
 
@@ -84,15 +100,45 @@ namespace RogueLike.Matsumoto {
 				.Subscribe(_ => {
 					PlayerUpdate.OnNext(this);
 
-					//暫定で武器切り替え Rキー
-					if (Input.GetKeyDown(KeyCode.R)) {
-						var w = GetNearestWeapon(EquipWeaponRange);
-						if(w != null)
-							AttachWeapon(w);
-					}
+					//武器チェンジの更新
+					WeaponChangeUpdate();
 
 				})
 				.AddTo(this);
+		}
+
+		/// <summary>
+		/// 武器チェンジのボタン処理を行う
+		/// </summary>
+		public void WeaponChangeUpdate() {
+
+			void Reset(bool canChange) {
+				_changeWeaponTime = 0;
+				_canChangeWeapon = canChange;
+				ChangeTargetWeapon = null;
+			}
+
+			//武器切り替え
+			if (!InputEventProvider.GetChangeBody()) {
+				Reset(true);
+				return;
+			}
+
+			if (!_canChangeWeapon) return;
+
+			if(ChangeTargetWeapon == null)
+				ChangeTargetWeapon = GetNearestWeapon(EquipWeaponRange);
+
+			if (ChangeTargetWeapon == null) {
+				Reset(false);
+				return;
+			}
+
+			_changeWeaponTime += Time.deltaTime;
+			if (!(_changeWeaponTime > ChangeWeaponWait)) return;
+			AttachWeapon(ChangeTargetWeapon);
+			Reset(false);
+
 		}
 
 		/// <summary>

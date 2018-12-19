@@ -33,5 +33,26 @@ namespace RogueLike.Katano.Maze
 			Width = width;
 			Height = height;
 		}
+
+		/// <summary>
+		/// 部屋を取得
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public Room GetRoom(int id)
+		{
+			for (var i = 0; i < RoomList.GetLength(0); i++)
+			{
+				for (var j = 0; j < RoomList.GetLength(1); j++)
+				{
+					if (id == RoomList[i, j].Id)
+					{
+						return RoomList[i, j];
+					}
+				}
+			}
+
+			return null;
+		}
 	}
 }

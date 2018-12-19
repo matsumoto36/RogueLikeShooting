@@ -5,11 +5,11 @@ namespace RogueLike.Katano.Maze
 {
 	public static class MazeExtensions
 	{
-		public static Aisle WithState(this Aisle aisle, AisleChainState aisleChainState)
-		{
-			aisle.AisleChainState = aisleChainState;
-			return aisle;
-		}
+//		public static Aisle WithState(this Aisle aisle, AisleChainState aisleChainState)
+//		{
+//			aisle.AisleChainState = aisleChainState;
+//			return aisle;
+//		}
 		
 		public static void SetMark(this Room room, int mark)
 		{

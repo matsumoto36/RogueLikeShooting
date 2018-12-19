@@ -1,0 +1,27 @@
+# Exported from ProBuilder
+# http://www.procore3d.com/probuilder
+# 2018/12/19 13:18:48
+
+mtllib ./Floor.mtl
+o Floor
+
+g Floor
+v 10 0 -7.5
+v -10 0 -7.5
+v 10 0 7.5
+v -10 0 7.5
+
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+
+vt 0 -15
+vt 20 -15
+vt 0 0
+vt 20 0
+
+g Floor
+usemtl Default_Prototype
+f 1/1/1 2/2/2 4/4/4 3/3/3
+
