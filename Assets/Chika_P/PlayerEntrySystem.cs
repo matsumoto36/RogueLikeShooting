@@ -137,7 +137,7 @@ namespace RogueLike.Chikazawa
 			foreach (var padIndex in PadIndices)
 			{
 				//スタートボタンでエントリー
-				if (GamePad.GetButtonDown(GamePad.Button.Start, padIndex) && !_controllerIndices.Contains(padIndex.ToControllerIndex()))
+				if (GamePad.GetButtonDown(GamePad.Button.A, padIndex) && !_controllerIndices.Contains(padIndex.ToControllerIndex()))
 				{
 					if (_controllerIndices.Any(x => x == ControllerIndex.Invalid))
 					{
@@ -150,7 +150,7 @@ namespace RogueLike.Chikazawa
 				}
 
 				//セレクト(Back)で退出
-				if (GamePad.GetButtonDown(GamePad.Button.Back, padIndex) && _controllerIndices.Contains(padIndex.ToControllerIndex()))
+				if (GamePad.GetButtonDown(GamePad.Button.B, padIndex) && _controllerIndices.Contains(padIndex.ToControllerIndex()))
 				{
 					var slot = _controllerIndices.IndexOf(padIndex.ToControllerIndex());
 				

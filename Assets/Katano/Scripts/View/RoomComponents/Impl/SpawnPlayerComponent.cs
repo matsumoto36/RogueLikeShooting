@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
+using RogueLike.Chikazawa.InputEventProvider;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View.Player;
 using RogueLike.Matsumoto;
@@ -33,7 +34,6 @@ namespace RogueLike.Katano.View.RoomComponents
 			_spawners = _spawnersParent
 				.Children()
 				.OfComponent<CharacterSpawner>()
-				.Where(x => x.gameObject.activeSelf)
 				.ToArray();
 		}
 		
@@ -51,7 +51,7 @@ namespace RogueLike.Katano.View.RoomComponents
 				var player = (PlayerCore) _spawners[i].Spawn();
 				player.gameObject.AddComponent<PlayerStateChanger>();
 				
-				PlayerSetup(player);
+				PlayerSetup(player, entry);
 				
 				list.Add(player);
 			}
@@ -63,8 +63,27 @@ namespace RogueLike.Katano.View.RoomComponents
 		/// プレイヤーの初期設定
 		/// </summary>
 		/// <param name="player"></param>
-		private void PlayerSetup(PlayerCore player)
+		/// <param name="index"></param>
+		private void PlayerSetup(PlayerCore player, ControllerIndex index)
 		{
+			switch (index)
+			{
+				case ControllerIndex.One:
+				case ControllerIndex.Two:
+				case ControllerIndex.Three:
+				case ControllerIndex.Four:
+				{
+					player.InputEventProvider = new InputController((int) index.ToGamePadIndex());
+					break;
+				}
+				case ControllerIndex.Keyboard:
+				{
+					player.InputEventProvider = new InputKeyBoard();
+					break;
+				}
+				default:
+					throw new ArgumentOutOfRangeException(nameof(index), index, null);
+			}
 			player.transform.SetParent(transform);
 		}
 	}

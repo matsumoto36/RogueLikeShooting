@@ -10,7 +10,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
      /// </summary>
     public class InputController : PlayerInputProvider
     {
-        static int _controller;
+        private int _controller;
 
         public InputController(int Controller)
         {
