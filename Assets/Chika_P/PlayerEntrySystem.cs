@@ -8,6 +8,7 @@ using RogueLike.Katano;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueLike.Chikazawa
 {
@@ -19,11 +20,12 @@ namespace RogueLike.Chikazawa
 	    /// <summary>
 	    ///     プレイヤーバインドデータ
 	    /// </summary>
-	    [SerializeField]
-		private PlayerBindData _bindData;
+		public PlayerBindData BindData;
 
-		[SerializeField]
-		private List<GameObject> _playerObjects; //スポーン（エントリー）したときのオブジェクト
+		/// <summary>
+		/// プレイヤーオブジェクトリスト
+		/// </summary>
+		public List<GameObject> PlayerObjects; //スポーン（エントリー）したときのオブジェクト
 		
 		private readonly List<ControllerIndex> _controllerIndices = new List<ControllerIndex>(new ControllerIndex[4]);
 
@@ -108,7 +110,7 @@ namespace RogueLike.Chikazawa
 					
 					_controllerIndices[slot] = ControllerIndex.Keyboard;
 
-					_playerObjects[slot].SetActive(true);
+					PlayerObjects[slot].SetActive(true);
 				}
 			}
 
@@ -121,7 +123,7 @@ namespace RogueLike.Chikazawa
 				_controllerIndices[slot] = ControllerIndex.Invalid;
 				
 				//操作オブジェクトを非表示
-				_playerObjects[slot].SetActive(false);
+				PlayerObjects[slot].SetActive(false);
 				
 			}
 		}
@@ -145,7 +147,7 @@ namespace RogueLike.Chikazawa
 					
 						_controllerIndices[slot] = padIndex.ToControllerIndex();
 
-						_playerObjects[slot].SetActive(true);
+						PlayerObjects[slot].SetActive(true);
 					}
 				}
 
@@ -158,7 +160,7 @@ namespace RogueLike.Chikazawa
 					_controllerIndices[slot] = ControllerIndex.Invalid;
 				
 					//操作オブジェクトを非表示
-					_playerObjects[slot].SetActive(false);
+					PlayerObjects[slot].SetActive(false);
 				}
 			}
 		}
@@ -177,7 +179,7 @@ namespace RogueLike.Chikazawa
 	    /// </summary>
 	    public void Save()
 		{
-			for (var i = 0; i < 4; i++) _bindData.PlayerEntries[i] = _controllerIndices[i];
+			for (var i = 0; i < 4; i++) BindData.PlayerEntries[i] = _controllerIndices[i];
 		}
 	}
 

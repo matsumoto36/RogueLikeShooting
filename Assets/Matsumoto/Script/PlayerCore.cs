@@ -35,6 +35,11 @@ namespace RogueLike.Matsumoto
 		public IInputEventProvider InputEventProvider { get; set; }
 		public bool IsFreeze { get; set; }
 
+		/// <summary>
+		/// メインゲームマネージャ
+		/// </summary>
+		public MainGameManager MainGameManager { get; set; }
+
 		public override int HP
 		{
 			get => _playerHPProvider.NowHP;
@@ -54,7 +59,7 @@ namespace RogueLike.Matsumoto
 			if (Players.Count > 0)
 				Players[0].Kill(attacker);
 
-			if (isLast) FindObjectOfType<MainGameManager>().MainEventBroker.Publish(new MazeSignal.PlayerKilled());
+			if (isLast) MainGameManager.EventPublish(new MazeSignal.PlayerKilled());
 		}
 
 		protected override void OnSpawn(CharacterAsset asset)
@@ -92,7 +97,7 @@ namespace RogueLike.Matsumoto
 		protected override void Start()
 		{
 			base.Start();
-			
+
 			if (InputEventProvider == null)
 				InputEventProvider = new InputKeyBoard();
 
