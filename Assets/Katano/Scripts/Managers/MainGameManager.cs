@@ -4,6 +4,7 @@ using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace RogueLike.Katano.Managers
 {
@@ -12,11 +13,7 @@ namespace RogueLike.Katano.Managers
 	/// </summary>
 	public class MainGameManager : MonoBehaviour
 	{
-		[SerializeField]
-		private GameResultData _resultData;
 		
-		[SerializeField]
-		private GameSettings _gameSettings;
 		
 		private readonly MessageBroker _mainEventBroker = new MessageBroker();
 
@@ -25,6 +22,10 @@ namespace RogueLike.Katano.Managers
 		/// </summary>
 		public IMessageBroker MainEventBroker => _mainEventBroker;
 		
+		[FormerlySerializedAs("_resultData")]
+		public GameResultData ResultData;
+		[FormerlySerializedAs("_gameSettings")]
+		public GameSettings GameSettings;
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
 
@@ -36,7 +37,7 @@ namespace RogueLike.Katano.Managers
 			Initialize();
 			
 			// フロアを準備する
-			PreparingMaze().Forget();
+			GamePrepareCoroutine().Forget();
 		}
 
 		/// <summary>
@@ -58,47 +59,86 @@ namespace RogueLike.Katano.Managers
 			// フロア踏破イベントの購読
 			_mainEventBroker
 				.Receive<MazeSignal.FloorEnded>()
-				.Subscribe(_ => OnFloorEnded().Forget())
+				.Subscribe(_ => GameFinalizeCoroutine().Forget())
 				.AddTo(this);
 
 			// プレイヤー全滅時イベントの購読
 			_mainEventBroker
 				.Receive<MazeSignal.PlayerKilled>()
-				.Subscribe(_ => EndGame().Forget())
+				.Subscribe(_ => GameOverCoroutine().Forget())
+				.AddTo(this);
+
+			_mainEventBroker
+				.Receive<MazeSignal.MazeCleared>()
+				.Subscribe(_ => GameClearCoroutine().Forget())
 				.AddTo(this);
 		}
 
-		private async UniTaskVoid EndGame()
+		/// <summary>
+		/// ゲームクリアコルーチン
+		/// </summary>
+		/// <returns></returns>
+		private async UniTaskVoid GameClearCoroutine()
+		{
+			ResultData.Score = 100;
+			ResultData.ClearTime = 100;
+		
+			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
+		}
+
+		/// <summary>
+		/// ゲームオーバーコルーチン
+		/// </summary>
+		/// <returns></returns>
+		private async UniTaskVoid GameOverCoroutine()
 		{
 			await UIManager.GameOverFadeOutAsync();
 			
 			FloorManager.Destruct();
 
-			SceneManager.LoadScene(_gameSettings.MainGameSettings.NextScene.ToString());
+			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
 		}
 
 		/// <summary>
 		/// フロアを準備する
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid PreparingMaze()
+		private async UniTaskVoid GamePrepareCoroutine()
 		{
+			
+			
+			// フロア数を増やす
+			++_currentFloor;
+			
 			// フロアを構築
 			FloorManager.Construct();
 
+			
+			
 			// フェードインする
-			await UIManager.FadeInAsync(++_currentFloor);
+			await UIManager.FadeInAsync(_currentFloor);
 			
 			// ゲームスタート
 			_mainEventBroker.Publish(new MazeSignal.FloorStarted());
 		}
 
 		/// <summary>
-		/// フロア踏破時イベント
+		/// フロアを終了する
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid OnFloorEnded()
+		private async UniTaskVoid GameFinalizeCoroutine()
 		{
+			const int roof = 10;
+
+			// フロア数がクリア階層以上になったら
+			if (_currentFloor == roof)
+			{
+				// ゲームクリア
+				_mainEventBroker.Publish(new MazeSignal.MazeCleared());
+				
+				return;
+			}
+			
 			// フェードアウトする
 			await UIManager.FadeOutAsync();
 			
@@ -106,7 +146,7 @@ namespace RogueLike.Katano.Managers
 			FloorManager.Destruct();
 			
 			// フロアを準備する
-			PreparingMaze().Forget();
+			GamePrepareCoroutine().Forget();
 		}
 
 		

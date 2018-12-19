@@ -70,6 +70,7 @@ namespace RogueLike.Katano.Managers
 		/// <summary>
 		/// フェードイン
 		/// </summary>
+		/// <param name="count"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
 		public UniTask FadeInAsync(int count, CancellationToken token = default)
