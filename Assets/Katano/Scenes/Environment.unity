@@ -1027,17 +1027,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114908304564837470, guid: b75b2c9c81c24e74b80f1e0b103d48dc,
-        type: 2}
-      propertyPath: GameCamera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114908304564837470, guid: b75b2c9c81c24e74b80f1e0b103d48dc,
-        type: 2}
-      propertyPath: GamePlayers
-      value: 
-      objectReference: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b75b2c9c81c24e74b80f1e0b103d48dc, type: 2}
   m_IsPrefabAsset: 0
