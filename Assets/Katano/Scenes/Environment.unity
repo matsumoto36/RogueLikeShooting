@@ -758,15 +758,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1536559285962838, guid: 21eb081e79b41374c9ec6bac0c13717e, type: 2}
-      propertyPath: m_Name
-      value: '[Managers]'
-      objectReference: {fileID: 0}
     - target: {fileID: 114464624530911902, guid: 21eb081e79b41374c9ec6bac0c13717e,
         type: 2}
       propertyPath: InfoScreenView
       value: 
       objectReference: {fileID: 2126782879}
+    - target: {fileID: 1536559285962838, guid: 21eb081e79b41374c9ec6bac0c13717e, type: 2}
+      propertyPath: m_Name
+      value: '[Managers]'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21eb081e79b41374c9ec6bac0c13717e, type: 2}
   m_IsPrefabAsset: 0

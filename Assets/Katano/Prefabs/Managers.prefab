@@ -95,4 +95,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mazeDataAsset: {fileID: 11400000, guid: b663afe4db547e9468bee2a70c4c3d3c, type: 2}
   _floorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}
-  _transportSystem: {fileID: 0}
+  _transportSystem: {fileID: 114270906391728124}
