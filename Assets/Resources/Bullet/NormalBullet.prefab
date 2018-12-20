@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 135322095613881556}
   - component: {fileID: 54233676156732582}
   - component: {fileID: 114385723476110262}
+  - component: {fileID: 114801918126465816}
   m_Layer: 0
   m_Name: NormalBullet
   m_TagString: Untagged
@@ -117,6 +118,21 @@ MonoBehaviour:
     Power: 0
     LifeTime: 0
     Range: 0
+    ChargeTime: 0
+  weaponRanged: {fileID: 0}
+--- !u!114 &114801918126465816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842836478312496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d0ac49dc5486a14b95c26499b67c08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prf_muzzle: {fileID: 1974482643632386, guid: e5e74e6d40eab234ba4b7cf30d8a341b, type: 2}
+  prf_damage: {fileID: 1189728032340322, guid: 2d41e1da4fc29944a937e711e3e71026, type: 2}
 --- !u!135 &135322095613881556
 SphereCollider:
   m_ObjectHideFlags: 1
