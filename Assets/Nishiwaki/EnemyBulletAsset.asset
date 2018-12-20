@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4444ef86efbaa3147aa9be549958309e, type: 3}
-  m_Name: BulletAsset
+  m_Name: EnemyBulletAsset
   m_EditorClassIdentifier: 
   BulletType: 0
   BulletParameter:
-    Speed: 10
+    Speed: 1
     Power: 10
     LifeTime: 100
     Range: 0
     ChargeTime: 0
-  BulletPrefab: {fileID: 114829294343474376, guid: 63ba409be5e53004cac08c7bec256551,
+  BulletPrefab: {fileID: 114385723476110262, guid: 427337b2cce5d974bb021ae99e7854b9,
     type: 2}
   LaserPrefab: {fileID: 0}
