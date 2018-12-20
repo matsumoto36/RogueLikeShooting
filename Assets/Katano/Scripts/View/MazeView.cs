@@ -39,6 +39,11 @@ namespace RogueLike.Katano.View
 			Maze = maze;
 			Rooms = rooms;
 			Aisles = aisles;
+
+			foreach (var room in rooms.Values)
+			{
+				room.transform.SetParent(transform);
+			}
 		}
 
 		/// <summary>

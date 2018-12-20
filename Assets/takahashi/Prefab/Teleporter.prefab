@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4286026232385104}
+  - component: {fileID: 136857378467094598}
   m_Layer: 0
   m_Name: Teleporter
   m_TagString: Untagged
@@ -69,7 +70,6 @@ GameObject:
   - component: {fileID: 4376405059159978}
   - component: {fileID: 33969806467636062}
   - component: {fileID: 23386302356114532}
-  - component: {fileID: 136026701406493424}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432027436233996}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.07, z: 0}
   m_LocalScale: {x: 0.12, y: 0.122, z: 0.125}
   m_Children: []
   m_Father: {fileID: 4286026232385104}
@@ -147,7 +147,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eac43207cf6caa94db85808b3429ae0b, type: 2}
+  - {fileID: 2100000, guid: 4711a648533e0f4498dad08df3a1c489, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174,19 +174,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456865323589912}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &136026701406493424
+--- !u!136 &136857378467094598
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1456865323589912}
+  m_GameObject: {fileID: 1102173503407970}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.8
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198209376925880596
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1433,9 +1433,9 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 10023
-        atime2: 26985
-        atime3: 0
+        atime1: 16191
+        atime2: 25058
+        atime3: 23130
         atime4: 0
         atime5: 0
         atime6: 0

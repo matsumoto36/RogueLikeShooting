@@ -52,7 +52,8 @@ namespace RogueLike.Nishiwaki.Item
 
         public static WeaponRanged Create(WeaponRangedAsset asset, Transform transform)
         {
-            var obj = Instantiate(asset.WeaponRangedPrefab, transform.position, transform.rotation);
+            var prefab = asset.WeaponRangedPrefab;
+            var obj = Instantiate(prefab, transform.position, prefab.transform.rotation);
             WeaponRanged weapon;
             switch (asset)
             {
