@@ -3,24 +3,12 @@ guid: ed31ff6689c7adc44b84bcf7f43e7686
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: Pyramid003
-    100006: Pyramid004
-    400000: Box001
-    400002: //RootNode
-    400004: Pyramid003
-    400006: Pyramid004
+    100000: //RootNode
+    400000: //RootNode
     2100000: No Name
-    2300000: Box001
-    2300002: Pyramid003
-    2300004: Pyramid004
-    3300000: Box001
-    3300002: Pyramid003
-    3300004: Pyramid004
-    4300000: Pyramid003
-    4300002: Pyramid004
-    4300004: Box001
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Model2
   externalObjects: {}
   materials:
     importMaterials: 1
