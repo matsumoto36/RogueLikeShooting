@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
+using RogueLike.Chikazawa.InputEventProvider;
+using RogueLike.Katano.Managers;
 using RogueLike.Katano.Model;
 using RogueLike.Katano.View.Player;
 using RogueLike.Matsumoto;
 using UniRx;
 using Unity.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueLike.Katano.View.RoomComponents
 {
@@ -20,20 +23,31 @@ namespace RogueLike.Katano.View.RoomComponents
 		private GameObject _spawnersParent;
 		private CharacterSpawner[] _spawners;
 		
-		[SerializeField]
-		private PlayerBindData _bindData;
+		/// <summary>
+		/// キーバインドデータ
+		/// </summary>
+		public PlayerBindData BindData;
 		
-		[SerializeField]
-		private GamePlayers _gamePlayers;
+		/// <summary>
+		/// ゲームプレイヤー
+		/// </summary>
+		public GamePlayers GamePlayers;
 
+		private Transform _parent;
+
+		private MainGameManager _mainGameManager;
+		
 		private void Awake()
 		{
+			_parent = transform;
+			_mainGameManager = FindObjectOfType<MainGameManager>();
+			
+			
 			var prefab = Resources.Load<GameObject>("PlayerSpawners");
 			_spawnersParent = Instantiate(prefab, transform);
 			_spawners = _spawnersParent
 				.Children()
 				.OfComponent<CharacterSpawner>()
-				.Where(x => x.gameObject.activeSelf)
 				.ToArray();
 		}
 		
@@ -42,30 +56,53 @@ namespace RogueLike.Katano.View.RoomComponents
 		{
 			var list = new List<PlayerCore>();
 
-			for (var i = 0; i < _bindData.PlayerEntries.Count; i++)
+			for (var i = 0; i < BindData.PlayerEntries.Count; i++)
 			{
-				var entry = _bindData.PlayerEntries[i];
+				var entry = BindData.PlayerEntries[i];
 				if (entry == ControllerIndex.Invalid)
 					break;
 
 				var player = (PlayerCore) _spawners[i].Spawn();
-				player.gameObject.AddComponent<PlayerStateChanger>();
 				
-				PlayerSetup(player);
+				PlayerSetup(player, entry);
 				
 				list.Add(player);
 			}
 
-			_gamePlayers.Register(list.ToArray());
+			GamePlayers.Register(list.ToArray());
 		}
 
 		/// <summary>
 		/// プレイヤーの初期設定
 		/// </summary>
 		/// <param name="player"></param>
-		private void PlayerSetup(PlayerCore player)
+		/// <param name="index"></param>
+		private void PlayerSetup(PlayerCore player, ControllerIndex index)
 		{
-			player.transform.SetParent(transform);
+			player.transform.SetParent(_parent);
+			player.gameObject.AddComponent<PlayerStateChanger>();
+			player.MainGameManager = _mainGameManager;
+			
+			switch (index)
+			{
+				// コントローラー入力
+				case ControllerIndex.One:
+				case ControllerIndex.Two:
+				case ControllerIndex.Three:
+				case ControllerIndex.Four:
+				{
+					player.InputEventProvider = new InputController((int) index.ToGamePadIndex());
+					break;
+				}
+				// キーボード入力
+				case ControllerIndex.Keyboard:
+				{
+					player.InputEventProvider = new InputKeyBoard();
+					break;
+				}
+				default:
+					throw new ArgumentOutOfRangeException(nameof(index), index, null);
+			}
 		}
 	}
 }

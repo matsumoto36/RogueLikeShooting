@@ -70,7 +70,7 @@ namespace RogueLike.Katano.Managers
 
 			_mainEventBroker
 				.Receive<MazeSignal.MazeCleared>()
-				.Subscribe(_ => GameClearCoroutine().Forget())
+				.Subscribe(_ => GameClearCoroutine())
 				.AddTo(this);
 		}
 
@@ -78,7 +78,7 @@ namespace RogueLike.Katano.Managers
 		/// ゲームクリアコルーチン
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid GameClearCoroutine()
+		private void GameClearCoroutine()
 		{
 			ResultData.Score = 100;
 			ResultData.ClearTime = 100;
@@ -128,10 +128,10 @@ namespace RogueLike.Katano.Managers
 		/// <returns></returns>
 		private async UniTaskVoid GameFinalizeCoroutine()
 		{
-			const int roof = 10;
+			const int Roof = 10;
 
 			// フロア数がクリア階層以上になったら
-			if (_currentFloor == roof)
+			if (_currentFloor == Roof)
 			{
 				// ゲームクリア
 				_mainEventBroker.Publish(new MazeSignal.MazeCleared());
@@ -149,7 +149,24 @@ namespace RogueLike.Katano.Managers
 			GamePrepareCoroutine().Forget();
 		}
 
+		/// <summary>
+		/// イベントを発行
+		/// </summary>
+		/// <param name="value"></param>
+		/// <typeparam name="T"></typeparam>
+		public void EventPublish<T>(T value)
+		{
+			_mainEventBroker.Publish(value);
+		}
+
+		public IObservable<T> EventReceive<T>()
+		{
+			return _mainEventBroker.Receive<T>();
+		}
 		
+		/// <summary>
+		/// フロア終了
+		/// </summary>
 		public void FloorEnded()
 		{
 			Log("FloorEnd signal published!");

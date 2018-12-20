@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4849138166373720}
-  - component: {fileID: 135483462692900092}
+  - component: {fileID: 136682578612860502}
   - component: {fileID: 54725701476688090}
   m_Layer: 9
   m_Name: Player
@@ -30,7 +30,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1364224742241240
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4575506833655546}
   - component: {fileID: 33487064773983228}
   - component: {fileID: 23019787198707754}
+  - component: {fileID: 114410077276970050}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 4405869302883134}
   - component: {fileID: 33347207499448218}
   - component: {fileID: 23103381046669722}
+  - component: {fileID: 114856055169366076}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -71,7 +73,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4575506833655546}
   m_Father: {fileID: 4849138166373720}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,12 +84,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364224742241240}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.41}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
-  m_Father: {fileID: 4849138166373720}
-  m_RootOrder: 1
+  m_Father: {fileID: 4405869302883134}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4849138166373720
 Transform:
@@ -99,7 +102,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4405869302883134}
-  - {fileID: 4575506833655546}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -118,7 +120,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3b540bfedff5534408a7cbba32878a15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,7 +155,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3b540bfedff5534408a7cbba32878a15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -200,10 +202,40 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!135 &135483462692900092
-SphereCollider:
+  m_Constraints: 80
+  m_CollisionDetection: 1
+--- !u!114 &114410077276970050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364224742241240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf70a7d4d9d00645b6bb1a69abbeef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj_name: Sphere
+  m_obj: {fileID: 0}
+--- !u!114 &114856055169366076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663884893419386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569c885c7444ad84dabb4807c5fb2994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  h_max: -1.1
+  h_min: 0
+  speed: 0.01
+  objy: 0.001
+  c_emistion: {r: 1, g: 0, b: 0, a: 0}
+  b: 1
+--- !u!136 &136682578612860502
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -211,6 +243,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}

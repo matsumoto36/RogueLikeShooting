@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace RogueLike.Chikazawa.InputEventProvider
     /// <summary>
     /// 入力の検知処理
     /// </summary>
+    [Serializable]
     public abstract class PlayerInputProvider : IInputEventProvider
     {
         /// <summary>

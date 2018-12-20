@@ -1,32 +1,66 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using RogueLike.Katano.View.Player;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 
-namespace RogueLike.Matsumoto.Character {
+namespace RogueLike.Matsumoto.Character
+{
+	public class PlayerMove : BasePlayerComponent
+	{
+		private Transform _playerTransform;
 
-	[RequireComponent(typeof(PlayerCore))]
-	public class PlayerMove : MonoBehaviour {
+		public override void OnStart()
+		{
+			_playerTransform = Player.transform;
 
-		void Start() {
-
-			GetComponent<PlayerCore>().PlayerUpdate
-				.Where(player => player.InputEventProvider != null)
-				.Subscribe(player => {
-
-					var input = player.InputEventProvider;
-
-					//武器切り替え時は移動キャンセル
-					if (player.ChangeTargetWeapon != null) return;
-
-					//移動(武器依存で移動したい)
-					transform.position += 5 * input.GetMoveVector() * Time.deltaTime;
-
-					//向きの変更
-					transform.rotation = Quaternion.LookRotation(input.GetPleyerDirection(transform.position) - transform.position);
-				})
+			this.UpdateAsObservable()
+				.Where(_ => !Player.IsFreeze.Value)
+				//武器切り替え時は移動キャンセル
+				.Where(_ => Player.ChangeTargetWeapon == null)
+				.Subscribe(_ => Move())
 				.AddTo(this);
+
+//			Player.PlayerUpdate
+//				.Where(player => player.InputEventProvider != null)
+//				//武器切り替え時は移動キャンセル
+//				.Where(player => player.ChangeTargetWeapon == null)
+//				.Subscribe(player =>
+//				{
+//					var inputProvider = player.InputEventProvider;
+//					
+//					var position = _playerTransform.position;
+//
+//					// TODO: weight is Depends on weapons
+//					const float weight = 5;
+//					var deltaSpeed = weight * Time.deltaTime;
+//					position += inputProvider.GetMoveVector() * deltaSpeed;
+//
+//					// 向きの変更
+//					var direction = inputProvider.GetPleyerDirection(position) - position;
+//
+//					_playerTransform.position = position;
+//					_playerTransform.rotation = Quaternion.LookRotation(direction);
+//				})
+//				.AddTo(this);
+		}
+
+		private void Move()
+		{
+			// TODO: weight is Depends on weapons
+			const float weight = 5;
+			
+			var inputProvider = Player.InputEventProvider;
+			var position = _playerTransform.position;
+
+			
+			var deltaSpeed = weight * Time.deltaTime;
+			position += inputProvider.GetMoveVector() * deltaSpeed;
+
+			// 向きの変更
+			var direction = inputProvider.GetPleyerDirection(position) - position;
+
+			_playerTransform.position = position;
+			_playerTransform.rotation = Quaternion.LookRotation(direction);
 		}
 	}
 }

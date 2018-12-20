@@ -8,6 +8,7 @@ using RogueLike.Katano.View.Player;
 using RogueLike.Matsumoto;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueLike.Katano
 {
@@ -18,8 +19,7 @@ namespace RogueLike.Katano
 	{
 		private const float TweenDuration = 2f;
 		
-		[SerializeField]
-		private GamePlayers _gamePlayers;
+		public GamePlayers GamePlayers;
 
 		/// <summary>
 		/// ゲームカメラ
@@ -57,25 +57,25 @@ namespace RogueLike.Katano
 		private async UniTask OnTransportInternal(TransporterView transporter)
 		{
 			var destination = transporter.transform.position;
-			var playerStateChangers = _gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToArray();
+			var playerStateChangers = GamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToArray();
 			
 			// プレイヤーの入力を停止
-			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
+			foreach(var player in GamePlayers.PlayerList) player.SetFreezeMode(true);
 			
 			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Photosphere)));
 			
-			var transportAsyncs = _gamePlayers.PlayerList
+			var transportAsyncEnumerable = GamePlayers.PlayerList
 				.Select(player => DoMovePlayer(player, destination, TweenDuration))
 				.Append(_gameCamera.MoveAsync(transporter.Owner));
 
-			await UniTask.WhenAll(transportAsyncs);
+			await UniTask.WhenAll(transportAsyncEnumerable);
 			
 			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Neutral)));
 			
 			// プレイヤーの入力を再開
-			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
+			foreach (var player in GamePlayers.PlayerList) player.SetFreezeMode(false);
 
-			transporter.Owner.Enter(_gamePlayers.PlayerList);
+			transporter.Owner.Enter(GamePlayers.PlayerList);
 		}
 
 		private UniTask DoMovePlayer(PlayerCore player, Vector3 endValue, float duration)
