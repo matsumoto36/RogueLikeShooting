@@ -241,8 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02445702cee04daf959fd417ad95a3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
-  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
+  GamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
 --- !u!114 &114795320667980664
 MonoBehaviour:
   m_ObjectHideFlags: 1

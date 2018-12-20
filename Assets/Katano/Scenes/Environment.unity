@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 104625950}
   - component: {fileID: 104625953}
   m_Layer: 0
-  m_Name: MainGameManager
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3463101bbac4dcab5c1e0bb2312d53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResultData: {fileID: 0}
+  ResultData: {fileID: 11400000, guid: cfa278ba456b5c447a4c480d08513e2c, type: 2}
   GameSettings: {fileID: 11400000, guid: da112ff734cd14847bb94a7235e7f8a8, type: 2}
   FloorManager: {fileID: 104625950}
   UIManager: {fileID: 104625953}
@@ -301,7 +301,7 @@ Prefab:
     - target: {fileID: 224095957423870768, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224095957423870768, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 2}
@@ -341,7 +341,7 @@ Prefab:
     - target: {fileID: 224095957423870768, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224095957423870768, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 2}
@@ -728,7 +728,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1119613762
 Prefab:
@@ -1163,7 +1163,7 @@ RectTransform:
   - {fileID: 1934989631}
   - {fileID: 1236347006}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

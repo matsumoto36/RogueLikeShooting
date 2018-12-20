@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RogueLike.Chikazawa;
 using UnityEngine;
 using RogueLike.Matsumoto.Character;
 using RogueLike.Matsumoto.Character.Asset;
@@ -9,6 +10,9 @@ namespace RogueLike.Matsumoto {
 	public class CharacterSpawner : MonoBehaviour {
 
 		[SerializeField] CharacterAsset CharacterAsset;
+
+		[SerializeField]
+		private PlayerBindData BindData;
 
 		public bool SpawnOnAwake;
 		public bool PlayerIDOverride;
@@ -23,7 +27,7 @@ namespace RogueLike.Matsumoto {
 						asset.ID = OverrideID;
 
 					var player = CharacterCore.Create<PlayerCore>(asset, transform);
-
+					
 					asset.ID = id;
 
 					return player;
