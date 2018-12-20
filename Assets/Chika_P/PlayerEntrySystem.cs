@@ -51,7 +51,7 @@ namespace RogueLike.Chikazawa
 				if (token.IsCancellationRequested) return false;
 				
 				OnInputKeyboard();
-				OnInputGamepad();
+				OnInputGamePad();
 
 				var index = _controllerIndices[0];
 				switch (index)
@@ -134,7 +134,7 @@ namespace RogueLike.Chikazawa
 				.Skip(1)
 				.ToArray();
 
-		private void OnInputGamepad()
+		private void OnInputGamePad()
 		{
 			foreach (var padIndex in PadIndices)
 			{
