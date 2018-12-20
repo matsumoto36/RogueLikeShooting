@@ -60,20 +60,20 @@ namespace RogueLike.Katano
 			var playerStateChangers = _gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToArray();
 			
 			// プレイヤーの入力を停止
-			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = true;
+			foreach(var player in _gamePlayers.PlayerList) player.SetFreezeMode(true);
 			
 			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Photosphere)));
 			
-			var transportAsyncs = _gamePlayers.PlayerList
+			var transportAsyncEnumerable = _gamePlayers.PlayerList
 				.Select(player => DoMovePlayer(player, destination, TweenDuration))
 				.Append(_gameCamera.MoveAsync(transporter.Owner));
 
-			await UniTask.WhenAll(transportAsyncs);
+			await UniTask.WhenAll(transportAsyncEnumerable);
 			
 			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Neutral)));
 			
 			// プレイヤーの入力を再開
-			foreach(var player in _gamePlayers.PlayerList) player.IsFreeze = false;
+			foreach (var player in _gamePlayers.PlayerList) player.SetFreezeMode(false);
 
 			transporter.Owner.Enter(_gamePlayers.PlayerList);
 		}

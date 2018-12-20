@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RogueLike.Chikazawa;
 using RogueLike.Chikazawa.InputEventProvider;
@@ -19,7 +20,14 @@ namespace RogueLike.Matsumoto
 	/// </summary>
 	public class PlayerCore : CharacterCore
 	{
+		/// <summary>
+		/// 武器切り替え許容範囲
+		/// </summary>
 		private const float EquipWeaponRange = 5;
+		
+		/// <summary>
+		/// 武器を切り替える所要時間
+		/// </summary>
 		private const float ChangeWeaponWait = 3;
 		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
 
@@ -27,14 +35,21 @@ namespace RogueLike.Matsumoto
 		private bool _canChangeWeapon = true;
 		private float _changeWeaponTime;
 
-		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
+//		[NonSerialized]
+//		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
 
 		public IWeapon ChangeTargetWeapon { get; private set; }
 
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; set; }
-		public bool IsFreeze { get; set; }
+		// public bool IsFreeze { get; set; }
 
+		private readonly BoolReactiveProperty _isFreeze = new BoolReactiveProperty();
+		/// <summary>
+		/// 凍結中
+		/// </summary>
+		public IReadOnlyReactiveProperty<bool> IsFreeze => _isFreeze;
+		
 		/// <summary>
 		/// メインゲームマネージャ
 		/// </summary>
@@ -98,15 +113,14 @@ namespace RogueLike.Matsumoto
 		{
 			base.Start();
 
+			// デバッグ用
 			if (InputEventProvider == null)
 				InputEventProvider = new InputKeyBoard();
 
 			this.UpdateAsObservable()
-				.Where(_ => !IsFreeze)
+				.Where(_ => !IsFreeze.Value)
 				.Subscribe(_ =>
 				{
-					PlayerUpdate.OnNext(this);
-
 					//武器チェンジの更新
 					WeaponChangeUpdate();
 				})
@@ -116,7 +130,7 @@ namespace RogueLike.Matsumoto
 		/// <summary>
 		///     武器チェンジのボタン処理を行う
 		/// </summary>
-		public void WeaponChangeUpdate()
+		private void WeaponChangeUpdate()
 		{
 			void Reset(bool canChange)
 			{
@@ -157,6 +171,11 @@ namespace RogueLike.Matsumoto
 		{
 			return Players
 				.Find(item => item.ID == id);
+		}
+
+		public void SetFreezeMode(bool isFreeze)
+		{
+			_isFreeze.Value = isFreeze;
 		}
 
 
