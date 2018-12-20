@@ -16,4 +16,4 @@ MonoBehaviour:
   WeaponRangedPrefab: {fileID: 1839111987907696, guid: d784604df766402478969c9c8e0c74d3,
     type: 2}
   BulletAsset: {fileID: 11400000, guid: 7c5d583755b166544be9db28eaeff099, type: 2}
-  WaitTime: 0.01
+  WaitTime: 0.25

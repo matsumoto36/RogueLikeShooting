@@ -52,7 +52,8 @@ namespace RogueLike.Katano.View.RoomComponents
 					.Subscribe(_ =>
 					{
 						RaiseTransporter();
-					});
+					})
+					.AddTo(this);
 			}
 			
 			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
@@ -66,7 +67,8 @@ namespace RogueLike.Katano.View.RoomComponents
 					.Subscribe(_ =>
 					{
 						RaiseTransporter();
-					});
+					})
+					.AddTo(this);
 			}
 
 			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(() => InitTransporters()).Forget();
