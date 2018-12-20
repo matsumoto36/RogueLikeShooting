@@ -16,10 +16,7 @@ namespace RogueLike.Katano.View.Player
 
 			OnStart();
 		}
-		
-		/// <summary>
-		/// 初期化
-		/// </summary>
+
 		// public abstract void OnInitialize();
 		
 		/// <summary>

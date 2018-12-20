@@ -7,7 +7,7 @@ namespace RogueLike.Katano.View.Player
 	/// <summary>
 	/// プレイヤー状態変化クラス
 	/// </summary>
-	public class PlayerStateChanger : MonoBehaviour
+	public class PlayerStateChanger : BasePlayerComponent
 	{
 		private readonly ReactiveProperty<PlayerState> _playerState = new ReactiveProperty<PlayerState>();
 		public IReadOnlyReactiveProperty<PlayerState> PlayerState => _playerState;
@@ -20,7 +20,5 @@ namespace RogueLike.Katano.View.Player
 			
 			return UniTask.CompletedTask;
 		}
-
-		
 	}
 }
