@@ -1,23 +1,14 @@
 fileFormatVersion: 2
-guid: a010ea12ab4797e4287374cdf6016e3e
+guid: f7d657410f03fc342865cb8fa2c566b8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Stairs_0
-    100004: Stairs_1
     400000: //RootNode
-    400002: Stairs_0
-    400004: Stairs_1
-    2100000: Default_Prototype
-    2100002: Stairs_0Mat
-    2100004: Stairs_1Mat
-    2300000: Stairs_0
-    2300002: Stairs_1
-    3300000: Stairs_0
-    3300002: Stairs_1
-    4300000: Stairs_0
-    4300002: Stairs_1
+    2100000: No Name
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cone001
   externalObjects: {}
   materials:
     importMaterials: 1
