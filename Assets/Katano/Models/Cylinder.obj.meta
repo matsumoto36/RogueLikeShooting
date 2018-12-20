@@ -10,6 +10,8 @@ ModelImporter:
     400002: Cylinder_0
     400004: Cylinder_1
     2100000: Default_Prototype
+    2100002: Cylinder_0Mat
+    2100004: Cylinder_1Mat
     2300000: Cylinder_0
     2300002: Cylinder_1
     3300000: Cylinder_0

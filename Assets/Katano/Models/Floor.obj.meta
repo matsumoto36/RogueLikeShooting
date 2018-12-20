@@ -10,6 +10,7 @@ ModelImporter:
     400002: //RootNode
     400004: Walls
     2100000: Default_Prototype
+    2100002: FloorMat
     2300000: Floor
     2300002: Walls
     3300000: Floor
