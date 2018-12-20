@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1536559285962838}
+  m_IsPrefabAsset: 1
+--- !u!1 &1536559285962838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4203640905186498}
+  - component: {fileID: 114099861065427628}
+  - component: {fileID: 114831747544787968}
+  - component: {fileID: 114464624530911902}
+  - component: {fileID: 114270906391728124}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4203640905186498
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536559285962838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114099861065427628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536559285962838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3463101bbac4dcab5c1e0bb2312d53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResultData: {fileID: 11400000, guid: cfa278ba456b5c447a4c480d08513e2c, type: 2}
+  GameSettings: {fileID: 11400000, guid: da112ff734cd14847bb94a7235e7f8a8, type: 2}
+  FloorManager: {fileID: 114831747544787968}
+  UIManager: {fileID: 114464624530911902}
+--- !u!114 &114270906391728124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536559285962838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0857e92161c249cfbddc5c296ec61932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+--- !u!114 &114464624530911902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536559285962838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e472274b6bd48f0a86339c4a6a1b8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InfoScreenView: {fileID: 0}
+--- !u!114 &114831747544787968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536559285962838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed20137712ba4e25b42961d9a21f7153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mazeDataAsset: {fileID: 11400000, guid: b663afe4db547e9468bee2a70c4c3d3c, type: 2}
+  _floorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}
+  _transportSystem: {fileID: 0}

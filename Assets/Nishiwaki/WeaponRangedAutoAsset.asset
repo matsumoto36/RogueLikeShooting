@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: WeaponRangedAutoAsset
   m_EditorClassIdentifier: 
   WeaponRangedParameter:
-    WaitTime: 1
+    WaitTime: 0.25
   WeaponRangedPrefab: {fileID: 1556979509234130, guid: bbc31643825b247489f7feff41a7afbc,
     type: 2}
   BulletAsset: {fileID: 11400000, guid: 7c5d583755b166544be9db28eaeff099, type: 2}
-  WaitTime: 0.01
+  WaitTime: 0.25

@@ -20,6 +20,6 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _node_4159: 20
+    - _node_4159: 2
     m_Colors:
     - _node_9639: {r: 1, g: 0, b: 0, a: 1}

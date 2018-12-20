@@ -20,6 +20,8 @@ namespace RogueLike.Katano.View
 		
 		[SerializeField]
 		private GamePlayers _gamePlayers;
+
+		public ParticleSystem ParticleSystem;
 		
 		public RoomView Owner { get; private set; }
 		public TransporterView CounterSide { get; private set; }
