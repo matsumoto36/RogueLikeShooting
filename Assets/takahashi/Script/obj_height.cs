@@ -35,17 +35,29 @@ public class obj_height : MonoBehaviour {
 
     }
 
+    public void Show()
+    {
+        key = true;
+        i = 1;
+    }
+
+    public void Hide()
+    {
+        key = true;
+        i = 2;
+    }
+
     void SpawnManager()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            key = true; i = 1; Debug.Log("a");
-        };
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            key = true; i = 2; Debug.Log("ab");
-        };
 
+//        if (Input.GetKey(KeyCode.UpArrow))
+//        {
+//            key = true; i = 1; Debug.Log("a");
+//        };
+//        if (Input.GetKey(KeyCode.DownArrow))
+//        {
+//            key = true; i = 2; Debug.Log("ab");
+//        };
         if (key == true)
         {
             if (i == 1)

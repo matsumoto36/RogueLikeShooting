@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
-  BindData: {fileID: 0}
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 1
   OverrideID: 3
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
-  BindData: {fileID: 0}
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 1
   OverrideID: 1
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
-  BindData: {fileID: 0}
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 1
   OverrideID: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
-  BindData: {fileID: 0}
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
   SpawnOnAwake: 0
   PlayerIDOverride: 1
   OverrideID: 2

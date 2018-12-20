@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _node_7017:
-        m_Texture: {fileID: 2800000, guid: 2ae9b381e6ec6064db6a3327cb292e46, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d007f53c669b854ba26d5aa982bd759, type: 3}
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _node_8777:

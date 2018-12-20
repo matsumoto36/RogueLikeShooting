@@ -110,7 +110,7 @@ namespace RogueLike.Chikazawa
 					
 					_controllerIndices[slot] = ControllerIndex.Keyboard;
 
-					PlayerObjects[slot].SetActive(true);
+					SetActive(slot, true);
 				}
 			}
 
@@ -123,7 +123,7 @@ namespace RogueLike.Chikazawa
 				_controllerIndices[slot] = ControllerIndex.Invalid;
 				
 				//操作オブジェクトを非表示
-				PlayerObjects[slot].SetActive(false);
+				SetActive(slot, false);
 				
 			}
 		}
@@ -147,7 +147,7 @@ namespace RogueLike.Chikazawa
 					
 						_controllerIndices[slot] = padIndex.ToControllerIndex();
 
-						PlayerObjects[slot].SetActive(true);
+						SetActive(slot, true);
 					}
 				}
 
@@ -160,8 +160,20 @@ namespace RogueLike.Chikazawa
 					_controllerIndices[slot] = ControllerIndex.Invalid;
 				
 					//操作オブジェクトを非表示
-					PlayerObjects[slot].SetActive(false);
+					SetActive(slot, false);
 				}
+			}
+		}
+
+		public void SetActive(int slot, bool isActive)
+		{
+			if (isActive)
+			{
+				PlayerObjects[slot].GetComponentInChildren<obj_height>().Show();
+			}
+			else
+			{
+				PlayerObjects[slot].GetComponentInChildren<obj_height>().Hide();
 			}
 		}
 
