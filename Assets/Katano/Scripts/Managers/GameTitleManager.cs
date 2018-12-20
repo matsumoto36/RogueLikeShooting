@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using GamepadInput;
 using RogueLike.Chikazawa;
+using RogueLike.Katano.Managers;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
@@ -20,6 +21,11 @@ namespace RogueLike.Katano
 		/// ゲーム設定
 		/// </summary>
 		public GameSettings GameSettings;
+
+		/// <summary>
+		/// UIマネージャ
+		/// </summary>
+		public GameTitleUIManager UIManager;
 		
 		/// <summary>
 		/// エントリーシステム
@@ -74,6 +80,10 @@ namespace RogueLike.Katano
 		/// <returns></returns>
 		private async UniTaskVoid TitleCoroutine()
 		{
+			await UIManager.TitleFadeInAsync(_token);
+			
+			if (_token.IsCancellationRequested) return;
+			
 			await UniTask.WaitUntil(
 				() => Input.GetKeyDown(KeyCode.Space) || 
 				      GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any), 
@@ -83,7 +93,7 @@ namespace RogueLike.Katano
 			
 			Log("Press Button");
 
-			await UniTask.Delay(200, cancellationToken: _token);
+			await UIManager.TitleFadeOutAsync(_token);
 			
 			if (_token.IsCancellationRequested) return;
 

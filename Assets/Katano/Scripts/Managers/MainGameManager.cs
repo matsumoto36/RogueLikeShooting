@@ -70,7 +70,7 @@ namespace RogueLike.Katano.Managers
 
 			_mainEventBroker
 				.Receive<MazeSignal.MazeCleared>()
-				.Subscribe(_ => GameClearCoroutine().Forget())
+				.Subscribe(_ => GameClearCoroutine())
 				.AddTo(this);
 		}
 
@@ -78,7 +78,7 @@ namespace RogueLike.Katano.Managers
 		/// ゲームクリアコルーチン
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid GameClearCoroutine()
+		private void GameClearCoroutine()
 		{
 			ResultData.Score = 100;
 			ResultData.ClearTime = 100;
