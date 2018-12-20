@@ -17,6 +17,7 @@ namespace RogueLike.Nishiwaki.Bullet
 
         void Start()
         {
+            gameObject.GetComponent<vfx_bullet>().muzzle();
         }
 
         void Update()
@@ -48,7 +49,7 @@ namespace RogueLike.Nishiwaki.Bullet
                 // nullの部分は攻撃者
                 character.ApplyDamage(
                     new Matsumoto.Attack.CharacterAttacker(weaponRanged.characterCore), (int)BulletPara.Power);
-                Destroy(gameObject);
+                gameObject.GetComponent<vfx_bullet>().damage();
             }
         }
     }
