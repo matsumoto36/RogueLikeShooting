@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	public static class MazeExtensions
 	{

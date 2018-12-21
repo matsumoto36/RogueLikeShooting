@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueLike.Matsumoto.Character.Asset {
+namespace DDD.Matsumoto.Character.Asset {
 
 	public class CharacterAsset : ScriptableObject {
 

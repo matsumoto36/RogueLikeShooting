@@ -2,7 +2,7 @@ using UniRx;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.Player
+namespace DDD.Katano.View.Player
 {
 	/// <summary>
 	/// プレイヤー状態変化クラス

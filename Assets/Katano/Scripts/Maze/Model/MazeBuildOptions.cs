@@ -1,4 +1,4 @@
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	///     生成オプション

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Matsumoto.Audio {
+namespace DDD.Matsumoto.Audio {
 
 	/// <summary>
 	/// 再生されるSEの音量の制御を行う

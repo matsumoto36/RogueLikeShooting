@@ -4,7 +4,7 @@ using System.Linq;
 using Reqweldzen.Extensions;
 using UnityEngine;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	///     迷路ビルダー

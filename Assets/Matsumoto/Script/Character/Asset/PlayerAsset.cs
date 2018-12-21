@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueLike.Matsumoto.Character.Asset {
+namespace DDD.Matsumoto.Character.Asset {
 
 	[CreateAssetMenu(fileName = "NewPlayerAsset", menuName = "Character/Create Player Asset")]
 	public class PlayerAsset : CharacterAsset {

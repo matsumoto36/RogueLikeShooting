@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
+using DDD.Chikazawa;
+using DDD.Katano.Model;
+using DDD.Takahashi;
 using GamepadInput;
-using RogueLike.Chikazawa;
-using RogueLike.Katano.Model;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	/// <summary>
 	/// リザルトシーンマネージャ
@@ -47,7 +48,7 @@ namespace RogueLike.Katano.Managers
 			if (!ResultData.IsClear)
 			foreach (var player in PlayerObjects.Where(x => x.gameObject.activeSelf))
 			{
-				player.GetComponentInChildren<obj_height>().Hide();
+				player.GetComponentInChildren<DissolveShaderControl>().Hide();
 			}
 			
 			await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Return) ||
@@ -55,7 +56,7 @@ namespace RogueLike.Katano.Managers
 
 			foreach (var player in PlayerObjects)
 			{
-				player.GetComponentInChildren<obj_height>().Hide();
+				player.GetComponentInChildren<DissolveShaderControl>().Hide();
 			}
 			
 			await UIManager.ScreenFadeOut();

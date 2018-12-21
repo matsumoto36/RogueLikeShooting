@@ -1,4 +1,4 @@
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	public static class MazeSignal
 	{

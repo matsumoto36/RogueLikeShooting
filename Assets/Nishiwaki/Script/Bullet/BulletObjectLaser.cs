@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RogueLike.Nishiwaki.Item;
+using DDD.Nishiwaki.Item;
 
-namespace RogueLike.Nishiwaki.Bullet
+namespace DDD.Nishiwaki.Bullet
 {
     public class BulletObjectLaser : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Matsumoto.Character;
 using UnityEngine;
 using UniRx;
-using RogueLike.Matsumoto.Character;
 
-namespace RogueLike.Matsumoto.Attack {
+namespace DDD.Matsumoto.Attack {
 
 	/// <summary>
 	/// キャラクターが攻撃したときに発生する情報

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using DDD.Takahashi;
 using GamepadInput;
-using RogueLike.Katano;
+using DDD.Katano;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RogueLike.Chikazawa
+namespace DDD.Chikazawa
 {
     /// <summary>
     ///     エントリーシステム
@@ -169,11 +170,11 @@ namespace RogueLike.Chikazawa
 		{
 			if (isActive)
 			{
-				PlayerObjects[slot].GetComponentInChildren<obj_height>().Show();
+				PlayerObjects[slot].GetComponentInChildren<DissolveShaderControl>().Show();
 			}
 			else
 			{
-				PlayerObjects[slot].GetComponentInChildren<obj_height>().Hide();
+				PlayerObjects[slot].GetComponentInChildren<DissolveShaderControl>().Hide();
 			}
 		}
 

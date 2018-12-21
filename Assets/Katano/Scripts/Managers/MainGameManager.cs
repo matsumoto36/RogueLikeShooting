@@ -1,12 +1,12 @@
 using System;
-using RogueLike.Katano.Model;
+using DDD.Katano.Model;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	/// <summary>
 	/// ゲームシーンマネージャ

@@ -1,14 +1,14 @@
 using System;
 using System.Threading;
+using DDD.Chikazawa;
+using DDD.Katano.Managers;
 using GamepadInput;
-using RogueLike.Chikazawa;
-using RogueLike.Katano.Managers;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	/// <summary>
 	///     ゲームエントリーマネージャ

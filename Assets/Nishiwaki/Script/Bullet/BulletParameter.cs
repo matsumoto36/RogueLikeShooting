@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Nishiwaki.Bullet
+namespace DDD.Nishiwaki.Bullet
 {
     [System.Serializable]
 

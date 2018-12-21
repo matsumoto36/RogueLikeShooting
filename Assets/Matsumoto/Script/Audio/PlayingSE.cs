@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace RogueLike.Matsumoto.Audio {
+namespace DDD.Matsumoto.Audio {
 
 	/// <summary>
 	/// SEに取り付けられている制御用クラス

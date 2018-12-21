@@ -1,12 +1,12 @@
 using System.Linq;
-using RogueLike.Katano.Maze;
-using RogueLike.Katano.Model;
-using RogueLike.Katano.View;
+using DDD.Katano.Maze;
+using DDD.Katano.Model;
+using DDD.Katano.View;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	/// <summary>
 	/// 階層マネージャ

@@ -1,4 +1,4 @@
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	/// 座標構造体

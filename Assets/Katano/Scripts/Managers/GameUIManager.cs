@@ -5,7 +5,7 @@ using UniRx;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	/// <summary>
 	/// UIマネージャ

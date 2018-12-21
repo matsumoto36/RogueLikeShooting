@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace RogueLike.Matsumoto {
+namespace DDD.Matsumoto {
 	public enum CharacterType {
 		Invalid = -1,
 		Player,

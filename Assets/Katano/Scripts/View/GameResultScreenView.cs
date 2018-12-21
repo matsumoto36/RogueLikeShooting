@@ -4,7 +4,7 @@ using UniRx.Async;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	public class GameResultScreenView : MonoBehaviour
 	{

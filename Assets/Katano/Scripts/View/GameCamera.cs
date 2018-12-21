@@ -3,7 +3,7 @@ using Reqweldzen.Extensions;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// ゲームカメラ

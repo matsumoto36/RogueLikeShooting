@@ -2,9 +2,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using RogueLike.Matsumoto.UI;
+using DDD.Matsumoto.UI;
 
-namespace RogueLike.Matsumoto.Managers {
+namespace DDD.Matsumoto.Managers {
 
 	public class UIManager : SingletonMonoBehaviour<UIManager> {
 

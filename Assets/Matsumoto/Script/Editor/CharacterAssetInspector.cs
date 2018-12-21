@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using RogueLike.Matsumoto.Character;
-using RogueLike.Matsumoto.Character.Asset;
+using DDD.Matsumoto.Character;
+using DDD.Matsumoto.Character.Asset;
 
 public class CharacterAssetInspector : Editor {
 

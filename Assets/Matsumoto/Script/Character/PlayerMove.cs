@@ -1,9 +1,9 @@
-﻿using RogueLike.Katano.View.Player;
+﻿using DDD.Katano.View.Player;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Matsumoto.Character
+namespace DDD.Matsumoto.Character
 {
 	public class PlayerMove : BasePlayerComponent
 	{

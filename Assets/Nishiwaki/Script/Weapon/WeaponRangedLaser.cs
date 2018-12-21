@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Nishiwaki.Bullet;
 using UnityEngine;
-using RogueLike.Nishiwaki.Bullet;
 
-namespace RogueLike.Nishiwaki.Item
+namespace DDD.Nishiwaki.Item
 {
     public class WeaponRangedLaser : WeaponRanged
     {

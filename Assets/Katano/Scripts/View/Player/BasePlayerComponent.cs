@@ -1,7 +1,7 @@
-using RogueLike.Matsumoto;
+using DDD.Matsumoto;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.Player
+namespace DDD.Katano.View.Player
 {
 	[RequireComponent(typeof(PlayerCore))]
 	public abstract class BasePlayerComponent : MonoBehaviour

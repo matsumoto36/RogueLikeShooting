@@ -1,15 +1,15 @@
 using System.Linq;
 using System.Threading;
-using RogueLike.Katano.Managers;
-using RogueLike.Katano.Model;
-using RogueLike.Matsumoto;
+using DDD.Katano.Managers;
+using DDD.Katano.Model;
+using DDD.Matsumoto;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// 階段

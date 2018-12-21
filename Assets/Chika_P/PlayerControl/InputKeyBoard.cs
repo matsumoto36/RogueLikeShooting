@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Chikazawa.InputEventProvider
+namespace DDD.Chikazawa.InputEventProvider
 {
     /// <summary>
     /// キーボード入力
