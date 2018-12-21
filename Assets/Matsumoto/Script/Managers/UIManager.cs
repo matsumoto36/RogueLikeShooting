@@ -11,6 +11,7 @@ namespace RogueLike.Matsumoto.Managers {
 		private Dictionary<string, UIBase> _UIList
 			= new Dictionary<string, UIBase>();
 
+		
 
 		public void Initialize() {
 
