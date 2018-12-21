@@ -101,6 +101,9 @@ fabric.properties
 .idea/**/vcs.xml
 .idea/**/riderModule.iml
 
+.idea/**/encodings.xml
+.idea/**/misc.xml
+
 # PopcornFX
 /Assets/Gizmos/FX.png
 /Assets/Gizmos/FX.png.meta
