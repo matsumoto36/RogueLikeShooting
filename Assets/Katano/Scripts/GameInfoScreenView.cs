@@ -20,7 +20,7 @@ namespace RogueLike.Katano
 		public void HideText()
 		{
 			Label.enabled = false;
-			Label.text = String.Empty;
+			Label.text = string.Empty;
 		}
 	}
 }

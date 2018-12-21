@@ -13,8 +13,9 @@ namespace RogueLike.Katano.Managers
 	/// </summary>
 	public class MainGameManager : MonoBehaviour
 	{
-		
-		
+		private const int Roof = 10;
+
+
 		private readonly MessageBroker _mainEventBroker = new MessageBroker();
 
 		/// <summary>
@@ -70,7 +71,7 @@ namespace RogueLike.Katano.Managers
 
 			_mainEventBroker
 				.Receive<MazeSignal.MazeCleared>()
-				.Subscribe(_ => GameClearCoroutine())
+				.Subscribe(_ => GameClearCoroutine().Forget())
 				.AddTo(this);
 		}
 
@@ -78,10 +79,14 @@ namespace RogueLike.Katano.Managers
 		/// ゲームクリアコルーチン
 		/// </summary>
 		/// <returns></returns>
-		private void GameClearCoroutine()
+		private async UniTaskVoid GameClearCoroutine()
 		{
-			ResultData.Score = 100;
-			ResultData.ClearTime = 100;
+			await UIManager.FadeOutAsync();
+			
+			FloorManager.Destruct();
+
+			ResultData.ReachedFloor = Roof;
+			ResultData.IsClear = true;
 		
 			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
 		}
@@ -95,6 +100,9 @@ namespace RogueLike.Katano.Managers
 			await UIManager.GameOverFadeOutAsync();
 			
 			FloorManager.Destruct();
+
+			ResultData.ReachedFloor = _currentFloor;
+			ResultData.IsClear = false;
 
 			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
 		}
@@ -128,8 +136,6 @@ namespace RogueLike.Katano.Managers
 		/// <returns></returns>
 		private async UniTaskVoid GameFinalizeCoroutine()
 		{
-			const int Roof = 10;
-
 			// フロア数がクリア階層以上になったら
 			if (_currentFloor == Roof)
 			{

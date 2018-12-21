@@ -17,5 +17,10 @@ namespace RogueLike.Katano
 		/// ゲームシーン設定
 		/// </summary>
 		public MainGameManager.Settings MainGameSettings;
+
+		/// <summary>
+		/// リザルトシーン設定
+		/// </summary>
+		public GameResultManager.Settings ResultSettings;
 	}
 }
