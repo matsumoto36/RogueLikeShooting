@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Chikazawa
+namespace DDD.Chikazawa
 {
     /// <summary>
     /// コントローラーの検知内容

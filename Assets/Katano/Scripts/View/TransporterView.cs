@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
-using RogueLike.Katano.Model;
-using RogueLike.Matsumoto;
+using DDD.Katano.Model;
+using DDD.Matsumoto;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// 転送システム

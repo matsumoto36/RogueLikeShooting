@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace RogueLike.Nishiwaki.Item
+namespace DDD.Nishiwaki.Item
 {
     [CreateAssetMenu(fileName = "WeaponRangedLaserAsset", menuName = "WeaponRanged/Create WeaponRangedLaser Asset")]
 

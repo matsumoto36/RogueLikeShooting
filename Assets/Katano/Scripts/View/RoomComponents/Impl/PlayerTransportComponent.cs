@@ -1,13 +1,13 @@
 using System;
-using RogueLike.Katano.Managers;
-using RogueLike.Katano.Maze;
+using DDD.Katano.Managers;
+using DDD.Katano.Maze;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using Unity.Linq;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.RoomComponents
+namespace DDD.Katano.View.RoomComponents
 {
 	/// <inheritdoc />
 	/// <summary>

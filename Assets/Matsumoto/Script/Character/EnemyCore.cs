@@ -5,9 +5,9 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
-using RogueLike.Matsumoto.Character.Asset;
+using DDD.Matsumoto.Character.Asset;
 
-namespace RogueLike.Matsumoto.Character {
+namespace DDD.Matsumoto.Character {
 
 	/// <summary>
 	/// 敵のクラス。AIで動かす

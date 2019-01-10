@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Nishiwaki
+namespace DDD.Nishiwaki
 {
     public interface IBullet
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Nishiwaki.Item;
 using UnityEngine;
-using RogueLike.Nishiwaki.Bullet;
-using RogueLike.Nishiwaki.Item;
+using DDD.Nishiwaki.Bullet;
 
-namespace RogueLike.Nishiwaki.Bullet
+namespace DDD.Nishiwaki.Bullet
 {
     public abstract class BulletBase : IBullet
     {

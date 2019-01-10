@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Matsumoto.Attack;
+using DDD.Matsumoto.Character.Asset;
+using DDD.Nishiwaki;
+using DDD.Nishiwaki.Item;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-using RogueLike.Matsumoto.Character.Asset;
-using RogueLike.Matsumoto.Attack;
-using RogueLike.Nishiwaki;
-using RogueLike.Nishiwaki.Item;
 
-namespace RogueLike.Matsumoto.Character {
+namespace DDD.Matsumoto.Character {
 
 	/// <summary>
 	/// 各キャラクターのコアクラス

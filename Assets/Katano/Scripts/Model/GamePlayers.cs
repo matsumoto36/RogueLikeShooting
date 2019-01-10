@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using RogueLike.Matsumoto;
-using RogueLike.Matsumoto.Character;
+using DDD.Matsumoto;
+using DDD.Matsumoto.Character;
 using UnityEngine;
 
-namespace RogueLike.Katano.Model
+namespace DDD.Katano.Model
 {
 	/// <summary>
 	/// ゲームキャラクター

@@ -1,7 +1,7 @@
-using RogueLike.Katano.Managers;
+using DDD.Katano.Managers;
 using UnityEngine;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	/// <summary>
 	/// ゲーム設定

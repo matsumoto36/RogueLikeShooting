@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RogueLike.Matsumoto {
+namespace DDD.Matsumoto {
 
 	public interface IAttacker {
 

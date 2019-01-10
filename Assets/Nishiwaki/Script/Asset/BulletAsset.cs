@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Nishiwaki.Bullet {
+namespace DDD.Nishiwaki.Bullet {
 
     [CreateAssetMenu(fileName = "NewBulletAsset", menuName = "Bullet/Create Bullet Asset")]
 

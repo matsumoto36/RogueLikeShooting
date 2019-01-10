@@ -2,7 +2,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	public class DebugPlayerCamera : MonoBehaviour
 	{

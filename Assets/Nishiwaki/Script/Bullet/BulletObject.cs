@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Matsumoto.Character;
+using DDD.Nishiwaki.Item;
 using UnityEngine;
-using RogueLike.Nishiwaki.Bullet;
-using RogueLike.Nishiwaki.Item;
-using RogueLike.Matsumoto.Character;
+using DDD.Nishiwaki.Bullet;
 
-namespace RogueLike.Nishiwaki.Bullet
+namespace DDD.Nishiwaki.Bullet
 {
     public class BulletObject : MonoBehaviour
     {

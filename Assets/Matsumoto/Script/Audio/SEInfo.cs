@@ -1,5 +1,5 @@
 ﻿
-namespace RogueLike.Matsumoto.Audio {
+namespace DDD.Matsumoto.Audio {
 
 	/// <summary>
 	/// 再生されているSEの情報

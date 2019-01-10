@@ -1,8 +1,8 @@
 using System;
+using DDD.Chikazawa;
 using GamepadInput;
-using RogueLike.Chikazawa;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	public static class GamePadInputExtensions
 	{

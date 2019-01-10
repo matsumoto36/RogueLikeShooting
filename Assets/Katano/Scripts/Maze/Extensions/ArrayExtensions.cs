@@ -1,6 +1,6 @@
 using System;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	public static class ArrayExtensions
 	{

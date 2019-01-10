@@ -1,8 +1,8 @@
 ﻿using System;
-using RogueLike.Matsumoto.Managers;
+using DDD.Matsumoto.Managers;
 using UnityEngine;
 
-namespace RogueLike.Matsumoto.UI
+namespace DDD.Matsumoto.UI
 {
 	/// <summary>
 	///     すべてのUIの親クラス

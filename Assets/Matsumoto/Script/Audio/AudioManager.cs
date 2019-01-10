@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 
-namespace RogueLike.Matsumoto.Audio {
+namespace DDD.Matsumoto.Audio {
 
 	/// <summary>
 	/// 音の管理をする

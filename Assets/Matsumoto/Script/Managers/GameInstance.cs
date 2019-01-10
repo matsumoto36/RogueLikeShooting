@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RogueLike.Nishiwaki;
-using RogueLike.Nishiwaki.Item;
+using DDD.Nishiwaki;
+using DDD.Nishiwaki.Item;
 
-namespace RogueLike.Matsumoto.Managers {
+namespace DDD.Matsumoto.Managers {
 
 	/// <summary>
 	/// ゲーム中に保持しておきたい情報を持つクラス

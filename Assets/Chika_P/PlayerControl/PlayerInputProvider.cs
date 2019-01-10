@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Chikazawa.InputEventProvider
+namespace DDD.Chikazawa.InputEventProvider
 {
     /// <summary>
     /// 入力の検知処理

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using RogueLike.Chikazawa;
+using DDD.Chikazawa;
+using DDD.Matsumoto.Character;
+using DDD.Matsumoto.Character.Asset;
 using UnityEngine;
-using RogueLike.Matsumoto.Character;
-using RogueLike.Matsumoto.Character.Asset;
 
-namespace RogueLike.Matsumoto {
+namespace DDD.Matsumoto {
 
 	public class CharacterSpawner : MonoBehaviour {
 

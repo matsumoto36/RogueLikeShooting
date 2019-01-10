@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Matsumoto.Character;
+using DDD.Nishiwaki.Bullet;
 using UnityEngine;
-using RogueLike.Nishiwaki;
-using RogueLike.Nishiwaki.Bullet;
-using RogueLike.Matsumoto.Character;
+using DDD.Nishiwaki;
 
-namespace RogueLike.Nishiwaki.Item
+namespace DDD.Nishiwaki.Item
 {
     public class WeaponRanged : MonoBehaviour, IWeapon
     {
