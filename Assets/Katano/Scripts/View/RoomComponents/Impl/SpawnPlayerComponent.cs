@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RogueLike.Chikazawa;
-using RogueLike.Chikazawa.InputEventProvider;
-using RogueLike.Katano.Managers;
-using RogueLike.Katano.Model;
-using RogueLike.Katano.View.Player;
-using RogueLike.Matsumoto;
+using DDD.Chikazawa;
+using DDD.Chikazawa.InputEventProvider;
+using DDD.Katano.Managers;
+using DDD.Katano.Model;
+using DDD.Katano.View.Player;
+using DDD.Matsumoto;
 using UniRx;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RogueLike.Katano.View.RoomComponents
+namespace DDD.Katano.View.RoomComponents
 {
 	/// <summary>
 	/// プレイヤーを生成するコンポーネント

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RogueLike.Chikazawa;
-using RogueLike.Chikazawa.InputEventProvider;
+using DDD.Chikazawa;
+using DDD.Chikazawa.InputEventProvider;
 using GamepadInput;
 
 public class testP : MonoBehaviour

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RogueLike.Matsumoto.Character {
+namespace DDD.Matsumoto.Character {
 
 	/// <summary>
 	/// 敵のAIに実装されるインターフェース

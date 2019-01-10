@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamepadInput;
 
-namespace RogueLike.Chikazawa.InputEventProvider
+namespace DDD.Chikazawa.InputEventProvider
 {  
     /// <summary>
      /// コントローラー入力

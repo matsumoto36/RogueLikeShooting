@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.RoomComponents
+namespace DDD.Katano.View.RoomComponents
 {
 	/// <summary>
 	/// 階段を出現させるモジュール

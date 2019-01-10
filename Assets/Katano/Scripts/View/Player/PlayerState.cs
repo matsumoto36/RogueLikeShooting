@@ -1,4 +1,4 @@
-namespace RogueLike.Katano.View.Player
+namespace DDD.Katano.View.Player
 {
 	/// <summary>
 	/// プレイヤーステート

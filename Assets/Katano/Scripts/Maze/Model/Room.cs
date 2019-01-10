@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Reqweldzen.Extensions;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	/// 部屋

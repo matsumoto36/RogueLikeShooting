@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RogueLike.Chikazawa;
-using RogueLike.Chikazawa.InputEventProvider;
-using RogueLike.Katano;
-using RogueLike.Katano.Managers;
-using RogueLike.Matsumoto.Character;
-using RogueLike.Matsumoto.Character.Asset;
-using RogueLike.Matsumoto.Managers;
-using RogueLike.Nishiwaki;
+using DDD.Chikazawa;
+using DDD.Chikazawa.InputEventProvider;
+using DDD.Katano;
+using DDD.Katano.Managers;
+using DDD.Matsumoto.Character;
+using DDD.Matsumoto.Character.Asset;
+using DDD.Matsumoto.Managers;
+using DDD.Nishiwaki;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace RogueLike.Matsumoto
+namespace DDD.Matsumoto
 {
 	/// <summary>
 	///     プレイヤーのコアクラス

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using RogueLike.Katano.Maze;
+using DDD.Katano.Maze;
 using UniRx.Async;
 using Unity.Linq;
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	///     迷路のViewオブジェクト

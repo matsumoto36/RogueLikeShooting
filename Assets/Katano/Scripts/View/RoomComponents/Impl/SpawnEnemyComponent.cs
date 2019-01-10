@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using RogueLike.Matsumoto;
-using RogueLike.Matsumoto.Character;
+using DDD.Matsumoto;
+using DDD.Matsumoto.Character;
 using UniRx;
 using UnityEngine;
 
-namespace RogueLike.Katano.View.RoomComponents
+namespace DDD.Katano.View.RoomComponents
 {
 	/// <summary>
 	/// 敵を生成するコンポーネント

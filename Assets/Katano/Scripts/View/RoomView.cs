@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using RogueLike.Katano.Maze;
-using RogueLike.Katano.Model;
-using RogueLike.Matsumoto;
+using DDD.Katano.Maze;
+using DDD.Matsumoto;
+using DDD.Katano.Model;
 using UniRx;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 // ReSharper disable NotAccessedField.Local
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// 部屋のViewオブジェクト

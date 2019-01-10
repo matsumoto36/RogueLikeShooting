@@ -1,7 +1,7 @@
-using RogueLike.Katano.Maze;
+using DDD.Katano.Maze;
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// 通路のViewオブジェクト

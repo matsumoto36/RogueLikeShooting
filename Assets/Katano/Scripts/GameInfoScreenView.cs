@@ -4,7 +4,7 @@ using UniRx.Async;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	public class GameInfoScreenView : MonoBehaviour
 	{

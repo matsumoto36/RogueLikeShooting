@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DDD.Matsumoto.Character;
 using UnityEngine;
-using RogueLike.Matsumoto.Character;
 
-namespace RogueLike.Nishiwaki
+namespace DDD.Nishiwaki
 {
     public interface IWeapon
     {

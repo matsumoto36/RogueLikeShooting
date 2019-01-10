@@ -4,7 +4,7 @@ using Reqweldzen.Extensions;
 using UniRx.Async;
 using UnityEngine;
 
-namespace RogueLike.Katano.Managers
+namespace DDD.Katano.Managers
 {
 	public class GameTitleUIManager : MonoBehaviour
 	{

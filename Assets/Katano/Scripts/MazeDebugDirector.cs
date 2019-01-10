@@ -4,7 +4,7 @@ using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	/// 

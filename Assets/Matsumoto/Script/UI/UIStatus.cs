@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine.UI;
 
-namespace RogueLike.Matsumoto.UI {
+namespace DDD.Matsumoto.UI {
 
 	/// <summary>
 	/// プレイヤーのHPを表示するUI

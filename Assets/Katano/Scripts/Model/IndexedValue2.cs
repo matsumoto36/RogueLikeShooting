@@ -1,4 +1,4 @@
-namespace RogueLike.Katano.Model
+namespace DDD.Katano.Model
 {
 	public struct IndexedValue2<T>
 	{

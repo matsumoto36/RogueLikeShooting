@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DDD.Katano.View;
+using DDD.Katano.View.RoomComponents;
 using Reqweldzen.Extensions;
-using RogueLike.Katano.Model;
-using RogueLike.Katano.View;
-using RogueLike.Katano.View.RoomComponents;
+using DDD.Katano.Model;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	/// <summary>
 	/// 迷宮を可視化するクラス

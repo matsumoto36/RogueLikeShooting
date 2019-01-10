@@ -1,16 +1,16 @@
 using System;
 using System.Linq;
+using DDD.Katano.Model;
+using DDD.Katano.View;
+using DDD.Katano.View.Player;
+using DDD.Matsumoto;
 using DG.Tweening;
 using Reqweldzen.Extensions;
-using RogueLike.Katano.Model;
-using RogueLike.Katano.View;
-using RogueLike.Katano.View.Player;
-using RogueLike.Matsumoto;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RogueLike.Katano
+namespace DDD.Katano
 {
 	/// <summary>
 	/// プレイヤー転送モジュール

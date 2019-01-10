@@ -1,6 +1,6 @@
 using System;
 
-namespace RogueLike.Katano.Maze
+namespace DDD.Katano.Maze
 {
 	public enum AdjacentSides
 	{

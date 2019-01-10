@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RogueLike.Katano.View
+namespace DDD.Katano.View
 {
 	/// <summary>
 	/// 転送システムハブ

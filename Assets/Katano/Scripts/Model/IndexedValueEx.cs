@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RogueLike.Katano.Model
+namespace DDD.Katano.Model
 {
 	public static class IndexedValueEx
 	{

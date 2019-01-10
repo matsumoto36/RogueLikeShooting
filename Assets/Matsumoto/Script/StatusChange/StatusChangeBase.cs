@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RogueLike.Matsumoto.Character;
 using UniRx;
 using System;
+using DDD.Matsumoto.Character;
 
-namespace RogueLike.Matsumoto.StatusChange {
+namespace DDD.Matsumoto.StatusChange {
 
 	/// <summary>
 	/// ステータス変化の共通分

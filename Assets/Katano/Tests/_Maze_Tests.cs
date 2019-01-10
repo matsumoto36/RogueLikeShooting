@@ -1,10 +1,10 @@
 ﻿using System.Collections;
+using DDD.Katano.Maze;
 using NUnit.Framework;
-using RogueLike.Katano;
-using RogueLike.Katano.Maze;
+using DDD.Katano;
 using UnityEngine.TestTools;
 
-namespace RogueLike.Tests
+namespace DDD.Tests
 {
 	public class _Maze_Tests
 	{

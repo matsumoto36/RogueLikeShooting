@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UniRx;
-using RogueLike.Matsumoto.Character;
-using RogueLike.Matsumoto.Attack;
 using System;
+using DDD.Matsumoto.Attack;
+using DDD.Matsumoto.Character;
 
-namespace RogueLike.Matsumoto.StatusChange {
+namespace DDD.Matsumoto.StatusChange {
 
 	/// <summary>
 	/// 毒のステータス変化

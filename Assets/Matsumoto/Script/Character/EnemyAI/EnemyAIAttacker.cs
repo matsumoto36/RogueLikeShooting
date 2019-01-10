@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueLike.Matsumoto.Character.EnemyAI {
+namespace DDD.Matsumoto.Character.EnemyAI {
 
 	/// <summary>
 	/// 敵のAI : アタッカー

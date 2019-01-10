@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RogueLike.Matsumoto.Character;
 using UniRx;
 using System;
+using DDD.Matsumoto.Character;
 
-namespace RogueLike.Matsumoto {
+namespace DDD.Matsumoto {
 
 	/// <summary>
 	/// ステータス変化を実装するインターフェース
