@@ -32,6 +32,11 @@ namespace DDD.Matsumoto.Character {
 			get; protected set;
 		}
 
+		private Color _themeColor;
+		public Color ThemeColor {
+			get { return _themeColor; }
+		}
+
 		public IReadOnlyReactiveProperty<bool> IsDead => _isDead;
 
 		/// <summary>
@@ -191,6 +196,8 @@ namespace DDD.Matsumoto.Character {
 			var character = new GameObject(asset.name).AddComponent<T>();
 			character.transform.position = spawnTransform.position;
 			character.transform.rotation = spawnTransform.rotation;
+
+			character._themeColor = asset.ThemeColor;
 
 			//モデルの生成
 			//character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);

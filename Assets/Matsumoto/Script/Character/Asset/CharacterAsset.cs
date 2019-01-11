@@ -6,6 +6,7 @@ namespace DDD.Matsumoto.Character.Asset {
 
 		public int HP;
 		//public GameObject ModelPrefab;
+		public Color ThemeColor;
 		public Nishiwaki.Item.WeaponRangedAsset Weapon;
 	}
 }
