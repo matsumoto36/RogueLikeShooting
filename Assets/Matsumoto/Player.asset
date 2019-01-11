@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp:RogueLike.Matsumoto.Character.Asset:PlayerAsset
   HP: 1000
-  ModelPrefab: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-    type: 2}
-  Weapon: {fileID: 11400000, guid: 253469926efc3b34caa934fd77e9b702, type: 2}
+  ModelPrefab: {fileID: 8097782056713811605, guid: 6bb969ca91b07ee4d81ba0b0ff06b008,
+    type: 3}
+  Weapon: {fileID: 11400000, guid: 19fc33c7cd0ad3a478cb0d9fcd4d91c9, type: 2}
   ID: 0

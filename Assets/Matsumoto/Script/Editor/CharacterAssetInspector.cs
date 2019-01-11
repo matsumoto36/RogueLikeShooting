@@ -8,13 +8,11 @@ using DDD.Matsumoto.Character.Asset;
 public class CharacterAssetInspector : Editor {
 
 	protected SerializedProperty CharacterHp;
-	protected SerializedProperty ModelPrefab;
 	protected SerializedProperty Weapon;
 
 	protected virtual void OnEnable() {
 
 		CharacterHp = serializedObject.FindProperty("HP");
-		ModelPrefab = serializedObject.FindProperty("ModelPrefab");
 		Weapon = serializedObject.FindProperty("Weapon");
 	}
 }
@@ -37,7 +35,6 @@ public class PlayerAssetInspector : CharacterAssetInspector {
 
 		EditorGUILayout.PropertyField(_playerID);
 		EditorGUILayout.PropertyField(CharacterHp);
-		EditorGUILayout.PropertyField(ModelPrefab);
 		EditorGUILayout.PropertyField(Weapon);
 
 		serializedObject.ApplyModifiedProperties();
@@ -62,7 +59,6 @@ public class EnemyAssetInspector : CharacterAssetInspector {
 		serializedObject.Update();
 
 		EditorGUILayout.PropertyField(CharacterHp);
-		EditorGUILayout.PropertyField(ModelPrefab);
 		EditorGUILayout.PropertyField(_enemyAIType);
 		EditorGUILayout.PropertyField(Weapon);
 

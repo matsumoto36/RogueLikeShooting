@@ -15,7 +15,7 @@ namespace DDD.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		protected GameObject CharacterModel;
+		//protected GameObject CharacterModel;
 
 		private readonly ReactiveProperty<bool> _isDead
 			= new BoolReactiveProperty();
@@ -56,9 +56,9 @@ namespace DDD.Matsumoto.Character {
 			body.SetParent(transform);
 
 			//キャラクターのモデルの操作
-			var anchor = Weapon.PlayerSetPosition();
-			CharacterModel.transform.position = anchor.position;
-			CharacterModel.transform.rotation = anchor.rotation;
+			//var anchor = Weapon.PlayerSetPosition();
+			//CharacterModel.transform.position = anchor.position;
+			//CharacterModel.transform.rotation = anchor.rotation;
 		}
 
 		/// <summary>
@@ -193,8 +193,8 @@ namespace DDD.Matsumoto.Character {
 			character.transform.rotation = spawnTransform.rotation;
 
 			//モデルの生成
-			character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
-			character.CharacterModel.transform.SetParent(character.transform);
+			//character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
+			//character.CharacterModel.transform.SetParent(character.transform);
 
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			character.AttachWeapon(weapon);
