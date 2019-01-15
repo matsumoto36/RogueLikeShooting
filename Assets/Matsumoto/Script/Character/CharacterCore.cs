@@ -203,9 +203,9 @@ namespace DDD.Matsumoto.Character {
 			//character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
 			//character.CharacterModel.transform.SetParent(character.transform);
 
+			character.OnSpawn(asset);
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			character.AttachWeapon(weapon);
-			character.OnSpawn(asset);
 
 			return character;
 		}

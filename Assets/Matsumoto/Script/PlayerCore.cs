@@ -83,6 +83,9 @@ namespace DDD.Matsumoto
 
 			var playerAsset = (PlayerAsset) asset;
 
+			//レイヤー設定
+			gameObject.layer = LayerMask.NameToLayer("Player");
+
 			//リストに追加
 			Players.Add(this);
 

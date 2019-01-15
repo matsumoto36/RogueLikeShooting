@@ -17,6 +17,7 @@ namespace DDD.Nishiwaki.Item
         public Transform playerSetPosition;
 
 	    private Color _themeColor;
+	    private GameObject _coreObject;
 	    private static Material _coreMaterial;
 	    private Renderer _coreRenderer;
 
@@ -40,10 +41,17 @@ namespace DDD.Nishiwaki.Item
 
 		    if (characterCore == character) return;
 
-	        //装備したときはキャラクターの色で光らせる
+	       
+
+			//装備したときはキャラクターの色で光らせる
 			if(character) {
 				_themeColor = character.ThemeColor;
-	        }
+				_coreObject.layer = character.gameObject.layer;
+			}
+			else {
+				_coreObject.layer = 0;
+			}
+
 	        StartCoroutine(LightFadeAnim(character));
 
 	        characterCore = character;
@@ -90,6 +98,7 @@ namespace DDD.Nishiwaki.Item
 
 	        //中心部分の作成
 			var core = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+	        weapon._coreObject = core;
 	        core.transform.SetParent(obj.transform);
 			core.transform.localPosition = new Vector3();
 
@@ -128,7 +137,7 @@ namespace DDD.Nishiwaki.Item
 
 		    var t = 0.0f;
 		    var animSpeed = 2.0f;
-		    var intensity = 3.0f;
+		    var intensity = 1.5f;
 
 		    while ((t += Time.deltaTime * animSpeed) < 1.0f) {
 
