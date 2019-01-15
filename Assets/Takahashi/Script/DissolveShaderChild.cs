@@ -1,23 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UniRx;
+using UnityEngine;
 
 namespace DDD.Takahashi
 {
 	public class DissolveShaderChild : MonoBehaviour
 	{
-		private static readonly int VJouge = Shader.PropertyToID("_v_jouge");
-		private static readonly int Emission = Shader.PropertyToID("_emi_color");
-		private static readonly int Height = Shader.PropertyToID("_takasa");
-
+		private static class ParamId
+		{
+			public static readonly int EmitHeight = Shader.PropertyToID("_v_jouge");
+			public static readonly int EmissionColor = Shader.PropertyToID("_emi_color");
+			public static readonly int Origin = Shader.PropertyToID("_takasa");
+		}
 		
 		private DissolveShaderControl _parentController;
-		private Renderer _parentRenderer;
 		private Renderer _renderer;
 		
-//		public GameObject m_obj;
-
-		// public string obj_name;
-
-
 		// Use this for initialization
 		private void Start()
 		{
@@ -30,27 +28,34 @@ namespace DDD.Takahashi
 				throw new UnityException("Parent Shader Controller not found.");
 
 			_renderer = GetComponent<Renderer>();
-			_parentRenderer = _parentController.GetComponent<Renderer>();
-			
-//			m_obj = GameObject.Find(obj_name);
-			//m_obj = transform.root.gameObject;
-		}
 
-		// Update is called once per frame
-		private void Update()
-		{
-			var value = _parentRenderer.material.GetFloat(VJouge);
+			_parentController.OnInitialize.Subscribe(tuple =>
+			{
+				var (emit, origin, color) = tuple;
+				_renderer.material.SetFloat(ParamId.EmitHeight, emit);
+				_renderer.material.SetFloat(ParamId.Origin, origin);
+				_renderer.material.SetColor(ParamId.EmissionColor, color);
+			});
 			
-			_renderer.material.SetFloat(VJouge, value);
-			_renderer.material.SetFloat(Height, _parentController.PositionY);
-			_renderer.material.SetColor(Emission, _parentController.EmissionColor);
-			
-//			var f = m_obj.GetComponent<Renderer>().material.GetFloat("_v_jouge");
-//			gameObject.GetComponent<Renderer>().material.SetFloat("_v_jouge", f);
-//			gameObject.GetComponent<Renderer>().material
-//				.SetFloat("_takasa", m_obj.GetComponent<DissolveShaderControl>().PositionY);
-//			gameObject.GetComponent<Renderer>().material
-//				.SetColor("_emi_color", m_obj.GetComponent<DissolveShaderControl>().EmissionColor);
+			_parentController.OnDissolve.Subscribe(param =>
+			{
+				var (mode, value) = param;
+				switch (mode)
+				{
+					case DissolveShaderControl.DissolveMode.Composite:
+					{
+						_renderer.material.SetFloat(ParamId.EmitHeight, value);
+						break;
+					}
+					case DissolveShaderControl.DissolveMode.Dissolve:
+					{
+						_renderer.material.SetFloat(ParamId.EmitHeight, value);
+						break;
+					}
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			});
 		}
 	}
 }

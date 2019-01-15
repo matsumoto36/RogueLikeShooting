@@ -250,6 +250,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114233093629378614, guid: 0c95389693f80534f9c52176d643b118,
+        type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233093629378614, guid: 0c95389693f80534f9c52176d643b118,
+        type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c95389693f80534f9c52176d643b118, type: 3}
 --- !u!4 &237990006 stripped
@@ -942,7 +952,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24802
+  m_Name: pb_Mesh15024
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1399,7 +1409,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -2112,6 +2122,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 583968292111464852, guid: 2d65e696764bd1d4196ffcd5fea25a04,
+        type: 3}
+      propertyPath: EffectColor.value.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583968292111464852, guid: 2d65e696764bd1d4196ffcd5fea25a04,
+        type: 3}
+      propertyPath: Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583968292111464852, guid: 2d65e696764bd1d4196ffcd5fea25a04,
+        type: 3}
+      propertyPath: LowerHeight
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583968292111464852, guid: 2d65e696764bd1d4196ffcd5fea25a04,
+        type: 3}
+      propertyPath: UpperHeight
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583968292111464852, guid: 2d65e696764bd1d4196ffcd5fea25a04,
+        type: 3}
+      propertyPath: UnitSize
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 666757406012434752, guid: 2d65e696764bd1d4196ffcd5fea25a04, type: 3}
