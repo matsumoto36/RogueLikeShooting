@@ -13,8 +13,6 @@ namespace DDD.Katano.View.RoomComponents
 	[DisallowMultipleComponent]
 	public class SpawnEnemyComponent : BaseRoomComponent
 	{
-		private bool _isCaptured;
-		
 		private CharacterSpawner[] _spawners;
 		
 		private readonly AsyncSubject<Unit> _onRoomCapturedAsync = new AsyncSubject<Unit>();
@@ -28,7 +26,7 @@ namespace DDD.Katano.View.RoomComponents
 		{
 			_spawners = GetComponentsInChildren<CharacterSpawner>();
 			
-			Owner.OnEnterObservable.Subscribe(_ => Spawn());
+			Owner.OnEnterObservable.TakeUntil(_onRoomCapturedAsync).Subscribe(_ => Spawn());
 		}
 
 		private void Spawn()

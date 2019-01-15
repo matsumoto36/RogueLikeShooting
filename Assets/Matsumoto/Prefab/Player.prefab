@@ -153,8 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf70a7d4d9d00645b6bb1a69abbeef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_obj: {fileID: 0}
-  obj_name: Sphere
 --- !u!1 &1663884893419386
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,9 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569c885c7444ad84dabb4807c5fb2994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowOnAwake: 1
-  c_emistion: {r: 1, g: 0, b: 0, a: 0}
-  h_max: -1.1
-  h_min: 0
-  objy: 0.001
-  speed: 0.01
+  UpperOnAwake: 0
+  EmissionColor: {r: 1, g: 0, b: 0, a: 0}
+  UpperHeight: 1
+  LowerHeight: 0
+  Speed: 0.01

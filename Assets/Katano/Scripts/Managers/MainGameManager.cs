@@ -148,6 +148,8 @@ namespace DDD.Katano.Managers
 			// フェードアウトする
 			await UIManager.FadeOutAsync();
 			
+			_mainEventBroker.Publish(new MazeSignal.FloorDestruct());
+			
 			// フロアを破壊
 			FloorManager.Destruct();
 			
