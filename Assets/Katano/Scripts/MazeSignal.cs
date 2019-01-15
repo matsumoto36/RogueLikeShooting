@@ -20,5 +20,12 @@ namespace DDD.Katano
 		/// ダンジョンをクリアした
 		/// </summary>
 		public struct MazeCleared {}
+
+		/// <summary>
+		/// フロアを破壊する
+		/// </summary>
+		public struct FloorDestruct
+		{
+		}
 	}
 }
