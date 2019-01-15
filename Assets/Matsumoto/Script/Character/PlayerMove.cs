@@ -57,7 +57,10 @@ namespace DDD.Matsumoto.Character
 			position += inputProvider.GetMoveVector() * deltaSpeed;
 
 			// 向きの変更
-			var direction = inputProvider.GetPleyerDirection(position) - position;
+			var inputDirection = inputProvider.GetPleyerDirection(position);
+			if (inputDirection.sqrMagnitude < 0.1f) return;
+
+			var direction = inputDirection - position;
 
 			_playerTransform.position = position;
 			_playerTransform.rotation = Quaternion.LookRotation(direction);
