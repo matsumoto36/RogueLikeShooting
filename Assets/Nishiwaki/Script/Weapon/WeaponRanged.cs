@@ -127,10 +127,10 @@ namespace DDD.Nishiwaki.Item
 	    private IEnumerator LightFadeAnim(bool enable) {
 
 		    var t = 0.0f;
-		    var animTime = 0.5f;
+		    var animSpeed = 2.0f;
 		    var intensity = 3.0f;
 
-		    while ((t += Time.deltaTime * animTime) < 1.0f) {
+		    while ((t += Time.deltaTime * animSpeed) < 1.0f) {
 
 			    var ratio = (enable ? t : 1 - t) * intensity;
 			    var col = _themeColor * new Color(ratio, ratio, ratio, 1.0f);
