@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using DDD.Matsumoto.Character;
 using DDD.Nishiwaki.Bullet;
 using UnityEngine;
-using DDD.Nishiwaki;
+using DDD.Katano.Managers;
+using UniRx;
 
 namespace DDD.Nishiwaki.Item
 {
@@ -22,12 +23,19 @@ namespace DDD.Nishiwaki.Item
 	    private Renderer _coreRenderer;
 
         // Use this for initialization
-        void Start()
-        {
-        }
+        void Start() {
 
-        // Update is called once per frame
-        void Update()
+			//フロア破壊時に武器を消す
+	        FindObjectOfType<MainGameManager>()
+		        .EventReceive<Katano.MazeSignal.FloorDestruct>()
+		        .Where((_) => !characterCore)
+		        .Subscribe((_) => Destroy(gameObject))
+		        .AddTo(this);
+
+		}
+
+		// Update is called once per frame
+		void Update()
         {
         }
         public void SpawnBulletPoint()
@@ -40,8 +48,6 @@ namespace DDD.Nishiwaki.Item
         {
 
 		    if (characterCore == character) return;
-
-	       
 
 			//装備したときはキャラクターの色で光らせる
 			if(character) {

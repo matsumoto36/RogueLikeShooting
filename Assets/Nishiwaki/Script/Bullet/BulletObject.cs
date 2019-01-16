@@ -4,6 +4,8 @@ using DDD.Matsumoto.Character;
 using DDD.Nishiwaki.Item;
 using UnityEngine;
 using DDD.Nishiwaki.Bullet;
+using DDD.Katano.Managers;
+using UniRx;
 
 namespace DDD.Nishiwaki.Bullet
 {
@@ -18,7 +20,13 @@ namespace DDD.Nishiwaki.Bullet
         void Start()
         {
             gameObject.GetComponent<vfx_bullet>().muzzle();
-        }
+
+			//フロア破壊時に弾を消去する
+	        FindObjectOfType<MainGameManager>()
+		        .EventReceive<Katano.MazeSignal.FloorDestruct>()
+		        .Subscribe((_) => Destroy(gameObject))
+		        .AddTo(this);
+		}
 
         void Update()
         {

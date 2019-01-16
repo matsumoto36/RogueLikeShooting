@@ -5,6 +5,7 @@ using DDD.Matsumoto.Character.Asset;
 using DDD.Nishiwaki;
 using DDD.Nishiwaki.Item;
 using UnityEngine;
+using DDD.Katano.Managers;
 using UniRx;
 using UniRx.Triggers;
 
@@ -60,10 +61,6 @@ namespace DDD.Matsumoto.Character {
 			transform.position = body.position;
 			body.SetParent(transform);
 
-			//キャラクターのモデルの操作
-			//var anchor = Weapon.PlayerSetPosition();
-			//CharacterModel.transform.position = anchor.position;
-			//CharacterModel.transform.rotation = anchor.rotation;
 		}
 
 		/// <summary>
@@ -159,8 +156,7 @@ namespace DDD.Matsumoto.Character {
 			//死亡通知
 			_isDead.Value = true;
 
-			//隠しておく
-			gameObject.SetActive(false);
+			Destroy(gameObject);
 		}
 
 		/// <summary>
@@ -199,10 +195,6 @@ namespace DDD.Matsumoto.Character {
 
 			character._themeColor = asset.ThemeColor;
 
-			//モデルの生成
-			//character.CharacterModel = Instantiate(asset.ModelPrefab, spawnTransform.position, spawnTransform.rotation);
-			//character.CharacterModel.transform.SetParent(character.transform);
-
 			character.OnSpawn(asset);
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
 			character.AttachWeapon(weapon);
@@ -216,6 +208,13 @@ namespace DDD.Matsumoto.Character {
 		}
 
 		protected virtual void Start() {
+
+			//フロア破壊時
+			FindObjectOfType<MainGameManager>()
+				.EventReceive<Katano.MazeSignal.FloorDestruct>()
+				.Where((_) => _isDead.Value)
+				.Subscribe((_) => Destroy(gameObject))
+				.AddTo(this);
 
 			this.UpdateAsObservable()
 				.Subscribe(_ => {
