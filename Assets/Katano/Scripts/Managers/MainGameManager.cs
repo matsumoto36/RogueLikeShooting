@@ -5,6 +5,7 @@ using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace DDD.Katano.Managers
 {
@@ -16,16 +17,13 @@ namespace DDD.Katano.Managers
 		private const int Roof = 10;
 
 
-		private readonly MessageBroker _mainEventBroker = new MessageBroker();
+		[Inject]
+		private IMessagePublisher _messagePublisher;
 
-		/// <summary>
-		/// メインイベントブローカー
-		/// </summary>
-		public IMessageBroker MainEventBroker => _mainEventBroker;
+		[Inject]
+		private IMessageReceiver _messageReceiver;
 		
-		[FormerlySerializedAs("_resultData")]
 		public GameResultData ResultData;
-		[FormerlySerializedAs("_gameSettings")]
 		public GameSettings GameSettings;
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
@@ -46,8 +44,8 @@ namespace DDD.Katano.Managers
 		/// </summary>
 		private void Initialize()
 		{
-			FloorManager.Initialize(_mainEventBroker);
-			UIManager.Initialize(_mainEventBroker);
+			FloorManager.Initialize();
+			UIManager.Initialize();
 
 			SetEvents();
 		}
@@ -58,18 +56,18 @@ namespace DDD.Katano.Managers
 		private void SetEvents()
 		{
 			// フロア踏破イベントの購読
-			_mainEventBroker
+			_messageReceiver
 				.Receive<MazeSignal.FloorEnded>()
 				.Subscribe(_ => GameFinalizeCoroutine().Forget())
 				.AddTo(this);
 
 			// プレイヤー全滅時イベントの購読
-			_mainEventBroker
+			_messageReceiver
 				.Receive<MazeSignal.PlayerKilled>()
 				.Subscribe(_ => GameOverCoroutine().Forget())
 				.AddTo(this);
 
-			_mainEventBroker
+			_messageReceiver
 				.Receive<MazeSignal.MazeCleared>()
 				.Subscribe(_ => GameClearCoroutine().Forget())
 				.AddTo(this);
@@ -127,7 +125,7 @@ namespace DDD.Katano.Managers
 			await UIManager.FadeInAsync(_currentFloor);
 			
 			// ゲームスタート
-			_mainEventBroker.Publish(new MazeSignal.FloorStarted());
+			_messagePublisher.Publish(new MazeSignal.FloorStarted());
 		}
 
 		/// <summary>
@@ -140,7 +138,7 @@ namespace DDD.Katano.Managers
 			if (_currentFloor == Roof)
 			{
 				// ゲームクリア
-				_mainEventBroker.Publish(new MazeSignal.MazeCleared());
+				_messagePublisher.Publish(new MazeSignal.MazeCleared());
 				
 				return;
 			}
@@ -148,28 +146,13 @@ namespace DDD.Katano.Managers
 			// フェードアウトする
 			await UIManager.FadeOutAsync();
 			
-			_mainEventBroker.Publish(new MazeSignal.FloorDestruct());
+			_messagePublisher.Publish(new MazeSignal.FloorDestruct());
 			
 			// フロアを破壊
 			FloorManager.Destruct();
 			
 			// フロアを準備する
 			GamePrepareCoroutine().Forget();
-		}
-
-		/// <summary>
-		/// イベントを発行
-		/// </summary>
-		/// <param name="value"></param>
-		/// <typeparam name="T"></typeparam>
-		public void EventPublish<T>(T value)
-		{
-			_mainEventBroker.Publish(value);
-		}
-
-		public IObservable<T> EventReceive<T>()
-		{
-			return _mainEventBroker.Receive<T>();
 		}
 		
 		/// <summary>
@@ -179,7 +162,7 @@ namespace DDD.Katano.Managers
 		{
 			Log("FloorEnd signal published!");
 			
-			_mainEventBroker.Publish(new MazeSignal.FloorEnded());
+			_messagePublisher.Publish(new MazeSignal.FloorEnded());
 		}
 
 		private static void Log(string log)

@@ -24,6 +24,12 @@ namespace DDD.Takahashi
 			set => _renderer.material.SetFloat(ParamId.EmitHeight, value);
 		}
 
+		private readonly AsyncSubject<(float, float, Color)> _onInitializeSubject = new AsyncSubject<(float, float, Color)>();
+		public IObservable<(float, float, Color)> OnInitialize => _onInitializeSubject;
+
+		private readonly Subject<(DissolveMode, float)> _dissolveSubject = new Subject<(DissolveMode, float)>();
+		public IObservable<(DissolveMode, float)> OnDissolve => _dissolveSubject;
+
 		private Transform _transformCache;
 		private Renderer _renderer;
 		private float _startValue;
@@ -64,16 +70,20 @@ namespace DDD.Takahashi
 			EffectColor.Subscribe(color => _renderer.material.SetColor(ParamId.EmissionColor, color)).AddTo(this);
 		}
 		
-		private readonly AsyncSubject<(float, float, Color)> _onInitializeSubject = new AsyncSubject<(float, float, Color)>();
-		public IObservable<(float, float, Color)> OnInitialize => _onInitializeSubject;
-
-		private readonly Subject<(DissolveMode, float)> _dissolveSubject = new Subject<(DissolveMode, float)>();
-		public IObservable<(DissolveMode, float)> OnDissolve => _dissolveSubject;
+		
 		
 		public void Show()
 		{
 			async UniTaskVoid CompositeAsync()
 			{
+				if (_cancellationToken.IsCancellationRequested) return;
+				
+				if (LowerHeight >= EmitHeight)
+				{
+					EmitHeight = LowerHeight;
+					return;
+				}
+				
 				var emit = UpperHeight;
 				EmitHeight = emit;
 				
@@ -86,10 +96,12 @@ namespace DDD.Takahashi
 					
 					if (LowerHeight >= emit)
 					{
-						EmitHeight = LowerHeight;
+						emit = LowerHeight;
 						break;
 					}
 
+					_renderer.material.SetFloat(ParamId.EmitHeight, emit);
+					
 					await UniTask.Yield();
 				}
 			}
@@ -101,6 +113,14 @@ namespace DDD.Takahashi
 		{
 			async UniTaskVoid DissolveAsync()
 			{
+				if (_cancellationToken.IsCancellationRequested) return;
+				
+				if (UpperHeight <= EmitHeight)
+				{
+					EmitHeight = UpperHeight;
+					return;
+				}
+				
 				var emit = LowerHeight;
 				EmitHeight = emit;
 				
