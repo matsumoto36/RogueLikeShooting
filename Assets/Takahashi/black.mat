@@ -35,7 +35,9 @@ Material:
     - _Cutoff: 0.5
     - _Gloss: 0
     - _Metallic: 0
+    - _alpha_width: 1
     - _emi: 5
+    - _haba: 5
     - _node_2022: 0
     - _node_2563: 5
     - _node_7596: 0.293

@@ -20,7 +20,7 @@ namespace DDD.Katano.View
 		[SerializeField]
 		private GamePlayers _gamePlayers;
 
-		[Inject]
+		[InjectOptional]
 		private IMessagePublisher _messagePublisher;
 		
 		private float _overlappedElapsedTime;
