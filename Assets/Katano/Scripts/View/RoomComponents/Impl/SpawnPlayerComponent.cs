@@ -81,7 +81,6 @@ namespace DDD.Katano.View.RoomComponents
 		{
 			player.transform.SetParent(_parent);
 			player.gameObject.AddComponent<PlayerStateChanger>();
-			player.MainGameManager = _mainGameManager;
 			
 			switch (index)
 			{
