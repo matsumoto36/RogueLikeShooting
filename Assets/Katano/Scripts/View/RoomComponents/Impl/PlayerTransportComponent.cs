@@ -6,6 +6,7 @@ using UniRx.Async;
 using UniRx.Async.Triggers;
 using Unity.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
 {
@@ -16,6 +17,9 @@ namespace DDD.Katano.View.RoomComponents
 	[DisallowMultipleComponent]
 	public class PlayerTransportComponent : BaseRoomComponent
 	{
+		[Inject]
+		private IMessageReceiver _messageReceiver;
+		
 		private TransporterHub _hubPrefab;
 		/// <summary>
 		/// 転送システムハブ
@@ -47,7 +51,7 @@ namespace DDD.Katano.View.RoomComponents
 			{
 				var mainGameManager = FindObjectOfType<MainGameManager>();
 
-				mainGameManager.MainEventBroker
+				_messageReceiver
 					.Receive<MazeSignal.FloorStarted>()
 					.Subscribe(_ =>
 					{
@@ -71,7 +75,7 @@ namespace DDD.Katano.View.RoomComponents
 					.AddTo(this);
 			}
 
-			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(() => InitTransporters()).Forget();
+			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(InitTransporters).Forget();
 		}
 		
 		private void InitTransporters()

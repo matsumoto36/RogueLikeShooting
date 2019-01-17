@@ -12,6 +12,7 @@ using DDD.Nishiwaki;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Matsumoto
 {
@@ -20,6 +21,9 @@ namespace DDD.Matsumoto
 	/// </summary>
 	public class PlayerCore : CharacterCore
 	{
+		[Inject]
+		private IMessagePublisher _messagePublisher;
+		
 		/// <summary>
 		/// 武器切り替え許容範囲
 		/// </summary>
@@ -49,11 +53,6 @@ namespace DDD.Matsumoto
 		/// 凍結中
 		/// </summary>
 		public IReadOnlyReactiveProperty<bool> IsFreeze => _isFreeze;
-		
-		/// <summary>
-		/// メインゲームマネージャ
-		/// </summary>
-		public MainGameManager MainGameManager { get; set; }
 
 		public override int HP
 		{
@@ -74,7 +73,7 @@ namespace DDD.Matsumoto
 			if (Players.Count > 0)
 				Players[0].Kill(attacker);
 
-			if (isLast) MainGameManager.EventPublish(new MazeSignal.PlayerKilled());
+			if (isLast) _messagePublisher.Publish(new MazeSignal.PlayerKilled());
 		}
 
 		protected override void OnSpawn(CharacterAsset asset)
