@@ -8,6 +8,7 @@ using UnityEngine;
 using DDD.Katano.Managers;
 using UniRx;
 using UniRx.Triggers;
+using Zenject;
 
 namespace DDD.Matsumoto.Character {
 
@@ -16,7 +17,13 @@ namespace DDD.Matsumoto.Character {
 	/// </summary>
 	public abstract class CharacterCore : MonoBehaviour {
 
-		//protected GameObject CharacterModel;
+		public const string CharacterPrefabPath = "Prefab/CharacterPrefab";
+
+		public Rigidbody CharacterRig { get; private set; }
+
+		[Inject]
+		//Todo エラー回避を適当に
+		private IMessageReceiver _messageReceiver;
 
 		private readonly ReactiveProperty<bool> _isDead
 			= new BoolReactiveProperty();
@@ -189,11 +196,16 @@ namespace DDD.Matsumoto.Character {
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 
 			//本体の生成
-			var character = new GameObject(asset.name).AddComponent<T>();
-			character.transform.position = spawnTransform.position;
-			character.transform.rotation = spawnTransform.rotation;
 
+			var obj = Instantiate(Resources.Load<GameObject>(CharacterPrefabPath), spawnTransform.position,
+				spawnTransform.rotation);
+
+			obj.AddComponent<ZenAutoInjecter>();
+
+
+			var character = obj.AddComponent<T>();
 			character._themeColor = asset.ThemeColor;
+			character.CharacterRig = character.GetComponent<Rigidbody>();
 
 			character.OnSpawn(asset);
 			var weapon = WeaponRanged.Create(asset.Weapon, spawnTransform);
@@ -210,11 +222,11 @@ namespace DDD.Matsumoto.Character {
 		protected virtual void Start() {
 
 			//フロア破壊時
-			FindObjectOfType<MainGameManager>()
-				.EventReceive<Katano.MazeSignal.FloorDestruct>()
-				.Where((_) => _isDead.Value)
-				.Subscribe((_) => Destroy(gameObject))
-				.AddTo(this);
+			//_messageReceiver
+			//	.Receive<Katano.MazeSignal.FloorDestruct>()
+			//	.Where((_) => _isDead.Value)
+			//	.Subscribe((_) => Destroy(gameObject))
+			//	.AddTo(this);
 
 			this.UpdateAsObservable()
 				.Subscribe(_ => {

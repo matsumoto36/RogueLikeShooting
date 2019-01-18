@@ -13,7 +13,7 @@ namespace DDD.Matsumoto.Character
 		{
 			_playerTransform = Player.transform;
 
-			this.UpdateAsObservable()
+			this.FixedUpdateAsObservable()
 				.Where(_ => !Player.IsFreeze.Value)
 				//武器切り替え時は移動キャンセル
 				.Where(_ => Player.ChangeTargetWeapon == null)
@@ -51,10 +51,10 @@ namespace DDD.Matsumoto.Character
 			
 			var inputProvider = Player.InputEventProvider;
 			var position = _playerTransform.position;
-
 			
 			var deltaSpeed = weight * Time.deltaTime;
 			position += inputProvider.GetMoveVector() * deltaSpeed;
+			Player.CharacterRig.MovePosition(position);
 
 			// 向きの変更
 			var inputDirection = inputProvider.GetPleyerDirection(position);

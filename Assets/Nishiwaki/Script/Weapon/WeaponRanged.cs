@@ -5,6 +5,7 @@ using DDD.Nishiwaki.Bullet;
 using UnityEngine;
 using DDD.Katano.Managers;
 using UniRx;
+using Zenject;
 
 namespace DDD.Nishiwaki.Item
 {
@@ -22,15 +23,18 @@ namespace DDD.Nishiwaki.Item
 	    private static Material _coreMaterial;
 	    private Renderer _coreRenderer;
 
-        // Use this for initialization
-        void Start() {
+	    [Inject]
+	    private IMessageReceiver _messageReceiver;
+
+		// Use this for initialization
+		void Start() {
 
 			//フロア破壊時に武器を消す
-	        FindObjectOfType<MainGameManager>()
-		        .EventReceive<Katano.MazeSignal.FloorDestruct>()
-		        .Where((_) => !characterCore)
-		        .Subscribe((_) => Destroy(gameObject))
-		        .AddTo(this);
+			//_messageReceiver
+			//	.Receive<Katano.MazeSignal.FloorDestruct>()
+		 //       .Where((_) => !characterCore)
+		 //       .Subscribe((_) => Destroy(gameObject))
+		 //       .AddTo(this);
 
 		}
 
@@ -84,8 +88,9 @@ namespace DDD.Nishiwaki.Item
         {
             var prefab = asset.WeaponRangedPrefab;
 	        var obj = Instantiate(prefab, transform.position, prefab.transform.rotation);
+	        obj.AddComponent<ZenAutoInjecter>();
 
-            WeaponRanged weapon;
+			WeaponRanged weapon;
             switch (asset)
             {
                 case WeaponRangedAutoAsset AutoAsset:

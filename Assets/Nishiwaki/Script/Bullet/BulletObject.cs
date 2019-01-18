@@ -6,6 +6,7 @@ using UnityEngine;
 using DDD.Nishiwaki.Bullet;
 using DDD.Katano.Managers;
 using UniRx;
+using Zenject;
 
 namespace DDD.Nishiwaki.Bullet
 {
@@ -17,15 +18,18 @@ namespace DDD.Nishiwaki.Bullet
         // 消滅用の時間
         float DestroyTime = 0.0f;
 
-        void Start()
+	    [Inject]
+	    private IMessageReceiver _messageReceiver;
+
+		void Start()
         {
             gameObject.GetComponent<vfx_bullet>().muzzle();
 
 			//フロア破壊時に弾を消去する
-	        FindObjectOfType<MainGameManager>()
-		        .EventReceive<Katano.MazeSignal.FloorDestruct>()
-		        .Subscribe((_) => Destroy(gameObject))
-		        .AddTo(this);
+			//_messageReceiver
+			//	.Receive<Katano.MazeSignal.FloorDestruct>()
+		 //       .Subscribe((_) => Destroy(gameObject))
+		 //       .AddTo(this);
 		}
 
         void Update()
