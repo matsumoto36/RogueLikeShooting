@@ -13,22 +13,30 @@ namespace DDD.Katano
 		public Color StartColor = new Color(1, 1, 1);
 		public Color EndColor = new Color(0.5f, 0.5f, 0.5f);
 
-		public int Depth = 1;
+		public int Depth = 2;
 		
 		private Transform _transformCache;
-		private static readonly int In = Shader.PropertyToID("in");
-		private static readonly int Out = Shader.PropertyToID("out");
+		private static readonly int Color = Shader.PropertyToID("_Color");
+		private static readonly int Alpha = Shader.PropertyToID("_alpha_width");
 
 		// Start is called before the first frame update
 		private void Start()
 		{
 			var material = MeshRenderer.material;
-			material.SetColor(In, StartColor);
-			material.SetColor(Out, EndColor);
+			material.SetColor(Color, StartColor);
 			
 			_transformCache = transform;
 
-			_transformCache.DOScaleY(Depth, 1).SetEase(Ease.InSine).Play();
+			var sequence = DOTween.Sequence();
+
+			sequence
+				.Append(_transformCache.DOScaleY(Depth, 1).SetEase(Ease.InSine))
+				.Join(DOTween.To(() => material.GetFloat(Alpha), x => material.SetFloat(Alpha, x), 0, 1)
+					.SetEase(Ease.InSine));
+
+			sequence.Play();
+
+
 		}
 	}
 }
