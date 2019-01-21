@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DDD.Chikazawa;
 using DDD.Chikazawa.InputEventProvider;
 using DDD.Katano;
-using DDD.Katano.Managers;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
 using DDD.Matsumoto.Managers;
@@ -21,9 +19,6 @@ namespace DDD.Matsumoto
 	/// </summary>
 	public class PlayerCore : CharacterCore
 	{
-		[Inject]
-		private IMessagePublisher _messagePublisher;
-		
 		/// <summary>
 		/// 武器切り替え許容範囲
 		/// </summary>
@@ -33,9 +28,14 @@ namespace DDD.Matsumoto
 		/// 武器を切り替える所要時間
 		/// </summary>
 		private const float ChangeWeaponWait = 3;
+		
 		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
-
+		
 		private static PlayerHPProvider _playerHPProvider;
+		
+		[Inject]
+		private IMessagePublisher _messagePublisher;
+		
 		private bool _canChangeWeapon = true;
 		private float _changeWeaponTime;
 
@@ -78,21 +78,20 @@ namespace DDD.Matsumoto
 
 		protected override void OnSpawn(CharacterAsset asset)
 		{
-			CharacterType = CharacterType.Player;
-
-			var playerAsset = (PlayerAsset) asset;
-
 			//レイヤー設定
 			gameObject.layer = LayerMask.NameToLayer("Player");
-
+			CharacterType = CharacterType.Player;
+			
 			//リストに追加
 			Players.Add(this);
-
+			
+			var playerAsset = (PlayerAsset) asset;
 			//IDの設定
-			ID = playerAsset.ID;
+			ID = playerAsset.ID;		
 
 			//HPの設定
 			if (!_playerHPProvider)
+			{
 				if (!(_playerHPProvider = FindObjectOfType<PlayerHPProvider>()))
 				{
 					_playerHPProvider = new GameObject("[PlayerHPProvider]")
@@ -105,6 +104,7 @@ namespace DDD.Matsumoto
 					//暫定的にプレイヤーが出す
 					UIManager.Instance.Show("PlayerStatus");
 				}
+			}
 
 			//追加のコンポーネントを追加
 			gameObject.AddComponent<PlayerMove>();

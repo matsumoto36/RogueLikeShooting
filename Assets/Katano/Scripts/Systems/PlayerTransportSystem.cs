@@ -8,7 +8,6 @@ using DG.Tweening;
 using Reqweldzen.Extensions;
 using UniRx.Async;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DDD.Katano
 {

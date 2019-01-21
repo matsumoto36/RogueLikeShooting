@@ -4,6 +4,7 @@ using DDD.Chikazawa;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Matsumoto {
 
@@ -13,6 +14,9 @@ namespace DDD.Matsumoto {
 
 		[SerializeField]
 		private PlayerBindData BindData;
+
+		[Inject]
+		private CharacterCore.Factory _characterFactory;
 
 		public bool SpawnOnAwake;
 		public bool PlayerIDOverride;
@@ -26,6 +30,7 @@ namespace DDD.Matsumoto {
 					if(PlayerIDOverride)
 						asset.ID = OverrideID;
 
+					
 					var player = CharacterCore.Create<PlayerCore>(asset, transform);
 					
 					asset.ID = id;
