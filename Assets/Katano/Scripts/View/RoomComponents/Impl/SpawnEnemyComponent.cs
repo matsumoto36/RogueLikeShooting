@@ -4,6 +4,7 @@ using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
 {
@@ -20,6 +21,9 @@ namespace DDD.Katano.View.RoomComponents
 		/// 敵を全滅させたイベント
 		/// </summary>
 		public IObservable<Unit> OnRoomCapturedAsync => _onRoomCapturedAsync;
+
+		[Inject]
+		private IMessagePublisher _messagePublisher;
 
 		/// <inheritdoc />
 		public override void OnInitialize()
@@ -44,6 +48,8 @@ namespace DDD.Katano.View.RoomComponents
 					
 					_onRoomCapturedAsync.OnNext(Unit.Default);
 					_onRoomCapturedAsync.OnCompleted();
+
+					_messagePublisher.Publish(new RoomSignal.RoomCleared());
 				});
 			
 			Debug.Log($"[{Owner.Room.ToString()}] Enemies was spawned.");

@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,7 +13,6 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   HP: 100
-  ModelPrefab: {fileID: 1709342743240602, guid: 3f6435e34cefc4747a0fb5362004db6f,
-    type: 2}
-  Weapon: {fileID: 11400000, guid: 93fd51b0cf6a10b40b0e5b27ffca0ccc, type: 2}
+  ThemeColor: {r: 1, g: 0, b: 0, a: 1}
+  Weapon: {fileID: 11400000, guid: 19fc33c7cd0ad3a478cb0d9fcd4d91c9, type: 2}
   EnemyAIType: 0

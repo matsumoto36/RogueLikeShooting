@@ -4,7 +4,7 @@ using DDD.Katano.Model;
 using DDD.Katano.View;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Zenject;
 
 namespace DDD.Katano.Managers
 {
@@ -14,7 +14,8 @@ namespace DDD.Katano.Managers
 	[DisallowMultipleComponent]
 	public class GameFloorManager : MonoBehaviour
 	{
-		private IMessageBroker _messageBroker;
+		[Inject]
+		private IMessageReceiver _messageReceiver;
 		
 		[SerializeField]
 		private MazeDataAsset _mazeDataAsset;
@@ -32,11 +33,11 @@ namespace DDD.Katano.Managers
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		public void Initialize(IMessageBroker messageBroker)
+		public void Initialize()
 		{
-			_messageBroker = messageBroker;
-			
-			_messageBroker.Receive<MazeSignal.FloorStarted>().Subscribe(_ => Startup());
+			_messageReceiver
+				.Receive<MazeSignal.FloorStarted>()
+				.Subscribe(_ => Startup());
 			
 			Log("Initialized.");
 		}

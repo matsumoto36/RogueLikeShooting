@@ -7,6 +7,7 @@ using UniRx;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 // ReSharper disable NotAccessedField.Local
 
 namespace DDD.Katano.View
@@ -35,6 +36,9 @@ namespace DDD.Katano.View
 		/// プレイヤー入場イベント
 		/// </summary>
 		public IObservable<Unit> OnEnterObservable => _onEnterObservable;
+
+		[Inject]
+		private IMessagePublisher _messagePublisher;
 
 		/// <summary>
 		/// .ctor
@@ -69,6 +73,8 @@ namespace DDD.Katano.View
 			
 			_onEnterObservable.OnNext(Unit.Default);
 			Debug.Log($"{Room.ToString()} entered.");
+
+			_messagePublisher.Publish(new RoomSignal.RoomStarted());
 		}
 
 		private void OnDestroy()

@@ -4,6 +4,7 @@ using Reqweldzen.Extensions;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano.Managers
 {
@@ -12,6 +13,7 @@ namespace DDD.Katano.Managers
 	/// </summary>
 	public class GameUIManager : MonoBehaviour
 	{
+		[Inject]
 		private IMessageReceiver _messageReceiver;
 
 		public GameInfoScreenView InfoScreenView;
@@ -19,10 +21,8 @@ namespace DDD.Katano.Managers
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		public void Initialize(IMessageReceiver messageReceiver)
+		public void Initialize()
 		{
-			_messageReceiver = messageReceiver;
-			
 			Log("Initialized.");
 		}
 		
