@@ -10,6 +10,7 @@ using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace DDD.Chikazawa
 {
@@ -21,7 +22,8 @@ namespace DDD.Chikazawa
 	    /// <summary>
 	    ///     プレイヤーバインドデータ
 	    /// </summary>
-		public PlayerBindData BindData;
+	    [Inject]
+		private PlayerBindData _bindData;
 
 		/// <summary>
 		/// プレイヤーオブジェクトリスト
@@ -197,7 +199,7 @@ namespace DDD.Chikazawa
 	    /// </summary>
 	    public void Save()
 		{
-			for (var i = 0; i < 4; i++) BindData.PlayerEntries[i] = _controllerIndices[i];
+			for (var i = 0; i < 4; i++) _bindData.PlayerEntries[i] = _controllerIndices[i];
 		}
 	}
 

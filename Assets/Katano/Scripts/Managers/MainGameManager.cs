@@ -16,6 +16,8 @@ namespace DDD.Katano.Managers
 	{
 		private const int Roof = 10;
 
+		[Inject]
+		private Settings _settings;
 
 		[Inject]
 		private IMessagePublisher _messagePublisher;
@@ -23,8 +25,9 @@ namespace DDD.Katano.Managers
 		[Inject]
 		private IMessageReceiver _messageReceiver;
 		
-		public GameResultData ResultData;
-		public GameSettings GameSettings;
+		
+		[Inject]
+		private GameResultData _resultData;
 		public GameFloorManager FloorManager;
 		public GameUIManager UIManager;
 
@@ -83,10 +86,10 @@ namespace DDD.Katano.Managers
 			
 			FloorManager.Destruct();
 
-			ResultData.ReachedFloor = Roof;
-			ResultData.IsClear = true;
+			_resultData.ReachedFloor = Roof;
+			_resultData.IsClear = true;
 		
-			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
+			SceneManager.LoadScene(_settings.NextScene.ToString());
 		}
 
 		/// <summary>
@@ -99,10 +102,10 @@ namespace DDD.Katano.Managers
 			
 			FloorManager.Destruct();
 
-			ResultData.ReachedFloor = _currentFloor;
-			ResultData.IsClear = false;
+			_resultData.ReachedFloor = _currentFloor;
+			_resultData.IsClear = false;
 
-			SceneManager.LoadScene(GameSettings.MainGameSettings.NextScene.ToString());
+			SceneManager.LoadScene(_settings.NextScene.ToString());
 		}
 
 		/// <summary>

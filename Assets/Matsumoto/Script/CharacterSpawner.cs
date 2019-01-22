@@ -11,8 +11,8 @@ namespace DDD.Matsumoto
 		[Inject]
 		private CharacterCore.Factory _characterFactory;
 
-		[SerializeField]
-		private PlayerBindData BindData;
+		[Inject]
+		private PlayerBindData _bindData;
 
 		[SerializeField]
 		private CharacterAsset CharacterAsset;
@@ -32,13 +32,15 @@ namespace DDD.Matsumoto
 						asset.ID = OverrideID;
 
 
-					var player = CharacterCore.Create<PlayerCore>(asset, transform);
+					// var player = CharacterCore.Create<PlayerCore>(asset, transform);
+					var player = _characterFactory.Create<PlayerCore>(asset, transform);
 
 					asset.ID = id;
 
 					return player;
 				case EnemyAsset asset:
-					return CharacterCore.Create<EnemyCore>(asset, transform);
+//					return CharacterCore.Create<EnemyCore>(asset, transform);
+					return _characterFactory.Create<EnemyCore>(asset, transform);
 				default:
 					return null;
 			}

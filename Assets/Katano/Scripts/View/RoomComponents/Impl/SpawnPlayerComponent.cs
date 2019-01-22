@@ -11,6 +11,7 @@ using UniRx;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
 {
@@ -26,7 +27,8 @@ namespace DDD.Katano.View.RoomComponents
 		/// <summary>
 		/// キーバインドデータ
 		/// </summary>
-		public PlayerBindData BindData;
+		[Inject]
+		private PlayerBindData _bindData;
 		
 		/// <summary>
 		/// ゲームプレイヤー
@@ -56,9 +58,9 @@ namespace DDD.Katano.View.RoomComponents
 		{
 			var list = new List<PlayerCore>();
 
-			for (var i = 0; i < BindData.PlayerEntries.Count; i++)
+			for (var i = 0; i < _bindData.PlayerEntries.Count; i++)
 			{
-				var entry = BindData.PlayerEntries[i];
+				var entry = _bindData.PlayerEntries[i];
 				if (entry == ControllerIndex.Invalid)
 					break;
 

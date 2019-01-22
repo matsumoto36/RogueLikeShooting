@@ -8,6 +8,7 @@ using DG.Tweening;
 using Reqweldzen.Extensions;
 using UniRx.Async;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano
 {
@@ -23,12 +24,8 @@ namespace DDD.Katano
 		/// <summary>
 		/// ゲームカメラ
 		/// </summary>
+		[Inject]
 		private GameCamera _gameCamera;
-
-		private void Awake()
-		{
-			_gameCamera = FindObjectOfType<GameCamera>();
-		}
 
 		/// <summary>
 		/// 初期化
