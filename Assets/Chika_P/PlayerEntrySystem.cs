@@ -27,6 +27,8 @@ namespace DDD.Chikazawa
 		/// プレイヤーオブジェクトリスト
 		/// </summary>
 		public List<GameObject> PlayerObjects; //スポーン（エントリー）したときのオブジェクト
+
+		public List<DissolveShaderControl> PlayerShaders;
 		
 		private readonly List<ControllerIndex> _controllerIndices = new List<ControllerIndex>(new ControllerIndex[4]);
 
@@ -38,6 +40,7 @@ namespace DDD.Chikazawa
 	    public void Initialize()
 		{
 			for (var i = 0; i < _controllerIndices.Count; i++) _controllerIndices[i] = ControllerIndex.Invalid;
+			PlayerShaders = PlayerObjects.Select(x => x.GetComponentInChildren<DissolveShaderControl>()).ToList();
 		}
 
 		/// <summary>
@@ -63,6 +66,7 @@ namespace DDD.Chikazawa
 					case ControllerIndex.Three:
 					case ControllerIndex.Four:
 					{
+						if (PlayerShaders.All(x => !x.IsActive))
 						// スタートボタンで開始
 						if (GamePad.GetButtonDown(GamePad.Button.Start, index.ToGamePadIndex()))
 							return true;
@@ -72,6 +76,7 @@ namespace DDD.Chikazawa
 					// キーボード
 					case ControllerIndex.Keyboard:
 					{
+						if (PlayerShaders.All(x => !x.IsActive))
 						// Enterキーで開始
 						if (Input.GetKeyDown(KeyCode.Return))
 							return true;
@@ -170,11 +175,11 @@ namespace DDD.Chikazawa
 		{
 			if (isActive)
 			{
-				PlayerObjects[slot].GetComponentInChildren<DissolveShaderControl>().Show();
+				PlayerShaders[slot].Show();
 			}
 			else
 			{
-				PlayerObjects[slot].GetComponentInChildren<DissolveShaderControl>().Hide();
+				PlayerShaders[slot].Hide();
 			}
 		}
 

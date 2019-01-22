@@ -18,6 +18,12 @@ namespace DDD.Takahashi
 			public static readonly int Origin = Shader.PropertyToID("_takasa");
 		}
 
+		private float Origin
+		{
+			get => _renderer.material.GetFloat(ParamId.Origin);
+			set => _renderer.material.SetFloat(ParamId.Origin, value);
+		}
+		
 		private float EmitHeight
 		{
 			get => _renderer.material.GetFloat(ParamId.EmitHeight);
@@ -50,6 +56,8 @@ namespace DDD.Takahashi
 
 		private CancellationToken _cancellationToken;
 
+		public bool IsActive { get; private set; }
+		
 		private void Awake()
 		{
 			_transformCache = transform;
@@ -60,9 +68,9 @@ namespace DDD.Takahashi
 		private void Start()
 		{
 			_cancellationToken = this.GetCancellationTokenOnDestroy();
-			_renderer.material.SetFloat(ParamId.Origin, PositionY + UnitSize);
 			
-			_renderer.material.SetFloat(ParamId.EmitHeight, !UpperOnAwake ? UpperHeight : LowerHeight);
+			Origin = PositionY + UnitSize;
+			EmitHeight = UpperOnAwake ? LowerHeight : UpperHeight;
 			
 			_onInitializeSubject.OnNext((!UpperOnAwake ? UpperHeight : LowerHeight, PositionY + UnitSize, EffectColor.Value));
 			_onInitializeSubject.OnCompleted();
@@ -83,6 +91,8 @@ namespace DDD.Takahashi
 					EmitHeight = LowerHeight;
 					return;
 				}
+
+				IsActive = true;
 				
 				var emit = UpperHeight;
 				EmitHeight = emit;
@@ -90,22 +100,22 @@ namespace DDD.Takahashi
 				while (!_cancellationToken.IsCancellationRequested)
 				{
 					emit -= Speed * Time.deltaTime;
-					_renderer.material.SetFloat(ParamId.EmitHeight, emit);
 						
 					_dissolveSubject.OnNext((DissolveMode.Composite, emit));
 					
 					if (LowerHeight >= emit)
 					{
-						emit = LowerHeight;
-						break;
+						IsActive = false;
+						EmitHeight = LowerHeight;
+						return;
 					}
 
-					_renderer.material.SetFloat(ParamId.EmitHeight, emit);
+					EmitHeight = emit;
 					
 					await UniTask.Yield();
 				}
 			}
-
+			
 			CompositeAsync().Forget();
 		}
 
@@ -120,6 +130,8 @@ namespace DDD.Takahashi
 					EmitHeight = UpperHeight;
 					return;
 				}
+
+				IsActive = true;
 				
 				var emit = LowerHeight;
 				EmitHeight = emit;
@@ -133,8 +145,9 @@ namespace DDD.Takahashi
 
 					if (UpperHeight <= emit)
 					{
+						IsActive = false;
 						EmitHeight = UpperHeight;
-						break;
+						return;
 					}
 
 					await UniTask.Yield();

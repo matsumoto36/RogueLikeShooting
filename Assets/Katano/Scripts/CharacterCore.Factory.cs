@@ -7,16 +7,16 @@ namespace DDD.Matsumoto.Character
 {
 	public abstract partial class CharacterCore
 	{
-		public class Factory : PlaceholderFactory<CharacterAsset, Transform, CharacterCore>
+		public class Factory
 		{
 			private DiContainer _container;
 
-			private void Construct(DiContainer container)
+			public Factory(DiContainer container)
 			{
 				_container = container;
 			}
 
-			public new CharacterCore Create<T>(CharacterAsset asset, Transform anchor) where T : CharacterCore
+			public CharacterCore Create<T>(CharacterAsset asset, Transform anchor) where T : CharacterCore
 			{
 				var go = Instantiate(Resources.Load<GameObject>(CharacterPrefabPath), anchor.position,
 					anchor.rotation);
