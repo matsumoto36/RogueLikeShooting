@@ -200,8 +200,7 @@ namespace DDD.Matsumoto.Character {
 			var obj = Instantiate(Resources.Load<GameObject>(CharacterPrefabPath), spawnTransform.position,
 				spawnTransform.rotation);
 
-			obj.AddComponent<ZenAutoInjecter>();
-
+			obj.name = asset.name;
 
 			var character = obj.AddComponent<T>();
 			character._themeColor = asset.ThemeColor;

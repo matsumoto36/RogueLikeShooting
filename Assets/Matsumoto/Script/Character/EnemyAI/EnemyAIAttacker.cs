@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace DDD.Matsumoto.Character.EnemyAI {
 
@@ -13,12 +14,16 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 
 		private float _attackRadius = 5f;
 		private PlayerCore _target;
-			   
+
+		public void AIStart(EnemyCore enemy) {
+
+		}
+
 		public void AIUpdate(EnemyCore enemy) {
 
 			//一秒毎に、近いプレイヤーをターゲットにする
 			if(!_target || (Time.frameCount + _randomFrame) % 60 == 0)
-				_target = enemy.RetrieveNearestPlayer();
+				_target = EnemyAIUtility.RetrieveNearestPlayer(enemy.transform.position);
 
 			if(!_target) return;
 
@@ -28,6 +33,7 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 				enemy.Attack();
 			else {
 				//移動
+
 				enemy.Move(dist.normalized);
 			}
 

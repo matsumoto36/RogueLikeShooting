@@ -11,6 +11,8 @@ namespace DDD.Matsumoto.Character {
 	/// </summary>
 	public interface IEnemyAI {
 
+		void AIStart(EnemyCore enemy);
+
 		void AIUpdate(EnemyCore enemy);
 
 	}
