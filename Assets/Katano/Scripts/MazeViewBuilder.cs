@@ -118,7 +118,7 @@ namespace DDD.Katano.Maze
 			}
 		}
 
-		public class Factory : IFactory<Maze, MazeViewBuilder>
+		public class Factory
 		{
 			private DiContainer _container;
 
