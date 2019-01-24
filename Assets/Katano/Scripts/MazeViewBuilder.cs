@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DDD.Katano.Installers;
 using DDD.Katano.View;
 using DDD.Katano.View.RoomComponents;
 using Reqweldzen.Extensions;
 using DDD.Katano.Model;
 using UnityEngine;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace DDD.Katano.Maze
@@ -23,8 +25,10 @@ namespace DDD.Katano.Maze
 		/// <summary>
 		/// 迷宮構築アセットデータ
 		/// </summary>
-		private readonly MazeDataAsset _mazeDataAsset;
-		
+		private readonly MazeSettings _mazeSettings;
+
+		private readonly DiContainer _container;
+
 		/// <summary>
 		/// 部屋の配置インターバル
 		/// </summary>
@@ -34,11 +38,13 @@ namespace DDD.Katano.Maze
 		/// .ctor
 		/// </summary>
 		/// <param name="maze"></param>
-		/// <param name="mazeDataAsset"></param>
-		public MazeViewBuilder(Maze maze, MazeDataAsset mazeDataAsset)
+		/// <param name="mazeSettings"></param>
+		/// <param name="container"></param>
+		public MazeViewBuilder(Maze maze, MazeSettings mazeSettings, DiContainer container)
 		{
 			_maze = maze;
-			_mazeDataAsset = mazeDataAsset;
+			_mazeSettings = mazeSettings;
+			_container = container;
 		}
 
 		/// <summary>
@@ -76,19 +82,27 @@ namespace DDD.Katano.Maze
 				{
 					case Room.RoomAttributes.FloorStart:
 					{
-						go = Object.Instantiate(_mazeDataAsset.PlayerRoomPrefab, coordinate, Quaternion.identity);
+						go = _container.InstantiatePrefab(_mazeSettings.PlayerRoom, coordinate, Quaternion.identity,
+							null);
+//						go = Object.Instantiate(_mazeSettings.PlayerRoom, coordinate, Quaternion.identity);
 						break;
 					}
 					case Room.RoomAttributes.Stair:
 					{
-						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coordinate, Quaternion.identity);
+						go = _container.InstantiatePrefab(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity,
+							null);
+						_container.InstantiateComponent<SpawnStairComponent>(go);
+						
+//						go = Object.Instantiate(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity);
 						// 階段コンポーネントを追加
-						go.AddComponent<SpawnStairComponent>();
+//						go.AddComponent<SpawnStairComponent>();
 						break;
 					}
 					case Room.RoomAttributes.Others:
 					{
-						go = Object.Instantiate(_mazeDataAsset.RoomPrefabList.RandomAt(), coordinate, Quaternion.identity);
+						go = _container.InstantiatePrefab(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity,
+							null);
+						// go = Object.Instantiate(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity);
 						break;
 					}
 					default:
@@ -96,7 +110,7 @@ namespace DDD.Katano.Maze
 				}
 
 				var goTransform = go.transform;
-				var cameraAnchor = Object.Instantiate(_mazeDataAsset.CameraAnchor, goTransform);
+				var cameraAnchor = Object.Instantiate(_mazeSettings.BirdsEyeCamera, goTransform);
 				
 				var view = go.GetComponent<RoomView>();
 				view.Construct(room.Element, cameraAnchor.transform);
@@ -104,35 +118,20 @@ namespace DDD.Katano.Maze
 			}
 		}
 
-//		private void MakeAisleView(ref Dictionary<int, AisleView> aisleViewList, IReadOnlyDictionary<int, RoomView> roomViewList)
-//		{
-//			// AisleViewの生成
-//			foreach (var aisle in _maze.Aisles)
-//			{
-//				var spawn = Vector3.Lerp(roomViewList[aisle.Room0.Id].transform.position, roomViewList[aisle.Room1.Id].transform.position, 0.5f);
-//				var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//
-//				switch (aisle.AisleChainState)
-//				{
-//					case AisleChainState.Horizontal:
-//					{
-//						obj.transform.localScale = new Vector3(10, 0.1f, 1);
-//						break;
-//					}
-//					case AisleChainState.Vertical:
-//					{
-//						obj.transform.localScale = new Vector3(1, 0.1f, 10);
-//						break;
-//					}
-//					default:
-//						throw new ArgumentOutOfRangeException();
-//				}
-//				obj.transform.localPosition = spawn;
-//
-//				var view = obj.AddComponent<AisleView>();
-//				view.Construct(aisle);
-//				aisleViewList.Add(aisle.Id, view);
-//			}
-//		}
+		public class Factory : IFactory<Maze, MazeViewBuilder>
+		{
+			private DiContainer _container;
+
+			[Inject]
+			private void Construct(DiContainer container)
+			{
+				_container = container;
+			}
+
+			public MazeViewBuilder Create(Maze param1)
+			{
+				return _container.Instantiate<MazeViewBuilder>(new object []{param1});
+			}
+		}
 	}
 }

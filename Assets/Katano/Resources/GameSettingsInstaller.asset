@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4298e3093424c5c9688d2227d04cd06, type: 3}
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
+  GamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   TitleSettings:
     NextScene: 4
   MainGameSettings:
