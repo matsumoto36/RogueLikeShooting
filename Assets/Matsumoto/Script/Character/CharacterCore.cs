@@ -15,7 +15,7 @@ namespace DDD.Matsumoto.Character {
 	/// <summary>
 	/// 各キャラクターのコアクラス
 	/// </summary>
-	public abstract class CharacterCore : MonoBehaviour {
+	public abstract partial class CharacterCore : MonoBehaviour {
 
 		public const string CharacterPrefabPath = "Prefab/CharacterPrefab";
 

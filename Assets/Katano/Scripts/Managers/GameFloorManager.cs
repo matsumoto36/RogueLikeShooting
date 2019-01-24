@@ -1,4 +1,5 @@
 using System.Linq;
+using DDD.Katano.Installers;
 using DDD.Katano.Maze;
 using DDD.Katano.Model;
 using DDD.Katano.View;
@@ -16,9 +17,9 @@ namespace DDD.Katano.Managers
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
-		
-		[SerializeField]
-		private MazeDataAsset _mazeDataAsset;
+
+		[Inject]
+		private MazeSettings _mazeSettings;
 
 		[SerializeField]
 		private MazeFloorSettings _floorSettings;
@@ -26,6 +27,9 @@ namespace DDD.Katano.Managers
 		[SerializeField]
 		private PlayerTransportSystem _transportSystem;
 
+		[Inject]
+		private MazeViewBuilder.Factory _mazeViewBuilderFactory;
+		
 		private MazeView _mazeView;
 
 		private bool _isReady;
@@ -112,7 +116,7 @@ namespace DDD.Katano.Managers
 		/// <returns></returns>
 		private MazeView ConstructMazeView(Maze.Maze maze)
 		{
-			var viewBuilder = new MazeViewBuilder(maze, _mazeDataAsset);
+			var viewBuilder = _mazeViewBuilderFactory.Create(maze);
 
 			return viewBuilder.Construct();
 		}

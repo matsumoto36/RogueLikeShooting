@@ -75,7 +75,7 @@ namespace DDD.Katano.View.RoomComponents
 					.AddTo(this);
 			}
 
-			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(InitTransporters).Forget();
+			TransporterHub.gameObject.GetAsyncStartTrigger().StartAsync().ContinueWith(() => InitTransporters()).Forget();
 		}
 		
 		private void InitTransporters()

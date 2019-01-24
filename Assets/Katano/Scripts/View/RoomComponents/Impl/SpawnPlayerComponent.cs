@@ -1,87 +1,82 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DDD.Chikazawa;
 using DDD.Chikazawa.InputEventProvider;
 using DDD.Katano.Managers;
 using DDD.Katano.Model;
 using DDD.Katano.View.Player;
 using DDD.Matsumoto;
-using UniRx;
 using Unity.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
 {
 	/// <summary>
-	/// プレイヤーを生成するコンポーネント
+	///     プレイヤーを生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
 	public class SpawnPlayerComponent : BaseRoomComponent
 	{
-		private GameObject _spawnersParent;
-		private CharacterSpawner[] _spawners;
-		
 		/// <summary>
-		/// キーバインドデータ
+		///     キーバインドデータ
 		/// </summary>
-		public PlayerBindData BindData;
-		
+		[Inject]
+		private PlayerBindData _bindData;
+
 		/// <summary>
-		/// ゲームプレイヤー
+		///     ゲームプレイヤー
 		/// </summary>
-		public GamePlayers GamePlayers;
+		[Inject]
+		private GamePlayers _gamePlayers;
 
-		private Transform _parent;
-
+		[Inject]
 		private MainGameManager _mainGameManager;
-		
-		private void Awake()
-		{
-			_parent = transform;
-			_mainGameManager = FindObjectOfType<MainGameManager>();
-			
-			
-			var prefab = Resources.Load<GameObject>("PlayerSpawners");
-			_spawnersParent = Instantiate(prefab, transform);
-			_spawners = _spawnersParent
-				.Children()
-				.OfComponent<CharacterSpawner>()
-				.ToArray();
-		}
-		
+
+		[Inject]
+		private GameObject _playerSpawnerPrefab;
+
+		private CharacterSpawner[] _spawners;
+		private GameObject _spawnersParent;
+
+		private Transform _transformCache;
+
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
+			_transformCache = transform;
+
+			_spawnersParent = Instantiate(_playerSpawnerPrefab, _transformCache);
+			_spawners = _spawnersParent.Children().OfComponent<CharacterSpawner>().ToArray();
+			
 			var list = new List<PlayerCore>();
 
-			for (var i = 0; i < BindData.PlayerEntries.Count; i++)
+			for (var i = 0; i < _bindData.PlayerEntries.Count; i++)
 			{
-				var entry = BindData.PlayerEntries[i];
+				var entry = _bindData.PlayerEntries[i];
 				if (entry == ControllerIndex.Invalid)
 					break;
 
 				var player = (PlayerCore) _spawners[i].Spawn();
-				
+
 				PlayerSetup(player, entry);
-				
+
 				list.Add(player);
 			}
 
-			GamePlayers.Register(list.ToArray());
+			_gamePlayers.Register(list.ToArray());
 		}
 
 		/// <summary>
-		/// プレイヤーの初期設定
+		///     プレイヤーの初期設定
 		/// </summary>
 		/// <param name="player"></param>
 		/// <param name="index"></param>
 		private void PlayerSetup(PlayerCore player, ControllerIndex index)
 		{
-			player.transform.SetParent(_parent);
+			player.transform.SetParent(_transformCache);
 			player.gameObject.AddComponent<PlayerStateChanger>();
-			
+
 			switch (index)
 			{
 				// コントローラー入力
