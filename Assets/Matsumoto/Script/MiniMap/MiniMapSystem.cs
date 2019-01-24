@@ -53,19 +53,19 @@ namespace DDD.Matsumoto.Minimap {
 			_mapData = new int[settings.Height * 2 - 1, settings.Width * 2 - 1];
 
 			//フロア破壊時マップを初期化
-			//_messageReceiver.Receive<Katano.MazeSignal.FloorDestruct>()
-			//	.Subscribe((_) => Initialize())
-			//	.AddTo(this);
+			_messageReceiver.Receive<Katano.MazeSignal.FloorDestruct>()
+				.Subscribe((_) => Initialize())
+				.AddTo(this);
 
 			//部屋に入ったとき
-			//_messageReceiver.Receive<RoomSignal.RoomStarted>()
-			//	.Subscribe((_) => EnterRoom())
-			//	.AddTo(this);
+			_messageReceiver.Receive<RoomSignal.RoomStarted>()
+				.Subscribe((_) => EnterRoom())
+				.AddTo(this);
 
 			//部屋をクリアしたとき
-			//_messageReceiver.Receive<RoomSignal.RoomCleared>()
-			//	.Subscribe((_) => ClearRoom())
-			//	.AddTo(this);
+			_messageReceiver.Receive<RoomSignal.RoomCleared>()
+				.Subscribe((_) => ClearRoom())
+				.AddTo(this);
 
 			Initialize();
 

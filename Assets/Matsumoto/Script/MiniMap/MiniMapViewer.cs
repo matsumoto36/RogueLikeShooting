@@ -38,7 +38,7 @@ namespace DDD.Matsumoto.Minimap {
 			_miniMapSystem = FindObjectOfType<MiniMapSystem>();
 
 			//イベント登録
-			//_miniMapSystem.OnMapChanged += Draw;
+			_miniMapSystem.OnMapChanged += Draw;
 			_miniMapSystem.OnStarted += () => {
 				SetMapFloorImage();
 				StairIcon.transform.SetAsLastSibling();
