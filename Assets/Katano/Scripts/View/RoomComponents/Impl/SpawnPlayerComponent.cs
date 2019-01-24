@@ -36,8 +36,8 @@ namespace DDD.Katano.View.RoomComponents
 		[Inject]
 		private GameObject _playerSpawnerPrefab;
 
-		private CharacterSpawner[] _spawners;
-		private GameObject _spawnersParent;
+		[Inject]
+		private PlayerSpawnerFactory _spawnerFactory;
 
 		private Transform _transformCache;
 
@@ -46,8 +46,7 @@ namespace DDD.Katano.View.RoomComponents
 		{
 			_transformCache = transform;
 
-			_spawnersParent = Instantiate(_playerSpawnerPrefab, _transformCache);
-			_spawners = _spawnersParent.Children().OfComponent<CharacterSpawner>().ToArray();
+			var spawners = _spawnerFactory.Create(_transformCache);
 			
 			var list = new List<PlayerCore>();
 
@@ -57,7 +56,7 @@ namespace DDD.Katano.View.RoomComponents
 				if (entry == ControllerIndex.Invalid)
 					break;
 
-				var player = (PlayerCore) _spawners[i].Spawn();
+				var player = (PlayerCore) spawners[i].Spawn();
 
 				PlayerSetup(player, entry);
 
@@ -97,6 +96,24 @@ namespace DDD.Katano.View.RoomComponents
 				default:
 					throw new ArgumentOutOfRangeException(nameof(index), index, null);
 			}
+		}
+	}
+
+	public class PlayerSpawnerFactory
+	{
+		private GameObject _playerSpawner;
+		private DiContainer _container;
+
+		[Inject]
+		private void Construct(GameObject playerSpawner, DiContainer container)
+		{
+			_playerSpawner = playerSpawner;
+			_container = container;
+		}
+
+		public CharacterSpawner[] Create(Transform parent)
+		{
+			return _container.InstantiatePrefab(_playerSpawner, parent).GetComponentsInChildren<CharacterSpawner>();
 		}
 	}
 }

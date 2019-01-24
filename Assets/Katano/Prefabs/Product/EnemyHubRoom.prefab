@@ -44,10 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
-  BindData: {fileID: 0}
-  SpawnOnAwake: 0
-  PlayerIDOverride: 0
   OverrideID: 0
+  PlayerIDOverride: 0
+  SpawnOnAwake: 0
 --- !u!1 &1091286865028020
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,10 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
-  BindData: {fileID: 0}
-  SpawnOnAwake: 0
-  PlayerIDOverride: 0
   OverrideID: 0
+  PlayerIDOverride: 0
+  SpawnOnAwake: 0
 --- !u!1 &1265543982024840
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +110,6 @@ GameObject:
   - component: {fileID: 114912817725936170}
   - component: {fileID: 114169803844142224}
   - component: {fileID: 114490376990752994}
-  - component: {fileID: 215542444063058527}
   m_Layer: 0
   m_Name: EnemyHubRoom
   m_TagString: Untagged
@@ -247,19 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43ee94bccff4a079abe23c0bbaee0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &215542444063058527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265543982024840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _containerSource: 0
 --- !u!1 &1265962079971074
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,10 +476,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
-  BindData: {fileID: 0}
-  SpawnOnAwake: 0
-  PlayerIDOverride: 0
   OverrideID: 0
+  PlayerIDOverride: 0
+  SpawnOnAwake: 0
 --- !u!1 &1635551950961606
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterAsset: {fileID: 11400000, guid: b875c29d15621cf408f8aab9f96ca944, type: 2}
-  BindData: {fileID: 0}
-  SpawnOnAwake: 0
-  PlayerIDOverride: 0
   OverrideID: 0
+  PlayerIDOverride: 0
+  SpawnOnAwake: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DDD.Katano.Model;
 using UniRx;
 using UniRx.Async;
@@ -39,7 +40,7 @@ namespace DDD.Katano.Managers
 			Initialize();
 			
 			// フロアを準備する
-			GamePrepareCoroutine().Forget();
+			StartCoroutine(GamePrepareCoroutine());
 		}
 
 		/// <summary>
@@ -112,7 +113,7 @@ namespace DDD.Katano.Managers
 		/// フロアを準備する
 		/// </summary>
 		/// <returns></returns>
-		private async UniTaskVoid GamePrepareCoroutine()
+		private IEnumerator GamePrepareCoroutine()
 		{
 			
 			
@@ -125,7 +126,7 @@ namespace DDD.Katano.Managers
 			
 			
 			// フェードインする
-			await UIManager.FadeInAsync(_currentFloor);
+			yield return UIManager.FadeInAsync(_currentFloor);
 			
 			// ゲームスタート
 			_messagePublisher.Publish(new MazeSignal.FloorStarted());
@@ -155,7 +156,7 @@ namespace DDD.Katano.Managers
 			FloorManager.Destruct();
 			
 			// フロアを準備する
-			GamePrepareCoroutine().Forget();
+			StartCoroutine(GamePrepareCoroutine());
 		}
 		
 		/// <summary>
