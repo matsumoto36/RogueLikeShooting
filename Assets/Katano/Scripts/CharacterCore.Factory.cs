@@ -9,7 +9,7 @@ namespace DDD.Matsumoto.Character
 	{
 		public class Factory
 		{
-			private DiContainer _container;
+			private readonly DiContainer _container;
 
 			public Factory(DiContainer container)
 			{
@@ -18,19 +18,23 @@ namespace DDD.Matsumoto.Character
 
 			public CharacterCore Create<T>(CharacterAsset asset, Transform anchor) where T : CharacterCore
 			{
-				var prefab = Resources.Load<GameObject>(CharacterPrefabPath);
-				var go = Instantiate(prefab, anchor.position, anchor.rotation);
+//				var prefab = Resources.Load<GameObject>(CharacterPrefabPath);
+//				var go = Instantiate(prefab, anchor.position, anchor.rotation);
+				var go = _container.InstantiatePrefabResource(
+					CharacterPrefabPath, 
+					anchor.position, 
+					anchor.rotation,
+					null);
 
-
-				var character = go.AddComponent<T>();
+//				var character = go.AddComponent<T>();
+				var character = _container.InstantiateComponent<T>(go);
+				
 				character._themeColor = asset.ThemeColor;
 				character.CharacterRig = character.GetComponent<Rigidbody>();
 
 				character.OnSpawn(asset);
 				var weapon = WeaponRanged.Create(asset.Weapon, anchor);
 				character.AttachWeapon(weapon);
-
-				_container.InjectGameObject(go);
 
 				return character;
 			}
