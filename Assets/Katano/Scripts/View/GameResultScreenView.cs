@@ -10,5 +10,6 @@ namespace DDD.Katano.Managers
 	{
 		public Text Label;
 		public CanvasGroup CanvasGroup;
+		public CanvasGroup Continue;
 	}
 }

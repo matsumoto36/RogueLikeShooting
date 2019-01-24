@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688258af2a434680a9c110c5ba945f37, type: 3}
+  m_Name: GameDataInstaller
+  m_EditorClassIdentifier: 
+  BindData: {fileID: 11400000, guid: 45d5790bd70ccc4479670460528a9c14, type: 2}
+  ResultData: {fileID: 11400000, guid: cfa278ba456b5c447a4c480d08513e2c, type: 2}

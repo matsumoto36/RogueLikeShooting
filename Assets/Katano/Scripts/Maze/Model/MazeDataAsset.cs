@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace DDD.Katano.Maze
@@ -7,7 +8,6 @@ namespace DDD.Katano.Maze
 	{
 		public GameObject PlayerRoomPrefab;
 		public GameObject[] RoomPrefabList;
-		public GameObject[] AislePrefabList;
 		public GameObject CameraAnchor;
 	}
 }

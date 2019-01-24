@@ -7,6 +7,7 @@ using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace DDD.Katano
 {
@@ -16,11 +17,12 @@ namespace DDD.Katano
 	public class GameTitleManager : MonoBehaviour
 	{
 		private CancellationToken _token;
-		
+
 		/// <summary>
 		/// ゲーム設定
 		/// </summary>
-		public GameSettings GameSettings;
+		[Inject]
+		private Settings _settings;
 
 		/// <summary>
 		/// UIマネージャ
@@ -121,7 +123,7 @@ namespace DDD.Katano
 				
 				EntrySystem.Save();
 				
-				SceneManager.LoadScene(GameSettings.TitleSettings.NextScene.ToString());
+				SceneManager.LoadScene(_settings.NextScene.ToString());
 			}
 			else
 			{
