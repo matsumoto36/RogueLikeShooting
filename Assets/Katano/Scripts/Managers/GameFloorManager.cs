@@ -33,7 +33,7 @@ namespace DDD.Katano.Managers
 		private MazeView _mazeView;
 
 		private bool _isReady;
-
+		
 		/// <summary>
 		/// 初期化
 		/// </summary>
@@ -75,9 +75,9 @@ namespace DDD.Katano.Managers
 			}
 
 			var entryPoint = maze.RoomList.Cast<Room>().First(x => x.RoomAttribute == Room.RoomAttributes.FloorStart);
-			var entryView = view.Rooms[entryPoint.Id];
+			var startRoom = view.Rooms[entryPoint.Id];
 			
-			_transportSystem.Initialize(entryView);
+			_transportSystem.Initialize(startRoom);
 			
 			_isReady = true;
 			

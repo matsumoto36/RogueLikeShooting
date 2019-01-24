@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1308609635209496, guid: 0c95389693f80534f9c52176d643b118, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4899828708293332, guid: 0c95389693f80534f9c52176d643b118, type: 3}
       propertyPath: m_LocalPosition.x
@@ -755,11 +755,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere4
       objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere4
-      objectReference: {fileID: 0}
     - target: {fileID: 114856055169366076, guid: 68bba8a92d5850342842a5f2d0d62cb9,
         type: 3}
       propertyPath: b
@@ -789,6 +784,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LowerHeight
       value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
+        type: 3}
+      propertyPath: obj_name
+      value: Sphere4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
@@ -1576,6 +1576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCamera (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1308609635209496, guid: 0c95389693f80534f9c52176d643b118, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4899828708293332, guid: 0c95389693f80534f9c52176d643b118, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1693,11 +1697,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere2
       objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere2
-      objectReference: {fileID: 0}
     - target: {fileID: 114856055169366076, guid: 68bba8a92d5850342842a5f2d0d62cb9,
         type: 3}
       propertyPath: b
@@ -1727,6 +1726,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LowerHeight
       value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
+        type: 3}
+      propertyPath: obj_name
+      value: Sphere2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
@@ -1947,11 +1951,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere3
       objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere3
-      objectReference: {fileID: 0}
     - target: {fileID: 114856055169366076, guid: 68bba8a92d5850342842a5f2d0d62cb9,
         type: 3}
       propertyPath: b
@@ -1981,6 +1980,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LowerHeight
       value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
+        type: 3}
+      propertyPath: obj_name
+      value: Sphere3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
@@ -2159,11 +2163,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere1
       objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere1
-      objectReference: {fileID: 0}
     - target: {fileID: 114856055169366076, guid: 68bba8a92d5850342842a5f2d0d62cb9,
         type: 3}
       propertyPath: b
@@ -2193,6 +2192,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LowerHeight
       value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
+        type: 3}
+      propertyPath: obj_name
+      value: Sphere1
       objectReference: {fileID: 0}
     - target: {fileID: 45047511514168230, guid: 68bba8a92d5850342842a5f2d0d62cb9,
         type: 3}
