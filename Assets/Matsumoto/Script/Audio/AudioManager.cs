@@ -199,6 +199,20 @@ namespace DDD.Matsumoto.Audio {
 			return Instance._BGMclips[BGMName];
 		}
 
+		[ContextMenu("DebugShowLoadedSE")]
+		void DebugShowLoadedSE() {
+			foreach(var clip in _SEclips) {
+				Debug.Log(clip.Key);
+			}
+		}
+
+		[ContextMenu("DebugShowLoadedBGM")]
+		void DebugShowLoadedBGM() {
+			foreach(var clip in _BGMclips) {
+				Debug.Log(clip.Key);
+			}
+		}
+
 		/// <summary>
 		/// フェードインを行う
 		/// </summary>
