@@ -1,6 +1,5 @@
 using DDD.Katano.Maze;
 using DDD.Katano.View.RoomComponents;
-using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
 using UniRx;
 using UnityEngine;
