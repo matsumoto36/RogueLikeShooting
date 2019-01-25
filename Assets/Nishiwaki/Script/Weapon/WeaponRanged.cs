@@ -59,7 +59,7 @@ namespace DDD.Nishiwaki.Item
 				_coreObject.layer = character.gameObject.layer;
 			}
 			else {
-				_coreObject.layer = 0;
+				_coreObject.layer = LayerMask.NameToLayer("Weapon");
 			}
 
 	        StartCoroutine(LightFadeAnim(character));
@@ -88,7 +88,6 @@ namespace DDD.Nishiwaki.Item
         {
             var prefab = asset.WeaponRangedPrefab;
 	        var obj = Instantiate(prefab, transform.position, prefab.transform.rotation);
-	        obj.AddComponent<ZenAutoInjecter>();
 
 			WeaponRanged weapon;
             switch (asset)
@@ -110,7 +109,8 @@ namespace DDD.Nishiwaki.Item
 	        //中心部分の作成
 			var core = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 	        weapon._coreObject = core;
-	        core.transform.SetParent(obj.transform);
+	        core.layer = LayerMask.NameToLayer("Weapon");
+			core.transform.SetParent(obj.transform);
 			core.transform.localPosition = new Vector3();
 
 			weapon._coreRenderer = core.GetComponent<Renderer>();

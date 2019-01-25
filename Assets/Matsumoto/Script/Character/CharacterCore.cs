@@ -18,6 +18,9 @@ namespace DDD.Matsumoto.Character {
 	public abstract partial class CharacterCore : MonoBehaviour {
 
 		public const string CharacterPrefabPath = "Prefab/CharacterPrefab";
+		private const string WeaponBindAnchor = "WeaponAnchor";
+
+		private Transform _weaponAnchor;
 
 		public Rigidbody CharacterRig { get; private set; }
 
@@ -65,9 +68,14 @@ namespace DDD.Matsumoto.Character {
 			//武器の本体を取得し、子にする
 			var body = Weapon.GetBody().transform;
 			transform.rotation = body.rotation;
-			transform.position = body.position;
-			body.SetParent(transform);
 
+			//_weaponAnchorのオフセットはyのみとする
+			var pos = body.position;
+			pos.y = transform.position.y;
+
+			transform.position = pos;
+			body.SetParent(_weaponAnchor);
+			body.localPosition = new Vector3();
 		}
 
 		/// <summary>
@@ -196,14 +204,13 @@ namespace DDD.Matsumoto.Character {
 		public static T Create<T>(CharacterAsset asset, Transform spawnTransform) where T : CharacterCore {
 
 			//本体の生成
-
 			var obj = Instantiate(Resources.Load<GameObject>(CharacterPrefabPath), spawnTransform.position,
 				spawnTransform.rotation);
 
-			obj.AddComponent<ZenAutoInjecter>();
-
+			obj.name = asset.name;
 
 			var character = obj.AddComponent<T>();
+			character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
 			character._themeColor = asset.ThemeColor;
 			character.CharacterRig = character.GetComponent<Rigidbody>();
 

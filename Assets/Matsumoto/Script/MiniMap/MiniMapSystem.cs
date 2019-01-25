@@ -6,7 +6,9 @@ using DDD.Katano.Managers;
 using DDD.Katano.Maze;
 using DDD.Katano.View;
 using UniRx;
+using UnityEngine.Events;
 using Zenject;
+using System;
 
 namespace DDD.Matsumoto.Minimap {
 
@@ -28,12 +30,18 @@ namespace DDD.Matsumoto.Minimap {
 		private Point _prevStayRoom;
 		private Point _playerPosition;
 
+		private RoomView _currentRoomView;
+
 		[Inject]
 		private IMessageReceiver _messageReceiver;
 
+		public event Action<int[,]> OnMapChanged;
+		public event Action OnStarted;
+
 		private int[,] _mapData;
-		public int[,] MapData {
-			get { return _mapData; }
+
+		public Point MapSize {
+			get { return new Point(_mapData.GetLength(1), _mapData.GetLength(0)); }
 		}
 
 		// Start is called before the first frame update
@@ -44,10 +52,17 @@ namespace DDD.Matsumoto.Minimap {
 			//0と偶数に部屋データ、それ以外に通路データを入れる
 			_mapData = new int[settings.Height * 2 - 1, settings.Width * 2 - 1];
 
-
 			//フロア破壊時マップを初期化
 			_messageReceiver.Receive<Katano.MazeSignal.FloorDestruct>()
 				.Subscribe((_) => Initialize())
+				.AddTo(this);
+
+			//フロアに入ったとき
+			_messageReceiver.Receive<Katano.MazeSignal.FloorStarted>()
+				.Subscribe((_) => {
+					EnterRoom();
+					ClearRoom();
+				})
 				.AddTo(this);
 
 			//部屋に入ったとき
@@ -61,6 +76,10 @@ namespace DDD.Matsumoto.Minimap {
 				.AddTo(this);
 
 			Initialize();
+			OnStarted?.Invoke();
+			OnMapChanged?.Invoke(_mapData);
+
+			Debug.Log("started system");
 
 		}
 
@@ -83,11 +102,13 @@ namespace DDD.Matsumoto.Minimap {
 		/// </summary>
 		void EnterRoom() {
 
-			if (!_player)
+			Debug.Log("enter room");
+
+			if(!_player)
 				_player = FindObjectOfType<PlayerCore>();
 
-			var roomView = _player.transform.GetComponentInParent<RoomView>();
-			_playerPosition = roomView.Room.Coordinate;
+			_currentRoomView = _player.transform.GetComponentInParent<RoomView>();
+			_playerPosition = _currentRoomView.Room.Coordinate;
 
 			//プレイヤーのいた部屋を移動
 			if (_prevStayRoom.X != -1) {
@@ -98,6 +119,8 @@ namespace DDD.Matsumoto.Minimap {
 			_mapData[_playerPosition.Y * 2, _playerPosition.X * 2] |= (int)MinimapObject.Players;
 
 			_prevStayRoom = _playerPosition;
+
+			OnMapChanged?.Invoke(_mapData);
 		}
 
 		/// <summary>
@@ -105,8 +128,34 @@ namespace DDD.Matsumoto.Minimap {
 		/// </summary>
 		void ClearRoom() {
 
-			//廊下を出す
+			var aisles = _currentRoomView.Room.ConnectingAisles;
 
+			var mapPosition = new Point(_playerPosition.X * 2, _playerPosition.Y * 2);
+
+			//廊下を出す
+			foreach (var item in aisles) {
+				switch (item.Key) {
+					case AdjacentSides.North:
+						_mapData[mapPosition.Y - 1, mapPosition.X] |= (int)MinimapObject.Floor;
+						break;
+					case AdjacentSides.East:
+						_mapData[mapPosition.Y, mapPosition.X + 1] |= (int)MinimapObject.Floor;
+						break;
+					case AdjacentSides.South:
+						_mapData[mapPosition.Y + 1, mapPosition.X] |= (int)MinimapObject.Floor;
+						break;
+					case AdjacentSides.West:
+						_mapData[mapPosition.Y, mapPosition.X - 1] |= (int)MinimapObject.Floor;
+						break;
+				}
+			}
+
+			//階段があれば出す
+			if (_currentRoomView.Room.RoomAttribute == Room.RoomAttributes.Stair) {
+				_mapData[mapPosition.Y, mapPosition.X] |= (int)MinimapObject.Stair;
+			}
+
+			OnMapChanged?.Invoke(_mapData);
 		}
 	}
 

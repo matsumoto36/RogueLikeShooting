@@ -6,6 +6,7 @@ using UniRx;
 using UniRx.Triggers;
 using System;
 using DDD.Matsumoto.Character.Asset;
+using UnityEngine.AI;
 
 namespace DDD.Matsumoto.Character {
 
@@ -26,6 +27,11 @@ namespace DDD.Matsumoto.Character {
 		public override int HP {
 			get; protected set;
 		}
+
+		public NavMeshAgent Agent {
+			get; protected set;
+		}
+
 
 		/// <summary>
 		/// 移動する。AIが利用する。
@@ -59,21 +65,14 @@ namespace DDD.Matsumoto.Character {
 			Weapon?.Attack();
 		}
 
-		/// <summary>
-		/// 一番近いプレイヤーを返す
-		/// </summary>
-		/// <returns></returns>
-		public PlayerCore RetrieveNearestPlayer() {
-			return FindObjectsOfType<PlayerCore>()
-				.OrderBy(item => (item.transform.position - transform.position).sqrMagnitude)
-				.FirstOrDefault();
-		}
-
 		protected override void OnSpawn(CharacterAsset asset) {
 
 			CharacterType = CharacterType.Enemy;
 
 			var enemyAsset = (EnemyAsset)asset;
+
+			//レイヤー設定
+			gameObject.layer = LayerMask.NameToLayer("Enemy");
 
 			//HPを設定
 			HP = enemyAsset.HP;
@@ -87,6 +86,9 @@ namespace DDD.Matsumoto.Character {
 					break;
 			}
 
+			Agent = gameObject.AddComponent<NavMeshAgent>();
+			//スピードの設定
+			//Agent.speed = 
 		}
 
 		protected override void Start() {
@@ -104,6 +106,8 @@ namespace DDD.Matsumoto.Character {
 				})
 				.AddTo(this);
 
+
+			_enemyAI?.AIStart(this);
 		}
 	}
 }
