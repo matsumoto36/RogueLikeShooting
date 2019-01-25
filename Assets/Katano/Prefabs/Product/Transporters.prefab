@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   ParticleSystem: {fileID: 198819194787379662}
 --- !u!1 &1130568877901280
 GameObject:
@@ -138,7 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   ParticleSystem: {fileID: 198527613587911680}
 --- !u!1 &1149443754278876
 GameObject:
@@ -19711,7 +19709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   ParticleSystem: {fileID: 198727635567911816}
 --- !u!1 &1941205128580892
 GameObject:
@@ -19757,7 +19754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d28fc484b349b589d872bfe6ced8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   ParticleSystem: {fileID: 198445026421012838}
 --- !u!1 &1975368682866848
 GameObject:

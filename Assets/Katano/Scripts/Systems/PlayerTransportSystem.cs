@@ -19,7 +19,8 @@ namespace DDD.Katano
 	{
 		private const float TweenDuration = 2f;
 		
-		public GamePlayers GamePlayers;
+		[Inject]
+		private GamePlayers _gamePlayers;
 
 		/// <summary>
 		/// ゲームカメラ
@@ -47,34 +48,35 @@ namespace DDD.Katano
 				throw new ArgumentNullException(nameof(transporter));
 			
 			// TODO: Play Transport Animation
-			return new UniTask(() => OnTransportInternal(transporter));
+			return new UniTask(() => TransportInternal(transporter));
 		}
 
-		private async UniTask OnTransportInternal(TransporterView transporter)
+		private async UniTask TransportInternal(TransporterView transporter)
 		{
 			var destination = transporter.transform.position;
-			var playerStateChangers = GamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToArray();
+			var stateChangers =
+				_gamePlayers.PlayerList.Select(x => x.GetComponent<PlayerStateChanger>()).ToList();
 			
 			// プレイヤーの入力を停止
-			foreach(var player in GamePlayers.PlayerList) player.SetFreezeMode(true);
+			foreach(var player in _gamePlayers.PlayerList) player.SetFreezeMode(true);
 			
-			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Photosphere)));
+			await UniTask.WhenAll(stateChangers.Select(x => x.DoChangeAsync(PlayerState.Photosphere)));
 			
-			var transportAsyncEnumerable = GamePlayers.PlayerList
+			var transportAsyncEnumerable = _gamePlayers.PlayerList
 				.Select(player => DoMovePlayer(player, destination, TweenDuration))
 				.Append(_gameCamera.MoveAsync(transporter.Owner));
 
 			await UniTask.WhenAll(transportAsyncEnumerable);
 			
-			await UniTask.WhenAll(playerStateChangers.Select(x => x.DoChangeAsync(PlayerState.Neutral)));
+			await UniTask.WhenAll(stateChangers.Select(x => x.DoChangeAsync(PlayerState.Neutral)));
 			
 			// プレイヤーの入力を再開
-			foreach (var player in GamePlayers.PlayerList) player.SetFreezeMode(false);
+			foreach (var player in _gamePlayers.PlayerList) player.SetFreezeMode(false);
 
-			transporter.Owner.Enter(GamePlayers.PlayerList);
+			transporter.Owner.Enter(_gamePlayers.PlayerList);
 		}
 
-		private UniTask DoMovePlayer(PlayerCore player, Vector3 endValue, float duration)
+		private static UniTask DoMovePlayer(PlayerCore player, Vector3 endValue, float duration)
 		{
 			return new UniTask(player.transform.DOMove(endValue, duration).SetEase(Ease.Linear).Play().GetAwaiter());
 		}

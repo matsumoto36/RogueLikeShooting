@@ -15,42 +15,32 @@ namespace DDD.Katano.View.RoomComponents
 	/// プレイヤー転送システム
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class PlayerTransportComponent : BaseRoomComponent
+	public class TransportSystemComponent : BaseRoomComponent
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
 		
-		private TransporterHub _hubPrefab;
+		
+		
+		[Inject]
+		private PlayerTransportSystem _transportSystem;
+
 		/// <summary>
 		/// 転送システムハブ
 		/// </summary>
-		private TransporterHub TransporterHub { get; set; }
-		
-		private PlayerTransportSystem _transportSystem;
-		private SpawnPlayerComponent _spawnPlayerComponent;
-		private SpawnEnemyComponent _spawnEnemyComponent;
+		[SerializeField]
+		private TransporterHub TransporterHub;
 
 		private MazeView _mazeView;
-
-		private void Awake()
-		{
-			_hubPrefab = Resources.Load<TransporterHub>("Transporters");
-		}
 
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
 			_mazeView = FindObjectOfType<MazeView>();
-			
-			TransporterHub = Instantiate(_hubPrefab, transform.localPosition, Quaternion.identity, transform);
-			
-			_transportSystem = FindObjectOfType<PlayerTransportSystem>();
 
-			_spawnPlayerComponent = GetComponent<SpawnPlayerComponent>();
-			if (_spawnPlayerComponent)
+			var playerRoomComponent = GetComponent<PlayerRoomComponent>();
+			if (playerRoomComponent)
 			{
-				var mainGameManager = FindObjectOfType<MainGameManager>();
-
 				_messageReceiver
 					.Receive<MazeSignal.FloorStarted>()
 					.Subscribe(_ =>
@@ -60,13 +50,11 @@ namespace DDD.Katano.View.RoomComponents
 					.AddTo(this);
 			}
 			
-			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
-			if (_spawnEnemyComponent)
+			var enemyRoomComponent = GetComponent<EnemyRoomComponent>();
+			if (enemyRoomComponent)
 			{
-				
-				
 				// 敵が全滅したら転送システムを起動する
-				_spawnEnemyComponent
+				enemyRoomComponent
 					.OnRoomCapturedAsync
 					.Subscribe(_ =>
 					{
@@ -87,19 +75,19 @@ namespace DDD.Katano.View.RoomComponents
 			InitTransporter(AdjacentSides.South, TransporterHub.South, component => component.TransporterHub.North);
 			InitTransporter(AdjacentSides.West, TransporterHub.West, component => component.TransporterHub.East);
 			
-			void InitTransporter(AdjacentSides adjacentSides, TransporterView target, Func<PlayerTransportComponent, TransporterView> selector)
+			void InitTransporter(AdjacentSides adjacentSides, TransporterView target, Func<TransportSystemComponent, TransporterView> selector)
 			{
 				if (room.ConnectingAisles.ContainsKey(adjacentSides))
 				{
 					var connectRoom = room.ConnectingAisles[adjacentSides].GetCounterSide(room);
 					var roomView = _mazeView.Rooms[connectRoom.Id];
-					var transportComponent = roomView.GetComponent<PlayerTransportComponent>();
+					var transportComponent = roomView.GetComponent<TransportSystemComponent>();
 					var transporter = selector(transportComponent);
 
 					if (transporter == null)
 						throw new MazeException("CounterSide transpoter is null.");
 					
-					target.Initialze(Owner, transporter);
+					target.Initialize(Owner, transporter);
 				}
 			}
 		}

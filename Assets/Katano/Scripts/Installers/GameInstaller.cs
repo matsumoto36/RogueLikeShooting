@@ -25,7 +25,7 @@ namespace DDD.Katano.Installers
 			Container.Bind<CharacterCore.Factory>().AsSingle();
 			Container.Bind<MazeViewBuilder.Factory>().AsSingle();
 
-			Container.BindInstance(PlayerSpawner).WhenInjectedInto<SpawnPlayerComponent>();
+			Container.BindInstance(PlayerSpawner).WhenInjectedInto<PlayerRoomComponent>();
 
 			Container.Bind<PlayerSpawnerFactory>().AsSingle().WithArguments(PlayerSpawner);
 
