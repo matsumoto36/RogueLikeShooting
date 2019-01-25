@@ -4,6 +4,7 @@ using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
 using UniRx;
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
@@ -25,10 +26,15 @@ namespace DDD.Katano.View.RoomComponents
 		[Inject]
 		private IMessagePublisher _messagePublisher;
 
+		private NavMeshSurface _navMeshSurface;
+
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
 			_spawners = GetComponentsInChildren<CharacterSpawner>();
+			_navMeshSurface = GetComponent<NavMeshSurface>();
+			
+			_navMeshSurface.BuildNavMesh();
 			
 			Owner.OnEnterObservable.TakeUntil(_onRoomCapturedAsync).Subscribe(_ => Spawn());
 		}
