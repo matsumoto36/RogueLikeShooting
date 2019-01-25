@@ -28,7 +28,8 @@ namespace DDD.Matsumoto.Character
 
 //				var character = go.AddComponent<T>();
 				var character = _container.InstantiateComponent<T>(go);
-				
+
+				character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
 				character._themeColor = asset.ThemeColor;
 				character.CharacterRig = character.GetComponent<Rigidbody>();
 
