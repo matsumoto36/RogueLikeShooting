@@ -57,6 +57,14 @@ namespace DDD.Matsumoto.Minimap {
 				.Subscribe((_) => Initialize())
 				.AddTo(this);
 
+			//フロアに入ったとき
+			_messageReceiver.Receive<Katano.MazeSignal.FloorStarted>()
+				.Subscribe((_) => {
+					EnterRoom();
+					ClearRoom();
+				})
+				.AddTo(this);
+
 			//部屋に入ったとき
 			_messageReceiver.Receive<RoomSignal.RoomStarted>()
 				.Subscribe((_) => EnterRoom())
@@ -68,8 +76,11 @@ namespace DDD.Matsumoto.Minimap {
 				.AddTo(this);
 
 			Initialize();
-
 			OnStarted?.Invoke();
+			OnMapChanged?.Invoke(_mapData);
+
+			Debug.Log("started system");
+
 		}
 
 		/// <summary>
@@ -84,8 +95,6 @@ namespace DDD.Matsumoto.Minimap {
 			}
 
 			_prevStayRoom = new Point(-1, -1);
-
-			OnMapChanged?.Invoke(_mapData);
 		}
 
 		/// <summary>
@@ -93,7 +102,9 @@ namespace DDD.Matsumoto.Minimap {
 		/// </summary>
 		void EnterRoom() {
 
-			if (!_player)
+			Debug.Log("enter room");
+
+			if(!_player)
 				_player = FindObjectOfType<PlayerCore>();
 
 			_currentRoomView = _player.transform.GetComponentInParent<RoomView>();

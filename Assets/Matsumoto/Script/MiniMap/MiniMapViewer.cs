@@ -45,6 +45,8 @@ namespace DDD.Matsumoto.Minimap {
 				PlayerIcon.transform.SetAsLastSibling();
 			};
 
+			Debug.Log("started viewer");
+
 		}
 
 		/// <summary>
@@ -111,6 +113,8 @@ namespace DDD.Matsumoto.Minimap {
 		/// <param name="map"></param>
 		void Draw(int[,] map) {
 
+			Debug.Log("started draw");
+
 			//アイコン非表示
 			PlayerIcon.enabled = false;
 			StairIcon.enabled = false;
@@ -118,7 +122,9 @@ namespace DDD.Matsumoto.Minimap {
 			for (int i = 0; i < _mapSize.Y; i++) {
 				for (int j = 0; j < _mapSize.X; j++) {
 
-					var target = _mapImages[i, j];
+					var drawY = _mapSize.Y - 1 - i;
+
+					var target = _mapImages[drawY, j];
 					if(!target) continue;
 					
 					var mapData = map[i, j];
@@ -129,13 +135,13 @@ namespace DDD.Matsumoto.Minimap {
 					if((mapData & (int)MinimapObject.Players) != 0) {
 						PlayerIcon.enabled = true;
 						PlayerIcon.rectTransform.anchoredPosition
-							= _imagePositions[i, j] + PlayerIconOffset;
+							= _imagePositions[drawY, j] + PlayerIconOffset;
 
 					}
 					if((mapData & (int)MinimapObject.Stair) != 0) {
 						StairIcon.enabled = true;
 						StairIcon.rectTransform.anchoredPosition
-							= _imagePositions[i, j] + StairIconOffset;
+							= _imagePositions[drawY, j] + StairIconOffset;
 					}
 					if(mapData == (int)MinimapObject.None) {
 						target.enabled = false;
