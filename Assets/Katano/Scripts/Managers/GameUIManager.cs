@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Threading;
 using DDD.Katano.Installers;
 using DG.Tweening;
@@ -6,9 +7,11 @@ using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 namespace DDD.Katano.Managers
 {
+	/// <inheritdoc />
 	/// <summary>
 	/// UIマネージャ
 	/// </summary>
@@ -21,14 +24,6 @@ namespace DDD.Katano.Managers
 		private MazeSettings _mazeSettings;
 
 		public GameInfoScreenView InfoScreenView;
-		
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		public void Initialize()
-		{
-			Log("Initialized.");
-		}
 		
 		/// <summary>
 		/// フェードアウト
@@ -97,6 +92,7 @@ namespace DDD.Katano.Managers
 			return FadeIn();
 		}
 		
+		[Conditional("UNITY_EDITOR")]
 		private static void Log(string log)
 		{
 			Debug.Log($"[UIManager] {log}");

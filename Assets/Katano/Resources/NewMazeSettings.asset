@@ -20,3 +20,4 @@ MonoBehaviour:
       type: 3}
     BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
       type: 3}
+  FloorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}

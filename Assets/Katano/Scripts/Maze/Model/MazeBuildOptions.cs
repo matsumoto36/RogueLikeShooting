@@ -18,7 +18,7 @@ namespace DDD.Katano.Maze
 		/// <summary>
 		/// 改装モード
 		/// </summary>
-		public EnumDecorationState DecorationState { get; }
+		public DecorationState DecorationState { get; }
 		
 		/// <summary>
 		/// .ctor
@@ -26,7 +26,7 @@ namespace DDD.Katano.Maze
 		/// <param name="width"></param>
 		/// <param name="height"></param>
 		/// <param name="decorationState"></param>
-		public MazeBuildOptions(int width, int height, EnumDecorationState decorationState)
+		public MazeBuildOptions(int width, int height, DecorationState decorationState)
 		{
 			Width = width;
 			Height = height;

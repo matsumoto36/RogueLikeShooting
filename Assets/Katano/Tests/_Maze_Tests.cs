@@ -17,7 +17,7 @@ namespace DDD.Tests
 			var height = 4;
 			
 			var builder = new MazeBuilder();
-			var options = new MazeBuildOptions(width, height, EnumDecorationState.Labyrinth);
+			var options = new MazeBuildOptions(width, height, DecorationState.Labyrinth);
 			var director = new MazeDirector(builder, options);
 
 			_maze = director.Construct();

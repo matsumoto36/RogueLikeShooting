@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
+using System.Diagnostics;
 using DDD.Katano.Model;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 namespace DDD.Katano.Managers
 {
@@ -26,32 +27,19 @@ namespace DDD.Katano.Managers
 		[Inject]
 		private IMessageReceiver _messageReceiver;
 		
-		
 		[Inject]
 		private GameResultData _resultData;
-		public GameFloorManager FloorManager;
+		public FloorManager FloorManager;
 		public GameUIManager UIManager;
 
 		private int _currentFloor;
-		
+
 		private void Start()
 		{
-			// 初期化する
-			Initialize();
+			SetEvents();
 			
 			// フロアを準備する
-			StartCoroutine(GamePrepareCoroutine());
-		}
-
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		private void Initialize()
-		{
-			FloorManager.Initialize();
-			UIManager.Initialize();
-
-			SetEvents();
+			GamePrepareCoroutine().Forget();
 		}
 
 		/// <summary>
@@ -92,6 +80,25 @@ namespace DDD.Katano.Managers
 		
 			SceneManager.LoadScene(_settings.NextScene.ToString());
 		}
+		
+		/// <summary>
+		/// フロアを準備する
+		/// </summary>
+		/// <returns></returns>
+		private async UniTaskVoid GamePrepareCoroutine()
+		{
+			// フロア数を増やす
+			++_currentFloor;
+			
+			// フロアを構築
+			FloorManager.Construct();
+			
+			// フェードインする
+			await UIManager.FadeInAsync(_currentFloor);
+			
+			// ゲームスタート
+			_messagePublisher.Publish(new MazeSignal.FloorStarted());
+		}
 
 		/// <summary>
 		/// ゲームオーバーコルーチン
@@ -107,29 +114,6 @@ namespace DDD.Katano.Managers
 			_resultData.IsClear = false;
 
 			SceneManager.LoadScene(_settings.NextScene.ToString());
-		}
-
-		/// <summary>
-		/// フロアを準備する
-		/// </summary>
-		/// <returns></returns>
-		private IEnumerator GamePrepareCoroutine()
-		{
-			
-			
-			// フロア数を増やす
-			++_currentFloor;
-			
-			// フロアを構築
-			FloorManager.Construct();
-
-			
-			
-			// フェードインする
-			yield return UIManager.FadeInAsync(_currentFloor);
-			
-			// ゲームスタート
-			_messagePublisher.Publish(new MazeSignal.FloorStarted());
 		}
 
 		/// <summary>
@@ -156,19 +140,20 @@ namespace DDD.Katano.Managers
 			FloorManager.Destruct();
 			
 			// フロアを準備する
-			StartCoroutine(GamePrepareCoroutine());
+			GamePrepareCoroutine().Forget();
 		}
 		
 		/// <summary>
 		/// フロア終了
 		/// </summary>
-		public void FloorEnded()
+		private void FloorEnded()
 		{
 			Log("FloorEnd signal published!");
 			
 			_messagePublisher.Publish(new MazeSignal.FloorEnded());
 		}
 
+		[Conditional("UNITY_EDITOR")]
 		private static void Log(string log)
 		{
 			Debug.Log($"[MainGameManager] {log}");
