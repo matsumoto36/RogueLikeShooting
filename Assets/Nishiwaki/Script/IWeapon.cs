@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DDD.Matsumoto.Character;
+﻿using DDD.Matsumoto.Character;
 using UnityEngine;
 
 namespace DDD.Nishiwaki
 {
-    public interface IWeapon
-    {
-        void SetOwner(CharacterCore character);
-        CharacterCore GetOwner();
-        GameObject GetBody();
-        Transform PlayerSetPosition();
-        void Attack();
-        void AttackUp();
-        void AttackDown();
-    }
+	public interface IWeapon
+	{
+		void SetOwner(CharacterCore character);
+		CharacterCore GetOwner();
+		GameObject GetBody();
+		Transform PlayerSetPosition();
+		void Attack();
+		void AttackUp();
+		void AttackDown();
+	}
 }

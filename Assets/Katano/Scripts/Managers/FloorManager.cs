@@ -12,18 +12,12 @@ using Debug = UnityEngine.Debug;
 
 namespace DDD.Katano.Managers
 {
-	public interface IFloorManager
-	{
-		int CurrentFloor { get; }
-
-		MazeView Create();
-	}
 	
 	/// <summary>
 	/// 階層マネージャ
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class FloorManager : MonoBehaviour, IFloorManager
+	public class FloorManager : MonoBehaviour
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
@@ -43,27 +37,6 @@ namespace DDD.Katano.Managers
 		private MazeView _mazeView;
 
 		private bool _isReady;
-		
-		public int CurrentFloor { get; private set; }
-
-		private void Start()
-		{
-			_messageReceiver
-				.Receive<MazeSignal.FloorStarted>()
-				.Subscribe(_ => Startup());
-		}
-
-		/// <summary>
-		/// スタートアップ
-		/// </summary>
-		/// <exception cref="MazeException"></exception>
-		public void Startup()
-		{
-			if (!_isReady)
-				throw new MazeException("Maze has not been generated.");
-			
-			Log("Startup.");
-		}
 		
 		public MazeView Create()
 		{

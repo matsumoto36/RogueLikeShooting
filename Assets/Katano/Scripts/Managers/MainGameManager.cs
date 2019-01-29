@@ -82,25 +82,6 @@ namespace DDD.Katano.Managers
 		}
 		
 		/// <summary>
-		/// フロアを準備する
-		/// </summary>
-		/// <returns></returns>
-		private async UniTaskVoid GamePrepareCoroutine()
-		{
-			// フロア数を増やす
-			++_currentFloor;
-			
-			// フロアを構築
-			FloorManager.Construct();
-			
-			// フェードインする
-			await UIManager.FadeInAsync(_currentFloor);
-			
-			// ゲームスタート
-			_messagePublisher.Publish(new MazeSignal.FloorStarted());
-		}
-
-		/// <summary>
 		/// ゲームオーバーコルーチン
 		/// </summary>
 		/// <returns></returns>
@@ -115,7 +96,28 @@ namespace DDD.Katano.Managers
 
 			SceneManager.LoadScene(_settings.NextScene.ToString());
 		}
-
+		
+		/// <summary>
+		/// フロアを準備する
+		/// </summary>
+		/// <returns></returns>
+		private async UniTaskVoid GamePrepareCoroutine()
+		{
+			// フロア数を増やす
+			++_currentFloor;
+			
+			// フロアを構築
+			FloorManager.Construct();
+			
+			_messagePublisher.Publish(new MazeSignal.FloorConstruct());
+			
+			// フェードインする
+			await UIManager.FadeInAsync(_currentFloor);
+			
+			// ゲームスタート
+			_messagePublisher.Publish(new MazeSignal.FloorStarted());
+		}
+		
 		/// <summary>
 		/// フロアを終了する
 		/// </summary>
@@ -142,7 +144,7 @@ namespace DDD.Katano.Managers
 			// フロアを準備する
 			GamePrepareCoroutine().Forget();
 		}
-		
+
 		/// <summary>
 		/// フロア終了
 		/// </summary>
