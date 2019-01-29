@@ -29,8 +29,8 @@ namespace DDD.Katano.View.RoomComponents
 		[Inject]
 		private GamePlayers _gamePlayers;
 
-		[Inject]
-		private MainGameManager _mainGameManager;
+		//[Inject]
+		//private MainGameManager _mainGameManager;
 
 		[Inject]
 		private GameObject _playerSpawnerPrefab;
