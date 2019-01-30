@@ -1,5 +1,6 @@
 using DDD.Katano.Managers;
 using DDD.Katano.Model;
+using DDD.Matsumoto;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,8 @@ namespace DDD.Katano.Installers
 	public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 	{
 		public GamePlayers GamePlayers;
+
+		public PlayerCore.Settings PlayerSettings;
 		
 		public GameTitleManager.Settings TitleSettings;
 		public MainGameManager.Settings MainGameSettings;
@@ -17,6 +20,7 @@ namespace DDD.Katano.Installers
 		public override void InstallBindings()
 		{
 			Container.BindInstance(GamePlayers);
+			Container.BindInstance(PlayerSettings);
 			
 			Container.BindInstance(TitleSettings);
 			Container.BindInstance(MainGameSettings);

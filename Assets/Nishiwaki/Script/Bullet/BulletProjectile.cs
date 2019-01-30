@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DDD.Nishiwaki.Item;
+﻿using DDD.Nishiwaki.Item;
 using UnityEngine;
-using DDD.Nishiwaki.Bullet;
 
 namespace DDD.Nishiwaki.Bullet
 {

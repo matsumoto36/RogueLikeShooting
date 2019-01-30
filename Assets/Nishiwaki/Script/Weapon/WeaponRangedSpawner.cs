@@ -9,7 +9,7 @@ namespace DDD.Nishiwaki.Item
 
 		private void Start()
 		{
-			WeaponRanged.Create(weaponRangedAsset, transform);
+//			WeaponRanged.Create(weaponRangedAsset, transform);
 		}
 	}
 }

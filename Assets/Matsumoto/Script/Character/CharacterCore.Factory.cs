@@ -1,3 +1,6 @@
+using DDD.Katano.Installers;
+using DDD.Katano.Model;
+using DDD.Katano.View.Character;
 using DDD.Matsumoto.Character.Asset;
 using DDD.Nishiwaki.Item;
 using UnityEngine;
@@ -7,12 +10,19 @@ namespace DDD.Matsumoto.Character
 {
 	public abstract partial class CharacterCore
 	{
+		public const string CharacterPrefabPath = "Prefab/CharacterPrefab";
+		private const string WeaponBindAnchor = "WeaponAnchor";
+		
+		public abstract WeaponAsset GetFirstWeapon { get; }
+		
 		public class Factory
 		{
 			private readonly DiContainer _container;
+			private readonly RangedWeaponFactory _rangedWeaponFactory;
 
-			public Factory(DiContainer container)
+			public Factory(RangedWeaponFactory rangedWeaponFactory, DiContainer container)
 			{
+				_rangedWeaponFactory = rangedWeaponFactory;
 				_container = container;
 			}
 
@@ -29,13 +39,16 @@ namespace DDD.Matsumoto.Character
 //				var character = go.AddComponent<T>();
 				var character = _container.InstantiateComponent<T>(go);
 
-				character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
-				character._themeColor = asset.ThemeColor;
+//				character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
+				character.ThemeColor = asset.ThemeColor;
 				character.CharacterRig = character.GetComponent<Rigidbody>();
 
 				character.OnSpawn(asset);
-				var weapon = WeaponRanged.Create(asset.Weapon, anchor);
-				character.AttachWeapon(weapon);
+//				var weapon = WeaponRanged.Create(asset.Weapon, anchor);
+				var weapon = _rangedWeaponFactory.Create(character.GetFirstWeapon);
+
+
+//				character.AttachWeapon(weapon);
 
 				return character;
 			}

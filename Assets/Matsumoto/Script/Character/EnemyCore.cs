@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using DDD.Katano.Model;
 using DDD.Matsumoto.Character.Asset;
 using UnityEngine.AI;
 
@@ -24,9 +25,14 @@ namespace DDD.Matsumoto.Character {
 			get; protected set;
 		}
 
-		public override int HP {
-			get; protected set;
-		}
+		public override WeaponAsset GetFirstWeapon { get; }
+
+		private readonly IntReactiveProperty _currentHealth = new IntReactiveProperty();
+		
+		public override IReadOnlyReactiveProperty<int> CurrentHealth => _currentHealth;
+
+		private int _maxHealth;
+		public override int MaxHealth => _maxHealth;
 
 		public NavMeshAgent Agent {
 			get; protected set;
@@ -75,7 +81,8 @@ namespace DDD.Matsumoto.Character {
 			gameObject.layer = LayerMask.NameToLayer("Enemy");
 
 			//HPを設定
-			HP = enemyAsset.HP;
+			_currentHealth.Value = enemyAsset.HP;
+			_maxHealth = enemyAsset.HP;
 
 			//AIの設定
 			switch(enemyAsset.EnemyAIType) {
@@ -90,6 +97,8 @@ namespace DDD.Matsumoto.Character {
 			//スピードの設定
 			//Agent.speed = 
 		}
+
+		public override IReadOnlyReactiveProperty<bool> IsDead { get; }
 
 		protected override void Start() {
 

@@ -1,6 +1,8 @@
 using DDD.Katano.Maze;
 using DDD.Katano.View.RoomComponents;
+using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
+using DDD.Matsumoto.Character.Asset;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -16,7 +18,7 @@ namespace DDD.Katano.Installers
 		
 		public override void InstallBindings()
 		{
-			
+			Container.Bind<PlayerHealthProvider>().FromSubContainerResolve().ByMethod(InstallPlayerHealthProvider).AsSingle();
 			
 			Container.Bind<MessageBroker>().AsSingle();
 			Container.Bind<IMessageReceiver>().To<MessageBroker>().FromResolve();
@@ -36,6 +38,13 @@ namespace DDD.Katano.Installers
 //			Container.Bind<CharacterSpawner[]>().FromComponentsInNewPrefab(PlayerSpawner).AsTransient();
 		}
 
+		private void InstallPlayerHealthProvider(DiContainer container)
+		{
+			var playerAsset = Container.Resolve<PlayerAsset>();
+
+			container.Bind<PlayerHealthProvider>().WithArguments(playerAsset.HP);
+		}
+		
 		private void ResolveCharacterSpawners(DiContainer container)
 		{
 			
