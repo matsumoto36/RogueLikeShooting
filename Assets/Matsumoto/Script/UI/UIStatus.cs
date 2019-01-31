@@ -8,7 +8,7 @@ namespace DDD.Matsumoto.UI {
 	/// </summary>
 	public class UIStatus : UIBase {
 
-		public Image HPGauge;
+		public Slider HPGauge;
 
 		private PlayerHPProvider _provider;
 
@@ -29,10 +29,7 @@ namespace DDD.Matsumoto.UI {
 		/// </summary>
 		/// <param name="amount"></param>
 		private void ChangeGauge(float amount) {
-
-			var scale = HPGauge.transform.localScale;
-			scale.x = amount;
-			HPGauge.transform.localScale = scale;
+			HPGauge.value = amount;
 		}
 	}
 }
