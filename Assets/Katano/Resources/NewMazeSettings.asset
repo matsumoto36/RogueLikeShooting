@@ -21,3 +21,5 @@ MonoBehaviour:
     BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
       type: 3}
   FloorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}
+  PlayerAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
+  PlayerWeaponAsset: {fileID: 0}

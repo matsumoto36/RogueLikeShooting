@@ -71,7 +71,7 @@ namespace DDD.Matsumoto.Character {
 			Weapon?.Attack();
 		}
 
-		protected override void OnSpawn(CharacterAsset asset) {
+		public override void OnSpawn(CharacterAsset asset) {
 
 			CharacterType = CharacterType.Enemy;
 

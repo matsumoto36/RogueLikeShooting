@@ -16,12 +16,12 @@ namespace DDD.Matsumoto.Character
 	/// <summary>
 	///     各キャラクターのコアクラス
 	/// </summary>
-	public abstract partial class CharacterCore : MonoBehaviour, ICharacter
+	public abstract class CharacterCore : MonoBehaviour
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
 
-		public Rigidbody CharacterRig { get; private set; }
+		public Rigidbody CharacterRig { get; set; }
 
 		public CharacterType CharacterType { get; protected set; }
 			= CharacterType.Invalid;
@@ -35,76 +35,18 @@ namespace DDD.Matsumoto.Character
 
 		public IWeapon Weapon { get; private set; }
 
-		public Color ThemeColor { get; private set; }
+		public Color ThemeColor { get; set; }
 
 		public abstract IReadOnlyReactiveProperty<bool> IsDead { get; }
 		
-		[Inject]
 		protected CharacterArm CharacterArm;
 
+		public abstract WeaponAsset GetFirstWeapon { get; }
+		
 		protected virtual void Start()
 		{
-			//フロア破壊時
-			//_messageReceiver
-			//	.Receive<Katano.MazeSignal.FloorDestruct>()
-			//	.Where((_) => _isDead.Value)
-			//	.Subscribe((_) => Destroy(gameObject))
-			//	.AddTo(this);
-//
-//			this.UpdateAsObservable()
-//				.Subscribe(_ =>
-//				{
-//					//ステータス変化の更新
-//					foreach (var item in StatusChanges) item.OnUpdateStatus(this);
-//				})
-//				.AddTo(this);
+			CharacterArm = GetComponentInChildren<CharacterArm>();
 		}
-		
-//		/// <summary>
-//		///     武器を装備する
-//		/// </summary>
-//		/// <param name="weapon"></param>
-//		public void AttachWeapon(IWeapon weapon)
-//		{
-//			//武器を外す
-//			DetachWeapon();
-//
-//			//武器を付ける
-//			Weapon = weapon;
-//			if (Weapon == null) return;
-//
-//			Weapon.SetOwner(this);
-//
-//			//武器の本体を取得し、子にする
-//			var body = Weapon.GetBody().transform;
-//			transform.rotation = body.rotation;
-//
-//			//_weaponAnchorのオフセットはyのみとする
-//			var pos = body.position;
-//			pos.y = transform.position.y;
-//
-//			transform.position = pos;
-//			body.SetParent(_weaponAnchor);
-//			body.localPosition = new Vector3();
-//		}
-//
-//		/// <summary>
-//		///     武器を外す
-//		/// </summary>
-//		public void DetachWeapon()
-//		{
-//			if (Weapon == null) return;
-//
-//			//武器のオーナーを解除
-//			Weapon.SetOwner(null);
-//
-//			//武器の本体を取得し、子から外す
-//			Weapon.GetBody()
-//				.transform
-//				.SetParent(null);
-//
-//			Weapon = null;
-//		}
 
 		/// <summary>
 		///     ダメージを与える
@@ -224,7 +166,7 @@ namespace DDD.Matsumoto.Character
 		///     生成された瞬間に呼ばれる
 		/// </summary>
 		/// <param name="asset"></param>
-		protected virtual void OnSpawn(CharacterAsset asset)
+		public virtual void OnSpawn(CharacterAsset asset)
 		{
 		}
 	}

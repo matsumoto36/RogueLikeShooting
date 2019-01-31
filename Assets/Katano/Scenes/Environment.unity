@@ -251,6 +251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSpawner: {fileID: 1828469477109872, guid: 3310365f98e384e49abb0cb6a767ff14,
     type: 3}
+  PlayerPrefab: {fileID: 6349162809829619327, guid: d653c045e214aba4abd9032add2ac0bf,
+    type: 3}
 --- !u!114 &137218546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +269,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1578ab39caa5b046a3d732789168c8b, type: 2}
   _monoInstallers:
   - {fileID: 137218545}
+  - {fileID: 137218548}
   _installerPrefabs: []
   _autoRun: 1
   _parentNewObjectsUnderSceneContext: 0
@@ -300,7 +303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponCore: {fileID: 7332351502389433368, guid: 386cc89d4b6f53b4fa02340378b28bf3,
     type: 3}
-  BulletEmissionShader: {fileID: 0}
+  Material: {fileID: 2100000, guid: 1036b125455e1b64c8cbc54430d89efd, type: 2}
+  WeaponAsset: {fileID: 0}
 --- !u!1 &266097286
 GameObject:
   m_ObjectHideFlags: 0

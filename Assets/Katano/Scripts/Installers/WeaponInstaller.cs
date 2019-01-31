@@ -8,15 +8,22 @@ namespace DDD.Katano.Installers
 	public class WeaponInstaller : MonoInstaller<WeaponInstaller>
 	{
 		public GameObject WeaponCore;
+		public Material Material;
+		public WeaponAsset WeaponAsset;
 		
 		public override void InstallBindings()
 		{
-			Container.BindIFactory<WeaponRanged, RangedWeaponFactory>().AsSingle()
-				.WithArguments(WeaponCore);
+			Container.Bind<RangedWeaponFactory>().AsSingle()
+				.WithArguments(WeaponCore, Material);
 		}
 	}
 
-	public class RangedWeaponFactory : IFactory<WeaponAsset, WeaponRanged>
+	public class RangedWeaponFactory : WeaponFactory
+	{
+		
+	}
+	
+	public class WeaponFactory : IFactory<WeaponAsset, WeaponRanged>
 	{
 		private DiContainer _container;
 		private GameObject _coreObject;

@@ -17,21 +17,10 @@ using Zenject;
 
 namespace DDD.Matsumoto
 {
-	public interface ICharacter
-	{
-		IReadOnlyReactiveProperty<int> CurrentHealth { get; }
-		IWeapon Weapon { get; }
-	}
-	
-	public interface IPlayer
-	{
-		int ID { get; }
-	}
-	
 	/// <summary>
 	///     プレイヤーのコアクラス
 	/// </summary>
-	public class PlayerCore : CharacterCore, IPlayer
+	public class PlayerCore : CharacterCore
 	{
 		[Inject]
 		private Settings _settings;
@@ -63,7 +52,9 @@ namespace DDD.Matsumoto
 		public IInputEventProvider InputEventProvider { get; set; }
 
 		[Inject]
-		public override WeaponAsset GetFirstWeapon { get; }
+		private WeaponAsset _weaponAsset;
+
+		public override WeaponAsset GetFirstWeapon => _weaponAsset;
 
 		
 		
@@ -91,7 +82,7 @@ namespace DDD.Matsumoto
 			if (isLast) _messagePublisher.Publish(new MazeSignal.PlayerKilled());
 		}
 
-		protected override void OnSpawn(CharacterAsset asset)
+		public override void OnSpawn(CharacterAsset asset)
 		{
 			//レイヤー設定
 			gameObject.layer = LayerMask.NameToLayer("Player");
