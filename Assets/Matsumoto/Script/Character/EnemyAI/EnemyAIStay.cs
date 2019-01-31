@@ -7,9 +7,16 @@ using DDD.Matsumoto.Attack;
 namespace DDD.Matsumoto.Character.EnemyAI {
 
 	/// <summary>
-	/// 敵のAI : アタッカー
+	/// 敵のAI : 動かない
 	/// </summary>
-	public class EnemyAIAttacker : EnemyAIBase {
+	public class EnemyAIStay : EnemyAIBase {
+
+		public override void AIStart(EnemyCore enemy) {
+			base.AIStart(enemy);
+
+			enemy.Agent.updateRotation = false;
+			enemy.Agent.updatePosition = false;
+		}
 
 		public override void AIUpdate(EnemyCore enemy) {
 			base.AIUpdate(enemy);
@@ -22,13 +29,9 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 
 			var targetPos = Target.transform.position;
 			var dist = targetPos - enemyPos;
-			var sqrLength = dist.sqrMagnitude;
 
-			//移動先の設定
-			var attackRadius = enemy.AIParameter.MoveStartRadius;
-			if(sqrLength > Mathf.Pow(attackRadius + enemy.AIParameter.MoveStartDifference, 2))
-				enemy.Agent.destination = targetPos;
-
+			//向きの設定
+			enemy.ChangeAngle(dist);
 		}
 
 		public override void OnAttackedOther(EnemyCore enemy, IAttacker attacker, int damage) {
@@ -38,7 +41,11 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 			//Debug.Log("OnAttack");
 			switch(attacker) {
 				case CharacterAttacker cAttacker:
-					enemy.Agent.SetDestination(cAttacker.Attacker.transform.position);
+					var targetPos = cAttacker.Attacker.transform.position;
+					var dist = targetPos - enemy.transform.position;
+
+					//向きの設定
+					enemy.ChangeAngle(dist);
 					AICheckTiming(enemy);
 					break;
 			}
@@ -68,9 +75,6 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 
 			Target = player;
 
-			//移動先の設定
-			if(sqrLength > Mathf.Pow(enemy.AIParameter.MoveStartRadius, 2))
-				enemy.Agent.destination = targetPos;
 		}
 	}
 }

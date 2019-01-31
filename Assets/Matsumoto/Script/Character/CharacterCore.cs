@@ -88,9 +88,12 @@ namespace DDD.Matsumoto.Character {
 			Weapon.SetOwner(null);
 
 			//武器の本体を取得し、子から外す
-			Weapon.GetBody()
-				.transform
-				.SetParent(null);
+			var t = Weapon.GetBody().transform;
+			t.SetParent(null);
+
+			var pos = t.position;
+			pos.y = _weaponAnchor.localPosition.y;
+			t.position = pos;
 
 			Weapon = null;
 			
@@ -101,7 +104,7 @@ namespace DDD.Matsumoto.Character {
 		/// </summary>
 		/// <param name="attacker"></param>
 		/// <param name="damage"></param>
-		public void ApplyDamage(IAttacker attacker, int damage) {
+		public virtual void ApplyDamage(IAttacker attacker, int damage) {
 
 			switch(attacker) {
 				case CharacterAttacker cAttacker:

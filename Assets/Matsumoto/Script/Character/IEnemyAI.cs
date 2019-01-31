@@ -15,5 +15,6 @@ namespace DDD.Matsumoto.Character {
 
 		void AIUpdate(EnemyCore enemy);
 
+		void OnAttackedOther(EnemyCore enemy, IAttacker attacker, int damage);
 	}
 }

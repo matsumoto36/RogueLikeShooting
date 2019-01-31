@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
+using DDD.Matsumoto.Character.EnemyAI;
 
 public class CharacterAssetInspector : Editor {
 
@@ -50,11 +51,13 @@ public class PlayerAssetInspector : CharacterAssetInspector {
 public class EnemyAssetInspector : CharacterAssetInspector {
 
 	private SerializedProperty _enemyAIType;
+	private SerializedProperty _enemyAIParameter;
 
 	protected override void OnEnable() {
 		base.OnEnable();
 
 		_enemyAIType = serializedObject.FindProperty("EnemyAIType");
+		_enemyAIParameter = serializedObject.FindProperty("EnemyAIParameter");
 	}
 
 	public override void OnInspectorGUI() {
@@ -64,6 +67,7 @@ public class EnemyAssetInspector : CharacterAssetInspector {
 		EditorGUILayout.PropertyField(CharacterHp);
 		EditorGUILayout.PropertyField(ThemeColor);
 		EditorGUILayout.PropertyField(_enemyAIType);
+		EditorGUILayout.PropertyField(_enemyAIParameter, true);
 		EditorGUILayout.PropertyField(Weapon);
 
 		serializedObject.ApplyModifiedProperties();
