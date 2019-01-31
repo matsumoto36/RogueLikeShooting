@@ -22,5 +22,5 @@ MonoBehaviour:
     MoveStartRadius: 2
     MoveStartDifference: 1
     ViewRadius: 50
-    ViewAngle: 90
+    ViewAngle: 360
     KeepRange: 5

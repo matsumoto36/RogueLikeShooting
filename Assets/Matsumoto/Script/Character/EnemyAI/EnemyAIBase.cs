@@ -10,6 +10,7 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 		protected readonly int RandomFrame = Random.Range(0, 60);
 
 		private float _timer;
+		private Vector3 _targetDirection;
 
 		public PlayerCore Target {
 			get; protected set;
@@ -25,6 +26,16 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 				_timer += enemy.AIParameter.CheckTimer;
 				AICheckTiming(enemy);
 			}
+
+			//向きの更新
+			if(!enemy.Agent.updateRotation) {
+				var transform = enemy.transform;
+				transform.rotation =
+					Quaternion.RotateTowards(
+						transform.rotation, 
+						Quaternion.Euler(0, transform.eulerAngles.y + Vector3.SignedAngle(transform.forward, _targetDirection, Vector3.up), 0),
+						enemy.AIParameter.AngularSpeed * Time.deltaTime);
+			}
 		}
 
 		public virtual void OnAttackedOther(EnemyCore enemy, IAttacker attacker, int damage) { }
@@ -34,6 +45,13 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 		/// </summary>
 		/// <param name="enemy"></param>
 		public virtual void AICheckTiming(EnemyCore enemy) { }
+
+		/// <summary>
+		/// 向きたい向きを設定する
+		/// </summary>
+		public void SetRotarion(Vector3 direction) {
+			_targetDirection = direction;
+		}
 
 		/// <summary>
 		/// 一番近いプレイヤーを返す

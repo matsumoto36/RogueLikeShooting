@@ -31,7 +31,8 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 			var dist = targetPos - enemyPos;
 
 			//向きの設定
-			enemy.ChangeAngle(dist);
+			SetRotarion(dist);
+
 		}
 
 		public override void OnAttackedOther(EnemyCore enemy, IAttacker attacker, int damage) {
@@ -47,7 +48,7 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 					var pos = targetPos + -dist.normalized * enemy.AIParameter.KeepRange;
 
 					//向きの設定
-					enemy.ChangeAngle(dist);
+					SetRotarion(dist);
 
 					enemy.Agent.SetDestination(pos);
 					AICheckTiming(enemy);
@@ -86,7 +87,8 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 				enemy.Agent.SetDestination(pos);
 
 			//向きの設定
-			enemy.ChangeAngle(dist);
+			SetRotarion(dist);
+
 		}
 	}
 }
