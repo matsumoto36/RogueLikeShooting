@@ -9,11 +9,13 @@ using DDD.Katano.View.Character;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
 using DDD.Matsumoto.Managers;
+using DDD.Matsumoto.UI;
 using DDD.Nishiwaki;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
+using UnityEngine.UI;
 
 namespace DDD.Matsumoto
 {
@@ -39,7 +41,7 @@ namespace DDD.Matsumoto
 		/// </summary>
 		public IReadOnlyReactiveProperty<bool> IsFreeze => _isFreeze;
 		
-		
+		private UIWeaponChange _weaponChangeUI;
 		private bool _canChangeWeapon = true;
 		private float _changeWeaponTime;
 
@@ -100,6 +102,10 @@ namespace DDD.Matsumoto
 			//IDの設定
 			ID = playerAsset.ID;
 
+			//UIの取得
+			Debug.Log("WeaponChangeUI" + ID);
+			_weaponChangeUI = UIManager.Instance.GetUiBase("WeaponChangeUI" + ID) as UIWeaponChange;
+
 			//追加のコンポーネントを追加
 			gameObject.AddComponent<PlayerMove>();
 			gameObject.AddComponent<PlayerAttack>();
@@ -128,13 +134,16 @@ namespace DDD.Matsumoto
 		/// <summary>
 		///     武器チェンジのボタン処理を行う
 		/// </summary>
-		private void WeaponChangeUpdate()
-		{
+		private void WeaponChangeUpdate() {
+
 			void Reset(bool canChange)
 			{
+				//入れ替えキャンセル
 				_changeWeaponTime = 0;
 				_canChangeWeapon = canChange;
 				ChangeTargetWeapon = null;
+
+				_weaponChangeUI.Hide();
 			}
 
 			//武器切り替え
@@ -146,8 +155,14 @@ namespace DDD.Matsumoto
 
 			if (!_canChangeWeapon) return;
 
-			if (ChangeTargetWeapon == null)
+			if (ChangeTargetWeapon == null) {
+				//入れ替え開始
 				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
+
+				_weaponChangeUI.Show();
+				var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+				((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
+			}
 
 			if (ChangeTargetWeapon == null)
 			{
@@ -156,7 +171,9 @@ namespace DDD.Matsumoto
 			}
 
 			_changeWeaponTime += Time.deltaTime;
+			_weaponChangeUI.SetAmount(_changeWeaponTime / _settings.ChangeWeaponWait);
 			if (!(_changeWeaponTime > _settings.ChangeWeaponWait)) return;
+			//入れ替え完了
 			CharacterArm.Attach(ChangeTargetWeapon);
 			Reset(false);
 		}

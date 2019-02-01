@@ -19,7 +19,7 @@ namespace DDD.Matsumoto.UI {
 			//初期設定
 			SetControllerType(false);
 			SetAmount(0);
-
+			Hide();
 		}
 
 		/// <summary>
