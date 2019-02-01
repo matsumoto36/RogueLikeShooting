@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5527834326939284575
 RectTransform:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7a0b929a14f388a4c974d387497e9f75, type: 3}
     m_FontSize: 24
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 63
@@ -113,7 +113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4573788977706162638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -163,8 +163,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7a0b929a14f388a4c974d387497e9f75, type: 3}
-    m_FontSize: 40
-    m_FontStyle: 1
+    m_FontSize: 50
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 63
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Y
+  m_Text: x
 --- !u!114 &8625428519241140307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.268
+  m_FillAmount: 0.564
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
