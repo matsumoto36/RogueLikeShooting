@@ -72,7 +72,7 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 			var enemyPos = enemy.CharacterArm.EquippedArm.GetBody().transform.position;
 			var targetPos = target.CharacterArm.EquippedArm.GetBody().transform.position;
 			RaycastHit hitInfo;
-			var hit = Physics.Linecast(enemyPos, targetPos, out hitInfo, ~LayerMask.GetMask("Player", "Enemy"));
+			var hit = Physics.Linecast(enemyPos, targetPos, out hitInfo, ~LayerMask.GetMask("Player", "Enemy", "Bullet"));
 			if(hit) {
 				Debug.Log("hit : " + hitInfo.collider.name);
 			}
