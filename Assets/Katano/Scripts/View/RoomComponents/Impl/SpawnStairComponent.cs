@@ -10,16 +10,16 @@ namespace DDD.Katano.View.RoomComponents
 	public class SpawnStairComponent : BaseRoomComponent
 	{
 		private StairView _stairPrefab;
-		private SpawnEnemyComponent _spawnEnemyComponent;
+		private EnemyRoomComponent _enemyRoomComponent;
 
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
-			_spawnEnemyComponent = GetComponent<SpawnEnemyComponent>();
+			_enemyRoomComponent = GetComponent<EnemyRoomComponent>();
 			_stairPrefab = Resources.Load<StairView>("Stairs");
 			
 			// 敵が全滅したら階段を出す
-			_spawnEnemyComponent
+			_enemyRoomComponent
 				.OnRoomCapturedAsync
 				.Subscribe(_ => SpawnStair());
 		}

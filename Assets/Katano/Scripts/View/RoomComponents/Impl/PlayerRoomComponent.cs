@@ -6,7 +6,6 @@ using DDD.Katano.Managers;
 using DDD.Katano.Model;
 using DDD.Katano.View.Player;
 using DDD.Matsumoto;
-using Unity.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +15,7 @@ namespace DDD.Katano.View.RoomComponents
 	///     プレイヤーを生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnPlayerComponent : BaseRoomComponent
+	public class PlayerRoomComponent : BaseRoomComponent
 	{
 		/// <summary>
 		///     キーバインドデータ
@@ -47,7 +46,7 @@ namespace DDD.Katano.View.RoomComponents
 			_transformCache = transform;
 
 			var spawners = _spawnerFactory.Create(_transformCache);
-			
+
 			var list = new List<PlayerCore>();
 
 			for (var i = 0; i < _bindData.PlayerEntries.Count; i++)
@@ -101,8 +100,8 @@ namespace DDD.Katano.View.RoomComponents
 
 	public class PlayerSpawnerFactory
 	{
-		private GameObject _playerSpawner;
 		private DiContainer _container;
+		private GameObject _playerSpawner;
 
 		[Inject]
 		private void Construct(GameObject playerSpawner, DiContainer container)

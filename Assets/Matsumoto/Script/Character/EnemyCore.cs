@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using DDD.Katano.Model;
 using DDD.Matsumoto.Character.Asset;
 using UnityEngine.AI;
 
@@ -24,9 +25,14 @@ namespace DDD.Matsumoto.Character {
 			get; protected set;
 		}
 
-		public override int HP {
-			get; protected set;
-		}
+		public override WeaponAsset GetFirstWeapon { get; }
+
+		private readonly IntReactiveProperty _currentHealth = new IntReactiveProperty();
+		
+		public override IReadOnlyReactiveProperty<int> CurrentHealth => _currentHealth;
+
+		private int _maxHealth;
+		public override int MaxHealth => _maxHealth;
 
 		public NavMeshAgent Agent {
 			get; protected set;
@@ -65,7 +71,7 @@ namespace DDD.Matsumoto.Character {
 			Weapon?.Attack();
 		}
 
-		protected override void OnSpawn(CharacterAsset asset) {
+		public override void OnSpawn(CharacterAsset asset) {
 
 			CharacterType = CharacterType.Enemy;
 
@@ -75,7 +81,8 @@ namespace DDD.Matsumoto.Character {
 			gameObject.layer = LayerMask.NameToLayer("Enemy");
 
 			//HPを設定
-			HP = enemyAsset.HP;
+			_currentHealth.Value = enemyAsset.HP;
+			_maxHealth = enemyAsset.HP;
 
 			//AIの設定
 			switch(enemyAsset.EnemyAIType) {
@@ -89,6 +96,20 @@ namespace DDD.Matsumoto.Character {
 			Agent = gameObject.AddComponent<NavMeshAgent>();
 			//スピードの設定
 			//Agent.speed = 
+		}
+
+
+		private IReadOnlyReactiveProperty<bool> _isDead;
+
+		public override IReadOnlyReactiveProperty<bool> IsDead
+		{
+			get
+			{
+				return _isDead ?? 
+				       (_isDead = _currentHealth
+					       .Select(x => x <= 0).ToReactiveProperty()
+				       );
+			}
 		}
 
 		protected override void Start() {
@@ -108,6 +129,12 @@ namespace DDD.Matsumoto.Character {
 
 
 			_enemyAI?.AIStart(this);
+		}
+
+		protected override void TakeDamage(IAttacker attacker, int value)
+		{
+			_currentHealth.Value = Mathf.Clamp(_currentHealth.Value - value, 0, _maxHealth);
+			if (IsDead.Value) Kill(attacker);
 		}
 	}
 }

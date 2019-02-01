@@ -1,19 +1,23 @@
+using System.Diagnostics;
 using System.Linq;
 using DDD.Katano.Installers;
 using DDD.Katano.Maze;
 using DDD.Katano.Model;
 using DDD.Katano.View;
 using UniRx;
+using Unity.Linq;
 using UnityEngine;
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 namespace DDD.Katano.Managers
 {
+	
 	/// <summary>
 	/// 階層マネージャ
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class GameFloorManager : MonoBehaviour
+	public class FloorManager : MonoBehaviour
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
@@ -21,10 +25,10 @@ namespace DDD.Katano.Managers
 		[Inject]
 		private MazeSettings _mazeSettings;
 
-		[SerializeField]
+		[Inject]
 		private MazeFloorSettings _floorSettings;
 
-		[SerializeField]
+		[Inject]
 		private PlayerTransportSystem _transportSystem;
 
 		[Inject]
@@ -34,30 +38,14 @@ namespace DDD.Katano.Managers
 
 		private bool _isReady;
 		
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		public void Initialize()
+		public MazeView Create()
 		{
-			_messageReceiver
-				.Receive<MazeSignal.FloorStarted>()
-				.Subscribe(_ => Startup());
+			var maze = ConstructMaze();
+			var view = ConstructMazeView(maze);
 			
-			Log("Initialized.");
-		}
+			view.Initialize();
 
-		/// <summary>
-		/// スタートアップ
-		/// </summary>
-		/// <exception cref="MazeException"></exception>
-		public void Startup()
-		{
-			if (!_isReady)
-				throw new MazeException("Maze has not been generated.");
-			
-			
-			
-			Log("Startup.");
+			return view;
 		}
 		
 		/// <summary>
@@ -69,12 +57,9 @@ namespace DDD.Katano.Managers
 			var view = ConstructMazeView(maze);
 			_mazeView = view;
 
-			foreach (var roomView in _mazeView.Rooms.Values)
-			{
-				roomView.Initialize();
-			}
+			_mazeView.Initialize();
 
-			var entryPoint = maze.RoomList.Cast<Room>().First(x => x.RoomAttribute == Room.RoomAttributes.FloorStart);
+			var entryPoint = maze.GetEntryPoint();
 			var startRoom = view.Rooms[entryPoint.Id];
 			
 			_transportSystem.Initialize(startRoom);
@@ -89,7 +74,7 @@ namespace DDD.Katano.Managers
 		/// </summary>
 		public void Destruct()
 		{
-			Destruct(_mazeView);
+			_mazeView.gameObject.Destroy();
 			
 			_isReady = false;
 			
@@ -103,7 +88,7 @@ namespace DDD.Katano.Managers
 		private Maze.Maze ConstructMaze()
 		{
 			var builder = new MazeBuilder();
-			var options = new MazeBuildOptions(_floorSettings.Width, _floorSettings.Height, EnumDecorationState.Labyrinth);
+			var options = new MazeBuildOptions(_floorSettings.Width, _floorSettings.Height, DecorationState.Labyrinth);
 			var director = new MazeDirector(builder, options);
 			
 			return director.Construct();
@@ -120,13 +105,8 @@ namespace DDD.Katano.Managers
 
 			return viewBuilder.Construct();
 		}
-
-		private static void Destruct(MazeView view)
-		{
-			// Destroy MazeView
-			Destroy(view.gameObject);
-		}
 		
+		[Conditional("UNITY_EDITOR")]
 		private static void Log(string log)
 		{
 			Debug.Log($"[FloorManager] {log}");

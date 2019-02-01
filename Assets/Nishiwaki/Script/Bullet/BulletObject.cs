@@ -1,68 +1,61 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DDD.Matsumoto.Attack;
 using DDD.Matsumoto.Character;
 using DDD.Nishiwaki.Item;
-using UnityEngine;
-using DDD.Nishiwaki.Bullet;
-using DDD.Katano.Managers;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace DDD.Nishiwaki.Bullet
 {
-    public class BulletObject : MonoBehaviour
-    {
+	public class BulletObject : MonoBehaviour
+	{
+		private Rigidbody _rigidbody;
+		private vfx_bullet _vfx;
+		
+		[Inject]
+		private IMessageReceiver _messageReceiver;
 
-        public BulletParameter BulletPara;
-        public WeaponRanged weaponRanged;
-        // 消滅用の時間
-        float DestroyTime = 0.0f;
+		public BulletParameter BulletPara;
 
-	    [Inject]
-	    private IMessageReceiver _messageReceiver;
+		// 消滅用の時間
+		private float DestroyTime;
+		public WeaponRanged weaponRanged;
 
-		void Start()
-        {
-            gameObject.GetComponent<vfx_bullet>().muzzle();
-
-			//フロア破壊時に弾を消去する
-			//_messageReceiver
-			//	.Receive<Katano.MazeSignal.FloorDestruct>()
-		 //       .Subscribe((_) => Destroy(gameObject))
-		 //       .AddTo(this);
+		private void Start()
+		{
+			_rigidbody = GetComponent<Rigidbody>();
+			_vfx = GetComponent<vfx_bullet>();
+			
+			_vfx.muzzle();
 		}
 
-        void Update()
-        {
-            Rigidbody rig = GetComponent<Rigidbody>();
+		private void Update()
+		{
+			var now = _rigidbody.position;
 
-            Vector3 now = rig.position;
+			now += transform.forward * (BulletPara.Speed * 0.1f);
 
-            now += transform.forward * (BulletPara.Speed * 0.1f);
+			_rigidbody.position = now;
+			// 自動消滅の時間
+			DestroyTime += Time.deltaTime;
+			// 消滅
+			if (DestroyTime >= BulletPara.LifeTime) Destroy(gameObject);
+		}
 
-            rig.position = now;
-            // 自動消滅の時間
-            DestroyTime += Time.deltaTime;
-            // 消滅
-            if (DestroyTime >= BulletPara.LifeTime)
-            {
-                Destroy(gameObject);
-            }
-        }
-        // まだ仮
-        void OnTriggerEnter(Collider other)
-        {
-            // 敵に当たったら
-            var character = other.GetComponentInParent<CharacterCore>();
-            if (!character) return;
-            if (CharacterCore.IsAttackable(weaponRanged.characterCore, character))
-            {
-                // 敵にダメージを与える
-                // nullの部分は攻撃者
-                character.ApplyDamage(
-                    new Matsumoto.Attack.CharacterAttacker(weaponRanged.characterCore), (int)BulletPara.Power);
-                gameObject.GetComponent<vfx_bullet>().damage();
-            }
-        }
-    }
+		// まだ仮
+		private void OnTriggerEnter(Collider other)
+		{
+			// 敵に当たったら
+			var character = other.GetComponentInParent<CharacterCore>();
+			if (!character) return;
+			if (CharacterCore.IsAttackable(weaponRanged.characterCore, character))
+			{
+				// 敵にダメージを与える
+				// nullの部分は攻撃者
+				character.ApplyDamage(
+					new CharacterAttacker(weaponRanged.characterCore), (int) BulletPara.Power);
+				_vfx.damage();
+			}
+		}
+	}
 }

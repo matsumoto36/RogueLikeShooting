@@ -22,10 +22,13 @@ namespace DDD.Katano
 		public struct MazeCleared {}
 
 		/// <summary>
-		/// フロアを破壊する
+		/// フロアが生成された
 		/// </summary>
-		public struct FloorDestruct
-		{
-		}
+		public struct FloorConstruct{}
+		
+		/// <summary>
+		/// フロアを破壊された
+		/// </summary>
+		public struct FloorDestruct{}
 	}
 }

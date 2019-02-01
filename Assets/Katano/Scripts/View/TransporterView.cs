@@ -1,13 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Linq;
 using DDD.Katano.Model;
 using DDD.Matsumoto;
 using UniRx;
 using UniRx.Async;
 using UniRx.Async.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano.View
 {
@@ -18,7 +17,7 @@ namespace DDD.Katano.View
 	{
 		private const float NextRoomJumpTime = 1f;
 		
-		[SerializeField]
+		[Inject]
 		private GamePlayers _gamePlayers;
 
 		public ParticleSystem ParticleSystem;
@@ -39,7 +38,7 @@ namespace DDD.Katano.View
 		/// </summary>
 		/// <param name="owner"></param>
 		/// <param name="counterSide"></param>
-		public void Initialze(RoomView owner, TransporterView counterSide)
+		public void Initialize(RoomView owner, TransporterView counterSide)
 		{
 			Owner = owner;
 			CounterSide = counterSide;

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
   GamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
+  PlayerSettings:
+    EquipWeaponRange: 5
+    ChangeWeaponWait: 3
   TitleSettings:
     NextScene: 4
   MainGameSettings:

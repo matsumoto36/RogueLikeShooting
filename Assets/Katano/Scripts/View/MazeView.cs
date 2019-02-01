@@ -13,6 +13,8 @@ namespace DDD.Katano.View
 	[DisallowMultipleComponent]
 	public class MazeView : MonoBehaviour
 	{
+		public int CurrentRoom { get; }
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -43,6 +45,14 @@ namespace DDD.Katano.View
 			foreach (var room in rooms.Values)
 			{
 				room.transform.SetParent(transform);
+			}
+		}
+
+		public void Initialize()
+		{
+			foreach (var room in Rooms.Values)
+			{
+				room.Initialize();
 			}
 		}
 

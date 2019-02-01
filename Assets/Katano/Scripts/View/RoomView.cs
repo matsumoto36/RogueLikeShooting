@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using DDD.Katano.Maze;
 using DDD.Matsumoto;
-using DDD.Katano.Model;
 using UniRx;
-using Unity.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 using Zenject;
 // ReSharper disable NotAccessedField.Local
 

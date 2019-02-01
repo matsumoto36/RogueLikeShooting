@@ -1,4 +1,5 @@
 ﻿using DDD.Chikazawa;
+using DDD.Katano.Model;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
 using UnityEngine;
@@ -9,7 +10,10 @@ namespace DDD.Matsumoto
 	public class CharacterSpawner : MonoBehaviour
 	{
 		[Inject]
-		private CharacterCore.Factory _characterFactory;
+		private PlayerBuilder _playerBuilder;
+
+		[Inject]
+		private EnemyBuilder _enemyBuilder;
 
 		[Inject]
 		private PlayerBindData _bindData;
@@ -33,14 +37,14 @@ namespace DDD.Matsumoto
 
 
 					// var player = CharacterCore.Create<PlayerCore>(asset, transform);
-					var player = _characterFactory.Create<PlayerCore>(asset, transform);
+					var player = _playerBuilder.Create(asset, transform);
 
 					asset.ID = id;
 
 					return player;
 				case EnemyAsset asset:
 //					return CharacterCore.Create<EnemyCore>(asset, transform);
-					return _characterFactory.Create<EnemyCore>(asset, transform);
+					return _enemyBuilder.Create(asset, transform);
 				default:
 					return null;
 			}

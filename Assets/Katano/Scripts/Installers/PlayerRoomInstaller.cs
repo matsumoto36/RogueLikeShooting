@@ -7,8 +7,8 @@ namespace DDD.Katano.Installers
 	{
 		public override void InstallBindings()
 		{
-			Container.Bind<SpawnPlayerComponent>().AsSingle();
-			Container.Bind<PlayerTransportComponent>().AsSingle();
+			Container.Bind<PlayerRoomComponent>().AsSingle();
+			Container.Bind<TransportSystemComponent>().AsSingle();
 		}
 	}
 }

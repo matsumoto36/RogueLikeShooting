@@ -2,7 +2,7 @@ using System;
 
 namespace DDD.Katano.Maze
 {
-	public enum EnumDecorationState
+	public enum DecorationState
 	{
 		None,
 		Labyrinth,

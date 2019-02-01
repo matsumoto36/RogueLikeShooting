@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DDD.Nishiwaki.Item;
 using UnityEngine;
 using DDD.Nishiwaki.Bullet;
+using Zenject;
 
 namespace DDD.Nishiwaki.Bullet
 {
@@ -63,6 +64,11 @@ namespace DDD.Nishiwaki.Bullet
             BulletBase.weaponRanged = weaponRanged;
 
             return BulletBase;
+        }
+
+        public class Pool : MemoryPool<BulletBase>
+        {
+            
         }
     }
 }

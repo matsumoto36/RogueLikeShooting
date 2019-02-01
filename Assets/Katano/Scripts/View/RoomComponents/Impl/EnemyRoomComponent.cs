@@ -13,7 +13,7 @@ namespace DDD.Katano.View.RoomComponents
 	/// 敵を生成するコンポーネント
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SpawnEnemyComponent : BaseRoomComponent
+	public class EnemyRoomComponent : BaseRoomComponent
 	{
 		private CharacterSpawner[] _spawners;
 		

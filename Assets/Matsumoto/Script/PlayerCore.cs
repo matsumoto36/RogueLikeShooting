@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DDD.Chikazawa;
 using DDD.Chikazawa.InputEventProvider;
 using DDD.Katano;
+using DDD.Katano.Model;
+using DDD.Katano.View.Character;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
 using DDD.Matsumoto.Managers;
@@ -19,46 +22,54 @@ namespace DDD.Matsumoto
 	/// </summary>
 	public class PlayerCore : CharacterCore
 	{
-		/// <summary>
-		/// 武器切り替え許容範囲
-		/// </summary>
-		private const float EquipWeaponRange = 5;
-		
-		/// <summary>
-		/// 武器を切り替える所要時間
-		/// </summary>
-		private const float ChangeWeaponWait = 3;
-		
-		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
-		
-		private static PlayerHPProvider _playerHPProvider;
-		
 		[Inject]
-		private IMessagePublisher _messagePublisher;
+		private Settings _settings;
+
+		private static readonly List<PlayerCore> Players = new List<PlayerCore>();
+
+		[Inject]
+		private PlayerHealthProvider _playerHealthProvider;
+		public override IReadOnlyReactiveProperty<int> CurrentHealth => _playerHealthProvider.CurrentHealth;
+		public override int MaxHealth => _playerHealthProvider.MaxHealth;
+
+
+		private readonly BoolReactiveProperty _isFreeze = new BoolReactiveProperty();
+		/// <summary>
+		///     凍結中
+		/// </summary>
+		public IReadOnlyReactiveProperty<bool> IsFreeze => _isFreeze;
+		
 		
 		private bool _canChangeWeapon = true;
 		private float _changeWeaponTime;
 
-//		[NonSerialized]
-//		public Subject<PlayerCore> PlayerUpdate = new Subject<PlayerCore>();
+		[Inject]
+		private IMessagePublisher _messagePublisher;
 
 		public IWeapon ChangeTargetWeapon { get; private set; }
 
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; set; }
-		// public bool IsFreeze { get; set; }
 
-		private readonly BoolReactiveProperty _isFreeze = new BoolReactiveProperty();
-		/// <summary>
-		/// 凍結中
-		/// </summary>
-		public IReadOnlyReactiveProperty<bool> IsFreeze => _isFreeze;
+		public override WeaponAsset GetFirstWeapon { get; } = null;
 
-		public override int HP
+		
+		
+//		public override int HP { get; protected set; }
+
+//		public override int HP
+//		{
+//			get => _playerHealthProvider.NowHP;
+//			protected set => _playerHealthProvider.NowHP = value;
+//		}
+
+		protected override void TakeDamage(IAttacker attacker, int value)
 		{
-			get => _playerHPProvider.NowHP;
-			protected set => _playerHPProvider.NowHP = value;
+			_playerHealthProvider.TakeDamage(value);
+			if (IsDead.Value) Kill(attacker);
 		}
+		
+
 
 		public override void Kill(IAttacker attacker)
 		{
@@ -76,40 +87,25 @@ namespace DDD.Matsumoto
 			if (isLast) _messagePublisher.Publish(new MazeSignal.PlayerKilled());
 		}
 
-		protected override void OnSpawn(CharacterAsset asset)
+		public override void OnSpawn(CharacterAsset asset)
 		{
 			//レイヤー設定
 			gameObject.layer = LayerMask.NameToLayer("Player");
 			CharacterType = CharacterType.Player;
-			
+
 			//リストに追加
 			Players.Add(this);
-			
+
 			var playerAsset = (PlayerAsset) asset;
 			//IDの設定
-			ID = playerAsset.ID;		
-
-			//HPの設定
-			if (!_playerHPProvider)
-			{
-				if (!(_playerHPProvider = FindObjectOfType<PlayerHPProvider>()))
-				{
-					_playerHPProvider = new GameObject("[PlayerHPProvider]")
-						.AddComponent<PlayerHPProvider>();
-
-					_playerHPProvider.MaxHP
-						= _playerHPProvider.NowHP
-							= playerAsset.HP;
-
-					//暫定的にプレイヤーが出す
-					UIManager.Instance.Show("PlayerStatus");
-				}
-			}
+			ID = playerAsset.ID;
 
 			//追加のコンポーネントを追加
 			gameObject.AddComponent<PlayerMove>();
 			gameObject.AddComponent<PlayerAttack>();
 		}
+
+		public override IReadOnlyReactiveProperty<bool> IsDead { get; }
 
 		protected override void Start()
 		{
@@ -151,7 +147,7 @@ namespace DDD.Matsumoto
 			if (!_canChangeWeapon) return;
 
 			if (ChangeTargetWeapon == null)
-				ChangeTargetWeapon = GetNearestWeapon(EquipWeaponRange);
+				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
 
 			if (ChangeTargetWeapon == null)
 			{
@@ -160,19 +156,9 @@ namespace DDD.Matsumoto
 			}
 
 			_changeWeaponTime += Time.deltaTime;
-			if (!(_changeWeaponTime > ChangeWeaponWait)) return;
-			AttachWeapon(ChangeTargetWeapon);
+			if (!(_changeWeaponTime > _settings.ChangeWeaponWait)) return;
+			CharacterArm.Attach(ChangeTargetWeapon);
 			Reset(false);
-		}
-
-		/// <summary>
-		///     プレイヤーをIDから取得する
-		/// </summary>
-		/// <returns></returns>
-		public static PlayerCore GetPlayerFromID(int id)
-		{
-			return Players
-				.Find(item => item.ID == id);
 		}
 
 		public void SetFreezeMode(bool isFreeze)
@@ -202,12 +188,20 @@ namespace DDD.Matsumoto
 				//一番近いやつを返す
 				.Select(item => item.Item1)
 				.FirstOrDefault();
+		}
 
-			//return GameInstance.AttachableWeaponList
-			//	//距離で並べ替える
-			//	.OrderBy(item => (item.GetBody().transform.position - transform.position).sqrMagnitude)
-			//	//一番近いやつを返す
-			//	.FirstOrDefault();
+		[Serializable]
+		public class Settings
+		{
+			/// <summary>
+			///     武器切り替え許容範囲
+			/// </summary>
+			public float EquipWeaponRange = 5;
+
+			/// <summary>
+			///     武器を切り替える所要時間
+			/// </summary>
+			public float ChangeWeaponWait = 3;
 		}
 	}
 }

@@ -84,8 +84,6 @@ namespace DDD.Katano.Maze
 
 			MakeAisle(ref _aisleList);
 
-			
-
 			_builtAisle = true;
 		}
 
@@ -134,12 +132,17 @@ namespace DDD.Katano.Maze
 			foreach (var room in _roomList.GetIsolatedRoom(_aisleList)) room.IsEnable = false;
 		}
 
+		private IEnumerable<Room> GetActiveRooms()
+		{
+			return _roomList.Cast<Room>().Where(x => x.IsEnable);
+		}
+
 		/// <summary>
 		///     小さいクラスターを無効化
 		/// </summary>
 		private void RemoveSmallCluster()
 		{
-			var roomList = _roomList.Cast<Room>().Where(x => x.IsEnable).ToList();
+			var roomList = GetActiveRooms().ToList();
 			var cluster = new HashSet<Room>();
 			var clusterList = new List<List<Room>>();
 
@@ -156,12 +159,10 @@ namespace DDD.Katano.Maze
 				return;
 			}
 
-			
-
 			DiscoverAll();
 
 			RemoveCluster();
-
+			
 			// 全探索する
 			void DiscoverAll()
 			{
@@ -268,6 +269,11 @@ namespace DDD.Katano.Maze
 		/// <param name="aisles"></param>
 		private void MakeAisle(ref HashSet<Aisle> aisles)
 		{
+			bool IsOutOfBounds(int x, int y)
+			{
+				return x < 0 || x >= _buildOptions.Width || y < 0 || y >= _buildOptions.Height;
+			}
+			
 			for (var i = 0; i < _buildOptions.Width; i++)
 			for (var j = 0; j < _buildOptions.Height; j++)
 			{
@@ -278,23 +284,16 @@ namespace DDD.Katano.Maze
 					var (x, y) = Neighbors[k];
 
 					// 範囲外は除外
-					if (i + x < 0 || i + x >= _buildOptions.Width) continue;
-					if (j + y < 0 || j + y >= _buildOptions.Height) continue;
+					if (IsOutOfBounds(i + x, j + y)) continue;
 
 					// 隣接する部屋
 					var neighbor = _roomList[i + x, j + y];
 				
 					// 新しい通路を作成
 					var aisle = origin + neighbor;
-//						.WithState(k % 2 == 0
-//							? AisleChainState.Vertical
-//							: AisleChainState.Horizontal);
 					
 					// 隣接する部屋の方向のビットフラグを立てる
-					// origin.AdjacentSide |= (AdjacentSides) (1 << k);
 					origin.ConnectingAisles.Add((AdjacentSides) k, aisle);
-
-					
 				
 					// 通路リストに追加
 					aisles.Add(aisle);
@@ -306,9 +305,9 @@ namespace DDD.Katano.Maze
 		{
 			switch (_buildOptions.DecorationState)
 			{
-				case EnumDecorationState.None:
+				case DecorationState.None:
 					break;
-				case EnumDecorationState.Labyrinth:
+				case DecorationState.Labyrinth:
 					LabyrinthDecoration();
 					break;
 				default:
@@ -344,7 +343,7 @@ namespace DDD.Katano.Maze
 			}
 			
 			// 有効な部屋のリスト
-			var roomList = _roomList.Cast<Room>().Where(x => x.IsEnable).ToList();
+			var roomList = GetActiveRooms().ToList();
 			
 			// マーキング
 			var mark = 0;
@@ -394,7 +393,7 @@ namespace DDD.Katano.Maze
 		/// </summary>
 		public void OverrideAttribute()
 		{
-			var enabledRooms = _roomList.Cast<Room>().Where(x => x.IsEnable).Shuffle().ToArray();
+			var enabledRooms = GetActiveRooms().Shuffle().ToArray();
 
 			for (var i = 0; i < enabledRooms.Length; ++i)
 			{
