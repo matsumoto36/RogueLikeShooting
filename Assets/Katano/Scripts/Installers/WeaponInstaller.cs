@@ -9,7 +9,6 @@ namespace DDD.Katano.Installers
 	{
 		public GameObject WeaponCore;
 		public Material Material;
-		public WeaponAsset WeaponAsset;
 		
 		public override void InstallBindings()
 		{

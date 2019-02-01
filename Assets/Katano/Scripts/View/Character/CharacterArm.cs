@@ -11,11 +11,9 @@ namespace DDD.Katano.View.Character
 	/// </summary>
 	public class CharacterArm : MonoBehaviour
 	{
-		[Inject]
 		private CharacterCore _characterCore;
 
-		[Inject]
-		private Transform _armAnchor;
+		public Transform ArmAnchor;
 		
 		public IWeapon EquippedArm { get; private set; }
 
@@ -24,6 +22,7 @@ namespace DDD.Katano.View.Character
 		private void Awake()
 		{
 			_transformCache = transform;
+			_characterCore = GetComponent<CharacterCore>();
 		}
 		
 		public void Attach(IWeapon weapon)
@@ -44,7 +43,7 @@ namespace DDD.Katano.View.Character
 			position.y = _transformCache.position.y;
 
 			_transformCache.position = position;
-			armTransform.parent = _armAnchor;
+			armTransform.parent = ArmAnchor;
 			armTransform.localPosition = Vector3.zero;
 		}
 

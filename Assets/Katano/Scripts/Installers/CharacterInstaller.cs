@@ -11,7 +11,6 @@ namespace DDD.Katano.Installers
 		public override void InstallBindings()
 		{
 			Container.BindInstance(ArmAnchor);
-			Container.Bind<CharacterArm>().FromNewComponentOn(gameObject).AsSingle();
 		}
 	}
 }

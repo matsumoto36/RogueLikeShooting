@@ -51,10 +51,7 @@ namespace DDD.Matsumoto
 		public int ID { get; private set; }
 		public IInputEventProvider InputEventProvider { get; set; }
 
-		[Inject]
-		private WeaponAsset _weaponAsset;
-
-		public override WeaponAsset GetFirstWeapon => _weaponAsset;
+		public override WeaponAsset GetFirstWeapon { get; } = null;
 
 		
 		
@@ -156,16 +153,6 @@ namespace DDD.Matsumoto
 			Reset(false);
 		}
 
-		/// <summary>
-		///     プレイヤーをIDから取得する
-		/// </summary>
-		/// <returns></returns>
-		public static PlayerCore GetPlayerFromID(int id)
-		{
-			return Players
-				.Find(item => item.ID == id);
-		}
-
 		public void SetFreezeMode(bool isFreeze)
 		{
 			_isFreeze.Value = isFreeze;
@@ -193,12 +180,6 @@ namespace DDD.Matsumoto
 				//一番近いやつを返す
 				.Select(item => item.Item1)
 				.FirstOrDefault();
-
-			//return GameInstance.AttachableWeaponList
-			//	//距離で並べ替える
-			//	.OrderBy(item => (item.GetBody().transform.position - transform.position).sqrMagnitude)
-			//	//一番近いやつを返す
-			//	.FirstOrDefault();
 		}
 
 		[Serializable]

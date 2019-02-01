@@ -33,15 +33,7 @@ namespace DDD.Katano.Installers
 			
 			Container.BindInstance(PlayerSpawner).WhenInjectedInto<PlayerRoomComponent>();
 
-			Container.Bind<PlayerSpawnerFactory>().AsSingle().WithArguments(PlayerSpawner);
-
-			
-			
-//			Container.Bind<CharacterSpawner[]>()
-//				.FromSubContainerResolve()
-//				.ByNewPrefabMethod(PlayerSpawner, ResolveCharacterSpawners);
-
-//			Container.Bind<CharacterSpawner[]>().FromComponentsInNewPrefab(PlayerSpawner).AsTransient();
+			Container.Bind<PlayerSpawnerFactory>().AsSingle().WithArguments(PlayerSpawner);			
 		}
 
 		private void InstallPlayerHealthProvider(DiContainer container)

@@ -22,4 +22,5 @@ MonoBehaviour:
       type: 3}
   FloorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}
   PlayerAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
-  PlayerWeaponAsset: {fileID: 0}
+  PlayerWeaponAsset: {fileID: 11400000, guid: 64dd78f9169c9cd469af89a7615b948f, type: 2}
+  EnemyWeaponAsset: {fileID: 11400000, guid: a828465b4a81e99408b3fe5a50b968ae, type: 2}

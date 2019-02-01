@@ -1,4 +1,5 @@
 using DDD.Katano.Installers;
+using DDD.Katano.View.Character;
 using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
@@ -28,8 +29,15 @@ namespace DDD.Katano.Model
 
 	public class PlayerBuilder : CharacterBuilder
 	{
-		public PlayerBuilder(GameObject prefab, RangedWeaponFactory weaponFactory, DiContainer container) : base(prefab, weaponFactory, container)
+		private readonly WeaponAsset _weaponAsset;
+		
+		public PlayerBuilder(
+			GameObject prefab, 
+			RangedWeaponFactory weaponFactory,
+			WeaponAsset weaponAsset,
+			DiContainer container) : base(prefab, weaponFactory, container)
 		{
+			_weaponAsset = weaponAsset;
 		}
 
 		public override CharacterCore Create(CharacterAsset asset, Transform anchor)
@@ -42,17 +50,15 @@ namespace DDD.Katano.Model
 
 //				var character = go.AddComponent<T>();
 			var player = Container.InstantiateComponent<PlayerCore>(go);
-
+			var arm = player.GetComponent<CharacterArm>();
+			arm.Attach(WeaponFactory.Create(_weaponAsset));
+			
 //				character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
 			player.ThemeColor = asset.ThemeColor;
 			player.CharacterRig = player.GetComponent<Rigidbody>();
-
 			player.OnSpawn(asset);
-//				var weapon = WeaponRanged.Create(asset.Weapon, anchor);
-			var weapon = WeaponFactory.Create(player.GetFirstWeapon);
 
-
-//				character.AttachWeapon(weapon);
+			
 
 			return player;
 		}
@@ -60,8 +66,15 @@ namespace DDD.Katano.Model
 	
 	public class EnemyBuilder : CharacterBuilder
 	{
-		public EnemyBuilder(GameObject prefab, RangedWeaponFactory weaponFactory, DiContainer container) : base(prefab, weaponFactory, container)
+		private readonly WeaponAsset _weaponAsset;
+		
+		public EnemyBuilder(
+			GameObject prefab, 
+			RangedWeaponFactory weaponFactory, 
+			WeaponAsset weaponAsset,
+			DiContainer container) : base(prefab, weaponFactory, container)
 		{
+			_weaponAsset = weaponAsset;
 		}
 
 		public override CharacterCore Create(CharacterAsset asset, Transform anchor)
@@ -80,8 +93,9 @@ namespace DDD.Katano.Model
 			enemy.CharacterRig = enemy.GetComponent<Rigidbody>();
 
 			enemy.OnSpawn(asset);
-//				var weapon = WeaponRanged.Create(asset.Weapon, anchor);
-			var weapon = WeaponFactory.Create(enemy.GetFirstWeapon);
+//				var weapon = WeaponRanged.Create(weaponAsset.Weapon, anchor);
+			var arm = enemy.GetComponent<CharacterArm>();
+			arm.Attach(WeaponFactory.Create(_weaponAsset));
 
 
 //				character.AttachWeapon(weapon);

@@ -98,7 +98,19 @@ namespace DDD.Matsumoto.Character {
 			//Agent.speed = 
 		}
 
-		public override IReadOnlyReactiveProperty<bool> IsDead { get; }
+
+		private IReadOnlyReactiveProperty<bool> _isDead;
+
+		public override IReadOnlyReactiveProperty<bool> IsDead
+		{
+			get
+			{
+				return _isDead ?? 
+				       (_isDead = _currentHealth
+					       .Select(x => x <= 0).ToReactiveProperty()
+				       );
+			}
+		}
 
 		protected override void Start() {
 

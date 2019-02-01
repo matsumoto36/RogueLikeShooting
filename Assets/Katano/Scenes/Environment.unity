@@ -304,7 +304,6 @@ MonoBehaviour:
   WeaponCore: {fileID: 7332351502389433368, guid: 386cc89d4b6f53b4fa02340378b28bf3,
     type: 3}
   Material: {fileID: 2100000, guid: 1036b125455e1b64c8cbc54430d89efd, type: 2}
-  WeaponAsset: {fileID: 0}
 --- !u!1 &266097286
 GameObject:
   m_ObjectHideFlags: 0
