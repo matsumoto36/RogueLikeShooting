@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 137218547}
   - component: {fileID: 137218546}
   - component: {fileID: 137218545}
-  - component: {fileID: 137218548}
+  - component: {fileID: 137218549}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -269,8 +269,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1578ab39caa5b046a3d732789168c8b, type: 2}
   _monoInstallers:
   - {fileID: 137218545}
-  - {fileID: 137218548}
-  _installerPrefabs: []
+  - {fileID: 137218549}
+  _installerPrefabs:
+  - {fileID: 1129854159502778340, guid: 78b18101d6db1284f9312b82030be2f1, type: 3}
   _autoRun: 1
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
@@ -289,7 +290,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &137218548
+--- !u!114 &137218549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,7 +304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponCore: {fileID: 7332351502389433368, guid: 386cc89d4b6f53b4fa02340378b28bf3,
     type: 3}
-  Material: {fileID: 2100000, guid: 1036b125455e1b64c8cbc54430d89efd, type: 2}
 --- !u!1 &266097286
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +664,31 @@ PrefabInstance:
     - target: {fileID: 223412460474534878, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 3}
       propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458677266694983659, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458677266694983659, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458677266694983659, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528593173305765398, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528593173305765398, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

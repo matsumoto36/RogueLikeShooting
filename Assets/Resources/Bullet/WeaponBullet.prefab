@@ -9,14 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4323108748098138}
+  - component: {fileID: 8505129807721945902}
   - component: {fileID: 33697481315152524}
   - component: {fileID: 23543516941760976}
   - component: {fileID: 135401670043009614}
   - component: {fileID: 54804604674176550}
-  - component: {fileID: 114829294343474376}
+  - component: {fileID: 445397561064425706}
   - component: {fileID: 114152657394787580}
-  m_Layer: 12
-  m_Name: NewBullet
+  m_Layer: 0
+  m_Name: WeaponBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,6 +37,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8505129807721945902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941022596313962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers: []
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
 --- !u!33 &33697481315152524
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110,7 +128,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114829294343474376
+--- !u!114 &445397561064425706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,16 +137,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1941022596313962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06d03fcd2c86dce40b5088bd1c53acd1, type: 3}
+  m_Script: {fileID: 11500000, guid: bc0439e092de43d4a47468faf39aeeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPara:
-    Speed: 0
-    Power: 0
-    LifeTime: 0
-    Range: 0
-    ChargeTime: 0
-  weaponRanged: {fileID: 0}
+  Rigidbody: {fileID: 54804604674176550}
+  VfxBullet: {fileID: 114152657394787580}
 --- !u!114 &114152657394787580
 MonoBehaviour:
   m_ObjectHideFlags: 0
