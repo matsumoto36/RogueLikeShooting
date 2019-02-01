@@ -58,12 +58,14 @@ namespace DDD.Matsumoto.Character {
 		/// </summary>
 		public void Attack() {
 
+			var weapon = CharacterArm.EquippedArm;
+
 			if (!IsAttack) {
-				Weapon?.AttackDown();
+				weapon?.AttackDown();
 				IsAttack = true;
 			}
 
-			Weapon?.Attack();
+			weapon?.Attack();
 		}
 
 		public override void ApplyDamage(IAttacker attacker, int damage) {
@@ -130,7 +132,7 @@ namespace DDD.Matsumoto.Character {
 					_enemyAI?.AIUpdate(this);
 
 					if (_isAttackPrev && !IsAttack) {
-						Weapon?.AttackUp();
+						CharacterArm.EquippedArm?.AttackUp();
 					}
 
 					_isAttackPrev = IsAttack;

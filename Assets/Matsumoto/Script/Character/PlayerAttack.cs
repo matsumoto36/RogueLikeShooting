@@ -55,30 +55,32 @@ namespace DDD.Matsumoto.Character
 		/// <summary>
 		/// 攻撃
 		/// </summary>
-		private void Attack()
-		{
+		private void Attack() {
+
+			var weapon = Player.CharacterArm.EquippedArm;
+
 			//武器切り替え時は攻撃キャンセル
 			if (Player.ChangeTargetWeapon != null)
 			{
 				if (!_isUsingWeapon) return;
 
-				Player.Weapon?.AttackUp();
+				weapon?.AttackUp();
 				_isUsingWeapon = false;
 				return;
 			}
 
 			if (Player.InputEventProvider.GetShotDown() && !_isUsingWeapon)
 			{
-				Player.Weapon?.AttackDown();
+				weapon?.AttackDown();
 				_isUsingWeapon = true;
 			}
 
 			if (Player.InputEventProvider.GetShotButton() && _isUsingWeapon)
-				Player.Weapon?.Attack();
+				weapon?.Attack();
 
 			if (Player.InputEventProvider.GetShotUp() && _isUsingWeapon)
 			{
-				Player.Weapon?.AttackUp();
+				weapon?.AttackUp();
 				_isUsingWeapon = false;
 			}
 		}

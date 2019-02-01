@@ -39,9 +39,10 @@ namespace DDD.Katano.Installers
 		{
 			var weaponObj = Object.Instantiate(asset.WeaponModel, anchor.position, anchor.rotation);
 			var weapon = _container.InstantiateComponent<WeaponRangedAuto>(weaponObj);
-			_container.InstantiatePrefab(_coreObject, weapon.transform);
-			weapon.CoreObject = weaponObj;
-			weapon.CoreRenderer = weaponObj.GetComponentInChildren<Renderer>();
+			var core = _container.InstantiatePrefab(_coreObject, weapon.transform);
+			weapon.CoreObject = core;
+			weapon.CoreRenderer = core.GetComponent<Renderer>();
+			weapon.CoreRenderer.material.EnableKeyword("_EMISSION");
 
 			weapon.WeaponRangedPara = asset.Parameter;
 			weapon.iBullet = BulletBase.Create(asset.Bullet, weapon);

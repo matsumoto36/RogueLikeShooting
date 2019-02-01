@@ -69,8 +69,8 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 		/// <returns></returns>
 		public static bool HasObstacleBetweenTarget(CharacterCore enemy, CharacterCore target) {
 
-			var enemyPos = enemy.Weapon.GetBody().transform.position;
-			var targetPos = target.Weapon.GetBody().transform.position;
+			var enemyPos = enemy.CharacterArm.EquippedArm.GetBody().transform.position;
+			var targetPos = target.CharacterArm.EquippedArm.GetBody().transform.position;
 			RaycastHit hitInfo;
 			var hit = Physics.Linecast(enemyPos, targetPos, out hitInfo, ~LayerMask.GetMask("Player", "Enemy"));
 			if(hit) {

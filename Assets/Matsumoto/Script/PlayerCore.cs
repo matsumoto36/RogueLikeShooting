@@ -105,7 +105,7 @@ namespace DDD.Matsumoto
 			gameObject.AddComponent<PlayerAttack>();
 		}
 
-		public override IReadOnlyReactiveProperty<bool> IsDead { get; }
+		public override IReadOnlyReactiveProperty<bool> IsDead => _playerHealthProvider.IsDead;
 
 		protected override void Start()
 		{

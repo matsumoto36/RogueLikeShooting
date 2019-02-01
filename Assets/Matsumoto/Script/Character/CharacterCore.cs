@@ -33,13 +33,11 @@ namespace DDD.Matsumoto.Character
 		
 		public abstract int MaxHealth { get; }
 
-		public IWeapon Weapon { get; private set; }
-
 		public Color ThemeColor { get; set; }
 
 		public abstract IReadOnlyReactiveProperty<bool> IsDead { get; }
-		
-		protected CharacterArm CharacterArm;
+
+		public CharacterArm CharacterArm { get; protected set; }
 
 		public abstract WeaponAsset GetFirstWeapon { get; }
 
