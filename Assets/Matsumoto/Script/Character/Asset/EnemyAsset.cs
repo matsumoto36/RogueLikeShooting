@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DDD.Matsumoto.Character.EnemyAI;
+using UnityEngine;
 
 namespace DDD.Matsumoto.Character.Asset {
 
@@ -6,6 +7,7 @@ namespace DDD.Matsumoto.Character.Asset {
 	public class EnemyAsset : CharacterAsset {
 
 		public EnemyAIType EnemyAIType;
+		public EnemyAIParameter EnemyAIParameter;
 
 	}
 }

@@ -91,7 +91,7 @@ namespace DDD.Katano.Model
 				anchor.rotation,
 				null);
 
-//				var character = go.AddComponent<T>();
+			go.name = asset.name;
 			var enemy = Container.InstantiateComponent<EnemyCore>(go);
 
 //				character._weaponAnchor = character.transform.Find(WeaponBindAnchor);
@@ -101,6 +101,7 @@ namespace DDD.Katano.Model
 			enemy.OnSpawn(asset);
 //				var weapon = WeaponRanged.Create(weaponAsset.Weapon, anchor);
 			var arm = enemy.GetComponent<CharacterArm>();
+			arm.Core = enemy;
 			arm.Attach(WeaponFactory.Create(_weaponAsset, anchor));
 
 

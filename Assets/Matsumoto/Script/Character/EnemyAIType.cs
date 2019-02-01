@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 namespace DDD.Matsumoto.Character {
 	public enum EnemyAIType {
 		Attacker,
+		Ranger,
+		Stay,
 	}
 }

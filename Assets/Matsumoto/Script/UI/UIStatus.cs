@@ -12,7 +12,7 @@ namespace DDD.Matsumoto.UI
 		[Inject]
 		private PlayerHealthProvider _provider;
 
-		public Image HPGauge;
+		public Slider HPGauge;
 
 		public override void Show()
 		{
@@ -30,11 +30,8 @@ namespace DDD.Matsumoto.UI
 		///     HPゲージを変更する
 		/// </summary>
 		/// <param name="amount"></param>
-		private void ChangeGauge(float amount)
-		{
-			var scale = HPGauge.transform.localScale;
-			scale.x = amount;
-			HPGauge.transform.localScale = scale;
+		private void ChangeGauge(float amount) {
+			HPGauge.value = amount;
 		}
 	}
 }
