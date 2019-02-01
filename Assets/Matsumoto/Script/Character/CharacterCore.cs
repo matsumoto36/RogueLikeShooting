@@ -108,7 +108,7 @@ namespace DDD.Matsumoto.Character
 					break;
 			}
 
-			Debug.Log($"{name}は{message}に倒された!");
+//			Debug.Log($"{name}は{message}に倒された!");
 
 			Death();
 		}
