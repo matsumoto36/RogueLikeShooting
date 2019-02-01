@@ -14,7 +14,6 @@ namespace DDD.Nishiwaki.Bullet
             var bullet = UnityEngine.Object.Instantiate(BulletPrefab, transform.position, transform.rotation);
             bullet.BulletPara = BulletPara;
             bullet.weaponRanged = weaponRanged;
-            Debug.Log("BulletCreate");
         }
     }
 }

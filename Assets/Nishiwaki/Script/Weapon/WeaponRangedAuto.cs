@@ -13,7 +13,6 @@ namespace DDD.Nishiwaki.Item
 			CanShot = false;
 			// 弾の発射位置
 			StartCoroutine(canShot());
-			Debug.Log("Attack()");
 			iBullet.BulletCreate(transform);
 		}
 
