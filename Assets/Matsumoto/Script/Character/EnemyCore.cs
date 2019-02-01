@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using DDD.Katano.Model;
 using DDD.Matsumoto.Character.Asset;
 using DDD.Matsumoto.Character.EnemyAI;
 using UnityEngine.AI;
@@ -25,9 +26,14 @@ namespace DDD.Matsumoto.Character {
 			get; protected set;
 		}
 
-		public override int HP {
-			get; protected set;
-		}
+		public override WeaponAsset GetFirstWeapon { get; }
+
+		private readonly IntReactiveProperty _currentHealth = new IntReactiveProperty();
+		
+		public override IReadOnlyReactiveProperty<int> CurrentHealth => _currentHealth;
+
+		private int _maxHealth;
+		public override int MaxHealth => _maxHealth;
 
 		public NavMeshAgent Agent {
 			get; protected set;
@@ -66,7 +72,7 @@ namespace DDD.Matsumoto.Character {
 			_enemyAI?.OnAttackedOther(this, attacker, damage);
 		}
 
-		protected override void OnSpawn(CharacterAsset asset) {
+		public override void OnSpawn(CharacterAsset asset) {
 
 			CharacterType = CharacterType.Enemy;
 
@@ -76,7 +82,8 @@ namespace DDD.Matsumoto.Character {
 			gameObject.layer = LayerMask.NameToLayer("Enemy");
 
 			//HPを設定
-			HP = enemyAsset.HP;
+			_currentHealth.Value = enemyAsset.HP;
+			_maxHealth = enemyAsset.HP;
 
 			//AIの設定
 			AIParameter = enemyAsset.EnemyAIParameter;
@@ -101,6 +108,20 @@ namespace DDD.Matsumoto.Character {
 			Agent.angularSpeed = enemyAsset.EnemyAIParameter.AngularSpeed;
 		}
 
+
+		private IReadOnlyReactiveProperty<bool> _isDead;
+
+		public override IReadOnlyReactiveProperty<bool> IsDead
+		{
+			get
+			{
+				return _isDead ?? 
+				       (_isDead = _currentHealth
+					       .Select(x => x <= 0).ToReactiveProperty()
+				       );
+			}
+		}
+
 		protected override void Start() {
 
 			this.UpdateAsObservable()
@@ -120,14 +141,20 @@ namespace DDD.Matsumoto.Character {
 			_enemyAI?.AIStart(this);
 		}
 
+		protected override void TakeDamage(IAttacker attacker, int value) {
+			_currentHealth.Value = Mathf.Clamp(_currentHealth.Value - value, 0, _maxHealth);
+			if(IsDead.Value) Kill(attacker);
+		}
+
 		private void OnDrawGizmosSelected() {
 
-			void DrawCircle(Color color, Vector3 center, float radius, int pertition, float arc = Mathf.PI * 2, float radOffset = 0) {
+			void DrawCircle(Color color, Vector3 center, float radius, int pertition, float arc = Mathf.PI * 2,
+				float radOffset = 0) {
 				Gizmos.color = color;
 
 				var prevPosition = center;
 				var delta = 1.0 / pertition;
-				for(int i = 0;i <= pertition;i++) {
+				for (int i = 0; i <= pertition; i++) {
 					var rad = (float)(radOffset + delta * i * arc);
 					var posOffset = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad)) * radius;
 					var position = center + posOffset;
@@ -148,15 +175,15 @@ namespace DDD.Matsumoto.Character {
 			Gizmos.DrawLine(centerPos, end);
 
 			//ターゲット
-			if(_enemyAI is EnemyAIBase aiBase) {
-				if(aiBase.Target) {
+			if (_enemyAI is EnemyAIBase aiBase) {
+				if (aiBase.Target) {
 					Gizmos.color = Color.red;
 					Gizmos.DrawLine(centerPos, aiBase.Target.transform.position);
 				}
 
 			}
 
-			switch(_enemyAI) {
+			switch (_enemyAI) {
 				case EnemyAIAttacker aiAttacker:
 
 					//移動開始距離の表示

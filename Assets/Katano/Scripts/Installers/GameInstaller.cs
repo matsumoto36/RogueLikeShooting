@@ -1,6 +1,9 @@
 using DDD.Katano.Maze;
+using DDD.Katano.Model;
 using DDD.Katano.View.RoomComponents;
+using DDD.Matsumoto;
 using DDD.Matsumoto.Character;
+using DDD.Matsumoto.Character.Asset;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -13,32 +16,31 @@ namespace DDD.Katano.Installers
 	public class GameInstaller : MonoInstaller<GameInstaller>
 	{
 		public GameObject PlayerSpawner;
+		public GameObject PlayerPrefab;
 		
 		public override void InstallBindings()
 		{
-			
+			Container.Bind<PlayerHealthProvider>().FromSubContainerResolve().ByMethod(InstallPlayerHealthProvider).AsSingle();
 			
 			Container.Bind<MessageBroker>().AsSingle();
 			Container.Bind<IMessageReceiver>().To<MessageBroker>().FromResolve();
 			Container.Bind<IMessagePublisher>().To<MessageBroker>().FromResolve();
 
-			Container.Bind<CharacterCore.Factory>().AsSingle();
 			Container.Bind<MazeViewBuilder.Factory>().AsSingle();
-
+			Container.Bind<PlayerBuilder>().AsSingle().WithArguments(PlayerPrefab);
+			Container.Bind<EnemyBuilder>().AsSingle().WithArguments(PlayerPrefab);
+			
+			
 			Container.BindInstance(PlayerSpawner).WhenInjectedInto<PlayerRoomComponent>();
 
-			Container.Bind<PlayerSpawnerFactory>().AsSingle().WithArguments(PlayerSpawner);
-
-//			Container.Bind<CharacterSpawner[]>()
-//				.FromSubContainerResolve()
-//				.ByNewPrefabMethod(PlayerSpawner, ResolveCharacterSpawners);
-
-//			Container.Bind<CharacterSpawner[]>().FromComponentsInNewPrefab(PlayerSpawner).AsTransient();
+			Container.Bind<PlayerSpawnerFactory>().AsSingle().WithArguments(PlayerSpawner);			
 		}
 
-		private void ResolveCharacterSpawners(DiContainer container)
+		private void InstallPlayerHealthProvider(DiContainer container)
 		{
-			
+			var playerAsset = Container.Resolve<PlayerAsset>();
+
+			container.Bind<PlayerHealthProvider>().AsSingle().WithArguments(playerAsset.HP);
 		}
 	}
 }

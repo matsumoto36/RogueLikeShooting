@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace DDD.Katano.Maze
 {
 	
@@ -19,16 +21,16 @@ namespace DDD.Katano.Maze
 		/// <summary>
 		/// 部屋リスト (2d)
 		/// </summary>
-		public Room[,] RoomList { get; }
+		public Room[,] Rooms { get; }
 		
 		/// <summary>
 		/// 通路リスト
 		/// </summary>
 		public Aisle[] Aisles { get; }
 		
-		public Maze(Room[,] roomList, Aisle[] aisles, int width, int height)
+		public Maze(Room[,] rooms, Aisle[] aisles, int width, int height)
 		{
-			RoomList = roomList;
+			Rooms = rooms;
 			Aisles = aisles;
 			Width = width;
 			Height = height;
@@ -41,18 +43,34 @@ namespace DDD.Katano.Maze
 		/// <returns></returns>
 		public Room GetRoom(int id)
 		{
-			for (var i = 0; i < RoomList.GetLength(0); i++)
+			for (var i = 0; i < Rooms.GetLength(0); i++)
 			{
-				for (var j = 0; j < RoomList.GetLength(1); j++)
+				for (var j = 0; j < Rooms.GetLength(1); j++)
 				{
-					if (id == RoomList[i, j].Id)
+					if (id == Rooms[i, j].Id)
 					{
-						return RoomList[i, j];
+						return Rooms[i, j];
 					}
 				}
 			}
 
 			return null;
+		}
+
+		public Room GetEntryPoint()
+		{
+			for (var i = 0; i < Rooms.GetLength(0); i++)
+			{
+				for (var j = 0; j < Rooms.GetLength(1); j++)
+				{
+					if (Rooms[i, j].RoomAttribute == Room.RoomAttributes.FloorStart)
+					{
+						return Rooms[i, j];
+					}
+				}
+			}
+			
+			throw new MazeException("Entry Point is not found.");
 		}
 	}
 }

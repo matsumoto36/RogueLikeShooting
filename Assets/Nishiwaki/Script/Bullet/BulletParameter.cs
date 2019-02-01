@@ -1,30 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace DDD.Nishiwaki.Bullet
 {
-    [System.Serializable]
+	[Serializable]
+	public struct BulletParameter
+	{
+		public float Speed, Power, LifeTime, Range, ChargeTime;
 
-    public struct BulletParameter
-    {
-        public float Speed, Power, LifeTime, Range, ChargeTime;
+		public BulletParameter(float speed, float power, float lifeTime, float range, float chargeTime)
+		{
+			//とりあえず思いついたパラメーターたち
+			// 速度
+			Speed = speed;
+			// 威力
+			Power = power;
+			// 持続時間
+			LifeTime = lifeTime;
 
-        public BulletParameter(float speed, float power, float lifeTime, float range, float chargeTime)
-        {
-            //とりあえず思いついたパラメーターたち
-            // 速度
-            Speed = speed;
-            // 威力
-            Power = power;
-            // 持続時間
-            LifeTime = lifeTime;
-
-            // 以下レーザー
-            // 射程
-            Range = range;
-            // チャージ時間
-            ChargeTime = chargeTime;
-        }
-    }
+			// 以下レーザー
+			// 射程
+			Range = range;
+			// チャージ時間
+			ChargeTime = chargeTime;
+		}
+	}
 }

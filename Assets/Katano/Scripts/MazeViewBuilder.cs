@@ -71,7 +71,7 @@ namespace DDD.Katano.Maze
 		private void MakeRoomView(ref Dictionary<int, RoomView> roomViewList)
 		{
 			// RoomViewの生成
-			var indexed = _maze.RoomList.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
+			var indexed = _maze.Rooms.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
 			foreach (var room in indexed)
 			{
 				var coordinate = new Vector3(room.Element.Coordinate.X + Interval * room.Element.Coordinate.X, 0, -(room.Element.Coordinate.Y + Interval) * room.Element.Coordinate.Y);

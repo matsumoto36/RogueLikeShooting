@@ -1,22 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DDD.Nishiwaki.Item
 {
-    public class Trap : MonoBehaviour
-    {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-    }
+	public class Trap : MonoBehaviour
+	{
+	}
 }
