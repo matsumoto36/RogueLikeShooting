@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f432d6443aef43baba4e1775ec14e9e7, type: 3}
-  m_Name: EnemyWeaponAsset
+  m_Name: PlayerWeaponAsset
   m_EditorClassIdentifier: 
   WeaponModel: {fileID: 8152976490549925069, guid: 3d823655caf4629449addc5d476e17ea,
     type: 3}
+  Bullet: {fileID: 11400000, guid: 7c5d583755b166544be9db28eaeff099, type: 2}
+  Parameter:
+    WaitTime: 0.1

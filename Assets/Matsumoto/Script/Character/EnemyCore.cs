@@ -130,6 +130,12 @@ namespace DDD.Matsumoto.Character {
 
 			_enemyAI?.AIStart(this);
 		}
+
+		protected override void TakeDamage(IAttacker attacker, int value)
+		{
+			_currentHealth.Value = Mathf.Clamp(_currentHealth.Value - value, 0, _maxHealth);
+			if (IsDead.Value) Kill(attacker);
+		}
 	}
 }
 

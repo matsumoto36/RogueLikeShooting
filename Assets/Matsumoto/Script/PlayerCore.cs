@@ -63,6 +63,14 @@ namespace DDD.Matsumoto
 //			protected set => _playerHealthProvider.NowHP = value;
 //		}
 
+		protected override void TakeDamage(IAttacker attacker, int value)
+		{
+			_playerHealthProvider.TakeDamage(value);
+			if (IsDead.Value) Kill(attacker);
+		}
+		
+
+
 		public override void Kill(IAttacker attacker)
 		{
 			base.Kill(attacker);

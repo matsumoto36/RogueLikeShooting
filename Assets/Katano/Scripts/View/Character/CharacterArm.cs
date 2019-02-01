@@ -11,7 +11,8 @@ namespace DDD.Katano.View.Character
 	/// </summary>
 	public class CharacterArm : MonoBehaviour
 	{
-		private CharacterCore _characterCore;
+		[NonSerialized]
+		public CharacterCore Core;
 
 		public Transform ArmAnchor;
 		
@@ -22,7 +23,7 @@ namespace DDD.Katano.View.Character
 		private void Awake()
 		{
 			_transformCache = transform;
-			_characterCore = GetComponent<CharacterCore>();
+			Core = GetComponent<CharacterCore>();
 		}
 		
 		public void Attach(IWeapon weapon)
@@ -34,7 +35,7 @@ namespace DDD.Katano.View.Character
 
 			EquippedArm = weapon;
 			
-			EquippedArm.SetOwner(_characterCore);
+			EquippedArm.SetOwner(Core);
 
 			var armTransform = EquippedArm.GetBody().transform;
 			_transformCache.rotation = armTransform.rotation;

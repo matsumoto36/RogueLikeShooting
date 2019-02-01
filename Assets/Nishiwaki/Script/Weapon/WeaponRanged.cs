@@ -11,8 +11,8 @@ namespace DDD.Nishiwaki.Item
 	{
 //		private const string CoreMaterialPath = "Material/WeaponCore";
 //		private static Material _coreMaterial;
-		private GameObject _coreObject;
-		private Renderer _coreRenderer;
+		public GameObject CoreObject;
+		public Renderer CoreRenderer;
 
 		private Color _themeColor;
 		public CharacterCore characterCore;
@@ -24,16 +24,16 @@ namespace DDD.Nishiwaki.Item
 		public void SetOwner(CharacterCore character)
 		{
 			if (characterCore == character) return;
-
+			
 			//装備したときはキャラクターの色で光らせる
 			if (character)
 			{
 				_themeColor = character.ThemeColor;
-				_coreObject.layer = character.gameObject.layer;
+				CoreObject.layer = character.gameObject.layer;
 			}
 			else
 			{
-				_coreObject.layer = LayerMask.NameToLayer("Weapon");
+				CoreObject.layer = LayerMask.NameToLayer("Weapon");
 			}
 
 			StartCoroutine(LightFadeAnim(character));
@@ -133,12 +133,12 @@ namespace DDD.Nishiwaki.Item
 			{
 				var ratio = (enable ? t : 1 - t) * intensity;
 				var col = _themeColor * new Color(ratio, ratio, ratio, 1.0f);
-				_coreRenderer.material.SetColor("_EmissionColor", col);
+				CoreRenderer.material.SetColor("_EmissionColor", col);
 				yield return null;
 			}
 
 			var lightLevel = enable ? new Color(intensity, intensity, intensity) : new Color();
-			_coreRenderer.material.SetColor("_EmissionColor", _themeColor * lightLevel);
+			CoreRenderer.material.SetColor("_EmissionColor", _themeColor * lightLevel);
 		}
 	}
 }

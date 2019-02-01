@@ -42,10 +42,15 @@ namespace DDD.Matsumoto.Character
 		protected CharacterArm CharacterArm;
 
 		public abstract WeaponAsset GetFirstWeapon { get; }
-		
+
+		private void Awake()
+		{
+			CharacterArm = GetComponent<CharacterArm>();
+		}
+
 		protected virtual void Start()
 		{
-			CharacterArm = GetComponentInChildren<CharacterArm>();
+			
 		}
 
 		/// <summary>
@@ -72,20 +77,10 @@ namespace DDD.Matsumoto.Character
 			}
 
 
-//			TakeDamage(damage);
-//			
-//			HP -= damage;
-//			if (HP <= 0)
-//			{
-//				HP = 0;
-//				Kill(attacker);
-//			}
+			TakeDamage(attacker, damage);
 		}
 
-		protected virtual void TakeDamage(IAttacker attacker, int value)
-		{
-			
-		}
+		protected abstract void TakeDamage(IAttacker attacker, int value);
 		
 		/// <summary>
 		///     殺す
@@ -127,9 +122,6 @@ namespace DDD.Matsumoto.Character
 		{
 			//武器を放出
 			CharacterArm.Detach();
-
-			//死亡通知
-			TakeDamage(new ChainDeadReason(), MaxHealth);
 			
 			Destroy(gameObject);
 		}

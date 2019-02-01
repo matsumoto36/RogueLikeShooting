@@ -1,3 +1,5 @@
+using DDD.Nishiwaki.Bullet;
+using DDD.Nishiwaki.Item;
 using UnityEngine;
 
 namespace DDD.Katano.Model
@@ -6,5 +8,7 @@ namespace DDD.Katano.Model
 	public class WeaponAsset : ScriptableObject
 	{
 		public GameObject WeaponModel;
+		public BulletAsset Bullet;
+		public WeaponRangedParameter Parameter;
 	}
 }
