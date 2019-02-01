@@ -9,11 +9,11 @@ namespace DDD.Nishiwaki.Bullet
 {
 	public class BulletObject : MonoBehaviour
 	{
-		private Rigidbody _rigidbody;
-		private vfx_bullet _vfx;
-		
 		[Inject]
 		private IMessageReceiver _messageReceiver;
+		
+		private Rigidbody _rigidbody;
+		private vfx_bullet _vfx;
 
 		public BulletParameter BulletPara;
 
