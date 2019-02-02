@@ -104,8 +104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4996109684123632}
   - component: {fileID: 2380249128867574539}
-  - component: {fileID: 2888874173396012405}
-  - component: {fileID: 7577637566103892566}
   - component: {fileID: 114186472287831540}
   - component: {fileID: 114912817725936170}
   - component: {fileID: 114169803844142224}
@@ -153,34 +151,6 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
---- !u!64 &2888874173396012405
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265543982024840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 6d7e0637ddd635e489bae523868c3dbb, type: 3}
---- !u!64 &7577637566103892566
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265543982024840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 16a44d85c9e88174fb06fe8d8acd9bca, type: 3}
 --- !u!114 &114186472287831540
 MonoBehaviour:
   m_ObjectHideFlags: 0

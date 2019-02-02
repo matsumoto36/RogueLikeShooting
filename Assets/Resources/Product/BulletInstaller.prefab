@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parameter:
-    Speed: 10
+    Speed: 5
     Power: 10
-    LifeTime: 5
+    LifeTime: 3
     Range: 0
     ChargeTime: 0
   BulletObject: {fileID: 445397561064425706, guid: 63ba409be5e53004cac08c7bec256551,

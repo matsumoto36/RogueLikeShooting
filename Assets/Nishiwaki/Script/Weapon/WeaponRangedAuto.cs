@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using DDD.Katano.View;
+using DDD.Matsumoto;
 using UniRx.Async;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,7 @@ namespace DDD.Nishiwaki.Item
 {
 	public class WeaponRangedAuto : WeaponRanged
 	{
+		private const float EnemyWeaponRateLimit = 2f;
 		private WeaponBullet.Pool _weaponPool;
 		
 		public bool CanShot { get; private set; } = true;
@@ -39,7 +41,7 @@ namespace DDD.Nishiwaki.Item
 
 		private async UniTaskVoid CooldownAsync()
 		{
-			await UniTask.Delay(TimeSpan.FromSeconds(WeaponRangedPara.WaitTime));
+			await UniTask.Delay(TimeSpan.FromSeconds(characterCore.Alliance == CharacterType.Enemy ? WeaponRangedPara.WaitTime * EnemyWeaponRateLimit : WeaponRangedPara.WaitTime));
 			CanShot = true;
 		}
 
