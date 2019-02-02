@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: c7d166ac18ff99744a8b0e036b6b90bf
+guid: 950c0e924f9647d44bef7838701477df
 TextureImporter:
   fileIDToRecycleName:
-    21300000: hp_0
-    21300002: hp_1
-    21300004: hp_2
+    21300000: adaipw_0
+    21300002: Level text space_0
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -36,10 +35,10 @@ TextureImporter:
     serializedVersion: 2
     filterMode: 0
     aniso: 2
-    mipBias: -100
+    mipBias: -1
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -48,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -85,17 +84,28 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: iPhone
-    maxTextureSize: 8192
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 30
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 10
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -109,41 +119,41 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hp_0
+      name: adaipw_0
       rect:
         serializedVersion: 2
         x: 1
-        y: 2
-        width: 16
+        y: 1
+        width: 14
         height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 7, y: 6, z: 7, w: 6}
+      border: {x: 6, y: 6, z: 6, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6ea94de6af66744fa627efeeeb7ad15
+      spriteID: 3682075d5b4b5bc4ebacda62496d993a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_1
+      name: Level text space_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 3
+        x: 17
+        y: 1
         width: 14
-        height: 13
+        height: 14
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 6, y: 6, z: 6, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f2bd93dd5a910449b58529fdff72f29
+      spriteID: 415f6a85caee0074caf9564ed1e8e983
       vertices: []
       indices: 
       edges: []
@@ -151,7 +161,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e4bb30c222fb7e5479cd6efa982d8287
+    spriteID: 94de11da47f7dfa47813bd62509bf27d
     vertices: []
     indices: 
     edges: []
