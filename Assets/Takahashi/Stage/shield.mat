@@ -21,19 +21,19 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _Cutoff: 0.5
-    - _emi: 4.7
+    - _emi: 2.89
     - _m5: 0.63
     - _node_2406: 1
-    - _node_3414: 0.8
+    - _node_3414: 0.811
     - _node_3478: 10
     - _node_388: 1
     - _node_5486: 10.3
-    - _node_8999: 0.8
+    - _node_8999: 0.78
     - _node_9011: 1.1
     - _node_9504: 0.2
     - _node_9597: -0.2
-    - _omax: 1.8
-    - _omin: 0.8
+    - _omax: 2.01
+    - _omin: 0.69
     - _speed: 0.05
     - _takasa: 10.5
     m_Colors:
