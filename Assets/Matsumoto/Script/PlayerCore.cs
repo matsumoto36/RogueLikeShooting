@@ -129,8 +129,27 @@ namespace DDD.Matsumoto
 				_canChangeWeapon = canChange;
 				ChangeTargetWeapon = null;
 
-				_weaponChangeUI.Hide();
+				if(!canChange)
+					_weaponChangeUI.Hide();
+
+				_weaponChangeUI.SetAmount(0);
+
 			}
+
+
+			if(ChangeTargetWeapon == null) {
+				//入れ替え開始
+				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
+			}
+
+			if(ChangeTargetWeapon == null) {
+				Reset(false);
+				return;
+			}
+
+			_weaponChangeUI.Show();
+			var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+			((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
 
 			//武器切り替え
 			if (!InputEventProvider.GetChangeBody())
@@ -139,22 +158,7 @@ namespace DDD.Matsumoto
 				return;
 			}
 
-			if (!_canChangeWeapon) return;
-
-			if (ChangeTargetWeapon == null) {
-				//入れ替え開始
-				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
-
-				_weaponChangeUI.Show();
-				var screenPos = Camera.main.WorldToScreenPoint(transform.position);
-				((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
-			}
-
-			if (ChangeTargetWeapon == null)
-			{
-				Reset(false);
-				return;
-			}
+			if(!_canChangeWeapon) return;
 
 			_changeWeaponTime += Time.deltaTime;
 			_weaponChangeUI.SetAmount(_changeWeaponTime / _settings.ChangeWeaponWait);
@@ -199,7 +203,7 @@ namespace DDD.Matsumoto
 			/// <summary>
 			///     武器切り替え許容範囲
 			/// </summary>
-			public float EquipWeaponRange = 5;
+			public float EquipWeaponRange = 1;
 
 			/// <summary>
 			///     武器を切り替える所要時間
