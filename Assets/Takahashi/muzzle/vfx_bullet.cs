@@ -32,7 +32,7 @@ public class vfx_bullet : MonoBehaviour {
             {
                 ParticleSystem clone_chiled = vfx_damage.transform.GetChild(0).GetComponent<ParticleSystem>();
                 Destroy(vfx_damage, clone_chiled.main.duration);
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }

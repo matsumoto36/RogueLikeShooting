@@ -14,12 +14,15 @@ namespace DDD.Matsumoto.UI
 		private PlayerHealthProvider _provider;
 
 		public Slider HPGauge;
+		public Image DamageEffect;
+		public Text HPText;
 
 		private void Start() {
 
 			_provider.CurrentHealth
 				.Subscribe(health => {
 					ChangeGauge((float)health / _provider.MaxHealth);
+					HPText.text = health.ToString();
 				});
 		}
 
@@ -35,6 +38,9 @@ namespace DDD.Matsumoto.UI
 		private void ChangeGauge(float amount) {
 			Debug.Log("Health ratio : " + amount);
 			HPGauge.value = amount;
+			//めっちゃ重い(エディタのみ)
+			if(!Application.isEditor)
+				DamageEffect.material.SetFloat("_range", 3 - amount * 3);
 		}
 	}
 }

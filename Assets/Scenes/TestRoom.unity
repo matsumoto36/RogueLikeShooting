@@ -659,6 +659,11 @@ PrefabInstance:
       objectReference: {fileID: 1350659943}
     - target: {fileID: 223412460474534878, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 3}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223412460474534878, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
       propertyPath: m_PlaneDistance
       value: 1
       objectReference: {fileID: 0}
@@ -677,11 +682,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2458677266694983659, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 11.850006
-      objectReference: {fileID: 0}
     - target: {fileID: 5528593173305765398, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -691,6 +691,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434160659988187057, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -137.16998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434160659988187057, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -87.130005
+      objectReference: {fileID: 0}
+    - target: {fileID: 917313669501601472, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_Name
+      value: DamageEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5eedfc0d1875d4195edf98fb1b244b, type: 3}

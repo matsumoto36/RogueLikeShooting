@@ -55,6 +55,9 @@ namespace DDD.Matsumoto
 
 		protected override void TakeDamage(IAttacker attacker, int value)
 		{
+			//ダメージ音
+			Audio.AudioManager.PlaySE("hitting1");
+
 			_playerHealthProvider.TakeDamage(value);
 			if (IsDead.Value) Kill(attacker);
 		}
@@ -74,7 +77,12 @@ namespace DDD.Matsumoto
 			if (Players.Count > 0)
 				Players[0].Kill(attacker);
 
-			if (isLast) _messagePublisher.Publish(new MazeSignal.PlayerKilled());
+			if(isLast) {
+
+				//死亡音
+				Audio.AudioManager.PlaySE("destruction1");
+				_messagePublisher.Publish(new MazeSignal.PlayerKilled());
+			}
 		}
 
 		public override void OnSpawn(CharacterAsset asset)
@@ -91,7 +99,6 @@ namespace DDD.Matsumoto
 			ID = playerAsset.ID;
 
 			//UIの取得
-			Debug.Log("WeaponChangeUI" + ID);
 			_weaponChangeUI = UIManager.Instance.GetUiBase("WeaponChangeUI" + ID) as UIWeaponChange;
 
 			//追加のコンポーネントを追加
@@ -129,8 +136,26 @@ namespace DDD.Matsumoto
 				_canChangeWeapon = canChange;
 				ChangeTargetWeapon = null;
 
-				_weaponChangeUI.Hide();
+				if(!canChange)
+					_weaponChangeUI.Hide();
+
+				_weaponChangeUI.SetAmount(0);
+
 			}
+
+
+			if(ChangeTargetWeapon == null) {
+				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
+			}
+
+			if(ChangeTargetWeapon == null) {
+				Reset(false);
+				return;
+			}
+
+			_weaponChangeUI.Show();
+			var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+			((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
 
 			//武器切り替え
 			if (!InputEventProvider.GetChangeBody())
@@ -139,21 +164,11 @@ namespace DDD.Matsumoto
 				return;
 			}
 
-			if (!_canChangeWeapon) return;
+			if(!_canChangeWeapon) return;
 
-			if (ChangeTargetWeapon == null) {
+			if(_changeWeaponTime == 0) {
 				//入れ替え開始
-				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
-
-				_weaponChangeUI.Show();
-				var screenPos = Camera.main.WorldToScreenPoint(transform.position);
-				((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
-			}
-
-			if (ChangeTargetWeapon == null)
-			{
-				Reset(false);
-				return;
+				Audio.AudioManager.PlaySE("cursor3");
 			}
 
 			_changeWeaponTime += Time.deltaTime;
@@ -162,6 +177,9 @@ namespace DDD.Matsumoto
 			//入れ替え完了
 			CharacterArm.Attach(ChangeTargetWeapon);
 			Reset(false);
+
+			//入れ替え完了音
+			Audio.AudioManager.PlaySE("arm-action1");
 		}
 
 		public void SetFreezeMode(bool isFreeze)
@@ -199,7 +217,7 @@ namespace DDD.Matsumoto
 			/// <summary>
 			///     武器切り替え許容範囲
 			/// </summary>
-			public float EquipWeaponRange = 5;
+			public float EquipWeaponRange = 1;
 
 			/// <summary>
 			///     武器を切り替える所要時間

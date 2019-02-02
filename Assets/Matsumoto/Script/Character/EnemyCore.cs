@@ -74,6 +74,13 @@ namespace DDD.Matsumoto.Character {
 			_enemyAI?.OnAttackedOther(this, attacker, damage);
 		}
 
+		public override void Kill(IAttacker attacker) {
+			base.Kill(attacker);
+
+			//死亡音
+			Audio.AudioManager.PlaySE("damage7");
+		}
+
 		public override void OnSpawn(CharacterAsset asset) {
 
 			Alliance = CharacterType.Enemy;
@@ -108,6 +115,9 @@ namespace DDD.Matsumoto.Character {
 			Agent.speed = 4;
 			Agent.acceleration = 16;
 			Agent.angularSpeed = enemyAsset.EnemyAIParameter.AngularSpeed;
+
+			//スポーン時の音
+			Audio.AudioManager.PlaySE("robot-startup1");
 		}
 
 
@@ -144,6 +154,9 @@ namespace DDD.Matsumoto.Character {
 		}
 
 		protected override void TakeDamage(IAttacker attacker, int value) {
+			//ダメージ音
+			Audio.AudioManager.PlaySE("damage5");
+
 			_currentHealth.Value = Mathf.Clamp(_currentHealth.Value - value, 0, _maxHealth);
 			if(IsDead.Value) Kill(attacker);
 		}

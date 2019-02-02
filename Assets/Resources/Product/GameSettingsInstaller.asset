@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GamePlayers: {fileID: 11400000, guid: 89258d261605daa4a868d71ee84d3687, type: 2}
   PlayerSettings:
-    EquipWeaponRange: 5
+    EquipWeaponRange: 1
     ChangeWeaponWait: 3
   TitleSettings:
     NextScene: 4

@@ -17,6 +17,7 @@ namespace DDD.Katano.View
 		private float _destroyTime;
 		private BulletParameter _parameter;
 		private Pool _pool;
+		private bool _isDeath;
 
 		[Inject]
 		private void Construct( 
@@ -26,7 +27,15 @@ namespace DDD.Katano.View
 			_parameter = parameter;
 			_pool = pool;
 		}
-		
+
+		private void OnDisable() {
+			//Debug.LogError("Disable");
+		}
+
+		private void OnDestroy() {
+			//Debug.LogError("Destroy");
+		}
+
 		private void Init(CharacterCore attacker, Transform origin)
 		{
 			_attacker = attacker;
@@ -48,14 +57,24 @@ namespace DDD.Katano.View
 
 			if (_destroyTime >= _parameter.LifeTime)
 			{
-				_pool.Despawn(this);
+				Despawn();
 			}
+		}
+
+		private void Despawn() {
+			if(_isDeath) return;
+			_isDeath = true;
+			_pool.Despawn(this);
 		}
 
 		private void OnTriggerEnter(Collider other)
 		{
+
+
+
 			var character = other.GetComponentInParent<CharacterCore>();
 			if (!character) return;
+			if(character == _attacker) return;
 
 			if (_attacker.IsAbleAttack(character))
 			{
@@ -63,6 +82,9 @@ namespace DDD.Katano.View
 				VfxBullet.damage();
 			}
 
+			//ƒqƒbƒg‰¹
+			Matsumoto.Audio.AudioManager.PlaySE("damage4");
+			Despawn();
 		}
 
 		public class Pool : MonoMemoryPool<CharacterCore, Transform, WeaponBullet>
