@@ -24,7 +24,15 @@ namespace DDD.Katano
 		/// <summary>
 		/// フロアが生成された
 		/// </summary>
-		public struct FloorConstruct{}
+		public struct FloorConstruct
+		{
+			public int FloorNum { get; }
+
+			public FloorConstruct(int floorNum)
+			{
+				FloorNum = floorNum;
+			}
+		}
 		
 		/// <summary>
 		/// フロアを破壊された
