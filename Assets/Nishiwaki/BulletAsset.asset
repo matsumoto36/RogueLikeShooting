@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -18,6 +19,5 @@ MonoBehaviour:
     LifeTime: 100
     Range: 0
     ChargeTime: 0
-  BulletPrefab: {fileID: 114829294343474376, guid: 63ba409be5e53004cac08c7bec256551,
-    type: 2}
+  BulletPrefab: {fileID: 0}
   LaserPrefab: {fileID: 0}
