@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shield
+  m_Shader: {fileID: 4800000, guid: bf407d04f48b7334cb631b024b1087b9, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _Cutoff: 0.5
+    - _emi: 4.7
+    - _m5: 0.63
+    - _node_2406: 1
+    - _node_3414: 0.8
+    - _node_3478: 10
+    - _node_388: 1
+    - _node_5486: 10.3
+    - _node_8999: 0.8
+    - _node_9011: 1.1
+    - _node_9504: 0.2
+    - _node_9597: -0.2
+    - _omax: 1.8
+    - _omin: 0.8
+    - _speed: 0.05
+    - _takasa: 10.5
+    m_Colors:
+    - _node_4531: {r: 0, g: 0, b: 0, a: 1}
+    - _node_5569: {r: 1, g: 0.2643778, b: 0, a: 1}
+    - _node_8024: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+    - _node_8024_copy: {r: 1, g: 0, b: 0, a: 1}
