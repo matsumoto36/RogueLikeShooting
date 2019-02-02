@@ -651,10 +651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b16a86ede3e4d6985ba394826e47de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpawner: {fileID: 1828469477109872, guid: 3310365f98e384e49abb0cb6a767ff14,
-    type: 3}
-  PlayerPrefab: {fileID: 6349162809829619327, guid: d653c045e214aba4abd9032add2ac0bf,
-    type: 3}
 --- !u!114 &517991703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1038,7 +1034,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15024
+  m_Name: pb_Mesh40870
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1495,7 +1491,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
