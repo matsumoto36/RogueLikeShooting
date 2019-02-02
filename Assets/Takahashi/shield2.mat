@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shield2
+  m_Shader: {fileID: 4800000, guid: bf407d04f48b7334cb631b024b1087b9, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _Cutoff: 0.5
+    - _emi: 10
+    - _m5: 2
+    - _node_3414: 0.361
+    - _node_5486: 13
+    - _node_8999: 2.7
+    - _omax: 1.2
+    - _omin: 0
+    - _speed: 0.11
+    m_Colors:
+    - _node_5569: {r: 0.08395362, g: 1, b: 0, a: 1}
