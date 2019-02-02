@@ -28,7 +28,7 @@ namespace DDD.Katano.View.RoomComponents
 
 		private void SpawnStair()
 		{
-			Instantiate(_stairPrefab, transform.localPosition, Quaternion.identity, transform);
+			Instantiate(_stairPrefab, transform);
 		}
 	}
 }
