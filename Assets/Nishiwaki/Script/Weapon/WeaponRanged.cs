@@ -21,14 +21,7 @@ namespace DDD.Nishiwaki.Item
 		public WeaponRangedParameter WeaponRangedPara;
 
 		[Inject]
-		private IMessageReceiver _messageReceiver;
-
-		private void Start() {
-
-			_messageReceiver.Receive < Katano.MazeSignal.FloorDestruct>()
-				.Subscribe(signal => gameObject.SetActive(false));
-
-		}
+		protected IMessageReceiver MessageReceiver;
 
 		public void SetOwner(CharacterCore character)
 		{
