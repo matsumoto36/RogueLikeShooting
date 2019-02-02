@@ -4,7 +4,6 @@ using System.Linq;
 using DDD.Chikazawa;
 using DDD.Chikazawa.InputEventProvider;
 using DDD.Katano;
-using DDD.Katano.Model;
 using DDD.Katano.View.Character;
 using DDD.Matsumoto.Character;
 using DDD.Matsumoto.Character.Asset;
@@ -51,19 +50,8 @@ namespace DDD.Matsumoto
 		public IWeapon ChangeTargetWeapon { get; private set; }
 
 		public int ID { get; private set; }
+		
 		public IInputEventProvider InputEventProvider { get; set; }
-
-		public override WeaponAsset GetFirstWeapon { get; } = null;
-
-		
-		
-//		public override int HP { get; protected set; }
-
-//		public override int HP
-//		{
-//			get => _playerHealthProvider.NowHP;
-//			protected set => _playerHealthProvider.NowHP = value;
-//		}
 
 		protected override void TakeDamage(IAttacker attacker, int value)
 		{
@@ -93,7 +81,7 @@ namespace DDD.Matsumoto
 		{
 			//レイヤー設定
 			gameObject.layer = LayerMask.NameToLayer("Player");
-			CharacterType = CharacterType.Player;
+			Alliance = CharacterType.Player;
 
 			//リストに追加
 			Players.Add(this);
@@ -115,8 +103,6 @@ namespace DDD.Matsumoto
 
 		protected override void Start()
 		{
-			base.Start();
-
 			// デバッグ用
 			if (InputEventProvider == null)
 				InputEventProvider = new InputKeyBoard();

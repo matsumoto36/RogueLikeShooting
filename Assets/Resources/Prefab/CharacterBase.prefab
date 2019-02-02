@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5968824438295823994}
   - component: {fileID: 3219626562126114322}
   - component: {fileID: 1238302849364542497}
+  - component: {fileID: 3415271051287650063}
   m_Layer: 0
   m_Name: CharacterBase
   m_TagString: Untagged
@@ -78,7 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 3415271051287650063}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -124,3 +126,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3415271051287650063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349162809829619327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b33074266149f0a23060ce73f5c93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArmAnchor: {fileID: 0}

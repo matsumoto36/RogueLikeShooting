@@ -1,3 +1,4 @@
+using DDD.Katano.Extensions;
 using DDD.Matsumoto.Attack;
 using DDD.Matsumoto.Character;
 using DDD.Nishiwaki.Bullet;
@@ -56,7 +57,7 @@ namespace DDD.Katano.View
 			var character = other.GetComponentInParent<CharacterCore>();
 			if (!character) return;
 
-			if (CharacterCore.IsAttackable(_attacker, character))
+			if (_attacker.IsAbleAttack(character))
 			{
 				character.ApplyDamage(new CharacterAttacker(_attacker), (int)_parameter.Power);
 				VfxBullet.damage();
