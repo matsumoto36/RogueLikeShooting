@@ -77,8 +77,8 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _dual_texture_switch: 1
-    - _emi: 10
-    - _hani: 2.8
+    - _emi: 7
+    - _hani: 2
     - _height: 0.26
     - _height_switch: 1
     - _node_1006: 7.2
@@ -99,7 +99,7 @@ Material:
     - _node_7937: 1
     - _node_9539: 9.19
     - _noisespeed: 92.73
-    - _range: 1.92
+    - _range: 0
     - _size: 1
     - _speed: 1.79
     - _state_switch: 0
