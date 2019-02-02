@@ -4,6 +4,7 @@ using DDD.Nishiwaki.Item;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using DDD.Katano.Extensions;
 
 namespace DDD.Nishiwaki.Bullet
 {
@@ -48,7 +49,7 @@ namespace DDD.Nishiwaki.Bullet
 			// 敵に当たったら
 			var character = other.GetComponentInParent<CharacterCore>();
 			if (!character) return;
-			if (CharacterCore.IsAttackable(weaponRanged.characterCore, character))
+			if (character.IsAbleAttack(character))
 			{
 				// 敵にダメージを与える
 				// nullの部分は攻撃者

@@ -1,5 +1,6 @@
 ﻿using UniRx;
 using UnityEngine.UI;
+using UnityEngine;
 using Zenject;
 
 namespace DDD.Matsumoto.UI
@@ -14,16 +15,17 @@ namespace DDD.Matsumoto.UI
 
 		public Slider HPGauge;
 
+		private void Start() {
+
+			_provider.CurrentHealth
+				.Subscribe(health => {
+					ChangeGauge((float)health / _provider.MaxHealth);
+				});
+		}
+
 		public override void Show()
 		{
 			base.Show();
-
-			//プレイヤー生成前にShowすると発見できない(生成されていないため)
-			_provider.CurrentHealth
-				.Subscribe(health =>
-				{
-					ChangeGauge((float) health / _provider.MaxHealth);
-				});
 		}
 
 		/// <summary>
@@ -31,6 +33,7 @@ namespace DDD.Matsumoto.UI
 		/// </summary>
 		/// <param name="amount"></param>
 		private void ChangeGauge(float amount) {
+			Debug.Log("Health ratio : " + amount);
 			HPGauge.value = amount;
 		}
 	}
