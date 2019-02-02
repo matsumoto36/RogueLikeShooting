@@ -702,6 +702,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -87.130005
       objectReference: {fileID: 0}
+    - target: {fileID: 917313669501601472, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_Name
+      value: DamageEffect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5eedfc0d1875d4195edf98fb1b244b, type: 3}
 --- !u!1 &1330952560
