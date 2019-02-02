@@ -1,5 +1,6 @@
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace DDD.Katano.View.RoomComponents
 {
@@ -9,14 +10,15 @@ namespace DDD.Katano.View.RoomComponents
 	[DisallowMultipleComponent]
 	public class SpawnStairComponent : BaseRoomComponent
 	{
+		[Inject]
 		private StairView _stairPrefab;
+		
 		private EnemyRoomComponent _enemyRoomComponent;
-
+		
 		/// <inheritdoc />
 		public override void OnInitialize()
 		{
 			_enemyRoomComponent = GetComponent<EnemyRoomComponent>();
-			_stairPrefab = Resources.Load<StairView>("Stairs");
 			
 			// 敵が全滅したら階段を出す
 			_enemyRoomComponent
@@ -26,7 +28,7 @@ namespace DDD.Katano.View.RoomComponents
 
 		private void SpawnStair()
 		{
-			Instantiate(_stairPrefab, transform.localPosition, Quaternion.identity, transform);
+			Instantiate(_stairPrefab, transform);
 		}
 	}
 }

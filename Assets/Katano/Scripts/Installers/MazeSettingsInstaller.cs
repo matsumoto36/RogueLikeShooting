@@ -1,5 +1,7 @@
 using System;
 using DDD.Katano.Model;
+using DDD.Katano.View;
+using DDD.Katano.View.RoomComponents;
 using DDD.Matsumoto;
 using DDD.Matsumoto.Character.Asset;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace DDD.Katano.Installers
 		public PlayerAsset PlayerAsset;
 		public WeaponAsset PlayerWeaponAsset;
 		public WeaponAsset EnemyWeaponAsset;
+		public StairView StairPrefab;
 
 		public override void InstallBindings()
 		{
@@ -21,6 +24,7 @@ namespace DDD.Katano.Installers
 			Container.BindInstance(PlayerAsset);
 			Container.BindInstance(PlayerWeaponAsset).WhenInjectedInto<PlayerBuilder>();
 			Container.BindInstance(EnemyWeaponAsset).WhenInjectedInto<EnemyBuilder>();
+			Container.BindInstance(StairPrefab).WhenInjectedInto<SpawnStairComponent>();
 		}
 	}
 }

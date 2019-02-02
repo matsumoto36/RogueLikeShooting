@@ -30,13 +30,11 @@ namespace DDD.Katano
 			var sequence = DOTween.Sequence();
 
 			sequence
-				.Append(_transformCache.DOScaleY(Depth, 1).SetEase(Ease.InSine))
-				.Join(DOTween.To(() => material.GetFloat(Alpha), x => material.SetFloat(Alpha, x), 0, 1)
+				//.Append(_transformCache.DOScaleY(Depth, 1).SetEase(Ease.InSine))
+				.Append(DOTween.To(() => material.GetFloat(Alpha), x => material.SetFloat(Alpha, x), 0, 1)
 					.SetEase(Ease.InSine));
 
 			sequence.Play();
-
-
 		}
 	}
 }

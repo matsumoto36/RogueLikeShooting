@@ -154,6 +154,7 @@ namespace DDD.Matsumoto
 			}
 
 			_weaponChangeUI.Show();
+			_weaponChangeUI.SetControllerType(InputEventProvider is InputKeyBoard);
 			var screenPos = Camera.main.WorldToScreenPoint(transform.position);
 			((RectTransform)(_weaponChangeUI.transform)).anchoredPosition = screenPos;
 

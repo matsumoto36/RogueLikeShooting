@@ -45,10 +45,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerOne
       objectReference: {fileID: 0}
-    - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.25
@@ -85,28 +81,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54725701476688090, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1663884893419386, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_Name
-      value: Sphere1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
 --- !u!4 &690065231008144624 stripped
@@ -125,10 +99,6 @@ PrefabInstance:
     - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_Name
       value: PlayerThree
-      objectReference: {fileID: 0}
-    - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -166,28 +136,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54725701476688090, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1663884893419386, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_Name
-      value: Sphere3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
 --- !u!4 &690065230955278170 stripped
@@ -206,10 +154,6 @@ PrefabInstance:
     - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_Name
       value: PlayerTwo
-      objectReference: {fileID: 0}
-    - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -247,28 +191,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54725701476688090, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1663884893419386, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_Name
-      value: Sphere2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
 --- !u!4 &690065230768044064 stripped
@@ -287,10 +209,6 @@ PrefabInstance:
     - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_Name
       value: PlayerFour
-      objectReference: {fileID: 0}
-    - target: {fileID: 1151501581952314, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -327,28 +245,6 @@ PrefabInstance:
     - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849138166373720, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54725701476688090, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1663884893419386, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}
-      propertyPath: m_Name
-      value: Sphere4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114410077276970050, guid: 68bba8a92d5850342842a5f2d0d62cb9,
-        type: 3}
-      propertyPath: obj_name
-      value: Sphere4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68bba8a92d5850342842a5f2d0d62cb9, type: 3}

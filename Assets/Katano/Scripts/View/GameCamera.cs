@@ -11,20 +11,16 @@ namespace DDD.Katano.View
 	[DisallowMultipleComponent]
 	public class GameCamera : MonoBehaviour
 	{
-		private Transform _transformCache;
 		
 		public RoomView FocusTarget { get; private set; }
 
-		private void Start()
-		{
-			_transformCache = transform;
-		}
 
 		public void Initialize(RoomView initRoom)
 		{
 			FocusTarget = initRoom;
-			_transformCache.position = FocusTarget.GameCameraAnchor.position;
-			_transformCache.rotation = FocusTarget.GameCameraAnchor.rotation;
+			var transform1 = transform;
+			transform1.position = FocusTarget.GameCameraAnchor.position;
+			transform1.rotation = FocusTarget.GameCameraAnchor.rotation;
 		}
 		
 		/// <summary>
