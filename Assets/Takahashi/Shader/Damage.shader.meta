@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: ced908d1ca200fc4c9797451dbff9e1f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _vignette: {fileID: 2800000, guid: cf78027b7b6cf4b4f8c6ac24596fd2dd, type: 3}
+  - _emi_texture_copy: {fileID: 2800000, guid: 13abfc38e94b0db4681f60284764f0c1, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
