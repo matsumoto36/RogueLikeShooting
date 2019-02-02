@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139964c144a446dab5d6dabc8ad843ad, type: 3}
   m_Name: NewMazeSettings
   m_EditorClassIdentifier: 
-  MazeSettings:
-    DungeonName: "\u30C0\u30A4\u30A4\u30C1\u30AB\u30A4\u30BD\u30A6"
-    PlayerRoom: {fileID: 1635150901094866, guid: e8bffdd52764b064f86c0769285b68f1,
-      type: 3}
-    EnemyRoom: {fileID: 1265543982024840, guid: b5c1de880759bd245821735721759402,
-      type: 3}
-    BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
-      type: 3}
   FloorSettings: {fileID: 11400000, guid: 37f2a3dbe6f8b20498668a2a8dd090df, type: 2}
   PlayerAsset: {fileID: 11400000, guid: f46d6a256531cbc4785087c71fd2732a, type: 2}
   PlayerWeaponAsset: {fileID: 11400000, guid: 64dd78f9169c9cd469af89a7615b948f, type: 2}
   EnemyWeaponAsset: {fileID: 11400000, guid: a828465b4a81e99408b3fe5a50b968ae, type: 2}
+  StairPrefab: {fileID: 213347554014220861, guid: 80459f5f2b22069498c2bc83b64bff1f,
+    type: 3}
