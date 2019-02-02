@@ -30,6 +30,8 @@ namespace DDD.Katano.View
 			var token = this.GetCancellationTokenOnDestroy();
 
 			OnPlayerEnter(token).Forget();
+			
+			
 		}
 
 		private async UniTaskVoid OnPlayerEnter(CancellationToken token = default)
