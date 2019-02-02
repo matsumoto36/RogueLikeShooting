@@ -28,7 +28,6 @@ namespace DDD.Katano.Installers
 			weapon.CoreRenderer.material.EnableKeyword("_EMISSION");
 
 			weapon.WeaponRangedPara = asset.Parameter;
-			weapon.iBullet = BulletBase.Create(asset.Bullet, weapon);
 			weapon.playerSetPosition = weaponObj.transform.Find("PlayerSetPosition");
 			
 			return weapon;

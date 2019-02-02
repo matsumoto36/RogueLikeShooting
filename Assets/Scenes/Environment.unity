@@ -278,6 +278,7 @@ MonoBehaviour:
   - {fileID: 137218549}
   _installerPrefabs:
   - {fileID: 1129854159502778340, guid: 78b18101d6db1284f9312b82030be2f1, type: 3}
+  - {fileID: 2552530516738724833, guid: 3b0e146fb67c56744b983e837fce5d9c, type: 3}
   _autoRun: 1
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
@@ -985,7 +986,7 @@ PrefabInstance:
     - target: {fileID: 4741073818657259407, guid: 552f1c87e22aab0498e2f759059007cd,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -104.599976
+      value: -104.59996
       objectReference: {fileID: 0}
     - target: {fileID: 9005848100022263600, guid: 552f1c87e22aab0498e2f759059007cd,
         type: 3}
