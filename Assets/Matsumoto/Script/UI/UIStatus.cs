@@ -19,6 +19,8 @@ namespace DDD.Matsumoto.UI
 
 		private void Start() {
 
+			DamageEffect.material.SetFloat("_range", 0);
+
 			_provider.CurrentHealth
 				.Subscribe(health => {
 					ChangeGauge((float)health / _provider.MaxHealth);
