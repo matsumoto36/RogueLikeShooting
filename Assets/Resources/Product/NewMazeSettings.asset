@@ -16,3 +16,5 @@ MonoBehaviour:
   PlayerAsset: {fileID: 11400000, guid: 0beeb785e54b21a469e8a686ccb13df2, type: 2}
   PlayerWeaponAsset: {fileID: 11400000, guid: 64dd78f9169c9cd469af89a7615b948f, type: 2}
   EnemyWeaponAsset: {fileID: 11400000, guid: a828465b4a81e99408b3fe5a50b968ae, type: 2}
+  StairPrefab: {fileID: 213347554014220861, guid: 80459f5f2b22069498c2bc83b64bff1f,
+    type: 3}
