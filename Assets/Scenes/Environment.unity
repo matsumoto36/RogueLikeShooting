@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 137218547}
   - component: {fileID: 137218546}
   - component: {fileID: 137218545}
+  - component: {fileID: 137218548}
   - component: {fileID: 137218549}
   m_Layer: 0
   m_Name: SceneContext
@@ -255,10 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b16a86ede3e4d6985ba394826e47de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpawner: {fileID: 1828469477109872, guid: 3310365f98e384e49abb0cb6a767ff14,
-    type: 3}
-  PlayerPrefab: {fileID: 6349162809829619327, guid: d653c045e214aba4abd9032add2ac0bf,
-    type: 3}
 --- !u!114 &137218546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +272,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1578ab39caa5b046a3d732789168c8b, type: 2}
   _monoInstallers:
   - {fileID: 137218545}
+  - {fileID: 137218548}
   - {fileID: 137218549}
   _installerPrefabs:
   - {fileID: 1129854159502778340, guid: 78b18101d6db1284f9312b82030be2f1, type: 3}
-  - {fileID: 2552530516738724833, guid: 3b0e146fb67c56744b983e837fce5d9c, type: 3}
   _autoRun: 1
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
@@ -297,6 +294,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &137218548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137218544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953fcea465a549f38c6c4a18a4d8db1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterPrefab: {fileID: 6349162809829619327, guid: d653c045e214aba4abd9032add2ac0bf,
+    type: 3}
+  PlayerSpawner: {fileID: 1828469477109872, guid: 3310365f98e384e49abb0cb6a767ff14,
+    type: 3}
 --- !u!114 &137218549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +646,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434160659988187057, guid: 7f5eedfc0d1875d4195edf98fb1b244b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -87.130005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5eedfc0d1875d4195edf98fb1b244b, type: 3}
@@ -986,7 +1004,7 @@ PrefabInstance:
     - target: {fileID: 4741073818657259407, guid: 552f1c87e22aab0498e2f759059007cd,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -104.59996
+      value: -104.599976
       objectReference: {fileID: 0}
     - target: {fileID: 9005848100022263600, guid: 552f1c87e22aab0498e2f759059007cd,
         type: 3}
