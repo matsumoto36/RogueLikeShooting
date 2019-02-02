@@ -13,13 +13,21 @@ namespace DDD.Matsumoto.UI
 		[Inject]
 		private PlayerHealthProvider _provider;
 
+		[Inject]
+		private IMessageReceiver _messageReceiver;
+
 		public Slider HPGauge;
 		public Image DamageEffect;
 		public Text HPText;
 
+		public Text FloorText;
+
 		private void Start() {
 
 			DamageEffect.material.SetFloat("_range", 0);
+
+			_messageReceiver.Receive<Katano.MazeSignal.FloorConstruct>()
+				.Subscribe(signal => FloorText.text = signal.FloorNum + "F");
 
 			_provider.CurrentHealth
 				.Subscribe(health => {
