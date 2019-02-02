@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6679d5cd785144442aaee877462524ea, type: 3}
-  m_Name: Player 3
+  m_Name: Player 4
   m_EditorClassIdentifier: Assembly-CSharp:RogueLike.Matsumoto.Character.Asset:PlayerAsset
   HP: 1000
-  ThemeColor: {r: 0, g: 1, b: 1, a: 1}
+  ThemeColor: {r: 0.98929596, g: 0, b: 1, a: 1}
   Weapon: {fileID: 11400000, guid: 19fc33c7cd0ad3a478cb0d9fcd4d91c9, type: 2}
   ID: 0
