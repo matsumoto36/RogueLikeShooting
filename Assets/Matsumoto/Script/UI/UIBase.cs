@@ -32,6 +32,11 @@ namespace DDD.Matsumoto.UI
 			OnInitialized?.Invoke();
 		}
 
+		private void OnDestroy() {
+			//UIマネージャーの登録解除
+			UIManager.Instance.UnRegister(this);
+		}
+
 		/// <summary>
 		///     UIを表示する
 		/// </summary>

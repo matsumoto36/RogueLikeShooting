@@ -26,6 +26,14 @@ namespace DDD.Matsumoto.Managers {
 		}
 
 		/// <summary>
+		/// UIを登録解除(キーは名前)
+		/// </summary>
+		/// <param name="uiBase"></param>
+		public void UnRegister(UIBase uiBase) {
+			_UIList.Remove(uiBase.name);
+		}
+
+		/// <summary>
 		/// UIを取得
 		/// </summary>
 		/// <param name="name"></param>

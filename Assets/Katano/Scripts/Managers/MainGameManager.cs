@@ -116,7 +116,7 @@ namespace DDD.Katano.Managers
 			// フロアを構築
 			FloorManager.Construct(settings);
 			
-			_messagePublisher.Publish(new MazeSignal.FloorConstruct());
+			_messagePublisher.Publish(new MazeSignal.FloorConstruct(_currentFloor));
 			
 			// フェードインする
 			await UIManager.FadeInAsync(settings.DungeonName, _currentFloor);
