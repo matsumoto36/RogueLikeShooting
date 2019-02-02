@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Damage
   m_Shader: {fileID: 4800000, guid: ced908d1ca200fc4c9797451dbff9e1f, type: 3}
-  m_ShaderKeywords: _DUAL_TEXTURE_SWITCH_ON
+  m_ShaderKeywords: _DUAL_TEXTURE_SWITCH_ON _HEIGHT_SWITCH_ON _WIDTH_SWITCH_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -80,7 +80,7 @@ Material:
     - _emi: 10
     - _hani: 2.8
     - _height: 0.26
-    - _height_switch: 0
+    - _height_switch: 1
     - _node_1006: 7.2
     - _node_1280: 0.24
     - _node_1784: 2.93
@@ -99,7 +99,7 @@ Material:
     - _node_7937: 1
     - _node_9539: 9.19
     - _noisespeed: 92.73
-    - _range: 9.44
+    - _range: 1.92
     - _size: 1
     - _speed: 1.79
     - _state_switch: 0
@@ -109,7 +109,7 @@ Material:
     - _tilinga: 0.66
     - _tilinga_copy: 0.08
     - _width: 0
-    - _width_switch: 0
+    - _width_switch: 1
     m_Colors:
     - _0: {r: 1, g: 0.06666667, b: 0, a: 1}
     - _1: {r: 0, g: 1, b: 1, a: 1}
