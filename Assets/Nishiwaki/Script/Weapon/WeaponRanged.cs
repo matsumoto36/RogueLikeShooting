@@ -68,6 +68,7 @@ namespace DDD.Nishiwaki.Item
 		{
 			// 弾の発射位置
 			iBullet.BulletCreate(transform);
+
 		}
 
 		/// <summary>

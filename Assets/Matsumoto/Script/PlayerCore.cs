@@ -55,6 +55,9 @@ namespace DDD.Matsumoto
 
 		protected override void TakeDamage(IAttacker attacker, int value)
 		{
+			//ダメージ音
+			Audio.AudioManager.PlaySE("hitting1");
+
 			_playerHealthProvider.TakeDamage(value);
 			if (IsDead.Value) Kill(attacker);
 		}
@@ -74,7 +77,12 @@ namespace DDD.Matsumoto
 			if (Players.Count > 0)
 				Players[0].Kill(attacker);
 
-			if (isLast) _messagePublisher.Publish(new MazeSignal.PlayerKilled());
+			if(isLast) {
+
+				//死亡音
+				Audio.AudioManager.PlaySE("destruction1");
+				_messagePublisher.Publish(new MazeSignal.PlayerKilled());
+			}
 		}
 
 		public override void OnSpawn(CharacterAsset asset)
@@ -91,7 +99,6 @@ namespace DDD.Matsumoto
 			ID = playerAsset.ID;
 
 			//UIの取得
-			Debug.Log("WeaponChangeUI" + ID);
 			_weaponChangeUI = UIManager.Instance.GetUiBase("WeaponChangeUI" + ID) as UIWeaponChange;
 
 			//追加のコンポーネントを追加
@@ -138,7 +145,6 @@ namespace DDD.Matsumoto
 
 
 			if(ChangeTargetWeapon == null) {
-				//入れ替え開始
 				ChangeTargetWeapon = GetNearestWeapon(_settings.EquipWeaponRange);
 			}
 
@@ -160,12 +166,20 @@ namespace DDD.Matsumoto
 
 			if(!_canChangeWeapon) return;
 
+			if(_changeWeaponTime == 0) {
+				//入れ替え開始
+				Audio.AudioManager.PlaySE("cursor3");
+			}
+
 			_changeWeaponTime += Time.deltaTime;
 			_weaponChangeUI.SetAmount(_changeWeaponTime / _settings.ChangeWeaponWait);
 			if (!(_changeWeaponTime > _settings.ChangeWeaponWait)) return;
 			//入れ替え完了
 			CharacterArm.Attach(ChangeTargetWeapon);
 			Reset(false);
+
+			//入れ替え完了音
+			Audio.AudioManager.PlaySE("arm-action1");
 		}
 
 		public void SetFreezeMode(bool isFreeze)

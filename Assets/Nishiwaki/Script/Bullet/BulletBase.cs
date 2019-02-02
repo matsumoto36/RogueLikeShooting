@@ -27,6 +27,7 @@ namespace DDD.Nishiwaki.Bullet
 		//    bullet.BulletPara = BulletPara;
 		//    Debug.Log("BulletCreate");
 		//}
+
 		public virtual void BulletCreate(Transform transform)
 		{
 		}

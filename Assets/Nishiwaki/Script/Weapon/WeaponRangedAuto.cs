@@ -32,6 +32,9 @@ namespace DDD.Nishiwaki.Item
 			// iBullet.BulletCreate(transform);
 
 			_weaponPool.Spawn(characterCore, transform);
+
+			//ショット音
+			Matsumoto.Audio.AudioManager.PlaySE("se_maoudamashii_system42");
 		}
 
 		private async UniTaskVoid CooldownAsync()
