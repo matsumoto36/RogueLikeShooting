@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8472ece222144875baa0ec097a7d8930, type: 3}
+  m_Name: Dungeon02
+  m_EditorClassIdentifier: 
+  DungeonName: "\u30C0\u30A4\u30CB\u30AB\u30A4\u30BD\u30A6"
+  PlayerRoom: {fileID: 1635150901094866, guid: e8bffdd52764b064f86c0769285b68f1, type: 3}
+  EnemyRoom:
+  - {fileID: 1265543982024840, guid: b5c1de880759bd245821735721759402, type: 3}
+  BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
+    type: 3}

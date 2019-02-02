@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq;
+using DDD.Katano.Installers;
 using DDD.Katano.Model;
 using UniRx;
 using UniRx.Async;
@@ -21,6 +23,9 @@ namespace DDD.Katano.Managers
 		[Inject]
 		private Settings _settings;
 
+		[Inject]
+		private FloorSettings _floorSettings;
+		
 		[Inject]
 		private IMessagePublisher _messagePublisher;
 
@@ -105,14 +110,16 @@ namespace DDD.Katano.Managers
 		{
 			// フロア数を増やす
 			++_currentFloor;
+
+			var settings = _floorSettings.FloorEntries.FirstOrDefault(x => x.Floor == _currentFloor).MazeSettings;
 			
 			// フロアを構築
-			FloorManager.Construct();
+			FloorManager.Construct(settings);
 			
 			_messagePublisher.Publish(new MazeSignal.FloorConstruct());
 			
 			// フェードインする
-			await UIManager.FadeInAsync(_currentFloor);
+			await UIManager.FadeInAsync(settings.DungeonName, _currentFloor);
 			
 			// ゲームスタート
 			_messagePublisher.Publish(new MazeSignal.FloorStarted());
@@ -161,6 +168,19 @@ namespace DDD.Katano.Managers
 			Debug.Log($"[MainGameManager] {log}");
 		}
 
+		[Serializable]
+		public class FloorSettings
+		{
+			public FloorEntry[] FloorEntries;
+			
+			[Serializable]
+			public struct FloorEntry
+			{
+				public int Floor;
+				public MazeSettings MazeSettings;
+			}
+		}
+		
 		[Serializable]
 		public class Settings
 		{

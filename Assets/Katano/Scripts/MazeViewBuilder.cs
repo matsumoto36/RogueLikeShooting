@@ -21,11 +21,6 @@ namespace DDD.Katano.Maze
 		/// 迷宮データ
 		/// </summary>
 		private readonly Maze _maze;
-		
-		/// <summary>
-		/// 迷宮構築アセットデータ
-		/// </summary>
-		private readonly MazeSettings _mazeSettings;
 
 		private readonly DiContainer _container;
 
@@ -40,10 +35,9 @@ namespace DDD.Katano.Maze
 		/// <param name="maze"></param>
 		/// <param name="mazeSettings"></param>
 		/// <param name="container"></param>
-		public MazeViewBuilder(Maze maze, MazeSettings mazeSettings, DiContainer container)
+		public MazeViewBuilder(Maze maze, DiContainer container)
 		{
 			_maze = maze;
-			_mazeSettings = mazeSettings;
 			_container = container;
 		}
 
@@ -51,24 +45,25 @@ namespace DDD.Katano.Maze
 		/// 迷宮を実体化する
 		/// </summary>
 		/// <returns></returns>
-		public MazeView Construct()
+		public MazeView Construct(MazeSettings mazeSettings)
 		{
 			var rooms = new Dictionary<int, RoomView>();
 			var aisles = new Dictionary<int, AisleView>();
 			
-			MakeRoomView(ref rooms);
+			MakeRoomView(ref rooms, mazeSettings);
 //			MakeAisleView(ref aisles, rooms);
 
 			var mazeView = MazeView.Create(_maze, rooms, aisles);
 			
 			return mazeView;
 		}
-		
+
 		/// <summary>
 		/// 部屋オブジェクトを作成
 		/// </summary>
 		/// <param name="roomViewList"></param>
-		private void MakeRoomView(ref Dictionary<int, RoomView> roomViewList)
+		/// <param name="mazeSettings"></param>
+		private void MakeRoomView(ref Dictionary<int, RoomView> roomViewList, MazeSettings mazeSettings)
 		{
 			// RoomViewの生成
 			var indexed = _maze.Rooms.WithIndex().Where(x => x.Element.IsEnable).Shuffle().ToList();
@@ -82,14 +77,15 @@ namespace DDD.Katano.Maze
 				{
 					case Room.RoomAttributes.FloorStart:
 					{
-						go = _container.InstantiatePrefab(_mazeSettings.PlayerRoom, coordinate, Quaternion.identity,
+						go = _container.InstantiatePrefab(mazeSettings.PlayerRoom, coordinate, Quaternion.identity,
 							null);
 //						go = Object.Instantiate(_mazeSettings.PlayerRoom, coordinate, Quaternion.identity);
 						break;
 					}
 					case Room.RoomAttributes.Stair:
 					{
-						go = _container.InstantiatePrefab(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity,
+//						go = _container.InstantiatePrefab(mazeSettings.EnemyRoom, coordinate, Quaternion.identity, null);
+						go = _container.InstantiatePrefab(mazeSettings.EnemyRoom.RandomAt(), coordinate, Quaternion.identity,
 							null);
 						_container.InstantiateComponent<SpawnStairComponent>(go);
 						
@@ -100,7 +96,7 @@ namespace DDD.Katano.Maze
 					}
 					case Room.RoomAttributes.Others:
 					{
-						go = _container.InstantiatePrefab(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity,
+						go = _container.InstantiatePrefab(mazeSettings.EnemyRoom.RandomAt(), coordinate, Quaternion.identity,
 							null);
 						// go = Object.Instantiate(_mazeSettings.EnemyRoom, coordinate, Quaternion.identity);
 						break;
@@ -110,7 +106,7 @@ namespace DDD.Katano.Maze
 				}
 
 				var goTransform = go.transform;
-				var cameraAnchor = Object.Instantiate(_mazeSettings.BirdsEyeCamera, goTransform);
+				var cameraAnchor = Object.Instantiate(mazeSettings.BirdsEyeCamera, goTransform);
 				
 				var view = go.GetComponent<RoomView>();
 				view.Construct(room.Element, cameraAnchor.transform);

@@ -23,9 +23,6 @@ namespace DDD.Katano.Managers
 		private IMessageReceiver _messageReceiver;
 
 		[Inject]
-		private MazeSettings _mazeSettings;
-
-		[Inject]
 		private MazeFloorSettings _floorSettings;
 
 		[Inject]
@@ -38,23 +35,13 @@ namespace DDD.Katano.Managers
 
 		private bool _isReady;
 		
-		public MazeView Create()
-		{
-			var maze = ConstructMaze();
-			var view = ConstructMazeView(maze);
-			
-			view.Initialize();
-
-			return view;
-		}
-		
 		/// <summary>
 		/// Maze生成
 		/// </summary>
-		public void Construct()
+		public void Construct(MazeSettings mazeSettings)
 		{
 			var maze = ConstructMaze();
-			var view = ConstructMazeView(maze);
+			var view = ConstructMazeView(maze, mazeSettings);
 			_mazeView = view;
 
 			_mazeView.Initialize();
@@ -98,12 +85,13 @@ namespace DDD.Katano.Managers
 		/// 迷宮を実体化する
 		/// </summary>
 		/// <param name="maze"></param>
+		/// <param name="mazeSettings"></param>
 		/// <returns></returns>
-		private MazeView ConstructMazeView(Maze.Maze maze)
+		private MazeView ConstructMazeView(Maze.Maze maze, MazeSettings mazeSettings)
 		{
 			var viewBuilder = _mazeViewBuilderFactory.Create(maze);
 
-			return viewBuilder.Construct();
+			return viewBuilder.Construct(mazeSettings);
 		}
 		
 		[Conditional("UNITY_EDITOR")]

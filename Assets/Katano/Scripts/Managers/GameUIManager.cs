@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Threading;
 using DDD.Katano.Installers;
+using DDD.Katano.Model;
 using DG.Tweening;
 using Reqweldzen.Extensions;
 using UniRx;
@@ -19,9 +20,6 @@ namespace DDD.Katano.Managers
 	{
 		[Inject]
 		private IMessageReceiver _messageReceiver;
-
-		[Inject]
-		private MazeSettings _mazeSettings;
 
 		public GameInfoScreenView InfoScreenView;
 		
@@ -69,16 +67,16 @@ namespace DDD.Katano.Managers
 		/// <summary>
 		/// フェードイン
 		/// </summary>
-		/// <param name="count"></param>
+		/// <param name="floorName"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		public UniTask FadeInAsync(int count, CancellationToken token = default)
+		public UniTask FadeInAsync(string floorName, int count, CancellationToken token = default)
 		{
 			async UniTask FadeIn()
 			{
 				Log("Start FadeIn.");
 
-				InfoScreenView.ShowText($"{_mazeSettings.DungeonName}\n{count}F");
+				InfoScreenView.ShowText($"{floorName}\n{count}F");
 				
 				await UniTask.Delay(2000, cancellationToken: token);
 				InfoScreenView.HideText();
