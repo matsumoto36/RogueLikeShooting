@@ -26,7 +26,7 @@ namespace DDD.Matsumoto.Character {
 			get; protected set;
 		}
 
-		public override WeaponAsset GetFirstWeapon { get; }
+		public virtual WeaponAsset GetFirstWeapon { get; }
 
 		private readonly IntReactiveProperty _currentHealth = new IntReactiveProperty();
 		
@@ -76,7 +76,7 @@ namespace DDD.Matsumoto.Character {
 
 		public override void OnSpawn(CharacterAsset asset) {
 
-			CharacterType = CharacterType.Enemy;
+			Alliance = CharacterType.Enemy;
 
 			var enemyAsset = (EnemyAsset)asset;
 

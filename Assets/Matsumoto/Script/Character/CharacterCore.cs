@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using DDD.Katano.Model;
 using DDD.Katano.View.Character;
 using DDD.Matsumoto.Attack;
 using DDD.Matsumoto.Character.Asset;
-using DDD.Nishiwaki;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
@@ -23,11 +20,8 @@ namespace DDD.Matsumoto.Character
 
 		public Rigidbody CharacterRig { get; set; }
 
-		public CharacterType CharacterType { get; protected set; }
+		public CharacterType Alliance { get; protected set; }
 			= CharacterType.Invalid;
-
-		public List<IStatusChange> StatusChanges { get; }
-			= new List<IStatusChange>();
 
 		public abstract IReadOnlyReactiveProperty<int> CurrentHealth { get; }
 		
@@ -38,8 +32,6 @@ namespace DDD.Matsumoto.Character
 		public abstract IReadOnlyReactiveProperty<bool> IsDead { get; }
 
 		public CharacterArm CharacterArm { get; protected set; }
-
-		public abstract WeaponAsset GetFirstWeapon { get; }
 
 		private void Awake()
 		{
@@ -123,34 +115,6 @@ namespace DDD.Matsumoto.Character
 			
 			Destroy(gameObject);
 		}
-
-		/// <summary>
-		///     ステータス変化を取り付ける
-		/// </summary>
-		/// <param name="changer"></param>
-		public void AttachStatus(IStatusChange changer)
-		{
-			StatusChanges.Add(changer);
-			changer.OnAttachStatus(this);
-
-			//効果時間が0以下になったら取り外す
-			changer.RemainingTime
-				.Where(x => x <= 0)
-				.Subscribe(_ =>
-				{
-					changer.OnDetachStatus(this);
-					StatusChanges.Remove(changer);
-				})
-				.AddTo(this);
-		}
-
-		public static bool IsAttackable(CharacterCore from, CharacterCore to)
-		{
-			if (!from || !to) return false;
-			return from.CharacterType != to.CharacterType;
-		}
-
-		
 
 		/// <summary>
 		///     生成された瞬間に呼ばれる
