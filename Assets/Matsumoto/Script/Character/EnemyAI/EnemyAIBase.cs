@@ -69,6 +69,8 @@ namespace DDD.Matsumoto.Character.EnemyAI {
 		/// <returns></returns>
 		public static bool HasObstacleBetweenTarget(CharacterCore enemy, CharacterCore target) {
 
+			if(target.CharacterArm.EquippedArm == null) return false;
+
 			var enemyPos = enemy.CharacterArm.EquippedArm.GetBody().transform.position;
 			var targetPos = target.CharacterArm.EquippedArm.GetBody().transform.position;
 			RaycastHit hitInfo;
