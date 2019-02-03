@@ -54,7 +54,8 @@ namespace DDD.Katano.View.Character
 
 			EquippedArm.SetOwner(null);
 
-			EquippedArm.GetBody().transform.parent = null;
+			var o = EquippedArm.GetBody();
+			if (o != null) o.transform.parent = null;
 
 			EquippedArm = null;
 		}

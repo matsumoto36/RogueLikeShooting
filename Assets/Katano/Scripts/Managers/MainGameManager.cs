@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DDD.Katano.Installers;
 using DDD.Katano.Model;
+using DDD.Matsumoto.Audio;
 using UniRx;
 using UniRx.Async;
 using UnityEngine;
@@ -76,6 +77,8 @@ namespace DDD.Katano.Managers
 		/// <returns></returns>
 		private async UniTaskVoid GameClearCoroutine()
 		{
+			AudioManager.FadeOut(0.5f);
+			
 			await UIManager.FadeOutAsync();
 			
 			FloorManager.Destruct();
@@ -92,12 +95,16 @@ namespace DDD.Katano.Managers
 		/// <returns></returns>
 		private async UniTaskVoid GameOverCoroutine()
 		{
+			AudioManager.FadeOut(0.5f);
+			
 			await UIManager.GameOverFadeOutAsync();
 			
 			FloorManager.Destruct();
 
 			_resultData.ReachedFloor = _currentFloor;
 			_resultData.IsClear = false;
+			
+			
 
 			SceneManager.LoadScene(_settings.NextScene.ToString());
 		}
@@ -117,6 +124,18 @@ namespace DDD.Katano.Managers
 			FloorManager.Construct(settings);
 			
 			_messagePublisher.Publish(new MazeSignal.FloorConstruct(_currentFloor));
+
+			var advBgmName = _currentFloor > 5 ? "bgm_maoudamashii_cyber39" : "bgm_maoudamashii_cyber18";
+			
+			if (AudioManager.IsPlayingBGM())
+			{
+				AudioManager.CrossFade(0.5f, advBgmName);
+			}
+			else
+			{
+				AudioManager.FadeIn(0.5f, advBgmName);
+			}
+			
 			
 			// フェードインする
 			await UIManager.FadeInAsync(settings.DungeonName, _currentFloor);

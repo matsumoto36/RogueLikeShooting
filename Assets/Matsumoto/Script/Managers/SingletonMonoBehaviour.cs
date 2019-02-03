@@ -12,7 +12,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 	{
 		get
 		{
-			if (!_instance) Create();
+			if (_instance == null) Create();
 			return _instance;
 		}
 	}

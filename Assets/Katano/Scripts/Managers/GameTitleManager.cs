@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using DDD.Chikazawa;
 using DDD.Katano.Managers;
+using DDD.Matsumoto.Audio;
 using GamepadInput;
 using UniRx.Async;
 using UniRx.Async.Triggers;
@@ -82,6 +83,8 @@ namespace DDD.Katano
 		/// <returns></returns>
 		private async UniTaskVoid TitleCoroutine()
 		{
+			AudioManager.FadeIn(0.5f, "bgm_maoudamashii_cyber11");
+		
 			await UIManager.TitleFadeInAsync(_token);
 			
 			if (_token.IsCancellationRequested) return;
@@ -110,6 +113,8 @@ namespace DDD.Katano
 		/// <returns></returns>
 		private async UniTaskVoid PlayerEntryCoroutine()
 		{
+			AudioManager.PlaySE("cursor3");
+			
 			// エントリシステムを初期化
 			EntrySystem.Initialize();
 
@@ -119,6 +124,9 @@ namespace DDD.Katano
 
 			if (result)
 			{
+				AudioManager.FadeOut(0.5f);
+				await UniTask.Delay(500, cancellationToken: _token);
+				
 				Debug.Log("Entry Success!");
 				
 				EntrySystem.Save();
