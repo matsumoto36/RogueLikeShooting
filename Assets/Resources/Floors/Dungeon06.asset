@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8472ece222144875baa0ec097a7d8930, type: 3}
-  m_Name: Dungeon02
+  m_Name: Dungeon06
   m_EditorClassIdentifier: 
   DungeonName: "\u4E0A\u5C64"
   PlayerRoom: {fileID: 1635150901094866, guid: e8bffdd52764b064f86c0769285b68f1, type: 3}
   EnemyRoom:
-  - {fileID: 9002393452778491961, guid: ce63bdaa432b8434f9b61ccfab35dcd9, type: 3}
-  - {fileID: 8422058212728429489, guid: 850f35555e2b4274c9c84a1566368b69, type: 3}
-  - {fileID: 2283346627436812102, guid: 24fe9fe8071a4d2488d529370acd98ee, type: 3}
-  - {fileID: 3933124930531675450, guid: 20410b4161881764b9717cc65655f460, type: 3}
-  - {fileID: 3334310962178185290, guid: d87a64ef625bd6c49a4c1681c213dd4c, type: 3}
+  - {fileID: 9002393452778491961, guid: a7130b1612123d940a45c9760e5b3cfb, type: 3}
+  - {fileID: 8422058212728429489, guid: 81e6920e5752ce944b9fa9b8a4dc8ee2, type: 3}
+  - {fileID: 2283346627436812102, guid: b5cdcf7fb5cf2bc4a96dbf6962d798ec, type: 3}
+  - {fileID: 3933124930531675450, guid: 8bb1239dbaefa02488724d3898fa6258, type: 3}
+  - {fileID: 3334310962178185290, guid: 0a8a1c65b84b92746a9e8d65b877ef16, type: 3}
   BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
     type: 3}

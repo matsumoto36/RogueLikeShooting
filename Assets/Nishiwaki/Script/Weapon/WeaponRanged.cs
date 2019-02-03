@@ -23,6 +23,13 @@ namespace DDD.Nishiwaki.Item
 		[Inject]
 		protected IMessageReceiver MessageReceiver;
 
+		private bool _isDestroyed;
+		
+		private void OnDestroy()
+		{
+			_isDestroyed = true;
+		}
+
 		public void SetOwner(CharacterCore character)
 		{
 			if (characterCore == character) return;
@@ -62,6 +69,8 @@ namespace DDD.Nishiwaki.Item
 
 		public GameObject GetBody()
 		{
+			if (_isDestroyed) return null;
+			
 			var o = gameObject;
 			return o != null ? o : null;
 		}

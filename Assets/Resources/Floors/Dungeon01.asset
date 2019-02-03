@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8472ece222144875baa0ec097a7d8930, type: 3}
   m_Name: Dungeon01
   m_EditorClassIdentifier: 
-  DungeonName: "\u30C0\u30A4\u30A4\u30C1\u30AB\u30A4\u30BD\u30A6"
+  DungeonName: "\u4E0A\u5C64"
   PlayerRoom: {fileID: 1635150901094866, guid: e8bffdd52764b064f86c0769285b68f1, type: 3}
   EnemyRoom:
-  - {fileID: 1265543982024840, guid: b5c1de880759bd245821735721759402, type: 3}
+  - {fileID: 9002393452778491961, guid: 10e461da48cf4284baa1f8bfd67a8118, type: 3}
+  - {fileID: 8422058212728429489, guid: 8bf3816a643811c4baa7c8e6c70f88ff, type: 3}
+  - {fileID: 2283346627436812102, guid: 367eb23f0d68e3640abdfde7b7848b99, type: 3}
+  - {fileID: 3933124930531675450, guid: 49c865835ae850846ae4cf8c9bcc434b, type: 3}
+  - {fileID: 3334310962178185290, guid: 2ff41029515991f4782ef0ca3a0779fb, type: 3}
   BirdsEyeCamera: {fileID: 1442572153189170, guid: 39d7a4dad27dfdb408da307c9eaaec61,
     type: 3}
