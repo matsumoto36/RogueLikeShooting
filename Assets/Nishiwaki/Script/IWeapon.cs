@@ -12,5 +12,7 @@ namespace DDD.Nishiwaki
 		void Attack();
 		void AttackUp();
 		void AttackDown();
+
+		bool ReserveAttach();
 	}
 }

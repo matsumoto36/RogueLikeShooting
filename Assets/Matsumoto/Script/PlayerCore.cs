@@ -175,6 +175,12 @@ namespace DDD.Matsumoto
 			_changeWeaponTime += Time.deltaTime;
 			_weaponChangeUI.SetAmount(_changeWeaponTime / _settings.ChangeWeaponWait);
 			if (!(_changeWeaponTime > _settings.ChangeWeaponWait)) return;
+			if (!ChangeTargetWeapon.ReserveAttach())
+			{
+				Reset(false);
+				return;
+			}
+			
 			//入れ替え完了
 			CharacterArm.Attach(ChangeTargetWeapon);
 			Reset(false);

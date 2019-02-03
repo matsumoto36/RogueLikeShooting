@@ -21,15 +21,24 @@ namespace DDD.Katano.View.RoomComponents
 		private IMessageReceiver _messageReceiver;
 		
 		
-		
 		[Inject]
 		private PlayerTransportSystem _transportSystem;
 
 		/// <summary>
 		/// 転送システムハブ
 		/// </summary>
-		[SerializeField]
-		private TransporterHub TransporterHub;
+		private TransporterHub _transporterHub;
+		private TransporterHub TransporterHub {
+			get
+			{
+				if (_transporterHub == null)
+				{
+					_transporterHub = GetComponentInChildren<TransporterHub>();
+				}
+
+				return _transporterHub;
+			}
+		}
 
 		private MazeView _mazeView;
 

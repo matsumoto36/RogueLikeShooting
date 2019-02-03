@@ -48,20 +48,20 @@ MonoBehaviour:
     - Floor: 1
       MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
     - Floor: 2
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: ea74dc2374c656645bcd931b39602a60, type: 2}
     - Floor: 3
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 477905f98f0184d48bf5132862050505, type: 2}
     - Floor: 4
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 121c5cd476aebb7499ddb35c9e6d7d94, type: 2}
     - Floor: 5
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 673b81917e4ca904d9cab396b14930ab, type: 2}
     - Floor: 6
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 7b1df5f98c335fd44a24dfeef0bcb18d, type: 2}
     - Floor: 7
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 1e1976797824a3140bcef4aeef51b8b0, type: 2}
     - Floor: 8
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 525ba46c33ec9c142859dfabdaeac0c0, type: 2}
     - Floor: 9
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 4d9bc48b1052c1345bae730b75f33b32, type: 2}
     - Floor: 10
-      MazeSettings: {fileID: 11400000, guid: 649ebabbd4c62b542889f813546e8e5a, type: 2}
+      MazeSettings: {fileID: 11400000, guid: 86f9b78efac00bd46853d1576b6751a8, type: 2}

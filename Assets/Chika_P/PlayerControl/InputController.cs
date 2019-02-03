@@ -44,17 +44,17 @@ namespace DDD.Chikazawa.InputEventProvider
         public override bool GetShotButton()
         {
             //L1キーで攻撃
-            return GamePad.GetButton(GamePad.Button.LeftShoulder,(GamePad.Index)_controller);
+            return GamePad.GetButton(GamePad.Button.RightShoulder,(GamePad.Index)_controller);
         }
         public override bool GetShotDown()
         {
             //L1押して起動
-            return GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)_controller);
+            return GamePad.GetButton(GamePad.Button.RightShoulder, (GamePad.Index)_controller);
         }
         public override bool GetShotUp()
         {
             //L1離して起動
-            return GamePad.GetButton(GamePad.Button.LeftShoulder, (GamePad.Index)_controller);
+            return GamePad.GetButton(GamePad.Button.RightShoulder, (GamePad.Index)_controller);
         }
 
         public override bool GetChangeBody()

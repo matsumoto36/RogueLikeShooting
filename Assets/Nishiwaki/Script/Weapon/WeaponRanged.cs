@@ -20,8 +20,17 @@ namespace DDD.Nishiwaki.Item
 		public Transform playerSetPosition;
 		public WeaponRangedParameter WeaponRangedPara;
 
+		private bool _isReserved;
+		
 		[Inject]
 		protected IMessageReceiver MessageReceiver;
+
+		private bool _isDestroyed;
+		
+		private void OnDestroy()
+		{
+			_isDestroyed = true;
+		}
 
 		public void SetOwner(CharacterCore character)
 		{
@@ -41,6 +50,7 @@ namespace DDD.Nishiwaki.Item
 			StartCoroutine(LightFadeAnim(character));
 
 			characterCore = character;
+			_isReserved = false;
 		}
 
 		public CharacterCore GetOwner()
@@ -60,8 +70,18 @@ namespace DDD.Nishiwaki.Item
 		{
 		}
 
+		public bool ReserveAttach()
+		{
+			if (_isReserved) return false;
+			if (characterCore != null) return false;
+
+			return _isReserved = true;
+		}
+
 		public GameObject GetBody()
 		{
+			if (_isDestroyed) return null;
+			
 			var o = gameObject;
 			return o != null ? o : null;
 		}
