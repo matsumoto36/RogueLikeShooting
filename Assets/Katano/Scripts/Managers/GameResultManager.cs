@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DDD.Chikazawa;
 using DDD.Katano.Model;
+using DDD.Matsumoto.Audio;
 using DDD.Takahashi;
 using GamepadInput;
 using UniRx.Async;
@@ -32,6 +33,8 @@ namespace DDD.Katano.Managers
 
 		private void Start()
 		{
+			AudioManager.FadeIn(0.5f, "bgm_maoudamashii_cyber42");
+			
 			for (var i = 0; i < 4; i++)
 				if (_bindData.PlayerEntries[i] != ControllerIndex.Invalid)
 				{
@@ -81,6 +84,8 @@ namespace DDD.Katano.Managers
 				await UniTask.Yield();
 			}
 
+			AudioManager.FadeOut(1.0f);
+			
 			await UIManager.ScreenFadeOut();
 
 			SceneManager.LoadScene(_settings.TitleScene.ToString());

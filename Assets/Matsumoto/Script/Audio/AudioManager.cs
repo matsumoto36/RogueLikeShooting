@@ -57,6 +57,14 @@ namespace DDD.Matsumoto.Audio {
 
 		}
 
+		public static bool IsPlayingBGM()
+		{
+			if (Instance == null) return false;
+			if (Instance._currentPlayingBGM == null) return false;
+			
+			return Instance._currentPlayingBGM.isPlaying;
+		}
+
 		/// <summary>
 		/// SEを再生する
 		/// </summary>

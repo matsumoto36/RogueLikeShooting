@@ -62,7 +62,8 @@ namespace DDD.Nishiwaki.Item
 
 		public GameObject GetBody()
 		{
-			return gameObject;
+			var o = gameObject;
+			return o != null ? o : null;
 		}
 
 		public Transform PlayerSetPosition()
