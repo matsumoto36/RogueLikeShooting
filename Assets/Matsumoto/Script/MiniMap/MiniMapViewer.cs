@@ -2,8 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 using DDD.Katano.Maze;
+using UniRx;
+using Zenject;
 
-namespace DDD.Matsumoto.Minimap {
+namespace DDD.Matsumoto.Navigation {
 
 	/// <summary>
 	/// ミニマップを表示する
@@ -25,6 +27,7 @@ namespace DDD.Matsumoto.Minimap {
 		public Vector2 PlayerIconOffset;
 		public Vector2 StairIconOffset;
 
+		[Inject]
 		private MiniMapSystem _miniMapSystem;
 
 		private Image[,] _mapImages;
@@ -33,17 +36,16 @@ namespace DDD.Matsumoto.Minimap {
 		private Point _mapSize;
 
 		// Use this for initialization
-		void Start() {
+		private void Start() {
 
-			_miniMapSystem = FindObjectOfType<MiniMapSystem>();
 
 			//イベント登録
-			_miniMapSystem.OnMapChanged += Draw;
-			_miniMapSystem.OnStarted += () => {
+			_miniMapSystem.OnMapChanged.Subscribe(Draw).AddTo(this);
+			_miniMapSystem.OnStarted.Subscribe(_ => {
 				SetMapFloorImage();
 				StairIcon.transform.SetAsLastSibling();
 				PlayerIcon.transform.SetAsLastSibling();
-			};
+			}).AddTo(this);
 
 			Debug.Log("started viewer");
 
